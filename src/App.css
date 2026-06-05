@@ -1,0 +1,7 @@
+*{cursor:none;}
+a,button,.h-item,.video-card{cursor:none;}
+@media(max-width:960px){
+  .hide-mobile{display:none!important;}
+  footer{grid-template-columns:1fr!important;text-align:center;}
+  footer>div:last-child{justify-content:center!important;}
+}
