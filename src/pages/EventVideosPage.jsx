@@ -20,7 +20,7 @@ function EventCard({ event, index }) {
 
       {/* Info */}
       <div>
-        <div style={{ fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.22em',
+        <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.22em',
           textTransform:'uppercase', color:'var(--gold)', marginBottom:'.4rem' }}>
           {event.client}
         </div>
@@ -41,7 +41,7 @@ function EventCard({ event, index }) {
         <button onClick={() => setModal(true)}
           style={{ marginTop:'1.5rem', display:'inline-flex', alignItems:'center',
             gap:'.7rem', background:'transparent', border:'1px solid var(--border)',
-            color:'var(--muted)', fontFamily:'var(--ui)', fontSize:'11px',
+            color:'var(--muted)', fontFamily:'var(--ui)', fontSize:'12px',
             letterSpacing:'.16em', textTransform:'uppercase', padding:'.7rem 1.4rem',
             cursor:'pointer', transition:'all .2s' }}
           onMouseEnter={e => { e.currentTarget.style.borderColor='var(--gold)'; e.currentTarget.style.color='var(--gold)'; }}
@@ -84,7 +84,7 @@ export default function EventVideosPage() {
               "Final videos I edited of the live event — complete post-production edits
               delivered to clients for broadcast, social media, archival and event documentation."
             </p>
-            <div style={{ marginTop:'1rem', fontFamily:'var(--ui)', fontSize:'11px',
+            <div style={{ marginTop:'1rem', fontFamily:'var(--ui)', fontSize:'12px',
               letterSpacing:'.2em', textTransform:'uppercase', color:'var(--muted)' }}>
               — Emmanuel Chege · Post-Production & Editing · Nairobi, Kenya
             </div>
@@ -102,7 +102,7 @@ export default function EventVideosPage() {
               <div key={l} style={{ background:'var(--bg)', padding:'1.2rem 1.6rem' }}>
                 <div style={{ fontFamily:'var(--serif)', fontSize:'1.8rem', fontWeight:300,
                   color:'var(--gold)', lineHeight:1, marginBottom:'.3rem' }}>{n}</div>
-                <div style={{ fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.14em',
+                <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.14em',
                   textTransform:'uppercase', color:'var(--muted)' }}>{l}</div>
               </div>
             ))}

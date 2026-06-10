@@ -1,41 +1,70 @@
 import { useState, useRef, useEffect } from 'react';
+
+// hover:hover = primary input can hover (mouse) = desktop
+// hover:none = primary input cannot hover (touch) = mobile
+const isMobile = typeof window !== 'undefined' &&
+  !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 import { useIntersection } from '../hooks';
 import HorizontalRow from '../components/HorizontalRow';
 import VideoModal from '../components/VideoModal';
+import VolumeSlider from '../components/VolumeSlider';
 import {
-  REEL_SLIDES, CHARACTERS, DRONE_PROJECTS, DRONE_IMAGES,
+  REEL_SLIDES, DRONE_PROJECTS, DRONE_IMAGES,
   EVENT_VIZ_REAL, HOLOGRAM_REAL, PRODUCT_VIZ_REAL, PROJECTION_REAL,
-  SOCIAL_CONTENT, IMAGES
+  OLDER_REELS, SOCIAL_MEDIA_ROW1, SOCIAL_MEDIA_ROW2, IMAGES
 } from '../data/portfolio';
 
 /* ── Hover-to-play video card ── */
-function HoverVideoCard({ thumbnail, youtubeId, title, sub, num, width, height, minWidth }) {
+function HoverVideoCard({ thumbnail, youtubeId, title, sub, num, width, height, minWidth, onPlayModal }) {
   const [showVideo, setShowVideo] = useState(false);
-  const timer = useRef(null);
+  const timer  = useRef(null);
+  const hvcRef = useRef(null);
 
   const onEnter = () => {
+    if (isMobile) return;
     clearTimeout(timer.current);
     if (youtubeId) timer.current = setTimeout(() => setShowVideo(true), 250);
   };
   const onLeave = () => {
+    if (isMobile) return;
     clearTimeout(timer.current);
     setShowVideo(false);
   };
+  const onClick = () => {
+    if (isMobile && onPlayModal && youtubeId) onPlayModal({ youtubeId, title });
+  };
 
   return (
-    <div className="h-item" style={{ width, minWidth, height, flexShrink:0, position:'relative' }}
-      onMouseEnter={onEnter} onMouseLeave={onLeave}>
+    <div className="h-item" style={{ width, minWidth, height, flexShrink:0, position:'relative',
+      cursor: isMobile && youtubeId ? 'pointer' : 'grab' }}
+      onMouseEnter={onEnter} onMouseLeave={onLeave} onClick={onClick}>
       <img src={thumbnail} alt={title} loading="lazy" draggable="false"
         style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'top',
           display:'block', transition:'opacity .4s, transform 1.1s var(--ease-out)',
           transform: showVideo ? 'scale(1.04)' : 'scale(1)',
           opacity: showVideo ? 0 : 1 }}/>
-      {showVideo && youtubeId && (
-        <iframe
-          src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&loop=1&playlist=${youtubeId}`}
-          allow="autoplay"
-          style={{ position:'absolute', inset:0, width:'100%', height:'100%',
-            border:'none', opacity: showVideo ? 1 : 0, transition:'opacity .4s' }}/>
+      {showVideo && youtubeId && !isMobile && (
+        <>
+          <iframe ref={hvcRef}
+            src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&loop=1&playlist=${youtubeId}&enablejsapi=1`}
+            allow="autoplay"
+            style={{ position:'absolute', inset:0, width:'100%', height:'100%',
+              border:'none', opacity: showVideo ? 1 : 0, transition:'opacity .4s' }}/>
+          <div style={{ position:'absolute', bottom:'.5rem', right:'.5rem', zIndex:10 }}
+            onClick={e=>e.stopPropagation()}>
+            <VolumeSlider iframeRef={hvcRef}/>
+          </div>
+        </>
+      )}
+      {isMobile && youtubeId && (
+        <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center',
+          justifyContent:'center', pointerEvents:'none' }}>
+          <div style={{ width:44, height:44, border:'1px solid rgba(201,169,110,.55)',
+            borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center',
+            background:'rgba(6,6,6,.5)' }}>
+            <svg width="16" viewBox="0 0 24 24" fill="var(--gold)"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
       )}
       <div className="h-item__info">
         {num && <div className="h-item__num">{num}</div>}
@@ -63,8 +92,22 @@ function HeroReel() {
   const [cur, setCur] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [bgMuted, setBgMuted] = useState(true);
   const auto = useRef(null);
+  const bgRef = useRef(null);
   const total = REEL_SLIDES.length;
+
+  const toggleBgVolume = (e) => {
+    e.stopPropagation();
+    if (!bgRef.current) return;
+    if (bgMuted) {
+      bgRef.current.contentWindow.postMessage(JSON.stringify({ event:'command', func:'unMute',    args:[] }), '*');
+      bgRef.current.contentWindow.postMessage(JSON.stringify({ event:'command', func:'setVolume', args:[40] }), '*');
+    } else {
+      bgRef.current.contentWindow.postMessage(JSON.stringify({ event:'command', func:'mute', args:[] }), '*');
+    }
+    setBgMuted(m => !m);
+  };
 
   const goTo = (n) => { setPlaying(false); setCur((n+total)%total); resetAuto(); };
   const resetAuto = () => {
@@ -86,7 +129,8 @@ function HeroReel() {
       {/* AUTO-PLAY MUTED VIDEO BACKGROUND */}
       <div style={{ position:'absolute', inset:0, zIndex:1, overflow:'hidden' }}>
         <iframe
-          src="https://www.youtube.com/embed/gmiQ0bNoPgQ?autoplay=1&mute=1&loop=1&playlist=gmiQ0bNoPgQ&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+          src="https://www.youtube.com/embed/gmiQ0bNoPgQ?autoplay=1&mute=1&loop=1&playlist=gmiQ0bNoPgQ&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1"
+          ref={bgRef}
           allow="autoplay; encrypted-media"
           style={{ position:'absolute', top:'50%', left:'50%',
             transform:'translate(-50%,-50%) scale(1.15)',
@@ -157,56 +201,29 @@ function HeroReel() {
             </button>
           )}
 
-          {/* Bottom-right: small title + compact controls */}
-          <div style={{
-            position:'absolute', bottom:'2.5rem', right:'5vw', zIndex:6,
-            display:'flex', flexDirection:'column', alignItems:'flex-end', gap:'.8rem',
-            opacity: loaded ? 1 : 0, transform: loaded ? 'none' : 'translateY(20px)',
-            transition:'opacity 1.4s ease .5s, transform 1.4s ease .5s',
-          }}>
-            {/* Small title — fades out when video is playing */}
-            {!playing && (
+          {/* Bottom-right: title + volume only — no arrows/dots */}
+          {!playing && (
+            <div style={{
+              position:'absolute', bottom:'2.5rem', right:'5vw', zIndex:6,
+              display:'flex', flexDirection:'column', alignItems:'flex-end', gap:'.7rem',
+              opacity: loaded ? 1 : 0, transform: loaded ? 'none' : 'translateY(20px)',
+              transition:'opacity 1.4s ease .5s, transform 1.4s ease .5s',
+            }}>
+              {/* Title label */}
               <div style={{ textAlign:'right' }}>
-                <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1rem,1.5vw,1.6rem)',
-                  fontWeight:300, lineHeight:1.05, color:'rgba(255,255,255,.7)',
-                  letterSpacing:'.01em' }}>
-                  {slide.title}
+                <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(.95rem,1.4vw,1.5rem)',
+                  fontWeight:300, lineHeight:1.05, color:'rgba(255,255,255,.65)', letterSpacing:'.01em' }}>
+                  Portfolio Reel
                 </div>
-                <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(.85rem,1.2vw,1.2rem)',
-                  fontWeight:300, fontStyle:'italic', color:'var(--gold)',
-                  lineHeight:1, marginTop:'.2rem' }}>
-                  {slide.subtitle}
+                <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(.8rem,1.1vw,1.1rem)',
+                  fontWeight:300, fontStyle:'italic', color:'var(--gold)', lineHeight:1, marginTop:'.18rem' }}>
+                  2024 / 2025
                 </div>
               </div>
-            )}
-            {/* Compact slider controls */}
-            <div style={{ display:'flex', alignItems:'center', gap:'.8rem' }}>
-              <button onClick={()=>goTo(cur-1)} style={{ width:28, height:28, borderRadius:'50%',
-                border:'1px solid rgba(255,255,255,.15)', background:'rgba(6,6,6,.5)',
-                color:'rgba(255,255,255,.45)', cursor:'pointer', display:'flex',
-                alignItems:'center', justifyContent:'center', transition:'all .2s' }}
-                onMouseEnter={e=>{e.currentTarget.style.borderColor='var(--gold)';e.currentTarget.style.color='var(--gold)';}}
-                onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,.15)';e.currentTarget.style.color='rgba(255,255,255,.45)';}}>
-                <svg width="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2"><path d="M15 18l-6-6 6-6"/></svg>
-              </button>
-              <div style={{ display:'flex', gap:'.5rem' }}>
-                {REEL_SLIDES.map((_,i)=>(
-                  <button key={i} onClick={()=>goTo(i)} style={{ width:5, height:5, borderRadius:'50%',
-                    border:'none', cursor:'pointer', transition:'all .3s',
-                    background: i===cur ? 'var(--gold)' : 'rgba(255,255,255,.2)',
-                    transform: i===cur ? 'scale(1.3)' : 'scale(1)' }}/>
-                ))}
-              </div>
-              <button onClick={()=>goTo(cur+1)} style={{ width:28, height:28, borderRadius:'50%',
-                border:'1px solid rgba(255,255,255,.15)', background:'rgba(6,6,6,.5)',
-                color:'rgba(255,255,255,.45)', cursor:'pointer', display:'flex',
-                alignItems:'center', justifyContent:'center', transition:'all .2s' }}
-                onMouseEnter={e=>{e.currentTarget.style.borderColor='var(--gold)';e.currentTarget.style.color='var(--gold)';}}
-                onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,.15)';e.currentTarget.style.color='rgba(255,255,255,.45)';}}>
-                <svg width="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2"><path d="M9 18l6-6-6-6"/></svg>
-              </button>
+              {/* Volume slider */}
+              <VolumeSlider iframeRef={bgRef}/>
             </div>
-          </div>
+          )}
         </div>
       )}
 
@@ -234,7 +251,7 @@ function CharactersSection() {
             background:'linear-gradient(to left,rgba(6,6,6,.6),transparent)',
             pointerEvents:'none', zIndex:2, display:'flex', alignItems:'center',
             justifyContent:'flex-end', paddingRight:'1rem' }}>
-            <span style={{ fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.2em',
+            <span style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
               color:'rgba(255,255,255,.28)', writingMode:'vertical-rl' }}>DRAG →</span>
           </div>
         </div>
@@ -243,41 +260,48 @@ function CharactersSection() {
   );
 }
 
-/* ── PORTFOLIO REEL FEATURED ── */
-function PortfolioReelSection() {
+/* ── OLDER SHOWREELS — 2 cards side by side ── */
+function OlderReelsSection() {
   const [r,v] = useIntersection();
-  const [playing, setPlaying] = useState(false);
+  const [modal, setModal] = useState(null);
   return (
-    <section id="portfolio-reel" style={{ padding:'8rem 5vw', background:'var(--bg2)' }}>
+    <section id="older-reels" style={{ padding:'8rem 5vw', background:'var(--bg2)' }}>
       <div ref={r} className={`rv ${v?'in':''}`} style={{ marginBottom:'3rem' }}>
-        <div className="cat-label">Portfolio Reel<span className="cat-num">2024–2025</span></div>
-        <h2 className="sec-title">Main Portfolio <em>Showreel</em></h2>
-        <div className="sec-rule"><p>— Full production reel showcasing all disciplines</p></div>
+        <div className="cat-label">Older Showreels<span className="cat-num">2020 – 2024</span></div>
+        <h2 className="sec-title">Previous <em>Reels</em></h2>
+        <div className="sec-rule"><p>— Archive of yearly production reels spanning 2020 to 2024</p></div>
       </div>
-      <div style={{ position:'relative', aspectRatio:'16/9', background:'var(--bg3)',
-        overflow:'hidden', cursor:'pointer', maxHeight:'75vh' }}
-        onClick={() => setPlaying(true)}
-        onMouseEnter={e => { if(!playing) e.currentTarget.querySelector('img').style.transform='scale(1.04)'; }}
-        onMouseLeave={e => { if(!playing) e.currentTarget.querySelector('img').style.transform='scale(1)'; }}>
-        <img src={IMAGES.odungi_main} alt="Portfolio Reel"
-          style={{ width:'100%', height:'100%', objectFit:'cover',
-            filter:'brightness(.35) saturate(.7)', transition:'transform .8s var(--ease-out)' }}/>
-        <div style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column',
-          alignItems:'center', justifyContent:'center', gap:'1.5rem' }}>
-          <div style={{ width:96, height:96, border:'1px solid rgba(201,169,110,.55)',
-            borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center',
-            background:'rgba(6,6,6,.3)', transition:'all .4s var(--ease-out)' }}
-            onMouseEnter={e=>{e.currentTarget.style.background='var(--gold)';e.currentTarget.style.borderColor='var(--gold)';}}
-            onMouseLeave={e=>{e.currentTarget.style.background='rgba(6,6,6,.3)';e.currentTarget.style.borderColor='rgba(201,169,110,.55)';}}>
-            <svg width="30" viewBox="0 0 24 24" fill="var(--gold)"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-          <div style={{ fontFamily:'var(--ui)', fontSize:'clamp(11px,.85vw,14px)',
-            letterSpacing:'.3em', textTransform:'uppercase', color:'rgba(255,255,255,.5)' }}>
-            Emmanuel Chege · 2024 / 2025
-          </div>
-        </div>
+      <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'3px' }}>
+        {OLDER_REELS.map((reel,i) => {
+          const [hover, setHover] = useState(false);
+          return (
+            <div key={i} style={{ position:'relative', aspectRatio:'16/9', overflow:'hidden',
+              cursor:'pointer', background:'var(--bg3)' }}
+              onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}
+              onClick={()=>setModal(reel)}>
+              <img src={reel.img} alt={reel.title}
+                style={{ width:'100%', height:'100%', objectFit:'cover',
+                  filter:'brightness(.45) saturate(.7)',
+                  transform: hover ? 'scale(1.04)' : 'scale(1)',
+                  transition:'transform .8s var(--ease-out)' }}/>
+              <div style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column',
+                alignItems:'center', justifyContent:'center', gap:'1rem' }}>
+                <div style={{ width:70, height:70,
+                  border:`1px solid ${hover?'var(--gold)':'rgba(201,169,110,.55)'}`,
+                  borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center',
+                  background: hover ? 'var(--gold)' : 'rgba(6,6,6,.35)',
+                  transition:'all .35s var(--ease-out)' }}>
+                  <svg width="22" viewBox="0 0 24 24" fill={hover?'#000':'var(--gold)'}>
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+
+              </div>
+            </div>
+          );
+        })}
       </div>
-      {playing && <VideoModal youtubeId="gmiQ0bNoPgQ" title="Portfolio Reel 2024/2025" onClose={()=>setPlaying(false)}/>}
+      {modal && <VideoModal youtubeId={modal.youtubeId} title={modal.title} onClose={()=>setModal(null)}/>}
     </section>
   );
 }
@@ -326,9 +350,9 @@ function DroneSection() {
               cursor:'default', transition:'background .25s' }}
             onMouseEnter={e=>e.currentTarget.style.background='rgba(255,255,255,.02)'}
             onMouseLeave={e=>e.currentTarget.style.background='transparent'}>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.18em', color:'var(--gold)', marginBottom:'.7rem' }}>{p.n}</div>
+            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em', color:'var(--gold)', marginBottom:'.7rem' }}>{p.n}</div>
             <div style={{ fontFamily:'var(--serif)', fontSize:'1.05rem', fontWeight:300, lineHeight:1.2, color:'var(--text)', marginBottom:'.4rem' }}>{p.title}</div>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.1em', color:'var(--muted)', lineHeight:1.7 }}>{p.desc.substring(0,80)}…</div>
+            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.1em', color:'var(--muted)', lineHeight:1.7 }}>{p.desc.substring(0,80)}…</div>
           </div>
         ))}
       </div>
@@ -345,10 +369,72 @@ function DroneSection() {
   );
 }
 
+/* ── VIDEO ROW WITH SCROLL ARROWS ── */
+function VideoRowWithArrows({ items, height, itemWidth, rowRef }) {
+  const [showL, setShowL] = useState(false);
+  const [showR, setShowR] = useState(true);
+  const drag = useRef({ active:false, startX:0, scrollLeft:0 });
+
+  const updateArrows = () => {
+    const el = rowRef.current; if(!el) return;
+    setShowL(el.scrollLeft > 5);
+    setShowR(el.scrollLeft < el.scrollWidth - el.clientWidth - 5);
+  };
+  const scrollLeft  = () => rowRef.current?.scrollBy({ left:-(rowRef.current.offsetWidth*.7), behavior:'smooth' });
+  const scrollRight = () => rowRef.current?.scrollBy({ left:  rowRef.current.offsetWidth*.7,  behavior:'smooth' });
+
+  const onDown = (e) => { drag.current={active:true,startX:e.pageX-rowRef.current.offsetLeft,scrollLeft:rowRef.current.scrollLeft}; rowRef.current.classList.add('dragging'); };
+  const onUp   = () => { drag.current.active=false; rowRef.current?.classList.remove('dragging'); };
+  const onMove = (e) => { if(!drag.current.active)return; e.preventDefault(); const x=e.pageX-rowRef.current.offsetLeft; rowRef.current.scrollLeft=drag.current.scrollLeft-(x-drag.current.startX)*1.4; };
+
+  useEffect(()=>{
+    const el=rowRef.current;
+    el.addEventListener('mousemove',onMove); el.addEventListener('mouseup',onUp);
+    el.addEventListener('mouseleave',onUp); el.addEventListener('scroll',updateArrows,{passive:true});
+    updateArrows();
+    return()=>{ el.removeEventListener('mousemove',onMove); el.removeEventListener('mouseup',onUp); el.removeEventListener('mouseleave',onUp); el.removeEventListener('scroll',updateArrows); };
+  },[]);
+
+  const ArrowBtn = ({dir, onClick, visible}) => (
+    <button onClick={onClick} style={{
+      position:'absolute', top:'50%', transform:'translateY(-50%)',
+      [dir==='left'?'left':'right']:'0.6rem', zIndex:10,
+      width:38, height:38, borderRadius:'50%',
+      border:'1px solid rgba(201,169,110,.45)',
+      background:'rgba(6,6,6,.75)', backdropFilter:'blur(8px)',
+      color:'var(--gold)', cursor:'pointer',
+      display:'flex', alignItems:'center', justifyContent:'center',
+      opacity:visible?1:0, pointerEvents:visible?'auto':'none',
+      transition:'opacity .3s, background .2s, transform .2s'
+    }}
+    onMouseEnter={e=>{e.currentTarget.style.background='rgba(201,169,110,.15)';e.currentTarget.style.transform='translateY(-50%) scale(1.08)';}}
+    onMouseLeave={e=>{e.currentTarget.style.background='rgba(6,6,6,.75)';e.currentTarget.style.transform='translateY(-50%) scale(1)';}}>
+      <svg width="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        {dir==='left'?<path d="M15 18l-6-6 6-6"/>:<path d="M9 18l6-6-6-6"/>}
+      </svg>
+    </button>
+  );
+
+  return (
+    <div style={{ position:'relative' }}>
+      <ArrowBtn dir="left"  onClick={scrollLeft}  visible={showL}/>
+      <ArrowBtn dir="right" onClick={scrollRight} visible={showR}/>
+      <div ref={rowRef} className="h-row" style={{ height }} onMouseDown={onDown}>
+        {items.map((item,i)=>(
+          <HoverVideoCard key={i} thumbnail={item.img} youtubeId={item.youtubeId}
+            title={item.title} sub={item.sub}
+            width={itemWidth} height={height} minWidth="240px"/>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /* ── GENERIC VIDEO ROW SECTION ── */
 function VideoRowSection({ id, label, title, sub, items, height='60vh', itemWidth='32vw', bg='var(--bg)' }) {
-  const [r,v] = useIntersection();
+  const [r,v]   = useIntersection();
   const [r2,v2] = useIntersection();
+  const rowRef  = useRef(null);
   const [modal, setModal] = useState(null);
   return (
     <section id={id} style={{ padding:'8rem 0 0', background:bg }}>
@@ -358,58 +444,37 @@ function VideoRowSection({ id, label, title, sub, items, height='60vh', itemWidt
         <div className="sec-rule"><p>— {sub}</p></div>
       </div>
       <div ref={r2} className={`rv-img ${v2?'in':''}`}>
-        <div className="h-row" style={{ height, position:'relative' }}>
-          {items.map((item,i)=>(
-            <HoverVideoCard key={i} thumbnail={item.img} youtubeId={item.youtubeId}
-              title={item.title} sub={item.sub}
-              width={itemWidth} height={height} minWidth="240px"/>
-          ))}
-          <div style={{ position:'absolute', right:0, top:0, bottom:0, width:70,
-            background:'linear-gradient(to left,rgba(6,6,6,.6),transparent)',
-            pointerEvents:'none', zIndex:2, display:'flex', alignItems:'center',
-            justifyContent:'flex-end', paddingRight:'1rem' }}>
-            <span style={{ fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.2em',
-              color:'rgba(255,255,255,.28)', writingMode:'vertical-rl' }}>DRAG →</span>
-          </div>
-        </div>
+        <VideoRowWithArrows items={items} height={height} itemWidth={itemWidth} rowRef={rowRef}/>
       </div>
       {modal && <VideoModal youtubeId={modal.youtubeId} title={modal.title} onClose={()=>setModal(null)}/>}
     </section>
   );
 }
 
-/* ── SOCIAL GRID ── */
+/* ── SOCIAL MEDIA — 2 rows with scroll arrows ── */
 function SocialSection() {
-  const [r,v] = useIntersection();
+  const [r,v]   = useIntersection();
   const [r2,v2] = useIntersection();
+  const row1Ref = useRef(null);
+  const row2Ref = useRef(null);
+  const [modal, setModal] = useState(null);
+  const totalCount = SOCIAL_MEDIA_ROW1.length + SOCIAL_MEDIA_ROW2.length;
+
   return (
     <section id="social" style={{ padding:'8rem 0 0', background:'var(--bg)' }}>
       <div ref={r} className={`rv ${v?'in':''}`} style={{ padding:'0 5vw 3rem' }}>
-        <div className="cat-label">Social Media Content<span className="cat-num">12 Works</span></div>
+        <div className="cat-label">Social Media Content<span className="cat-num">{totalCount} Works</span></div>
         <h2 className="sec-title">Social Media <em>Content</em></h2>
         <div className="sec-rule">
-          <p>— Branded 3D motion, campaign graphics and social-first visual storytelling.</p>
+          <p>— Branded motion graphics, GIF animations and social-first visual storytelling.</p>
           <a href="https://www.instagram.com/arte_artorius/" target="_blank" rel="noreferrer" className="sec-link">Follow @arte_artorius</a>
         </div>
       </div>
-      <div ref={r2} className={`rv-img ${v2?'in':''}`} style={{ padding:'0 5vw 8rem' }}>
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:'3px' }}>
-          {SOCIAL_CONTENT.map((item,i)=>(
-            <div key={i} style={{ position:'relative', aspectRatio:'1', overflow:'hidden', cursor:'pointer', background:'var(--bg2)' }}
-              onMouseEnter={e=>{ e.currentTarget.querySelector('img').style.transform='scale(1.07)'; e.currentTarget.querySelector('.soc-ov').style.opacity='1'; }}
-              onMouseLeave={e=>{ e.currentTarget.querySelector('img').style.transform='scale(1)'; e.currentTarget.querySelector('.soc-ov').style.opacity='0'; }}>
-              <img src={item.img} alt={item.title} loading="lazy"
-                style={{ width:'100%', height:'100%', objectFit:'cover', display:'block', transition:'transform .7s var(--ease-out)' }}/>
-              <div className="soc-ov" style={{ position:'absolute', inset:0, background:'rgba(6,6,6,.72)',
-                display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column',
-                gap:'.4rem', opacity:0, transition:'opacity .3s' }}>
-                <div style={{ fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.2em', textTransform:'uppercase', color:'var(--gold)' }}>{item.sub}</div>
-                <div style={{ fontFamily:'var(--serif)', fontSize:'1rem', fontWeight:300, textAlign:'center', padding:'0 .8rem' }}>{item.title}</div>
-              </div>
-            </div>
-          ))}
-        </div>
+      <div ref={r2} className={`rv-img ${v2?'in':''}`} style={{ display:'flex', flexDirection:'column', gap:'3px', paddingBottom:'8rem' }}>
+        <VideoRowWithArrows items={SOCIAL_MEDIA_ROW1} height="42vh" itemWidth="22vw" rowRef={row1Ref}/>
+        <VideoRowWithArrows items={SOCIAL_MEDIA_ROW2} height="42vh" itemWidth="22vw" rowRef={row2Ref}/>
       </div>
+      {modal && <VideoModal youtubeId={modal.youtubeId} title={modal.title} onClose={()=>setModal(null)}/>}
     </section>
   );
 }
@@ -418,8 +483,7 @@ export default function HomePage() {
   return (
     <div className="page">
       <HeroReel/>
-      <CharactersSection/>
-      <PortfolioReelSection/>
+      <OlderReelsSection/>
       <DroneSection/>
       <VideoRowSection id="event-viz" bg="var(--bg2)" label="Event Visualization Videos"
         title="Event Visualization <em>Videos</em>"

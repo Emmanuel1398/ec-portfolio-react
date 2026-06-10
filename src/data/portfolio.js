@@ -216,7 +216,7 @@ export const SOFTWARE_CATEGORIES = [
   },
   {
     category: 'Real-time & Visualization',
-    tools: ['Unreal Engine 5','Twinmotion','Houdini'],
+    tools: ['Unreal Engine 5','Twinmotion','TouchDesigner'],
   },
   {
     category: 'Motion & Effects',
@@ -815,6 +815,40 @@ export const PROJECTION_REAL = [
   { img:'/thumbnails/ev_proj_kicc_raila.png',     title:'KICC Raila Memorial Projection',          sub:'Commemorative · Architectural Mapping', youtubeId:'gjEAIJEYa9I' },
   { img:'/thumbnails/ev_proj_tusker.png',         title:'Tusker Lite Launch CBD Projection',       sub:'Brand Launch · Thika Road · Nairobi CBD', youtubeId:'j_x2hXqsGUc' },
   { img:'/thumbnails/ev_proj_chrome.png',         title:'Chrome Party KICC Projection',            sub:'Event · Architectural Mapping · KICC',  youtubeId:'MvdeIPAZNrU' },
-  { img:'/thumbnails/ev_proj_wedding_cake.png',   title:'Wedding Cake Projection',                 sub:'Event · Object Projection Mapping',     youtubeId:'9YoygNd3MTY' },
+  { img:'/thumbnails/ev_proj_wedding_cake.png',   title:'Wedding Cake Projection',                 sub:'Event · Object Projection Mapping',     youtubeId:'CShG6bQusms' },
   { img:'/thumbnails/ev_proj_wedding_dress.png',  title:'Wedding Dress Projection',                sub:'Event · Object Projection Mapping',     youtubeId:'i-uNaEs5ORQ' },
+];
+
+/* ── OLDER REELS ─────────────────────────────────── */
+export const OLDER_REELS = [
+  { img:'/thumbnails/reel_2023_2024.png', title:'2023–2024 Motion Graphics Reel', sub:'Emmanuel Chege · Motion Graphics Artist', youtubeId:'uhDvjdieXvE' },
+  { img:'/thumbnails/reel_2020_2023.png', title:'2020–2023 3D Generalist Reel',   sub:'Emmanuel Chege · 3D Generalist',          youtubeId:'AIEFJXTwYcU' },
+];
+
+/* ── SOCIAL MEDIA CONTENT (21 items — 2 rows) ─────── */
+export const SOCIAL_MEDIA_ROW1 = [
+  { img:'/thumbnails/soc_nuvita.png',          title:'15th Anniversary Nuvita Lockup',         sub:'Motion Graphics · Social',  youtubeId:'ErLYELN2MNE' },
+  { img:'/thumbnails/soc_nuvita_lockup1.png',  title:'Nuvita Lock Up Animation',               sub:'Motion Graphics · Social',  youtubeId:'GkrcFG2UWaY' },
+  { img:'/thumbnails/soc_nuvita_lockup2.png',  title:'Nuvita Lock Up Animation 2',             sub:'Motion Design · Social',    youtubeId:'FpfbNvzG_0c' },
+  { img:'/thumbnails/soc_nuvita_revup.png',    title:'Nuvita Rev Up Animation',                sub:'GIF Animation · Social',    youtubeId:'yEH9dMnoRD0' },
+  { img:'/thumbnails/soc_nuvita_snack.png',    title:"Nuvita Snack O'Clock Animation",         sub:'GIF Animation · Social',    youtubeId:'ZmvIQh1samg' },
+  { img:'/thumbnails/soc_nuvita_styd.png',     title:'Nuvita STYD GIF Animation',              sub:'GIF Motion · Social',       youtubeId:'SdhyBrgDpSg' },
+  { img:'/thumbnails/soc_aar_card.png',        title:'AAR Access Card Inhouse Explainer',      sub:'Explainer · Motion',        youtubeId:'3S-p91lO6w0' },
+  { img:'/thumbnails/soc_aar_eldoret.png',     title:'AAR Eldoret OPC Explainer',              sub:'Explainer · Motion',        youtubeId:'AobvpX9d2zg' },
+  { img:'/thumbnails/soc_biriani.png',         title:'Biriani Karata Animation',               sub:'GIF Animation · Social',    youtubeId:'4iEk32heLOU' },
+  { img:'/thumbnails/soc_masterchef.png',      title:'Master Chef Find the Pack',              sub:'Motion Graphics · Social',  youtubeId:'4QDKBI1kxtA' },
+  { img:'/thumbnails/soc_rwandair.png',        title:'RwandAir Dream Miles Animation & VFX',   sub:'Animation · VFX · Social',  youtubeId:'mTFp7rxXWYo' },
+];
+
+export const SOCIAL_MEDIA_ROW2 = [
+  { img:'/thumbnails/soc_daawat_battery.png',  title:'Daawat Battery Food Animation',          sub:'GIF Animation · Social',    youtubeId:'ttrPBJMBjiM' },
+  { img:'/thumbnails/soc_daawat_feast.png',    title:'Daawat Feast Food GIF Animation',        sub:'GIF Motion · Social',       youtubeId:'SIjQThS4MuQ' },
+  { img:'/thumbnails/soc_daawat_fortune.png',  title:'Daawat Fortune Wheel GIF',               sub:'GIF Animation · Social',    youtubeId:'vaYQ7-DjtkU' },
+  { img:'/thumbnails/soc_daawat_loop.png',     title:'Daawat Meal on a Loop Animation',        sub:'GIF Motion · Social',       youtubeId:'ihgivsvnZy8' },
+  { img:'/thumbnails/soc_daawat_roulette.png', title:'Daawat Roulette Wheel Animation',        sub:'GIF Animation · Social',    youtubeId:'PKvYNF6PVkQ' },
+  { img:'/thumbnails/soc_her_future.png',      title:'Her Future is Bright Lockup Animation',  sub:'Motion Design · Social',    youtubeId:'dW734YdcW1M' },
+  { img:'/thumbnails/soc_pembe_donut.png',     title:'Pembe Donut GIF Animation',              sub:'GIF Animation · Social',    youtubeId:'-894dXg84X0' },
+  { img:'/thumbnails/soc_vipingo_dad1.png',    title:"Vipingo Father's Day Animation",         sub:'Motion Design · Social',    youtubeId:'CzYBAP7a6WE' },
+  { img:'/thumbnails/soc_vipingo_dad2.png',    title:"Vipingo Father's Day Animation 2",       sub:'Motion Design · Social',    youtubeId:'gTQWGEL8YsM' },
+  { img:'/thumbnails/soc_vipingo_tuspin.png',  title:'Vipingo Tuspin Ki Master GIF',           sub:'GIF Animation · Social',    youtubeId:'qU4SMeoDHrk' },
 ];

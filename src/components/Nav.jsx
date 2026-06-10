@@ -18,7 +18,7 @@ export default function Nav() {
     <nav className={`${s.nav} ${scrolled ? s.s : ''}`}>
       <NavLink to="/" className={s.logo}>
         <span className={s.logoMain}>Emmanuel Chege</span>
-        <span className={s.logoSub}>3D Artist · Motion Designer · Nairobi</span>
+        <span className={s.logoSub}>3D Generalist · Motion Graphics Artist · Nairobi</span>
       </NavLink>
 
       <ul className={`${s.links} hide-mobile`}>

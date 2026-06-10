@@ -21,7 +21,7 @@ function SoftwareSection() {
               transition:'background .25s', cursor:'default' }}
             onMouseEnter={e=>e.currentTarget.style.background='rgba(255,255,255,.02)'}
             onMouseLeave={e=>e.currentTarget.style.background='var(--bg2)'}>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.2em',
+            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
               textTransform:'uppercase', color:'var(--gold)', marginBottom:'1rem' }}>
               {cat.category}
             </div>
@@ -93,6 +93,7 @@ function ContactForm() {
               { label:'Instagram', href:SOCIAL.instagram,         text:'@arte_artorius' },
               { label:'TikTok',    href:SOCIAL.tiktok,            text:'@arte_artorius' },
               { label:'YouTube',   href:SOCIAL.youtube,           text:'Emmanuel Chege' },
+              { label:'Drive',     href:'https://drive.google.com/drive/folders/1gxnbPIPCY-jarzUT_78JGrobDeCuLtPB', text:'View More Work' },
               { label:'Website',   href:`https://${SOCIAL.website}`, text:SOCIAL.website },
             ].map(l => (
               <a key={l.label} href={l.href}
@@ -105,7 +106,7 @@ function ContactForm() {
                   fontSize:'.84rem', fontFamily:'var(--body)' }}
                 onMouseEnter={e=>{e.currentTarget.style.color='var(--text)';e.currentTarget.style.paddingLeft='.5rem';}}
                 onMouseLeave={e=>{e.currentTarget.style.color='var(--muted)';e.currentTarget.style.paddingLeft='0';}}>
-                <span style={{ fontFamily:'var(--ui)', fontSize:'11px',
+                <span style={{ fontFamily:'var(--ui)', fontSize:'12px',
                   letterSpacing:'.16em', textTransform:'uppercase', color:'var(--gold)' }}>
                   {l.label}
                 </span>
@@ -116,9 +117,10 @@ function ContactForm() {
           <div style={{ marginTop:'2.5rem', display:'flex', gap:'1rem', flexWrap:'wrap' }}>
             {[['ArtStation',SOCIAL.artstation],['LinkedIn',SOCIAL.linkedin],
               ['Instagram',SOCIAL.instagram],['TikTok',SOCIAL.tiktok],
-              ['YouTube',SOCIAL.youtube]].map(([label,href])=>(
+              ['YouTube',SOCIAL.youtube],
+              ['View More Work','https://drive.google.com/drive/folders/1gxnbPIPCY-jarzUT_78JGrobDeCuLtPB']].map(([label,href])=>(
               <a key={label} href={href} target="_blank" rel="noreferrer"
-                className="btn-outline" style={{ fontSize:'11px' }}>
+                className="btn-outline" style={{ fontSize:'12px' }}>
                 {label}
               </a>
             ))}
@@ -132,7 +134,7 @@ function ContactForm() {
         <div style={{ display:'flex', flexDirection:'column', gap:'2rem' }}>
           <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'2rem' }}>
             <div style={{ display:'flex', flexDirection:'column', gap:'.4rem' }}>
-              <label style={{ fontFamily:'var(--ui)', fontSize:'11px',
+              <label style={{ fontFamily:'var(--ui)', fontSize:'12px',
                 letterSpacing:'.2em', textTransform:'uppercase', color:'var(--muted)' }}>
                 Full Name
               </label>
@@ -141,7 +143,7 @@ function ContactForm() {
                 className="form-input"/>
             </div>
             <div style={{ display:'flex', flexDirection:'column', gap:'.4rem' }}>
-              <label style={{ fontFamily:'var(--ui)', fontSize:'11px',
+              <label style={{ fontFamily:'var(--ui)', fontSize:'12px',
                 letterSpacing:'.2em', textTransform:'uppercase', color:'var(--muted)' }}>
                 Email Address
               </label>
@@ -152,7 +154,7 @@ function ContactForm() {
           </div>
 
           <div style={{ display:'flex', flexDirection:'column', gap:'.4rem' }}>
-            <label style={{ fontFamily:'var(--ui)', fontSize:'11px',
+            <label style={{ fontFamily:'var(--ui)', fontSize:'12px',
               letterSpacing:'.2em', textTransform:'uppercase', color:'var(--muted)' }}>
               Organisation / Company
             </label>
@@ -162,14 +164,14 @@ function ContactForm() {
           </div>
 
           <div style={{ display:'flex', flexDirection:'column', gap:'.6rem' }}>
-            <label style={{ fontFamily:'var(--ui)', fontSize:'11px',
+            <label style={{ fontFamily:'var(--ui)', fontSize:'12px',
               letterSpacing:'.2em', textTransform:'uppercase', color:'var(--muted)' }}>
               Service Required
             </label>
             <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:'.4rem' }}>
               {types.map(t=>(
                 <button key={t} onClick={()=>setType(t)}
-                  style={{ fontFamily:'var(--ui)', fontSize:'10px', letterSpacing:'.1em',
+                  style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.1em',
                     textTransform:'uppercase', padding:'.5rem .4rem',
                     border:`1px solid ${type===t?'var(--gold)':'var(--border)'}`,
                     background: type===t ? 'rgba(201,169,110,.08)' : 'transparent',
@@ -182,7 +184,7 @@ function ContactForm() {
           </div>
 
           <div style={{ display:'flex', flexDirection:'column', gap:'.4rem' }}>
-            <label style={{ fontFamily:'var(--ui)', fontSize:'11px',
+            <label style={{ fontFamily:'var(--ui)', fontSize:'12px',
               letterSpacing:'.2em', textTransform:'uppercase', color:'var(--muted)' }}>
               Project Brief
             </label>
@@ -196,7 +198,7 @@ function ContactForm() {
             <button className="btn-primary" onClick={handleSend}>
               Send Message →
             </button>
-            <span style={{ fontFamily:'var(--ui)', fontSize:'11px',
+            <span style={{ fontFamily:'var(--ui)', fontSize:'12px',
               letterSpacing:'.14em', color:'var(--muted)' }}>
               Opens your email client
             </span>
@@ -232,26 +234,41 @@ function BtsEasterEgg() {
     <div style={{ background:'var(--bg2)', borderTop:'1px solid var(--border)',
       padding:'6rem 5vw' }}>
       {/* Teaser — click to reveal */}
+      <style>{`
+        @keyframes btsBreath {
+          0%,100% { transform:scale(1);    opacity:0.4; }
+          50%      { transform:scale(1.04); opacity:0.75; }
+        }
+        @keyframes btsShimmer {
+          0%   { background-position: 200% center; }
+          100% { background-position: -200% center; }
+        }
+      `}</style>
       {!revealed && (
         <div ref={r} className={`rv ${v?'in':''}`}
           style={{ textAlign:'center', cursor:'pointer' }}
           onClick={() => setRevealed(true)}>
-          <div style={{ fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.35em',
+          <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.35em',
             textTransform:'uppercase', color:'var(--dim)', marginBottom:'1rem' }}>
             — Still here? —
           </div>
           <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.2rem,2vw,2rem)',
-            fontWeight:300, fontStyle:'italic', color:'rgba(255,255,255,.25)',
-            marginBottom:'1.5rem', lineHeight:1.4 }}>
+            fontWeight:300, fontStyle:'italic', lineHeight:1.4, marginBottom:'1.5rem',
+            background:'linear-gradient(90deg, rgba(255,255,255,.22) 0%, rgba(255,255,255,.22) 40%, rgba(201,169,110,.55) 50%, rgba(255,255,255,.22) 60%, rgba(255,255,255,.22) 100%)',
+            backgroundSize:'200% auto',
+            WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent',
+            backgroundClip:'text',
+            animation:'btsShimmer 7s ease-in-out infinite' }}>
             There's something hidden here for the curious ones.
           </div>
           <div style={{ display:'inline-flex', alignItems:'center', gap:'.6rem',
-            fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.2em',
+            fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
             textTransform:'uppercase', color:'rgba(201,169,110,.45)',
             border:'1px dashed rgba(201,169,110,.2)', padding:'.5rem 1.2rem',
-            transition:'all .3s' }}
-            onMouseEnter={e=>{e.currentTarget.style.color='var(--gold)';e.currentTarget.style.borderColor='rgba(201,169,110,.5)';}}
-            onMouseLeave={e=>{e.currentTarget.style.color='rgba(201,169,110,.45)';e.currentTarget.style.borderColor='rgba(201,169,110,.2)';}}>
+            animation:'btsBreath 3s ease-in-out infinite',
+            transition:'color .3s, border-color .3s' }}
+            onMouseEnter={e=>{e.currentTarget.style.color='var(--gold)';e.currentTarget.style.borderColor='rgba(201,169,110,.5)';e.currentTarget.style.animationPlayState='paused';}}
+            onMouseLeave={e=>{e.currentTarget.style.color='rgba(201,169,110,.45)';e.currentTarget.style.borderColor='rgba(201,169,110,.2)';e.currentTarget.style.animationPlayState='running';}}>
             <span>🎧</span> Click to reveal
           </div>
         </div>
@@ -261,7 +278,7 @@ function BtsEasterEgg() {
       {revealed && (
         <div>
           <div className={`rv ${v?'in':''}`} style={{ marginBottom:'3rem' }}>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.35em',
+            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.35em',
               textTransform:'uppercase', color:'var(--gold)', marginBottom:'.5rem' }}>
               🎧 Easter Egg — You found it
             </div>
@@ -286,7 +303,7 @@ function BtsEasterEgg() {
               alignItems:'center', padding:'1.2rem 0',
               borderBottom:'1px solid var(--border)', marginTop:'1px' }}>
               <div>
-                <div style={{ fontFamily:'var(--ui)', fontSize:'11px',
+                <div style={{ fontFamily:'var(--ui)', fontSize:'12px',
                   letterSpacing:'.18em', textTransform:'uppercase',
                   color:'var(--gold)', marginBottom:'.3rem' }}>
                   {BTS_EVENT.client} · {BTS_EVENT.year}
@@ -297,7 +314,7 @@ function BtsEasterEgg() {
                 </div>
               </div>
               <div style={{ display:'flex', alignItems:'center', gap:'1.5rem', flexShrink:0 }}>
-                <span style={{ fontFamily:'var(--ui)', fontSize:'10px',
+                <span style={{ fontFamily:'var(--ui)', fontSize:'12px',
                   letterSpacing:'.14em', textTransform:'uppercase',
                   background:'rgba(201,169,110,.07)',
                   border:'1px solid rgba(201,169,110,.25)',
@@ -305,7 +322,7 @@ function BtsEasterEgg() {
                   {BTS_EVENT.screenDimensions} · {BTS_EVENT.format}
                 </span>
                 <button onClick={() => setModal(true)}
-                  style={{ fontFamily:'var(--ui)', fontSize:'11px',
+                  style={{ fontFamily:'var(--ui)', fontSize:'12px',
                     letterSpacing:'.16em', textTransform:'uppercase',
                     background:'transparent', border:'1px solid var(--border)',
                     color:'var(--muted)', padding:'.6rem 1.2rem',
@@ -381,7 +398,7 @@ export default function ContactPage() {
             <div style={{ position:'absolute', inset:0,
               background:'linear-gradient(135deg,transparent 60%,rgba(6,6,6,.5) 100%)' }}/>
             <div style={{ position:'absolute', bottom:'1.2rem', left:'1.2rem',
-              fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.2em',
+              fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
               textTransform:'uppercase', color:'rgba(255,255,255,.45)' }}>
               Nairobi, Kenya · 2025
             </div>
@@ -390,7 +407,7 @@ export default function ContactPage() {
           {/* Bio text */}
           <div ref={r2} className={`rv d1 ${v2?'in':''}`}
             style={{ padding:'5rem 5vw' }}>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.28em',
+            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.28em',
               textTransform:'uppercase', color:'var(--gold)', marginBottom:'1.2rem' }}>
               About Emmanuel Chege
             </div>
@@ -445,7 +462,7 @@ export default function ContactPage() {
                     fontWeight:300, lineHeight:1 }}>
                     {n.replace('+','')}<em style={{ fontStyle:'normal', color:'var(--gold)' }}>{n.includes('+')?'+':''}</em>
                   </div>
-                  <div style={{ fontFamily:'var(--ui)', fontSize:'11px',
+                  <div style={{ fontFamily:'var(--ui)', fontSize:'12px',
                     letterSpacing:'.16em', textTransform:'uppercase',
                     color:'var(--muted)', marginTop:'.3rem' }}>{l}</div>
                 </div>
@@ -475,7 +492,7 @@ export default function ContactPage() {
           letterSpacing:'.1em', color:'var(--muted)' }}>
           Emmanuel <em style={{ fontStyle:'normal', color:'var(--gold)' }}>Chege</em>
         </div>
-        <div style={{ fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.16em',
+        <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.16em',
           textTransform:'uppercase', color:'var(--dim)', textAlign:'center' }}>
           © 2025 · {SOCIAL.website} · Nairobi, Kenya
         </div>
@@ -484,7 +501,7 @@ export default function ContactPage() {
             ['ArtStation',SOCIAL.artstation],['LinkedIn',SOCIAL.linkedin],
             ['YouTube',SOCIAL.youtube]].map(([l,h])=>(
             <a key={l} href={h} target="_blank" rel="noreferrer"
-              style={{ fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.14em',
+              style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.14em',
                 textTransform:'uppercase', color:'var(--muted)',
                 textDecoration:'none', transition:'color .2s' }}
               onMouseEnter={e=>e.currentTarget.style.color='var(--gold)'}

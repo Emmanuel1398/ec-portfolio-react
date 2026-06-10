@@ -1,9 +1,6 @@
 import { useEffect, useRef } from 'react';
+import VolumeSlider from './VolumeSlider';
 
-/**
- * Full-screen YouTube modal.
- * Starts playback at 40% volume via the iframe API.
- */
 export default function VideoModal({ youtubeId, title, onClose }) {
   const iframeRef = useRef(null);
 
@@ -17,20 +14,13 @@ export default function VideoModal({ youtubeId, title, onClose }) {
     };
   }, [onClose]);
 
-  // Once iframe loads, set volume to 40% via YouTube iframe API
+  // After iframe loads, set volume to 40% automatically
   const handleLoad = () => {
-    const iframe = iframeRef.current;
-    if (!iframe) return;
-    // Small delay so the player is fully initialised
+    const win = iframeRef.current?.contentWindow;
+    if (!win) return;
     setTimeout(() => {
-      try {
-        iframe.contentWindow.postMessage(
-          JSON.stringify({ event:'command', func:'unMute',    args:[] }), '*'
-        );
-        iframe.contentWindow.postMessage(
-          JSON.stringify({ event:'command', func:'setVolume', args:[40] }), '*'
-        );
-      } catch (_) {}
+      win.postMessage(JSON.stringify({ event:'command', func:'unMute',    args:[] }), '*');
+      win.postMessage(JSON.stringify({ event:'command', func:'setVolume', args:[40] }), '*');
     }, 800);
   };
 
@@ -44,13 +34,19 @@ export default function VideoModal({ youtubeId, title, onClose }) {
         </button>
 
         {youtubeId ? (
-          <iframe
-            ref={iframeRef}
-            src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&controls=0&enablejsapi=1&modestbranding=1`}
-            allowFullScreen
-            allow="autoplay; encrypted-media"
-            onLoad={handleLoad}
-          />
+          <>
+            <iframe
+              ref={iframeRef}
+              src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&controls=0&enablejsapi=1&modestbranding=1`}
+              allowFullScreen
+              allow="autoplay; encrypted-media"
+              onLoad={handleLoad}
+            />
+            {/* Volume slider over the modal */}
+            <div style={{ position:'absolute', bottom:'1rem', right:'1rem', zIndex:10 }}>
+              <VolumeSlider iframeRef={iframeRef}/>
+            </div>
+          </>
         ) : (
           <div style={{
             width:'100%', height:'100%', background:'var(--bg2)',
@@ -62,7 +58,7 @@ export default function VideoModal({ youtubeId, title, onClose }) {
               fontWeight:300, color:'var(--muted)', textAlign:'center' }}>
               Video coming soon
             </div>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'11px',
+            <div style={{ fontFamily:'var(--ui)', fontSize:'12px',
               letterSpacing:'.2em', textTransform:'uppercase', color:'var(--gold)' }}>
               {title}
             </div>

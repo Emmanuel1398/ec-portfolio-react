@@ -78,8 +78,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:
 .h-item__info{position:absolute;bottom:0;left:0;right:0;padding:2.5rem 1.4rem 1.4rem;background:linear-gradient(to top,rgba(6,6,6,.97) 0%,rgba(6,6,6,.5) 55%,transparent 100%);transform:translateY(8px);opacity:0;transition:opacity .6s var(--ease),transform .7s var(--ease-out);}
 .h-item:hover .h-item__info{opacity:1;transform:none;}
 .h-item__title{font-family:var(--serif);font-size:1.35rem;font-weight:300;line-height:1.15;color:var(--text);}
-.h-item__sub{font-family:var(--ui);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-top:.3rem;}
-.h-item__num{font-family:var(--ui);font-size:11px;letter-spacing:.16em;color:var(--muted);margin-bottom:.4rem;}
+.h-item__sub{font-family:var(--ui);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-top:.3rem;}
+.h-item__num{font-family:var(--ui);font-size:12px;letter-spacing:.16em;color:var(--muted);margin-bottom:.4rem;}
 
 /* ── VIDEO CARD ── */
 .video-card{position:relative;overflow:hidden;cursor:pointer;background:var(--bg2);}
@@ -93,7 +93,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:
 .video-card:hover .video-card__play svg{fill:#000;}
 .video-card__label{position:absolute;bottom:0;left:0;right:0;padding:1.6rem 1.2rem .9rem;background:linear-gradient(to top,rgba(6,6,6,.95),transparent);}
 .video-card__title{font-family:var(--serif);font-size:1.2rem;font-weight:300;line-height:1.1;}
-.video-card__sub{font-family:var(--ui);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-top:.25rem;}
+.video-card__sub{font-family:var(--ui);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-top:.25rem;}
 
 /* ── VIDEO MODAL ── */
 .modal-bg{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.96);display:flex;align-items:center;justify-content:center;animation:fadeIn .25s ease;}
@@ -121,9 +121,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:
 .form-textarea{resize:none;min-height:100px;}
 
 /* ── BUTTON ── */
-.btn-primary{font-family:var(--ui);font-size:.48rem;letter-spacing:.18em;text-transform:uppercase;background:var(--gold);color:#000;padding:.8rem 2rem;border:none;cursor:pointer;font-weight:500;transition:background .2s;display:inline-flex;align-items:center;gap:.5rem;}
+.btn-primary{font-family:var(--ui);font-size:12px;letter-spacing:.18em;text-transform:uppercase;background:var(--gold);color:#000;padding:.8rem 2rem;border:none;cursor:pointer;font-weight:500;transition:background .2s;display:inline-flex;align-items:center;gap:.5rem;}
 .btn-primary:hover{background:var(--gold2);}
-.btn-outline{font-family:var(--ui);font-size:.46rem;letter-spacing:.18em;text-transform:uppercase;background:transparent;color:var(--muted);padding:.7rem 1.6rem;border:1px solid var(--border);cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;}
+.btn-outline{font-family:var(--ui);font-size:12px;letter-spacing:.18em;text-transform:uppercase;background:transparent;color:var(--muted);padding:.7rem 1.6rem;border:1px solid var(--border);cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;}
 .btn-outline:hover{border-color:var(--gold);color:var(--gold);}
 
 @media(max-width:960px){
@@ -133,3 +133,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:
 @media(prefers-reduced-motion:reduce){
   .rv,.rv-img,.h-item img,.video-card img{transition:none!important;animation:none!important;}
 }
+
+/* ── VOLUME SLIDER ── */
+.vol-slider{display:flex;align-items:center;gap:6px;background:rgba(6,6,6,.75);backdrop-filter:blur(8px);padding:.3rem .55rem;border-radius:20px;border:1px solid rgba(255,255,255,.08);}
+.vol-slider input[type=range]{width:72px;height:3px;cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:2px;outline:none;border:none;}
+.vol-slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:10px;border-radius:50%;background:var(--gold);cursor:pointer;}
+.vol-slider input[type=range]::-moz-range-thumb{width:10px;height:10px;border-radius:50%;background:var(--gold);cursor:pointer;border:none;}
