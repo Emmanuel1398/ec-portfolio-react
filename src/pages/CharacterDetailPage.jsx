@@ -28,7 +28,7 @@ function GalleryImg({ item, onClick }) {
       <div style={{ position:'absolute', bottom:0, left:0, right:0,
         padding:'1.4rem .9rem .7rem',
         background:'linear-gradient(to top, rgba(6,6,6,.92), transparent)' }}>
-        <span style={{ fontFamily:'var(--ui)', fontSize:'.34rem', letterSpacing:'.14em',
+        <span style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.14em',
           textTransform:'uppercase', background: t.bg, color: t.color,
           padding:'.15rem .45rem', marginBottom:'.3rem', display:'inline-block' }}>
           {t.label}
@@ -67,12 +67,12 @@ function VideoCard({ video, onPlay }) {
             color:'var(--text)', lineHeight:1.2, marginBottom:'.3rem' }}>{video.title}</div>
           <div style={{ display:'flex', gap:'1rem', flexWrap:'wrap' }}>
             {[video.duration, video.resolution].map(v => (
-              <span key={v} style={{ fontFamily:'var(--ui)', fontSize:'.36rem', letterSpacing:'.14em',
+              <span key={v} style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.14em',
                 textTransform:'uppercase', color:'var(--muted)' }}>{v}</span>
             ))}
           </div>
         </div>
-        <div style={{ fontFamily:'var(--ui)', fontSize:'.38rem', letterSpacing:'.18em',
+        <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em',
           color: hover ? 'var(--gold)' : 'var(--dim)', transition:'color .2s' }}>
           {video.youtubeId ? 'PLAY' : 'SOON'}
         </div>
@@ -95,7 +95,7 @@ function ImageLightbox({ item, onClose }) {
           <div style={{ fontFamily:'var(--serif)', fontSize:'1rem', fontWeight:300, color:'var(--muted)' }}>
             {item.caption}
           </div>
-          <div style={{ fontFamily:'var(--ui)', fontSize:'.36rem', letterSpacing:'.16em',
+          <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.16em',
             textTransform:'uppercase', color:'var(--dim)', background:'rgba(6,6,6,.7)',
             padding:'.2rem .6rem' }}>
             {(TYPE_COLORS[item.type]||TYPE_COLORS.render).label}
@@ -132,7 +132,7 @@ export default function CharacterDetailPage() {
   if (!char) return (
     <div style={{ padding:'15rem 5vw', textAlign:'center' }}>
       <div style={{ fontFamily:'var(--serif)', fontSize:'2rem', color:'var(--muted)' }}>Character not found.</div>
-      <Link to="/characters" style={{ color:'var(--gold)', fontFamily:'var(--ui)', fontSize:'.46rem', letterSpacing:'.2em' }}>← Back to Characters</Link>
+      <Link to="/characters" style={{ color:'var(--gold)', fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em' }}>← Back to Characters</Link>
     </div>
   );
 
@@ -151,7 +151,7 @@ export default function CharacterDetailPage() {
           flexDirection:'column', justifyContent:'flex-end', padding:'0 5vw 5rem' }}>
           {/* Breadcrumb */}
           <div style={{ position:'absolute', top:'9rem', left:'5vw',
-            fontFamily:'var(--ui)', fontSize:'.4rem', letterSpacing:'.2em',
+            fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
             textTransform:'uppercase', color:'rgba(255,255,255,.4)', display:'flex',
             alignItems:'center', gap:'.5rem' }}>
             <Link to="/" style={{ color:'rgba(255,255,255,.4)', textDecoration:'none' }}>Portfolio</Link>
@@ -160,7 +160,7 @@ export default function CharacterDetailPage() {
             <span>·</span>
             <span style={{ color:'var(--gold)' }}>{char.name}</span>
           </div>
-          <div style={{ fontFamily:'var(--ui)', fontSize:'.44rem', letterSpacing:'.3em',
+          <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.3em',
             textTransform:'uppercase', color:'var(--gold)', marginBottom:'.6rem' }}>
             {char.category} · {char.year}
           </div>
@@ -199,7 +199,7 @@ export default function CharacterDetailPage() {
         <div ref={r2} className={`rv d1 ${v2 ? 'in' : ''}`}>
           <div style={{ border:'1px solid var(--border)', position:'sticky', top:'7rem' }}>
             <div style={{ padding:'1.2rem 1.5rem', borderBottom:'1px solid var(--border)',
-              fontFamily:'var(--ui)', fontSize:'.4rem', letterSpacing:'.24em',
+              fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.24em',
               textTransform:'uppercase', color:'var(--gold)', background:'var(--bg2)' }}>
               Technical Specifications
             </div>
@@ -215,7 +215,7 @@ export default function CharacterDetailPage() {
               <div key={label} style={{ padding:'1rem 1.5rem',
                 borderBottom:'1px solid var(--border)',
                 display:'grid', gridTemplateColumns:'90px 1fr', gap:'.8rem', alignItems:'start' }}>
-                <div style={{ fontFamily:'var(--ui)', fontSize:'.36rem', letterSpacing:'.16em',
+                <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.16em',
                   textTransform:'uppercase', color:'var(--muted)', paddingTop:'.1rem' }}>
                   {label}
                 </div>
@@ -268,7 +268,7 @@ export default function CharacterDetailPage() {
             {[...new Set(char.images.map(i => i.type))].map(type => {
               const t = TYPE_COLORS[type] || TYPE_COLORS.render;
               return (
-                <div key={type} style={{ fontFamily:'var(--ui)', fontSize:'.36rem',
+                <div key={type} style={{ fontFamily:'var(--ui)', fontSize:'12px',
                   letterSpacing:'.14em', textTransform:'uppercase',
                   background: t.bg, color: t.color, padding:'.25rem .6rem' }}>
                   {t.label}
@@ -287,7 +287,7 @@ export default function CharacterDetailPage() {
           <div style={{ marginTop:'3rem', padding:'1.5rem 2rem',
             border:'1px dashed rgba(255,255,255,.1)',
             background:'rgba(255,255,255,.01)' }}>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'.4rem', letterSpacing:'.2em',
+            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
               textTransform:'uppercase', color:'var(--dim)', marginBottom:'.4rem' }}>
               Production Note
             </div>
@@ -308,7 +308,7 @@ export default function CharacterDetailPage() {
               borderRight:'1px solid var(--border)', transition:'background .25s' }}
             onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,.02)'}
             onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'.38rem', letterSpacing:'.2em',
+            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
               textTransform:'uppercase', color:'var(--muted)', marginBottom:'.5rem' }}>← Previous Character</div>
             <div style={{ fontFamily:'var(--serif)', fontSize:'1.4rem', fontWeight:300, color:'var(--text)', lineHeight:1.1 }}>
               {prevChar.name}<br/>
@@ -320,7 +320,7 @@ export default function CharacterDetailPage() {
             borderRight:'1px solid var(--border)', transition:'background .25s' }}
             onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,.02)'}
             onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'.38rem', letterSpacing:'.2em',
+            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
               textTransform:'uppercase', color:'var(--muted)', marginBottom:'.5rem' }}>← Back</div>
             <div style={{ fontFamily:'var(--serif)', fontSize:'1.4rem', fontWeight:300, color:'var(--text)' }}>
               All Characters
@@ -333,7 +333,7 @@ export default function CharacterDetailPage() {
               transition:'background .25s' }}
             onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,.02)'}
             onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'.38rem', letterSpacing:'.2em',
+            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
               textTransform:'uppercase', color:'var(--muted)', marginBottom:'.5rem' }}>Next Character →</div>
             <div style={{ fontFamily:'var(--serif)', fontSize:'1.4rem', fontWeight:300, color:'var(--text)', lineHeight:1.1 }}>
               {nextChar.name}<br/>
@@ -343,7 +343,7 @@ export default function CharacterDetailPage() {
         ) : (
           <div style={{ padding:'2.5rem 5vw', textAlign:'right',
             transition:'background .25s' }}>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'.38rem', letterSpacing:'.2em',
+            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
               textTransform:'uppercase', color:'var(--dim)' }}>End of Archive</div>
           </div>
         )}

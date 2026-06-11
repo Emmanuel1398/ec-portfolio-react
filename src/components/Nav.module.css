@@ -17,7 +17,7 @@
 }
 .logoSub {
   font-family:var(--ui);
-  font-size:clamp(10px, 0.8vw, 13px);
+  font-size:clamp(12px, 0.8vw, 14px);
   letter-spacing:.22em; text-transform:uppercase; color:var(--gold);
 }
 .links { display:flex; gap:2.5rem; list-style:none; align-items:center; }

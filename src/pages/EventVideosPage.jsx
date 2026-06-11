@@ -116,6 +116,95 @@ export default function EventVideosPage() {
           <EventCard key={event.id} event={event} index={i} />
         ))}
       </div>
+
+      {/* ── EASTER EGG ── */}
+      <EventEasterEgg/>
+    </div>
+  );
+}
+
+/* ── EASTER EGG — hidden bonus video ── */
+function EventEasterEgg() {
+  const [revealed, setRevealed] = useState(false);
+  const [modal, setModal] = useState(false);
+
+  return (
+    <div style={{ background:'var(--bg2)', borderTop:'1px solid var(--border)',
+      padding:'6rem 5vw' }}>
+      <style>{`
+        @keyframes eggBreath {
+          0%,100% { transform:scale(1);    opacity:0.4; }
+          50%      { transform:scale(1.04); opacity:0.75; }
+        }
+        @keyframes eggShimmer {
+          0%   { background-position: 200% center; }
+          100% { background-position: -200% center; }
+        }
+      `}</style>
+
+      {!revealed && (
+        <div style={{ textAlign:'center', cursor:'pointer' }}
+          onClick={() => setRevealed(true)}>
+          <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.35em',
+            textTransform:'uppercase', color:'var(--dim)', marginBottom:'1rem' }}>
+            — One more thing —
+          </div>
+          <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.2rem,2vw,2rem)',
+            fontWeight:300, fontStyle:'italic', lineHeight:1.4, marginBottom:'1.5rem',
+            background:'linear-gradient(90deg, rgba(255,255,255,.22) 0%, rgba(255,255,255,.22) 40%, rgba(201,169,110,.55) 50%, rgba(255,255,255,.22) 60%, rgba(255,255,255,.22) 100%)',
+            backgroundSize:'200% auto',
+            WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent',
+            backgroundClip:'text',
+            animation:'eggShimmer 7s ease-in-out infinite' }}>
+            Not every video makes it onto the main reel.
+          </div>
+          <div style={{ display:'inline-flex', alignItems:'center', gap:'.6rem',
+            fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
+            textTransform:'uppercase', color:'rgba(201,169,110,.45)',
+            border:'1px dashed rgba(201,169,110,.2)', padding:'.5rem 1.2rem',
+            animation:'eggBreath 3s ease-in-out infinite',
+            transition:'color .3s, border-color .3s' }}
+            onMouseEnter={e=>{e.currentTarget.style.color='var(--gold)';e.currentTarget.style.borderColor='rgba(201,169,110,.5)';e.currentTarget.style.animationPlayState='paused';}}
+            onMouseLeave={e=>{e.currentTarget.style.color='rgba(201,169,110,.45)';e.currentTarget.style.borderColor='rgba(201,169,110,.2)';e.currentTarget.style.animationPlayState='running';}}>
+            <span>🎬</span> Click to reveal
+          </div>
+        </div>
+      )}
+
+      {revealed && (
+        <div>
+          <div style={{ marginBottom:'2.5rem', textAlign:'center' }}>
+            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.35em',
+              textTransform:'uppercase', color:'var(--gold)', marginBottom:'.5rem' }}>
+              🎬 Bonus Cut
+            </div>
+            <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(2rem,3.5vw,4rem)',
+              fontWeight:300, lineHeight:1, color:'var(--text)' }}>
+              An Extra <em style={{ color:'var(--gold)', fontStyle:'italic' }}>Cut</em>
+            </h2>
+          </div>
+
+          <div style={{ maxWidth:'900px', margin:'0 auto', position:'relative',
+            aspectRatio:'16/9', overflow:'hidden', cursor:'pointer', background:'var(--bg3)' }}
+            onClick={() => setModal(true)}
+            onMouseEnter={e=>e.currentTarget.querySelector('.egg-img').style.transform='scale(1.04)'}
+            onMouseLeave={e=>e.currentTarget.querySelector('.egg-img').style.transform='scale(1)'}>
+            <img className="egg-img" src="https://img.youtube.com/vi/G2H2RBNbDSI/maxresdefault.jpg" alt="Bonus video"
+              style={{ width:'100%', height:'100%', objectFit:'cover',
+                filter:'brightness(.4) saturate(.7)', transition:'transform .8s var(--ease-out)' }}/>
+            <div style={{ position:'absolute', inset:0, display:'flex',
+              alignItems:'center', justifyContent:'center' }}>
+              <div style={{ width:70, height:70, border:'1px solid rgba(201,169,110,.55)',
+                borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center',
+                background:'rgba(6,6,6,.35)' }}>
+                <svg width="22" viewBox="0 0 24 24" fill="var(--gold)"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {modal && <VideoModal youtubeId="G2H2RBNbDSI" title="Bonus Cut" onClose={()=>setModal(false)}/>}
     </div>
   );
 }

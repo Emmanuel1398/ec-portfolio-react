@@ -29,7 +29,7 @@ function CharCard({ char, index }) {
             background:'linear-gradient(to top, rgba(6,6,6,.97) 0%, rgba(6,6,6,.5) 45%, transparent 75%)',
             opacity:0, transition:'opacity .4s', display:'flex', flexDirection:'column',
             justifyContent:'flex-end', padding:'1.8rem 1.5rem' }}>
-          <div style={{ fontFamily:'var(--ui)', fontSize:'.38rem', letterSpacing:'.2em',
+          <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
             textTransform:'uppercase', color:'var(--gold)', marginBottom:'.4rem' }}>
             {char.category}
           </div>
@@ -38,13 +38,13 @@ function CharCard({ char, index }) {
             {char.name}<br/>
             <em style={{ fontStyle:'italic', color:'rgba(255,255,255,.6)', fontSize:'1.1rem' }}>{char.subtitle}</em>
           </div>
-          <div style={{ fontFamily:'var(--ui)', fontSize:'.38rem', letterSpacing:'.14em',
+          <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.14em',
             color:'rgba(255,255,255,.4)', marginTop:'.5rem', display:'flex', gap:'1rem' }}>
             <span>{char.year}</span>
             <span style={{ color:'var(--dim)' }}>·</span>
             <span>{char.specs.software.slice(0,3).join(' · ')}</span>
           </div>
-          <div style={{ marginTop:'1rem', fontFamily:'var(--ui)', fontSize:'.4rem',
+          <div style={{ marginTop:'1rem', fontFamily:'var(--ui)', fontSize:'12px',
             letterSpacing:'.18em', textTransform:'uppercase', color:'var(--gold)',
             display:'flex', alignItems:'center', gap:'.4rem' }}>
             View Character →
@@ -53,7 +53,7 @@ function CharCard({ char, index }) {
 
         {/* Always-visible index */}
         <div style={{ position:'absolute', top:'1rem', left:'1.2rem',
-          fontFamily:'var(--ui)', fontSize:'.38rem', letterSpacing:'.2em',
+          fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
           color:'rgba(255,255,255,.25)' }}>
           {String(index + 1).padStart(2, '0')}
         </div>
@@ -61,7 +61,7 @@ function CharCard({ char, index }) {
         {/* Video indicator */}
         {char.videos.length > 0 && (
           <div style={{ position:'absolute', top:'1rem', right:'1.2rem',
-            fontFamily:'var(--ui)', fontSize:'.36rem', letterSpacing:'.14em',
+            fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.14em',
             color:'rgba(201,169,110,.7)', background:'rgba(6,6,6,.7)',
             padding:'.2rem .5rem', backdropFilter:'blur(4px)' }}>
             {char.videos.length} VIDEO{char.videos.length > 1 ? 'S' : ''}
@@ -100,7 +100,7 @@ export default function CharactersPage() {
                     color:'var(--text)', lineHeight:1 }}>
                     <em style={{ fontStyle:'normal', color:'var(--gold)' }}>{n}</em>
                   </div>
-                  <div style={{ fontFamily:'var(--ui)', fontSize:'.36rem', letterSpacing:'.16em',
+                  <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.16em',
                     textTransform:'uppercase', color:'var(--muted)', marginTop:'.3rem' }}>{l}</div>
                 </div>
               ))}

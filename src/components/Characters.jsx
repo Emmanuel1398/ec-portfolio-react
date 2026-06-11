@@ -15,8 +15,8 @@ export default function Characters() {
         <div className="s-label">Portfolio / 01<span className="s-num">17+ Characters</span></div>
         <h2 className="s-head">3D Characters &amp;<br/><em>Creatures</em></h2>
         <div style={{ marginTop:'1.5rem', borderTop:'1px solid var(--border)', paddingTop:'1rem', display:'flex', justifyContent:'space-between', alignItems:'center' }}>
-          <p style={{ fontFamily:'var(--ui)', fontSize:'0.44rem', letterSpacing:'0.16em', color:'var(--muted)' }}>— Hyperrealistic sculpts. Every detail intentional.</p>
-          <a href="#contact" style={{ fontFamily:'var(--ui)', fontSize:'0.44rem', letterSpacing:'0.16em', textTransform:'uppercase', color:'var(--muted)', textDecoration:'none', transition:'color 0.2s' }}
+          <p style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.16em', color:'var(--muted)' }}>— Hyperrealistic sculpts. Every detail intentional.</p>
+          <a href="#contact" style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.16em', textTransform:'uppercase', color:'var(--muted)', textDecoration:'none', transition:'color 0.2s' }}
             onMouseEnter={e=>e.currentTarget.style.color='var(--gold)'}
             onMouseLeave={e=>e.currentTarget.style.color='var(--muted)'}>
             Commission a character →

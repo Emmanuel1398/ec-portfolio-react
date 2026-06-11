@@ -62,7 +62,7 @@ export default function DroneShows() {
         <div className="s-label">Portfolio / 06<span className="s-num">6 Clients</span></div>
         <h2 className="s-head">Drone Show<br/><em>Concepts</em></h2>
         <div style={{ marginTop:'1.5rem', borderTop:'1px solid var(--border)', paddingTop:'1rem' }}>
-          <p style={{ fontFamily:'var(--ui)', fontSize:'0.44rem', letterSpacing:'0.16em', color:'var(--muted)' }}>
+          <p style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.16em', color:'var(--muted)' }}>
             — EU-Kenya · HFCK · NRP · Museveni · Mashariki · La Mada
           </p>
         </div>
@@ -80,9 +80,9 @@ export default function DroneShows() {
             style={{ padding:'1.8rem 1.2rem', borderRight: i<5?'1px solid var(--border)':'none', cursor:'pointer', transition:'background 0.25s' }}
             onMouseEnter={e=>e.currentTarget.style.background='rgba(255,255,255,0.02)'}
             onMouseLeave={e=>e.currentTarget.style.background='transparent'}>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'0.4rem', letterSpacing:'0.2em', color:'var(--gold)', marginBottom:'0.8rem' }}>{p.n}</div>
+            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.2em', color:'var(--gold)', marginBottom:'0.8rem' }}>{p.n}</div>
             <div style={{ fontFamily:'var(--serif)', fontSize:'1.05rem', fontWeight:300, lineHeight:1.2, color:'var(--text)', marginBottom:'0.5rem' }}>{p.title}</div>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'0.38rem', letterSpacing:'0.12em', color:'var(--muted)', lineHeight:1.7 }}>{p.desc.substring(0,80)}…</div>
+            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.12em', color:'var(--muted)', lineHeight:1.7 }}>{p.desc.substring(0,80)}…</div>
           </div>
         ))}
       </div>

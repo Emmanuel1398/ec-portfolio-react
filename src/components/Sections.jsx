@@ -14,7 +14,7 @@ export function Statement() {
           and something that{' '}
           <em style={{ color:'var(--gold)', fontStyle:'normal' }}>feels alive.</em>"
         </p>
-        <div style={{ marginTop:'2.5rem', fontFamily:'var(--ui)', fontSize:'0.42rem', letterSpacing:'0.24em', textTransform:'uppercase', color:'var(--muted)' }}>
+        <div style={{ marginTop:'2.5rem', fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.24em', textTransform:'uppercase', color:'var(--muted)' }}>
           — Emmanuel Chege, 3D Artist, Nairobi
         </div>
       </div>
@@ -45,9 +45,9 @@ export function Disciplines() {
             style={{ borderRight:'1px solid var(--border)', borderBottom:'1px solid var(--border)', padding:'2.2rem 1.5rem', cursor:'pointer', transition:'background 0.25s' }}
             onMouseEnter={e=>e.currentTarget.style.background='rgba(255,255,255,0.02)'}
             onMouseLeave={e=>e.currentTarget.style.background='transparent'}>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'0.4rem', letterSpacing:'0.2em', color:'var(--gold)', marginBottom:'1.2rem' }}>{c.n}</div>
+            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.2em', color:'var(--gold)', marginBottom:'1.2rem' }}>{c.n}</div>
             <div style={{ fontFamily:'var(--serif)', fontSize:'1.1rem', fontWeight:300, color:'var(--text)', marginBottom:'0.4rem', lineHeight:1.2 }}>{c.label}</div>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'0.38rem', letterSpacing:'0.12em', color:'var(--muted)' }}>{c.sub}</div>
+            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.12em', color:'var(--muted)' }}>{c.sub}</div>
           </div>
         ))}
       </div>
@@ -65,7 +65,7 @@ export function EventViz() {
         <div className="s-label">Portfolio / 04</div>
         <h2 className="s-head">Event <em>Visualizations</em></h2>
         <div style={{ marginTop:'1.5rem', borderTop:'1px solid var(--border)', paddingTop:'1rem' }}>
-          <p style={{ fontFamily:'var(--ui)', fontSize:'0.44rem', letterSpacing:'0.16em', color:'var(--muted)' }}>— Nyayo Stadium · Martell XXO · Concert Setups · VVIP Lounges</p>
+          <p style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.16em', color:'var(--muted)' }}>— Nyayo Stadium · Martell XXO · Concert Setups · VVIP Lounges</p>
         </div>
       </div>
       <div ref={r2} className={`rv-img ${v2?'in':''}`}>
@@ -85,7 +85,7 @@ export function Products() {
         <div className="s-label">Portfolio / 05</div>
         <h2 className="s-head">Product <em>Renders</em></h2>
         <div style={{ marginTop:'1.5rem', borderTop:'1px solid var(--border)', paddingTop:'1rem' }}>
-          <p style={{ fontFamily:'var(--ui)', fontSize:'0.44rem', letterSpacing:'0.16em', color:'var(--muted)' }}>— Photorealistic product visualisation · Michael's Bouquet Perfume</p>
+          <p style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.16em', color:'var(--muted)' }}>— Photorealistic product visualisation · Michael's Bouquet Perfume</p>
         </div>
       </div>
       <div ref={r2} className={`rv-img ${v2?'in':''}`}>
@@ -105,7 +105,7 @@ export function Projection() {
         <div className="s-label">Portfolio / 07</div>
         <h2 className="s-head">Projection <em>Mapping</em></h2>
         <div style={{ marginTop:'1.5rem', borderTop:'1px solid var(--border)', paddingTop:'1rem' }}>
-          <p style={{ fontFamily:'var(--ui)', fontSize:'0.44rem', letterSpacing:'0.16em', color:'var(--muted)' }}>— KICC · State House · Mashariki · Makini · STAROOT · JAYS</p>
+          <p style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.16em', color:'var(--muted)' }}>— KICC · State House · Mashariki · Makini · STAROOT · JAYS</p>
         </div>
       </div>
       <div ref={r2} className={`rv-img ${v2?'in':''}`}>
@@ -132,14 +132,14 @@ export function About() {
               onMouseLeave={e=>e.currentTarget.style.transform='scale(1)'}
             />
             <div style={{ position:'absolute', bottom:0, left:0, right:0, height:'40%', background:'linear-gradient(to top, rgba(10,10,10,0.7), transparent)' }}/>
-            <div style={{ position:'absolute', bottom:'1.2rem', left:'1.2rem', fontFamily:'var(--ui)', fontSize:'0.4rem', letterSpacing:'0.2em', textTransform:'uppercase', color:'rgba(255,255,255,0.45)' }}>
+            <div style={{ position:'absolute', bottom:'1.2rem', left:'1.2rem', fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.2em', textTransform:'uppercase', color:'rgba(255,255,255,0.45)' }}>
               Nairobi, Kenya · 2025
             </div>
           </div>
           {/* Tools grid */}
           <div style={{ marginTop:'1.5rem', display:'grid', gridTemplateColumns:'repeat(4,1fr)', borderTop:'1px solid var(--border)', borderLeft:'1px solid var(--border)' }}>
             {TOOLS.map(t => (
-              <div key={t} style={{ borderRight:'1px solid var(--border)', borderBottom:'1px solid var(--border)', padding:'0.5rem 0.6rem', fontFamily:'var(--ui)', fontSize:'0.38rem', letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)', transition:'color 0.2s, background 0.2s', cursor:'default' }}
+              <div key={t} style={{ borderRight:'1px solid var(--border)', borderBottom:'1px solid var(--border)', padding:'0.5rem 0.6rem', fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--muted)', transition:'color 0.2s, background 0.2s', cursor:'default' }}
                 onMouseEnter={e=>{ e.currentTarget.style.color='var(--gold)'; e.currentTarget.style.background='rgba(255,255,255,0.02)'; }}
                 onMouseLeave={e=>{ e.currentTarget.style.color='var(--muted)'; e.currentTarget.style.background='transparent'; }}
               >{t}</div>
@@ -149,7 +149,7 @@ export function About() {
 
         {/* Text */}
         <div ref={r2} className={`rv d1 ${v2?'in':''}`}>
-          <div style={{ fontFamily:'var(--ui)', fontSize:'0.46rem', letterSpacing:'0.28em', textTransform:'uppercase', color:'var(--gold)', marginBottom:'1.2rem' }}>
+          <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.28em', textTransform:'uppercase', color:'var(--gold)', marginBottom:'1.2rem' }}>
             Portfolio / 00 — About
           </div>
           <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(2.5rem,4vw,4.5rem)', fontWeight:300, lineHeight:1, marginBottom:'2.5rem', color:'var(--text)' }}>
@@ -172,7 +172,7 @@ export function About() {
                 <div style={{ fontFamily:'var(--serif)', fontSize:'3rem', fontWeight:300, color:'var(--text)', lineHeight:1 }}>
                   {n.replace('+','')}<em style={{ fontStyle:'normal', color:'var(--gold)' }}>{n.includes('+')?'+':''}</em>
                 </div>
-                <div style={{ fontFamily:'var(--ui)', fontSize:'0.38rem', letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--muted)', marginTop:'0.3rem' }}>{l}</div>
+                <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--muted)', marginTop:'0.3rem' }}>{l}</div>
               </div>
             ))}
           </div>
@@ -214,7 +214,7 @@ export function Contact() {
                 style={{ display:'grid', gridTemplateColumns:'85px 1fr', alignItems:'center', padding:'1.1rem 0', borderBottom:'1px solid var(--border)', textDecoration:'none', color:'var(--muted)', transition:'color 0.2s, padding-left 0.25s', fontSize:'0.82rem', fontFamily:'var(--ui)' }}
                 onMouseEnter={e=>{ e.currentTarget.style.color='var(--text)'; e.currentTarget.style.paddingLeft='0.5rem'; }}
                 onMouseLeave={e=>{ e.currentTarget.style.color='var(--muted)'; e.currentTarget.style.paddingLeft='0'; }}>
-                <span style={{ fontFamily:'var(--ui)', fontSize:'0.4rem', letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--gold)' }}>{l.label}</span>
+                <span style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--gold)' }}>{l.label}</span>
                 {l.text}
               </a>
             ))}
@@ -224,17 +224,17 @@ export function Contact() {
           <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'2rem' }}>
             {['Name','Email'].map(p=>(
               <div key={p}>
-                <label style={{ fontFamily:'var(--ui)', fontSize:'0.4rem', letterSpacing:'0.2em', textTransform:'uppercase', color:'var(--muted)', display:'block', marginBottom:'0.5rem' }}>{p}</label>
+                <label style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.2em', textTransform:'uppercase', color:'var(--muted)', display:'block', marginBottom:'0.5rem' }}>{p}</label>
                 <input type={p==='Email'?'email':'text'} placeholder={p==='Email'?'your@email.com':'Your name'} className="inp"/>
               </div>
             ))}
           </div>
           <div>
-            <label style={{ fontFamily:'var(--ui)', fontSize:'0.4rem', letterSpacing:'0.2em', textTransform:'uppercase', color:'var(--muted)', display:'block', marginBottom:'0.5rem' }}>Project Type</label>
+            <label style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.2em', textTransform:'uppercase', color:'var(--muted)', display:'block', marginBottom:'0.5rem' }}>Project Type</label>
             <input type="text" placeholder="Character · Drone · Projection · Motion…" className="inp"/>
           </div>
           <div>
-            <label style={{ fontFamily:'var(--ui)', fontSize:'0.4rem', letterSpacing:'0.2em', textTransform:'uppercase', color:'var(--muted)', display:'block', marginBottom:'0.5rem' }}>Message</label>
+            <label style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.2em', textTransform:'uppercase', color:'var(--muted)', display:'block', marginBottom:'0.5rem' }}>Message</label>
             <textarea placeholder="Tell me about your project, timeline and vision…" className="ta"/>
           </div>
           <button className="btn-g" style={{ alignSelf:'flex-start' }}>Send Message →</button>
@@ -251,13 +251,13 @@ export function Footer() {
       <div style={{ fontFamily:'var(--serif)', fontSize:'1.1rem', fontWeight:600, letterSpacing:'0.1em', color:'var(--muted)' }}>
         Emmanuel <em style={{ fontStyle:'normal', color:'var(--gold)' }}>Chege</em>
       </div>
-      <div style={{ fontFamily:'var(--ui)', fontSize:'0.38rem', letterSpacing:'0.16em', textTransform:'uppercase', color:'var(--dim)', textAlign:'center' }}>
+      <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.16em', textTransform:'uppercase', color:'var(--dim)', textAlign:'center' }}>
         © 2025 Emmanuel Chege · Nairobi, Kenya · All rights reserved
       </div>
       <div style={{ display:'flex', gap:'1.8rem', justifyContent:'flex-end' }}>
         {[['Instagram',SOCIAL.instagram],['ArtStation',SOCIAL.artstation],['LinkedIn',SOCIAL.linkedin],['YouTube',SOCIAL.youtube]].map(([label,href])=>(
           <a key={label} href={href} target="_blank" rel="noreferrer"
-            style={{ fontFamily:'var(--ui)', fontSize:'0.4rem', letterSpacing:'0.16em', textTransform:'uppercase', color:'var(--muted)', textDecoration:'none', transition:'color 0.2s' }}
+            style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.16em', textTransform:'uppercase', color:'var(--muted)', textDecoration:'none', transition:'color 0.2s' }}
             onMouseEnter={e=>e.currentTarget.style.color='var(--gold)'}
             onMouseLeave={e=>e.currentTarget.style.color='var(--muted)'}
           >{label}</a>

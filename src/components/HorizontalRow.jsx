@@ -99,7 +99,7 @@ export default function HorizontalRow({ items, height = '68vh', itemWidth = '28v
         pointerEvents: 'none', zIndex: 2,
         display: 'flex', alignItems: 'center', justifyContent: 'flex-end', paddingRight: '1.2rem',
       }}>
-        <span style={{ fontFamily: 'var(--ui)', fontSize: '11px', letterSpacing: '.2em',
+        <span style={{ fontFamily: 'var(--ui)', fontSize:'12px', letterSpacing: '.2em',
           color: 'rgba(255,255,255,.25)', writingMode: 'vertical-rl' }}>DRAG</span>
       </div>
     </div>

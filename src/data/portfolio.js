@@ -783,7 +783,21 @@ export const EVENTS_REAL = [
     aspectRatio:'16:9',
     format:'Full HD',
     duration:null,
-  },,
+  },
+  {
+    id:'ev-real-16',
+    thumb:'/thumbnails/ev_kwal_county.png',
+    youtubeId:'rjvmdliESTo',
+    title:'KWAL County Kwaruza Ushinde — Launch Video',
+    client:'KWAL',
+    year:'2026',
+    category:'Brand Launch · 3D Compositing · AI Workflow',
+    description: `"This is one of those videos that's a mental game-changer. From doing the scenes in Maya, to rendering out frames and exploring the capabilities of AI, and even playing with 3D obj/glb files in After Effects, this video had me rethinking how to be more efficient and change my workflow, especially when it comes to long render times in Maya as opposed to 3D integrated models in AE."`,
+    screenDimensions:'1920×1080',
+    aspectRatio:'16:9',
+    format:'Full HD',
+    duration:null,
+  },
 ];
 /* ── REAL VIDEO SECTIONS — Portfolio Page ─────────── */
 

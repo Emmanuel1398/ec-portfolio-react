@@ -44,7 +44,7 @@ export default function VideoModal({ youtubeId, title, onClose }) {
             />
             {/* Volume slider over the modal */}
             <div style={{ position:'absolute', bottom:'1rem', right:'1rem', zIndex:10 }}>
-              <VolumeSlider iframeRef={iframeRef}/>
+              <VolumeSlider iframeRef={iframeRef} initialVolume={40}/>
             </div>
           </>
         ) : (

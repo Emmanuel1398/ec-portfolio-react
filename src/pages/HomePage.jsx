@@ -194,7 +194,7 @@ function HeroReel() {
                 onMouseLeave={e=>{ e.currentTarget.style.background='rgba(6,6,6,.25)'; e.currentTarget.style.borderColor='rgba(255,255,255,.45)'; }}>
                 <svg width="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
               </div>
-              <span style={{ fontFamily:'var(--ui)', fontSize:'clamp(11px,.8vw,14px)',
+              <span style={{ fontFamily:'var(--ui)', fontSize:'clamp(12px,.8vw,14px)',
                 letterSpacing:'.28em', textTransform:'uppercase', color:'rgba(255,255,255,.45)' }}>
                 Watch Full Reel
               </span>

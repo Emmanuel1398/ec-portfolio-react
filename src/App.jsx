@@ -40,14 +40,14 @@ function GlobalFooter() {
         letterSpacing:'.1em', color:'var(--muted)' }}>
         Emmanuel <em style={{ fontStyle:'normal', color:'var(--gold)' }}>Chege</em>
       </div>
-      <div style={{ fontFamily:'var(--ui)', fontSize:'.38rem', letterSpacing:'.16em',
+      <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.16em',
         textTransform:'uppercase', color:'var(--dim)', textAlign:'center' }}>
         © 2025 · emmanuelchege.com · Nairobi, Kenya
       </div>
       <div style={{ display:'flex', gap:'1.8rem', justifyContent:'flex-end' }}>
         {[['Instagram','https://www.instagram.com/arte_artorius/'],['ArtStation','https://www.artstation.com/emmanuel_chege'],['LinkedIn','https://www.linkedin.com/in/emmanuelchegekamau'],['YouTube','https://youtu.be/gmiQ0bNoPgQ']].map(([l,h])=>(
           <a key={l} href={h} target="_blank" rel="noreferrer"
-            style={{ fontFamily:'var(--ui)', fontSize:'.4rem', letterSpacing:'.16em',
+            style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.16em',
               textTransform:'uppercase', color:'var(--muted)', textDecoration:'none', transition:'color .2s' }}
             onMouseEnter={e=>e.currentTarget.style.color='var(--gold)'}
             onMouseLeave={e=>e.currentTarget.style.color='var(--muted)'}>{l}</a>

@@ -35,7 +35,7 @@ export default function EventThumb({ event, onPlayFull }) {
         {event.category && (
           <div style={{ position:'absolute', top:'.7rem', left:'.7rem', display:'flex', gap:'.35rem' }}>
             {event.category.split(' · ').slice(0,2).map(tag=>(
-              <span key={tag} style={{ fontFamily:'var(--ui)', fontSize:'11px',
+              <span key={tag} style={{ fontFamily:'var(--ui)', fontSize:'12px',
                 letterSpacing:'.12em', textTransform:'uppercase',
                 background:'rgba(6,6,6,.85)', color:'var(--gold)', padding:'.15rem .45rem' }}>
                 {tag}
@@ -105,7 +105,7 @@ export default function EventThumb({ event, onPlayFull }) {
           display:'flex', gap:'.35rem', flexWrap:'wrap',
           opacity: showVideo ? 0 : 1, transition:'opacity .3s', pointerEvents:'none' }}>
           {event.category.split(' · ').slice(0,2).map(tag=>(
-            <span key={tag} style={{ fontFamily:'var(--ui)', fontSize:'11px',
+            <span key={tag} style={{ fontFamily:'var(--ui)', fontSize:'12px',
               letterSpacing:'.12em', textTransform:'uppercase',
               background:'rgba(6,6,6,.85)', color:'var(--gold)', padding:'.15rem .45rem' }}>
               {tag}

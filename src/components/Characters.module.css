@@ -12,7 +12,7 @@
 .sm .img { min-height: 200px; }
 .wd { grid-column: span 6; }
 .wd .img { min-height: 268px; }
-.num { position:absolute; top:1rem; left:1.2rem; z-index:3; font-family:var(--ui); font-size:0.42rem; color:rgba(255,255,255,0.22); }
+.num { position:absolute; top:1rem; left:1.2rem; z-index:3; font-family:var(--ui); font-size:12px; color:rgba(255,255,255,0.22); }
 .overlay {
   position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
   padding: 3rem 1.5rem 1.5rem;
@@ -22,7 +22,7 @@
 }
 .card:hover .overlay { transform: none; opacity: 1; }
 .ct { font-family:var(--serif); font-size:1.5rem; font-weight:300; color:var(--text); }
-.cs { font-family:var(--ui); font-size:0.42rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-top:0.3rem; }
+.cs { font-family:var(--ui); font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-top:0.3rem; }
 @media(max-width:960px){
   .grid{grid-template-columns:1fr 1fr}
   .xl,.md,.sm,.wd{grid-column:span 1;grid-row:span 1}

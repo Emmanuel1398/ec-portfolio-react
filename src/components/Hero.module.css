@@ -24,8 +24,8 @@
 .content { position:relative; z-index:5; flex:1; display:flex; flex-direction:column; justify-content:space-between; padding:0 5vw 0; }
 
 .topLeft { padding-top:8rem; }
-.slideLabel { font-family:var(--ui); font-size:0.5rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); margin-bottom:0.3rem; }
-.slideYear  { font-family:var(--ui); font-size:0.42rem; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.35); }
+.slideLabel { font-family:var(--ui); font-size:12px; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); margin-bottom:0.3rem; }
+.slideYear  { font-family:var(--ui); font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.35); }
 
 /* Play */
 .playBtn {
@@ -41,7 +41,7 @@
 .playCircle svg { width:28px; fill:var(--text); margin-left:5px; }
 .playBtn:hover .playCircle { background:var(--gold); border-color:var(--gold); transform:scale(1.08); }
 .playBtn:hover .playCircle svg { fill:#000; }
-.playLabel { font-family:var(--ui); font-size:0.46rem; letter-spacing:0.28em; text-transform:uppercase; color:rgba(255,255,255,0.5); transition:color 0.2s; }
+.playLabel { font-family:var(--ui); font-size:12px; letter-spacing:0.28em; text-transform:uppercase; color:rgba(255,255,255,0.5); transition:color 0.2s; }
 .playBtn:hover .playLabel { color:var(--text); }
 
 .viewAll { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); }
@@ -66,7 +66,7 @@
 .scrollHint {
   position:absolute; right:3vw; bottom:5rem; z-index:6;
   display:flex; flex-direction:column; align-items:center; gap:0.5rem;
-  font-family:var(--ui); font-size:0.38rem; letter-spacing:0.22em; text-transform:uppercase;
+  font-family:var(--ui); font-size:12px; letter-spacing:0.22em; text-transform:uppercase;
   color:rgba(255,255,255,0.25); animation:scrollBounce 2.5s ease-in-out infinite;
 }
 .scrollHint svg { width:16px; }
@@ -79,7 +79,7 @@
   border-top:1px solid var(--border);
   display:flex;
 }
-.barItem { flex:1; padding:0.85rem 5vw; border-right:1px solid var(--border); font-family:var(--ui); font-size:0.42rem; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.28); display:flex; align-items:center; gap:0.6rem; }
+.barItem { flex:1; padding:0.85rem 5vw; border-right:1px solid var(--border); font-family:var(--ui); font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.28); display:flex; align-items:center; gap:0.6rem; }
 .barItem:last-child { border-right:none; }
 .barDot { width:3px; height:3px; border-radius:50%; background:var(--gold); flex-shrink:0; }
 
