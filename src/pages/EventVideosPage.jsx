@@ -30,7 +30,7 @@ function EventCard({ event, index }) {
           cursor:'pointer' }} onClick={() => setModal(true)}>
           {event.title}
         </h3>
-        <p style={{ fontFamily:'var(--body)', fontSize:'.86rem', color:'var(--muted)',
+        <p style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--muted)',
           lineHeight:1.9, marginBottom:'1.8rem' }}>
           {event.description}
         </p>
@@ -81,8 +81,7 @@ export default function EventVideosPage() {
             <p style={{ fontFamily:'var(--serif)',
               fontSize:'clamp(1rem,1.6vw,1.3rem)', fontWeight:300,
               fontStyle:'italic', lineHeight:1.75, color:'var(--text)' }}>
-              "Final videos I edited of the live event — complete post-production edits
-              delivered to clients for broadcast, social media, archival and event documentation."
+              "These are final event films and animations delivered to clients for broadcast, social media, documentation, and archival purposes. My process spans the entire production pipeline: concept development, research, storyboarding, 3D modelling, simulation, texturing, look development, rigging, animation, lighting, rendering, visual effects, compositing, editing, sound design, and colour grading. Working across Maya, Unreal Engine, Twinmotion, Substance 3D Painter, Mari, Houdini, EmberGen, LiquiGen, After Effects, Nuke, Premiere Pro, and DaVinci Resolve. The result is a complete production pipeline — from initial concept to final delivery — designed to create compelling visual experiences that communicate, engage, and leave a lasting impression."
             </p>
             <div style={{ marginTop:'1rem', fontFamily:'var(--ui)', fontSize:'12px',
               letterSpacing:'.2em', textTransform:'uppercase', color:'var(--muted)' }}>

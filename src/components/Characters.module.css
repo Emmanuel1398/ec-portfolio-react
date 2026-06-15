@@ -21,7 +21,7 @@
   transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
 }
 .card:hover .overlay { transform: none; opacity: 1; }
-.ct { font-family:var(--serif); font-size:1.5rem; font-weight:300; color:var(--text); }
+.ct { font-family:var(--serif); font-size: 1.5rem; font-weight:300; color:var(--text); }
 .cs { font-family:var(--ui); font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-top:0.3rem; }
 @media(max-width:960px){
   .grid{grid-template-columns:1fr 1fr}

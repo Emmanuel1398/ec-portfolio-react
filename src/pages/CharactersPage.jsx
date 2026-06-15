@@ -87,7 +87,7 @@ export default function CharactersPage() {
             3D Character <em>Archive</em>
           </h1>
           <div style={{ marginTop:'1.5rem', display:'grid', gridTemplateColumns:'1fr 1fr', gap:'4rem', alignItems:'end' }}>
-            <p style={{ fontFamily:'var(--body)', fontSize:'.9rem', color:'var(--muted)', lineHeight:1.9 }}>
+            <p style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--muted)', lineHeight:1.9 }}>
               A complete catalogue of hyperrealistic characters, creatures and sculpts produced
               from 2023 to present. Each entry includes a full production write-up, sculpting
               process videos, wireframes, texture maps and technical specifications.

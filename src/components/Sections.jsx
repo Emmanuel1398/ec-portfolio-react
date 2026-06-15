@@ -155,10 +155,10 @@ export function About() {
           <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(2.5rem,4vw,4.5rem)', fontWeight:300, lineHeight:1, marginBottom:'2.5rem', color:'var(--text)' }}>
             An obsession with<br/><em style={{ fontStyle:'italic', color:'var(--gold)' }}>hyperrealistic detail.</em>
           </h2>
-          <p style={{ fontFamily:'var(--ui)', fontSize:'0.82rem', color:'var(--muted)', lineHeight:2, marginBottom:'1.5rem', letterSpacing:'0.02em' }}>
+          <p style={{ fontFamily:'var(--ui)', fontSize:'1rem', color:'var(--muted)', lineHeight:2, marginBottom:'1.5rem', letterSpacing:'0.02em' }}>
             I am <strong style={{ color:'var(--text)', fontWeight:400 }}>Emmanuel Chege</strong>, a hyperrealistic 3D artist and motion designer based in <strong style={{ color:'var(--text)', fontWeight:400 }}>Nairobi, Kenya</strong> with over five years of professional experience. My core discipline is character and creature design — sculpting digital beings so convincing that the line between render and photograph disappears.
           </p>
-          <p style={{ fontFamily:'var(--ui)', fontSize:'0.82rem', color:'var(--muted)', lineHeight:2, marginBottom:'2.5rem', letterSpacing:'0.02em' }}>
+          <p style={{ fontFamily:'var(--ui)', fontSize:'1rem', color:'var(--muted)', lineHeight:2, marginBottom:'2.5rem', letterSpacing:'0.02em' }}>
             My practice spans the full 3D pipeline: from concept sculpting in ZBrush, texturing in Mari and Substance Painter, cloth simulation in Marvelous Designer, real-time rendering in Unreal Engine 5, to final compositing in Nuke.
           </p>
           <div style={{ borderLeft:'1px solid var(--gold)', paddingLeft:'1.8rem', marginBottom:'3rem' }}>
@@ -199,7 +199,7 @@ export function Contact() {
             <em style={{ fontStyle:'italic', color:'var(--gold)', display:'block' }}>Start a project</em>
             or say hello.
           </h2>
-          <p style={{ fontFamily:'var(--ui)', fontSize:'0.8rem', color:'var(--muted)', lineHeight:2, marginBottom:'3rem', letterSpacing:'0.02em' }}>
+          <p style={{ fontFamily:'var(--ui)', fontSize:'1rem', color:'var(--muted)', lineHeight:2, marginBottom:'3rem', letterSpacing:'0.02em' }}>
             Open to freelance commissions, creative collaborations and remote full-time roles. Characters, drone shows, projection mapping, motion — I'd love to hear from you.
           </p>
           <div>
@@ -211,7 +211,7 @@ export function Contact() {
             ].map(l=>(
               <a key={l.label} href={l.href}
                 target={l.href.startsWith('mailto')?undefined:'_blank'} rel="noreferrer"
-                style={{ display:'grid', gridTemplateColumns:'85px 1fr', alignItems:'center', padding:'1.1rem 0', borderBottom:'1px solid var(--border)', textDecoration:'none', color:'var(--muted)', transition:'color 0.2s, padding-left 0.25s', fontSize:'0.82rem', fontFamily:'var(--ui)' }}
+                style={{ display:'grid', gridTemplateColumns:'85px 1fr', alignItems:'center', padding:'1.1rem 0', borderBottom:'1px solid var(--border)', textDecoration:'none', color:'var(--muted)', transition:'color 0.2s, padding-left 0.25s', fontSize:'1rem', fontFamily:'var(--ui)' }}
                 onMouseEnter={e=>{ e.currentTarget.style.color='var(--text)'; e.currentTarget.style.paddingLeft='0.5rem'; }}
                 onMouseLeave={e=>{ e.currentTarget.style.color='var(--muted)'; e.currentTarget.style.paddingLeft='0'; }}>
                 <span style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--gold)' }}>{l.label}</span>

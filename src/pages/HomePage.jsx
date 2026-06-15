@@ -261,6 +261,67 @@ function CharactersSection() {
 }
 
 /* ── OLDER SHOWREELS — 2 cards side by side ── */
+/* ── Reel card with hover-to-play ── */
+function ReelCard({ reel, onPlay }) {
+  const [hover, setHover] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
+  const iframeRef = useRef(null);
+  const timer = useRef(null);
+
+  const onEnter = () => {
+    if (isMobile) return;
+    setHover(true);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => setShowVideo(true), 300);
+  };
+  const onLeave = () => {
+    setHover(false);
+    clearTimeout(timer.current);
+    setShowVideo(false);
+  };
+
+  const src = `https://www.youtube.com/embed/${reel.youtubeId}?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&loop=1&playlist=${reel.youtubeId}&enablejsapi=1&playsinline=1`;
+
+  return (
+    <div style={{ position:'relative', aspectRatio:'16/9', overflow:'hidden',
+      cursor:'pointer', background:'var(--bg3)' }}
+      onMouseEnter={onEnter} onMouseLeave={onLeave}
+      onClick={() => onPlay(reel)}>
+      <img src={reel.img} alt={reel.title}
+        style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover',
+          filter:'brightness(.45) saturate(.7)',
+          opacity: showVideo ? 0 : 1,
+          transform: hover ? 'scale(1.04)' : 'scale(1)',
+          transition:'opacity .5s, transform .8s var(--ease-out)' }}/>
+      {showVideo && (
+        <>
+          <iframe ref={iframeRef} src={src} allow="autoplay"
+            style={{ position:'absolute', inset:0, width:'100%', height:'100%',
+              border:'none', opacity:1, transition:'opacity .4s' }}/>
+          <div style={{ position:'absolute', bottom:'.7rem', right:'.7rem', zIndex:10 }}
+            onClick={e => e.stopPropagation()}>
+            <VolumeSlider iframeRef={iframeRef}/>
+          </div>
+        </>
+      )}
+      {/* Play button */}
+      <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center',
+        justifyContent:'center', pointerEvents:'none',
+        opacity: showVideo ? 0 : 1, transition:'opacity .4s' }}>
+        <div style={{ width:70, height:70,
+          border:`1px solid ${hover ? 'var(--gold)' : 'rgba(201,169,110,.55)'}`,
+          borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center',
+          background: hover ? 'var(--gold)' : 'rgba(6,6,6,.35)',
+          transition:'all .35s var(--ease-out)' }}>
+          <svg width="22" viewBox="0 0 24 24" fill={hover ? '#000' : 'var(--gold)'}>
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function OlderReelsSection() {
   const [r,v] = useIntersection();
   const [modal, setModal] = useState(null);
@@ -272,34 +333,9 @@ function OlderReelsSection() {
         <div className="sec-rule"><p>— Archive of yearly production reels spanning 2020 to 2024</p></div>
       </div>
       <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'3px' }}>
-        {OLDER_REELS.map((reel,i) => {
-          const [hover, setHover] = useState(false);
-          return (
-            <div key={i} style={{ position:'relative', aspectRatio:'16/9', overflow:'hidden',
-              cursor:'pointer', background:'var(--bg3)' }}
-              onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}
-              onClick={()=>setModal(reel)}>
-              <img src={reel.img} alt={reel.title}
-                style={{ width:'100%', height:'100%', objectFit:'cover',
-                  filter:'brightness(.45) saturate(.7)',
-                  transform: hover ? 'scale(1.04)' : 'scale(1)',
-                  transition:'transform .8s var(--ease-out)' }}/>
-              <div style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column',
-                alignItems:'center', justifyContent:'center', gap:'1rem' }}>
-                <div style={{ width:70, height:70,
-                  border:`1px solid ${hover?'var(--gold)':'rgba(201,169,110,.55)'}`,
-                  borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center',
-                  background: hover ? 'var(--gold)' : 'rgba(6,6,6,.35)',
-                  transition:'all .35s var(--ease-out)' }}>
-                  <svg width="22" viewBox="0 0 24 24" fill={hover?'#000':'var(--gold)'}>
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                </div>
-
-              </div>
-            </div>
-          );
-        })}
+        {OLDER_REELS.map((reel, i) => (
+          <ReelCard key={i} reel={reel} onPlay={setModal}/>
+        ))}
       </div>
       {modal && <VideoModal youtubeId={modal.youtubeId} title={modal.title} onClose={()=>setModal(null)}/>}
     </section>
@@ -484,24 +520,23 @@ export default function HomePage() {
     <div className="page">
       <HeroReel/>
       <OlderReelsSection/>
-      <DroneSection/>
-      <VideoRowSection id="event-viz" bg="var(--bg2)" label="Event Visualization Videos"
+      <SocialSection/>
+      <VideoRowSection id="projection" bg="var(--bg2)" label="Projection Mapping Videos"
+        title="Projection <em>Mapping</em>"
+        sub="Architectural building projections, object mapping and event screen content across Nairobi and beyond."
+        items={PROJECTION_REAL} height="62vh" itemWidth="30vw"/>
+      <VideoRowSection id="event-viz" bg="var(--bg)" label="Event Visualization Videos"
         title="Event Visualization <em>Videos</em>"
         sub="These are the 3D visualizations of some event setups. A pre-visual to guide those setting up and the client on what their implemented vision may look like."
         items={EVENT_VIZ_REAL} height="60vh" itemWidth="32vw"/>
-      <VideoRowSection id="hologram" bg="var(--bg)" label="Hologram Video Content"
-        title="Hologram <em>Content</em>"
-        sub="These are the raw videos and BTS of holograms I have edited before projection."
-        items={HOLOGRAM_REAL} height="60vh" itemWidth="38vw"/>
       <VideoRowSection id="products" bg="var(--bg2)" label="Product Visualization"
         title="Product <em>Visualization</em>"
         sub="3D product renders, architectural and vehicle visualizations."
         items={PRODUCT_VIZ_REAL} height="62vh" itemWidth="30vw"/>
-      <VideoRowSection id="projection" bg="var(--bg)" label="Projection Mapping Videos"
-        title="Projection <em>Mapping</em>"
-        sub="Architectural building projections, object mapping and event screen content across Nairobi and beyond."
-        items={PROJECTION_REAL} height="62vh" itemWidth="30vw"/>
-      <SocialSection/>
+      <VideoRowSection id="hologram" bg="var(--bg)" label="Hologram Video Content"
+        title="Hologram <em>Content</em>"
+        sub="These are the raw videos and BTS of holograms I have edited before projection."
+        items={HOLOGRAM_REAL} height="60vh" itemWidth="38vw"/>
     </div>
   );
 }

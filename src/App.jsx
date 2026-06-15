@@ -7,6 +7,8 @@ import CharactersPage from './pages/CharactersPage';
 import CharacterDetailPage from './pages/CharacterDetailPage';
 import EventVideosPage from './pages/EventVideosPage';
 import ContactPage from './pages/ContactPage';
+import DroneShowsPage from './pages/DroneShowsPage';
+import DroneShowDetailPage from './pages/DroneShowDetailPage';
 import './styles/globals.css';
 import './App.css';
 
@@ -95,6 +97,8 @@ export default function App() {
         <Route path="/characters/:slug"       element={<CharacterDetailPage />} />
         <Route path="/events"                 element={<EventVideosPage />} />
         <Route path="/contact"                element={<ContactPage />} />
+        <Route path="/drone-shows"            element={<DroneShowsPage />} />
+        <Route path="/drone-shows/:slug"      element={<DroneShowDetailPage />} />
       </Routes>
       <BottomStrip />
       <GlobalFooter />

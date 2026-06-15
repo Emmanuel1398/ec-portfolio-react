@@ -188,7 +188,7 @@ export default function CharacterDetailPage() {
             About This <em>Character</em>
           </h2>
           {char.writeup.split('\n\n').map((para, i) => (
-            <p key={i} style={{ fontFamily:'var(--body)', fontSize:'.9rem', color:'var(--muted)',
+            <p key={i} style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--muted)',
               lineHeight:2, marginBottom:'1.6rem', letterSpacing:'.01em' }}>
               {para}
             </p>
@@ -219,7 +219,7 @@ export default function CharacterDetailPage() {
                   textTransform:'uppercase', color:'var(--muted)', paddingTop:'.1rem' }}>
                   {label}
                 </div>
-                <div style={{ fontFamily:'var(--body)', fontSize:'.8rem', color:'var(--text)', lineHeight:1.6 }}>
+                <div style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--text)', lineHeight:1.6 }}>
                   {value}
                 </div>
               </div>
@@ -291,9 +291,9 @@ export default function CharacterDetailPage() {
               textTransform:'uppercase', color:'var(--dim)', marginBottom:'.4rem' }}>
               Production Note
             </div>
-            <p style={{ fontFamily:'var(--body)', fontSize:'.82rem', color:'var(--dim)', lineHeight:1.8 }}>
+            <p style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--dim)', lineHeight:1.8 }}>
               Additional wireframes, channel maps, UV layouts and viewport screenshots can be added to this gallery.
-              Upload to Google Drive and add the file IDs to the character profile in <code style={{ color:'rgba(201,169,110,.5)', fontSize:'.76rem' }}>src/data/portfolio.js</code>.
+              Upload to Google Drive and add the file IDs to the character profile in <code style={{ color:'rgba(201,169,110,.5)', fontSize:'1rem' }}>src/data/portfolio.js</code>.
             </p>
           </div>
         </div>

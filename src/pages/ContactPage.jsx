@@ -79,7 +79,7 @@ function ContactForm() {
 
         {/* Left — contact details */}
         <div>
-          <p style={{ fontFamily:'var(--body)', fontSize:'.9rem', color:'var(--muted)',
+          <p style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--muted)',
             lineHeight:1.95, marginBottom:'2.5rem' }}>
             Available for freelance commissions, agency collaborations and project discussions.
             Based in Nairobi, Kenya — operating globally and remotely.
@@ -103,7 +103,7 @@ function ContactForm() {
                   borderBottom:'1px solid var(--border)',
                   textDecoration:'none', color:'var(--muted)',
                   transition:'color .2s, padding-left .2s',
-                  fontSize:'.84rem', fontFamily:'var(--body)' }}
+                  fontSize:'1rem', fontFamily:'var(--body)' }}
                 onMouseEnter={e=>{e.currentTarget.style.color='var(--text)';e.currentTarget.style.paddingLeft='.5rem';}}
                 onMouseLeave={e=>{e.currentTarget.style.color='var(--muted)';e.currentTarget.style.paddingLeft='0';}}>
                 <span style={{ fontFamily:'var(--ui)', fontSize:'12px',
@@ -287,7 +287,7 @@ function BtsEasterEgg() {
               fontWeight:300, lineHeight:1, color:'var(--text)', marginBottom:'1rem' }}>
               Behind The <em>Scenes</em>
             </h2>
-            <p style={{ fontFamily:'var(--body)', fontSize:'.9rem',
+            <p style={{ fontFamily:'var(--body)', fontSize:'1rem',
               color:'var(--muted)', lineHeight:1.9, maxWidth:'600px' }}>
               A full look at the audio post-production process — sound design,
               SFX layering, music mixing and final mastering inside Adobe Premiere Pro.
@@ -375,7 +375,7 @@ export default function ContactPage() {
             About &amp; <em>Contact</em>
           </h1>
           <div style={{ marginTop:'1.5rem', maxWidth:'680px' }}>
-            <p style={{ fontFamily:'var(--body)', fontSize:'.9rem',
+            <p style={{ fontFamily:'var(--body)', fontSize:'1rem',
               color:'var(--muted)', lineHeight:1.9 }}>
               Emmanuel Chege — Hyperrealistic 3D Artist &amp; Motion Designer.
               Available for commissions, collaborations and projects worldwide from Nairobi, Kenya.
@@ -417,7 +417,7 @@ export default function ContactPage() {
               3D Generalist. <em>Motion Graphics Artist.</em>
             </h2>
 
-            <p style={{ fontFamily:'var(--body)', fontSize:'.9rem', color:'var(--muted)',
+            <p style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--muted)',
               lineHeight:2, marginBottom:'1.6rem' }}>
               I am a <strong style={{ color:'var(--text)', fontWeight:400 }}>3D Generalist</strong> with
               a passion for pushing creative boundaries at the intersection of motion graphics,
@@ -425,14 +425,14 @@ export default function ContactPage() {
               crafting high-fidelity 3D assets with a hyper-realistic style, to producing polished
               final artworks that communicate with visual clarity and purpose.
             </p>
-            <p style={{ fontFamily:'var(--body)', fontSize:'.9rem', color:'var(--muted)',
+            <p style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--muted)',
               lineHeight:2, marginBottom:'1.6rem' }}>
               I approach every project with both technical discipline and artistic curiosity,
               consistently finding ways to maximise quality within real-world constraints.
               Whether I am working on character work, visual effects, or dynamic motion design,
               my dedication to the craft is evident in every frame.
             </p>
-            <p style={{ fontFamily:'var(--body)', fontSize:'.9rem', color:'var(--muted)',
+            <p style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--muted)',
               lineHeight:2, marginBottom:'2.5rem' }}>
               I am currently growing my presence in the industry, with a focus on reaching global
               audiences — exploring animation in its many art forms: 3D visualizations, drone show

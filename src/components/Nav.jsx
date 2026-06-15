@@ -9,8 +9,9 @@ export default function Nav() {
 
   const links = [
     { to:'/',           label:'Portfolio'     },
-    { to:'/characters', label:'3D Characters' },
-    { to:'/events',     label:'Event Videos'  },
+    { to:'/characters',  label:'3D Characters' },
+    { to:'/drone-shows', label:'Drone Shows'   },
+    { to:'/events',      label:'Event Videos'  },
     { to:'/contact',    label:'About'       },
   ];
 
