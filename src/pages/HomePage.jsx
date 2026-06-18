@@ -330,7 +330,7 @@ function OlderReelsSection() {
       <div ref={r} className={`rv ${v?'in':''}`} style={{ marginBottom:'3rem' }}>
         <div className="cat-label">Older Showreels<span className="cat-num">2020 – 2025</span></div>
         <h2 className="sec-title">Previous <em>Reels</em></h2>
-        <div className="sec-rule"><p>— Archive of yearly production reels spanning 2020 to 2025</p></div>
+        <div className="sec-rule"><p>Archive of Previous production reels</p></div>
       </div>
       <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'3px' }}>
         {OLDER_REELS.map((reel, i) => (
