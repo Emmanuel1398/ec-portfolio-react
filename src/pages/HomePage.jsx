@@ -329,7 +329,7 @@ function OlderReelsSection() {
     <section id="older-reels" style={{ padding:'8rem 5vw', background:'var(--bg2)' }}>
       <div ref={r} className={`rv ${v?'in':''}`} style={{ marginBottom:'3rem' }}>
         <h2 className="sec-title">Previous <em>Reels</em></h2>
-        <div className="sec-rule"><p>Archive of Previous production reels</p></div>
+        <div className="sec-rule"><p>-Archive of Previous production reels.</p></div>
       </div>
       <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'3px' }}>
         {OLDER_REELS.map((reel, i) => (
