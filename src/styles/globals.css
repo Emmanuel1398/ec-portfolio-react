@@ -42,7 +42,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:
 
 .cat-label{
   display:flex;align-items:center;gap:1rem;
-  font-family:var(--ui);font-size:22px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+  font-family:var(--ui);font-size:20px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
   margin-bottom:.6rem;
 }
 .cat-label::before{content:'';width:2rem;height:1px;background:var(--gold);flex-shrink:0;}
@@ -60,7 +60,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:
   margin:1.4rem 0 3.5rem;padding-top:1rem;
   display:flex;justify-content:space-between;align-items:center;
 }
-.sec-rule p{font-family:var(--ui);font-size:24px;letter-spacing:.12em;color:var(--muted);}
+.sec-rule p{font-family:var(--ui);font-size:20px;letter-spacing:.12em;color:var(--muted);}
 .sec-link{font-family:var(--ui);font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;}
 .sec-link:hover{color:var(--gold);}
 .sec-link::after{content:' →';}
