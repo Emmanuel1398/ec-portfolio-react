@@ -328,6 +328,7 @@ function OlderReelsSection() {
   return (
     <section id="older-reels" style={{ padding:'8rem 5vw', background:'var(--bg2)' }}>
       <div ref={r} className={`rv ${v?'in':''}`} style={{ marginBottom:'3rem' }}>
+        <div className="cat-label">Older Showreels</div>
         <h2 className="sec-title">Previous <em>Reels</em></h2>
         <div className="sec-rule"><p>— Archive of Previous production reels.</p></div>
       </div>

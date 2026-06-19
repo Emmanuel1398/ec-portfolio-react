@@ -474,101 +474,7 @@ Fur was grown using XGen in Maya with three distinct layers: underfur, guard hai
       { youtubeId: null, title: 'XGen Fur Grooming',           duration: '4:30', resolution: '1920×1080' },
       { youtubeId: null, title: 'Mari Texturing — Skin + Fur', duration: '5:10', resolution: '1920×1080' },
     ],
-  },
-];
 
-/* ── UPDATED FULL EVENTS with multiple videos + screen dimensions ─── */
-export const FULL_EVENTS_V2 = [
-  {
-    id:'ev-01', thumb:IMAGES.nyayo_2nd,
-    title:'Asake Concert — Nyayo Stadium',
-    client:'Tukutane Entertainment', year:'2024',
-    description: `Full event visualization and production design for the Asake concert at Nyayo National Stadium, Nairobi. Complete 3D venue mapping, stage design and audience flow visualization.`,
-    tags:['Event Design','Unreal Engine','Visualization'],
-    videos:[
-      { youtubeId:null, title:'Main Event Edit — Full Cut',    screenDimensions:'1920×1080', aspectRatio:'16:9', duration:'8:45', format:'Full HD' },
-      { youtubeId:null, title:'Highlights Reel',               screenDimensions:'1080×1920', aspectRatio:'9:16', duration:'2:30', format:'Vertical Full HD' },
-      { youtubeId:null, title:'Stage Design Showcase',         screenDimensions:'3840×2160', aspectRatio:'16:9', duration:'3:15', format:'4K UHD' },
-    ],
-  },
-  {
-    id:'ev-02', thumb:IMAGES.martell,
-    title:'Martell XXO — JW Marriott',
-    client:'Martell Cognac', year:'2024',
-    description: `Premium luxury brand activation at the JW Marriott Hotel Nairobi. Full 3D event space visualization, ambiance design and presentation material.`,
-    tags:['Luxury Brand','Event Visualization','3D Design'],
-    videos:[
-      { youtubeId:null, title:'Brand Event Full Edit',         screenDimensions:'1920×1080', aspectRatio:'16:9', duration:'5:20', format:'Full HD' },
-      { youtubeId:null, title:'Social Media Cut',              screenDimensions:'1080×1080', aspectRatio:'1:1',  duration:'1:00', format:'Square Full HD' },
-    ],
-  },
-  {
-    id:'ev-03', thumb:IMAGES.kicc,
-    title:'KICC Coca-Cola Christmas Projection',
-    client:'Coca-Cola Kenya', year:'2025',
-    description: `Landmark architectural projection mapping on the Kenyatta International Convention Centre during the Coca-Cola Christmas campaign. Full building mapping with dynamic content.`,
-    tags:['Projection Mapping','Architectural','Christmas Campaign'],
-    videos:[
-      { youtubeId:null, title:'Full Projection Show — Main',   screenDimensions:'3840×2160', aspectRatio:'16:9', duration:'6:40', format:'4K UHD' },
-      { youtubeId:null, title:'Timelapse Install + Live Show', screenDimensions:'1920×1080', aspectRatio:'16:9', duration:'4:10', format:'Full HD' },
-      { youtubeId:null, title:'Social Vertical Cut',           screenDimensions:'1080×1920', aspectRatio:'9:16', duration:'1:30', format:'Vertical Full HD' },
-    ],
-  },
-  {
-    id:'ev-04', thumb:IMAGES.mashariki,
-    title:'Mashariki Cooperation Conference',
-    client:'East African Community', year:'2024',
-    description: `Multi-nation aerial drone show choreography and event visualization for the Mashariki East African cooperation summit.`,
-    tags:['Drone Show','Conference','Aerial Formation'],
-    videos:[
-      { youtubeId:null, title:'Drone Show Full Sequence',      screenDimensions:'3840×2160', aspectRatio:'16:9', duration:'7:15', format:'4K UHD' },
-      { youtubeId:null, title:'Aerial Highlights',             screenDimensions:'1920×1080', aspectRatio:'16:9', duration:'2:50', format:'Full HD' },
-    ],
-  },
-  {
-    id:'ev-05', thumb:IMAGES.drone_1,
-    title:'EU-Kenya Diplomatic Drone Show',
-    client:'EU Delegation Kenya', year:'2024',
-    description: `Aerial formation choreography for the EU-Kenya bilateral summit featuring flag formations, national symbols and synchronized light sequences.`,
-    tags:['Drone Show','Diplomatic','Aerial'],
-    videos:[
-      { youtubeId:null, title:'Full Diplomatic Show',          screenDimensions:'3840×2160', aspectRatio:'16:9', duration:'10:00', format:'4K UHD' },
-      { youtubeId:null, title:'Formation Detail — Close Cuts', screenDimensions:'1920×1080', aspectRatio:'16:9', duration:'3:30', format:'Full HD' },
-      { youtubeId:null, title:'Instagram Reel Cut',            screenDimensions:'1080×1920', aspectRatio:'9:16', duration:'0:60', format:'Vertical Full HD' },
-    ],
-  },
-  {
-    id:'ev-06', thumb:IMAGES.vvip,
-    title:'VVIP Lounge — Stadium Pitch View',
-    client:'Private Client', year:'2023',
-    description: `Exclusive VVIP hospitality lounge design and visualization overlooking the pitch. Premium interior and exterior 3D production design.`,
-    tags:['Interior Design','Visualization','Hospitality'],
-    videos:[
-      { youtubeId:null, title:'VVIP Lounge Walkthrough',       screenDimensions:'1920×1080', aspectRatio:'16:9', duration:'3:20', format:'Full HD' },
-    ],
-  },
-  {
-    id:'ev-07', thumb:IMAGES.state_house,
-    title:'State House Screen Content',
-    client:'Office of the President', year:'2024',
-    description: `Official presidential state event screen content, holographic projections and AV production design for State House Nairobi.`,
-    tags:['Government','Screen Content','Holographic'],
-    videos:[
-      { youtubeId:null, title:'State House AV Full Sequence',  screenDimensions:'3840×2160', aspectRatio:'16:9', duration:'8:00', format:'4K UHD' },
-      { youtubeId:null, title:'Holographic Content Reel',      screenDimensions:'1920×1080', aspectRatio:'16:9', duration:'4:45', format:'Full HD' },
-    ],
-  },
-  {
-    id:'ev-08', thumb:IMAGES.jays,
-    title:'JAYS Pyrotechnics LED Event',
-    client:'JAYS Pyrotechnics', year:'2024',
-    description: `Large-format LED screen content design and production for pyrotechnic shows. Synchronized visual content with live pyrotechnic sequences.`,
-    tags:['LED Screen','Pyrotechnics','Live Event'],
-    videos:[
-      { youtubeId:null, title:'Full LED Show — Live Recording', screenDimensions:'3840×2160', aspectRatio:'16:9', duration:'12:30', format:'4K UHD' },
-      { youtubeId:null, title:'Content Design Breakdown',       screenDimensions:'1920×1080', aspectRatio:'16:9', duration:'5:00', format:'Full HD' },
-      { youtubeId:null, title:'Pyro Sync Highlights',           screenDimensions:'1920×1080', aspectRatio:'16:9', duration:'2:15', format:'Full HD' },
-    ],
   },
 ];
 
@@ -875,7 +781,7 @@ export const DRONE_SHOWS = [
     client:`Mashariki Cooperation Conference`,
     year:'2026', location:`Diani, Kenya`,
     status:'completed',
-    conceptYoutubeId:'F9OMwHQ4F2s',
+    conceptYoutubeId:'d3tHKHMC_dk',
     visualizerYoutubeId:'Uf7Qa9oGWvM',
     tagline:`A geopolitical aerial narrative for Africa's premier security forum.`,
     description:`A large-scale drone show concept designed for the Mashariki Cooperation Conference 2026 in Diani — a forum uniting African nations around security, intelligence and regional stability. The show traces a narrative arc from the continent's rising power to a call for collective vigilance, closing with a promise of continued partnership.`,
@@ -994,4 +900,30 @@ Amani, Upendo, Na Umoja."`},
       {section:`The Final Reveal`, text:`"Behold… the future. Refined. Bold. Unstoppable. The mark of progress, redefined. This… is HFCK. Rooted in legacy, driven by innovation, and moving always forward. Creating great."`},
     ],
   },
+  {
+    id:'ds-06', slug:'our-oceans-conference',
+    title:`Our Oceans Conference Drone Show Concept`,
+    client:`Our Ocean Conference`,
+    year:'2025', location:`Mombasa, Kenya`,
+    status:'concept',
+    conceptYoutubeId:'_-eVseiaA7g',
+    visualizerYoutubeId:null,
+    tagline:`A maritime narrative for Africa's first hosting of the world's premier ocean action conference — regrettably cancelled.`,
+    description:`A drone show concept developed for Kenya's hosting of the Our Ocean Conference 2025 — the world's premier ocean action summit. The show traces a journey from the depths of the Indian Ocean through Africa's rising voice in global conservation, closing with a collective commitment to protect 30% of the world's oceans by 2030. The show was regrettably cancelled before production.`,
+    script:[
+      {section:`The Blue Planet`, text:`"From the depths of the Indian Ocean to the shores of every continent, our blue planet connects us all. The ocean is our life support system. It shapes our climate, feeds our communities, and carries our shared future."`},
+      {section:`Africa Rising`, text:`"For the first time, Africa hosts the world's premier ocean action conference. Here in Kenya, a continent rich in heritage and innovation welcomes the world."`},
+      {section:`Kenya's Coast`, text:`"For centuries, the waters of the Western Indian Ocean have carried cultures, commerce and stories. These waters are not only our heritage. They are our responsibility."`},
+      {section:`The Coral Reef`, text:`"Beneath the surface lies a world of extraordinary beauty. Coral reefs shelter life. They protect our shores and sustain millions of livelihoods."`},
+      {section:`Threats to the Ocean`, text:`"Yet our oceans face unprecedented challenges. Pollution; Overfishing; Climate change; Every year, the balance of marine life grows more fragile."`},
+      {section:`Climate Action`, text:`"But there is hope. Around the world, nations, communities, and innovators are taking action. Together, we can restore what has been damaged."`},
+      {section:`Protected Oceans`, text:`"Marine protected areas safeguard biodiversity. They create resilience. They preserve ecosystems for generations yet to come."`},
+      {section:`Sustainable Blue Economy`, text:`"A sustainable blue economy balances prosperity with stewardship. Protecting the ocean does not limit opportunity. It creates it."`},
+      {section:`Global Partnership`, text:`"No nation can protect the ocean alone. Progress depends upon partnership. Science. Investment. Innovation. And collective commitment."`},
+      {section:`Our Ocean Conference`, text:`"Today, leaders, scientists, entrepreneurs, and communities gather with a common purpose. To turn ambition into action. And commitments into measurable impact."`},
+      {section:`30% by 2030`, text:`"Together, we advance the global vision of protecting thirty percent of our ocean by 2030. A promise to future generations. A commitment to our shared home."`},
+      {section:`Grand Finale`, text:`"The story of the ocean is the story of humanity. What we choose today will shape the world of tomorrow. Let us protect what sustains us. Let us preserve what inspires us. Let us build a future worthy of the generations to come. Our Ocean. Our Heritage. Our Future."`},
+    ],
+  },
 ];
+
