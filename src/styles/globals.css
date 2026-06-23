@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Chakra+Petch:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap');
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;min-width:0;}
 html{scroll-behavior:smooth;overflow-x:hidden;width:100%;}
@@ -9,8 +9,8 @@ html{scroll-behavior:smooth;overflow-x:hidden;width:100%;}
   --text:#ededea; --muted:#888580; --dim:#2f2d2b; --faint:rgba(255,255,255,0.05);
   --border:rgba(255,255,255,0.07); --border-bright:rgba(255,255,255,0.12);
   --serif:'Cormorant Garamond',serif;
-  --ui:'Chakra Petch',sans-serif;
-  --body:'DM Sans',sans-serif;
+  --ui:'Inter',sans-serif;
+  --body:'Inter',sans-serif;
   --ease:cubic-bezier(0,0,0.2,1);
   --ease-out:cubic-bezier(0.16,1,0.3,1);
 }
@@ -42,7 +42,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:
 
 .cat-label{
   display:flex;align-items:center;gap:1rem;
-  font-family:var(--ui);font-size:17px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+  font-family:var(--ui);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
   margin-bottom:.6rem;
 }
 .cat-label::before{content:'';width:2rem;height:1px;background:var(--gold);flex-shrink:0;}
@@ -51,9 +51,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:
 .sec-title{
   font-family:var(--serif);
   font-size:clamp(2.8rem,4.8vw,5.5rem);
-  font-weight:300;line-height:.92;color:var(--text);letter-spacing:.01em;
+  font-weight:600;line-height:.92;color:var(--text);letter-spacing:.01em;
 }
-.sec-title em{font-style:italic;color:var(--gold);}
+.sec-title em{font-style:normal;color:var(--gold);}
 
 .sec-rule{
   border-top:1px solid var(--border);
@@ -77,7 +77,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:
 .h-item:hover img{transform:scale(1.04);}
 .h-item__info{position:absolute;bottom:0;left:0;right:0;padding:2.5rem 1.4rem 1.4rem;background:linear-gradient(to top,rgba(6,6,6,.97) 0%,rgba(6,6,6,.5) 55%,transparent 100%);transform:translateY(8px);opacity:0;transition:opacity .6s var(--ease),transform .7s var(--ease-out);}
 .h-item:hover .h-item__info{opacity:1;transform:none;}
-.h-item__title{font-family:var(--serif);font-size: 1.35rem;font-weight:300;line-height:1.15;color:var(--text);}
+.h-item__title{font-family:var(--serif);font-size: 1.35rem;font-weight:500;letter-spacing:0;line-height:1.15;color:var(--text);}
 .h-item__sub{font-family:var(--ui);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-top:.3rem;}
 .h-item__num{font-family:var(--ui);font-size:12px;letter-spacing:.16em;color:var(--muted);margin-bottom:.4rem;}
 
@@ -92,7 +92,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:
 .video-card:hover .video-card__play{border-color:var(--gold);background:var(--gold);}
 .video-card:hover .video-card__play svg{fill:#000;}
 .video-card__label{position:absolute;bottom:0;left:0;right:0;padding:1.6rem 1.2rem .9rem;background:linear-gradient(to top,rgba(6,6,6,.95),transparent);}
-.video-card__title{font-family:var(--serif);font-size: 1.2rem;font-weight:300;line-height:1.1;}
+.video-card__title{font-family:var(--serif);font-size: 1.2rem;font-weight:500;letter-spacing:0;line-height:1.1;}
 .video-card__sub{font-family:var(--ui);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-top:.25rem;}
 
 /* ── VIDEO MODAL ── */
@@ -139,3 +139,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:
 .vol-slider input[type=range]{width:72px;height:3px;cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:2px;outline:none;border:none;}
 .vol-slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:10px;border-radius:50%;background:var(--gold);cursor:pointer;}
 .vol-slider input[type=range]::-moz-range-thumb{width:10px;height:10px;border-radius:50%;background:var(--gold);cursor:pointer;border:none;}
+
+/* ── PROTO E — no italics anywhere (titles use weight + gold, not slant) ── */
+*[style*="italic"]{font-style:normal !important;}
+em{font-style:normal;}

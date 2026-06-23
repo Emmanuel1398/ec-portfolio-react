@@ -224,18 +224,19 @@ function ShowCard({ show, index }) {
       opacity: v ? 1 : 0,
       transform: v ? 'none' : 'translateY(40px)',
       transition: `opacity .8s ease ${index * 0.12}s, transform .8s ease ${index * 0.12}s`,
+      height:'100%',
     }}>
-      <Link to={`/drone-shows/${show.slug}`} style={{ textDecoration:'none', color:'inherit', display:'block' }}>
+      <Link to={`/drone-shows/${show.slug}`} style={{ textDecoration:'none', color:'inherit', display:'block', height:'100%' }}>
         <div
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           style={{
             position:'relative', overflow:'hidden', background:'var(--bg2)',
-            cursor:'pointer',
+            cursor:'pointer', height:'100%', display:'flex', flexDirection:'column',
           }}>
 
           {/* Thumbnail */}
-          <div style={{ position:'relative', aspectRatio:'16/9', overflow:'hidden' }}>
+          <div style={{ position:'relative', aspectRatio:'16/9', overflow:'hidden', flexShrink:0 }}>
             <img src={thumb} alt={show.title}
               style={{ width:'100%', height:'100%', objectFit:'cover', display:'block',
                 filter:`brightness(${hover ? .3 : .45}) saturate(.7)`,
@@ -276,7 +277,7 @@ function ShowCard({ show, index }) {
           </div>
 
           {/* Card info */}
-          <div style={{ padding:'1.5rem 1.8rem 1.8rem', borderTop:'1px solid var(--border)' }}>
+          <div style={{ padding:'1.5rem 1.8rem 1.8rem', borderTop:'1px solid var(--border)', flex:1, display:'flex', flexDirection:'column' }}>
             <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em',
               textTransform:'uppercase', color:'var(--gold)', marginBottom:'.5rem' }}>
               {show.client} · {show.year}
@@ -289,7 +290,7 @@ function ShowCard({ show, index }) {
               lineHeight:1.7, fontStyle:'italic' }}>
               {show.tagline}
             </p>
-            <div style={{ display:'flex', alignItems:'center', gap:'.5rem', marginTop:'1.2rem',
+            <div style={{ display:'flex', alignItems:'center', gap:'.5rem', marginTop:'auto', paddingTop:'1.2rem',
               fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em',
               textTransform:'uppercase',
               color: hover ? 'var(--gold)' : 'var(--muted)',
@@ -336,7 +337,7 @@ export default function DroneShowsPage() {
           <span className="cat-num">{DRONE_SHOWS.length} Productions</span>
         </div>
         <h1 style={{ fontFamily:'var(--serif)', fontSize:'clamp(3rem,7vw,8rem)',
-          fontWeight:300, lineHeight:.9, letterSpacing:'.01em',
+          fontWeight:600, lineHeight:.92, letterSpacing:'.01em',
           color:'var(--text)', marginBottom:'1.5rem' }}>
           Drone<br/><em style={{ color:'var(--gold)', fontStyle:'italic' }}>Shows</em>
         </h1>

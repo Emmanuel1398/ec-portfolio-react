@@ -481,6 +481,20 @@ Fur was grown using XGen in Maya with three distinct layers: underfur, guard hai
 /* ── REAL EVENT VIDEOS (Page 2 — Full Events) ───── */
 export const EVENTS_REAL = [
   {
+    id:'ev-real-stjohn',
+    thumb:'/thumbnails/ev_st_john_strategic.png',
+    youtubeId:'O4igHBU7W8k',
+    title:'St John Strategic Plan Launch — 95th Annual Parade',
+    client:'St John Ambulance · Priory of Kenya, Order of St John',
+    year:'2026',
+    category:'Event Launch · 3D Concept · Motion Graphics',
+    description: `"This was one of those projects that tested staying calm under pressure. Ordinarily I prefer adequate time on a project — but this was barely two days to launch day, and it simply had to be done. The brief was the launch film for St John Ambulance's new Strategic Plan 2026–2030, unveiled at the 95th Annual Parade. The initial script was pure slideshows; we found a way to thread a 3D concept through the whole story to relay the message far better, and it worked out. Tight turnaround, real pressure — but I genuinely enjoyed doing it. The content was created for a 6m × 3m screen."`,
+    screenDimensions:'1920×1080',
+    aspectRatio:'16:9',
+    format:'Full HD · 6m × 3m screen',
+    duration:null,
+  },
+  {
     id:'ev-real-01',
     thumb:'/thumbnails/ev_4th_july.png',
     youtubeId:'OI-_w1a7QKo',
@@ -731,12 +745,12 @@ export const PRODUCT_VIZ_REAL = [
 
 export const PROJECTION_REAL = [
   { img:'/thumbnails/ev_proj_africa_summit.png',  title:'Africa Summit Building Projection 2026', sub:'Architectural Mapping · Summit 2026',  youtubeId:'T2ULW6GWciM' },
+  { img:'/thumbnails/ev_proj_wedding_cake.png',   title:'Wedding Cake Projection',                 sub:'Event · Object Projection Mapping',     youtubeId:'EB0eHcqVAws' },
+  { img:'/thumbnails/ev_proj_wedding_dress.png',  title:'Wedding Dress Projection',                sub:'Event · Object Projection Mapping',     youtubeId:'q487ByHe0JQ' },
   { img:'/thumbnails/ev_proj_kicc_xmas.png',      title:'KICC Christmas Projection Video',         sub:'Architectural · Festive Mapping',      youtubeId:'SnVOUKtUV4M' },
   { img:'/thumbnails/ev_proj_kicc_raila.png',     title:'KICC Raila Memorial Projection',          sub:'Commemorative · Architectural Mapping', youtubeId:'gjEAIJEYa9I' },
   { img:'/thumbnails/ev_proj_tusker.png',         title:'Tusker Lite Launch CBD Projection',       sub:'Brand Launch · Thika Road · Nairobi CBD', youtubeId:'j_x2hXqsGUc' },
   { img:'/thumbnails/ev_proj_chrome.png',         title:'Chrome Party KICC Projection',            sub:'Event · Architectural Mapping · KICC',  youtubeId:'MvdeIPAZNrU' },
-  { img:'/thumbnails/ev_proj_wedding_cake.png',   title:'Wedding Cake Projection',                 sub:'Event · Object Projection Mapping',     youtubeId:'CShG6bQusms' },
-  { img:'/thumbnails/ev_proj_wedding_dress.png',  title:'Wedding Dress Projection',                sub:'Event · Object Projection Mapping',     youtubeId:'i-uNaEs5ORQ' },
 ];
 
 /* ── OLDER REELS ─────────────────────────────────── */

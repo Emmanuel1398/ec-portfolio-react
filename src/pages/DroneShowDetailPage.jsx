@@ -39,11 +39,47 @@ function ScriptBlock({ block, index }) {
   );
 }
 
+const isMobile = typeof window !== 'undefined' &&
+  !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
 function VideoBlock({ label, youtubeId, fallbackMsg }) {
   const [modal, setModal] = useState(false);
   const [r, v] = useIntersection();
-  const thumb = `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
   const [hover, setHover] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
+  const timer = useRef(null);
+  const thumb = `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
+
+  // No video yet → static fallback
+  if (!youtubeId) {
+    return (
+      <div ref={r} style={{ opacity: v ? 1 : 0, transform: v ? 'none' : 'translateY(30px)',
+        transition:'opacity .9s ease, transform .9s ease' }}>
+        <div style={{ position:'relative', aspectRatio:'16/9', overflow:'hidden',
+          background:'var(--bg3)', display:'flex', alignItems:'center', justifyContent:'center' }}>
+          <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
+            textTransform:'uppercase', color:'var(--muted)', textAlign:'center', padding:'1rem' }}>
+            {fallbackMsg || `${label} — coming soon`}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const onEnter = () => {
+    setHover(true);
+    if (isMobile) return;
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => setShowVideo(true), 300);
+  };
+  const onLeave = () => {
+    setHover(false);
+    clearTimeout(timer.current);
+    setShowVideo(false);
+  };
+
+  const embedSrc = `https://www.youtube.com/embed/${youtubeId}` +
+    `?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&loop=1&playlist=${youtubeId}&enablejsapi=1&playsinline=1`;
 
   return (
     <div ref={r} style={{
@@ -51,31 +87,42 @@ function VideoBlock({ label, youtubeId, fallbackMsg }) {
       transition:'opacity .9s ease, transform .9s ease'
     }}>
       <div onClick={() => setModal(true)}
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
+        onMouseEnter={onEnter} onMouseLeave={onLeave}
         style={{ position:'relative', aspectRatio:'16/9', overflow:'hidden',
           cursor:'pointer', background:'var(--bg3)' }}>
+
         <img src={thumb} alt={label}
-          style={{ width:'100%', height:'100%', objectFit:'cover',
+          style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover',
             filter:`brightness(${hover ? .25 : .4}) saturate(.6)`,
+            opacity: showVideo ? 0 : 1,
             transform: hover ? 'scale(1.03)' : 'scale(1)',
-            transition:'filter .5s, transform .9s var(--ease-out)' }}/>
-        <div style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column',
-          alignItems:'center', justifyContent:'center', gap:'1.2rem' }}>
-          <div style={{ width:72, height:72,
-            border:`1px solid ${hover ? 'var(--gold)' : 'rgba(201,169,110,.55)'}`,
-            borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center',
-            background: hover ? 'var(--gold)' : 'rgba(6,6,6,.35)',
-            transition:'all .35s var(--ease-out)' }}>
-            <svg width="24" viewBox="0 0 24 24" fill={hover ? '#000' : 'var(--gold)'}>
-              <path d="M8 5v14l11-7z"/>
-            </svg>
+            transition:'filter .5s, opacity .5s ease, transform .9s var(--ease-out)',
+            pointerEvents:'none' }}/>
+
+        {showVideo && !isMobile && (
+          <iframe src={embedSrc} allow="autoplay; encrypted-media"
+            style={{ position:'absolute', inset:0, width:'100%', height:'100%',
+              border:'none', pointerEvents:'none' }}/>
+        )}
+
+        {!showVideo && (
+          <div style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column',
+            alignItems:'center', justifyContent:'center', gap:'1.2rem', pointerEvents:'none' }}>
+            <div style={{ width:72, height:72,
+              border:`1px solid ${hover ? 'var(--gold)' : 'rgba(201,169,110,.55)'}`,
+              borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center',
+              background: hover ? 'var(--gold)' : 'rgba(6,6,6,.35)',
+              transition:'all .35s var(--ease-out)' }}>
+              <svg width="24" viewBox="0 0 24 24" fill={hover ? '#000' : 'var(--gold)'}>
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
+              textTransform:'uppercase', color:'rgba(255,255,255,.6)' }}>
+              {isMobile ? 'Tap to watch' : 'Hover to preview'} · {label}
+            </div>
           </div>
-          <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
-            textTransform:'uppercase', color:'rgba(255,255,255,.6)' }}>
-            Watch {label}
-          </div>
-        </div>
+        )}
       </div>
       {modal && <VideoModal youtubeId={youtubeId} title={label} onClose={() => setModal(false)}/>}
     </div>

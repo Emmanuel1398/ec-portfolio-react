@@ -98,7 +98,7 @@ function ContactForm() {
             ].map(l => (
               <a key={l.label} href={l.href}
                 target={l.href.startsWith('mailto')?undefined:'_blank'} rel="noreferrer"
-                style={{ display:'grid', gridTemplateColumns:'90px 1fr',
+                style={{ display:'grid', gridTemplateColumns:'120px 1fr', columnGap:'1.25rem',
                   alignItems:'center', padding:'1rem 0',
                   borderBottom:'1px solid var(--border)',
                   textDecoration:'none', color:'var(--muted)',
