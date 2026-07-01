@@ -56,8 +56,20 @@ function EventCard({ event, index }) {
   );
 }
 
+import { useSeoContext } from '../providers/SeoProvider';
+import site from '../config/site';
+
 export default function EventVideosPage() {
   const [r, v] = useIntersection();
+  const { updateSeo } = useSeoContext();
+
+  React.useEffect(() => {
+    updateSeo({
+      title: `Full Event Videos | ${site.name}`,
+      description: 'Final event films and animations delivered to clients for broadcast, social media, documentation, and archival purposes.',
+      canonical: `${site.url}/events`,
+    });
+  }, [updateSeo]);
 
   return (
     <div style={{ minHeight:'100vh' }}>

@@ -129,6 +129,9 @@ function VideoBlock({ label, youtubeId, fallbackMsg }) {
   );
 }
 
+import { useSeoContext, BreadcrumbSchema } from '../providers/SeoProvider';
+import site from '../config/site';
+
 export default function DroneShowDetailPage() {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -141,11 +144,22 @@ export default function DroneShowDetailPage() {
   const [rH, vH] = useIntersection(0.05);
   const [rS, vS] = useIntersection(0.05);
   const [rV, vV] = useIntersection(0.05);
+  const { updateSeo } = useSeoContext();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (!show) navigate('/drone-shows');
-  }, [slug, show, navigate]);
+    if (!show) {
+      navigate('/drone-shows');
+      return;
+    }
+    updateSeo({
+      title: `${show.title} | ${site.name}`,
+      description: show.tagline || `Drone show concept: ${show.title}.`,
+      canonical: `${site.url}/drone-shows/${show.slug}`,
+      image: `https://img.youtube.com/vi/${show.conceptYoutubeId}/maxresdefault.jpg`,
+      type: 'article',
+    });
+  }, [slug, show, navigate, updateSeo]);
 
   if (!show) return null;
 
@@ -153,6 +167,11 @@ export default function DroneShowDetailPage() {
 
   return (
     <div style={{ minHeight:'100vh', background:'var(--bg)' }}>
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: site.url },
+        { name: 'Drone Shows', url: `${site.url}/drone-shows` },
+        { name: show.title, url: `${site.url}/drone-shows/${show.slug}` }
+      ]} />
 
       {/* ── HERO HEADER ── */}
       <div ref={rH} style={{

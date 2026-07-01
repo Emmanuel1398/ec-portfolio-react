@@ -1,0 +1,20 @@
+Sitemap: https://emmanuelchege.com/sitemap-index.xml
+
+User-agent: *
+Allow: /
+Crawl-delay: 10
+
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 5
+
+User-agent: facebookexternalhit
+User-agent: Twitterbot
+User-agent: AhrefsBot
+Allow: /
+
+# Block tracking parameters
+Disallow: /*?ref=*
+Disallow: /*?utm_*
+Disallow: /*?fbclid=*
+Disallow: /*?gclid=*

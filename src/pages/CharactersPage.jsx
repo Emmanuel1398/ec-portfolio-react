@@ -56,7 +56,21 @@ function CharCard({ char, index }) {
   );
 }
 
+import { useEffect } from 'react';
+import { useSeoContext } from '../providers/SeoProvider';
+import site from '../config/site';
+
 export default function CharactersPage() {
+  const { updateSeo } = useSeoContext();
+
+  useEffect(() => {
+    updateSeo({
+      title: `3D Characters & Creatures | ${site.name}`,
+      description: 'In-depth technical breakdowns of my hyperreal, stylized and creature work.',
+      canonical: `${site.url}/characters`,
+    });
+  }, [updateSeo]);
+
   return (
     <div style={{ minHeight:'100vh', background:'var(--bg)' }}>
       <div style={{ padding:'9rem 5vw 3rem', maxWidth:'1500px', margin:'0 auto' }}>

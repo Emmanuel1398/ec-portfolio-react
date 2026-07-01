@@ -307,8 +307,20 @@ function ShowCard({ show, index }) {
   );
 }
 
+import { useSeoContext } from '../providers/SeoProvider';
+import site from '../config/site';
+
 export default function DroneShowsPage() {
   const [rH, vH] = useIntersection(0.05);
+  const { updateSeo } = useSeoContext();
+
+  useEffect(() => {
+    updateSeo({
+      title: `Drone Show Concepts | ${site.name}`,
+      description: 'Each drone show begins as a narrative written on paper — a story, a script, a sequence of formations designed to tell a message in the night sky.',
+      canonical: `${site.url}/drone-shows`,
+    });
+  }, [updateSeo]);
 
   return (
     <div style={{ minHeight:'100vh', background:'var(--bg)', position:'relative', overflow:'hidden' }}>

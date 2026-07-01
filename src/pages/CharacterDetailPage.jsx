@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { CHARACTER_BLOGS, getCharacterBlog } from '../data/characterBlogs';
 import BlockRenderer from '../components/BlockRenderer';
 import Lightbox, { hiRes, ZoomBadge } from '../components/Lightbox';
+import { useSeoContext, BreadcrumbSchema } from '../providers/SeoProvider';
+import site from '../config/site';
 
 const HERO_BG_CSS = `
 .char-hero-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -17,6 +19,19 @@ const HERO_BG_CSS = `
 export default function CharacterDetailPage() {
   const { slug } = useParams();
   const c = getCharacterBlog(slug);
+  const { updateSeo } = useSeoContext();
+
+  useEffect(() => {
+    if (c) {
+      updateSeo({
+        title: `${c.name} | ${site.name}`,
+        description: c.tagline || `3D Character breakdown: ${c.name}.`,
+        canonical: `${site.url}/characters/${c.slug}`,
+        image: c.hero || site.ogImage,
+        type: 'article',
+      });
+    }
+  }, [c, updateSeo]);
 
   if (!c) {
     return (
@@ -35,7 +50,13 @@ export default function CharacterDetailPage() {
 
   return (
     <div style={{ minHeight:'100vh' }}>
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: site.url },
+        { name: 'Characters', url: `${site.url}/characters` },
+        { name: c.name, url: `${site.url}/characters/${c.slug}` }
+      ]} />
       <style>{HERO_BG_CSS}</style>
+
 
       {/* Dark base + faded full-fit hero render, fixed behind everything */}
       <div style={{ position:'fixed', inset:0, zIndex:0, background:'var(--bg)' }} />

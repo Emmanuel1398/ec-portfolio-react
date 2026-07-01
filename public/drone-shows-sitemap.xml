@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <url>
+    <loc>https://emmanuelchege.com/drone-shows/mcc-drone-show</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://img.youtube.com/vi/d3tHKHMC_dk/maxresdefault.jpg</image:loc>
+      <image:caption>M.C.C. Drone Show Concept</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://emmanuelchege.com/drone-shows/kampala-museveni-swearing-in</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://img.youtube.com/vi/cpQiuOn73zE/maxresdefault.jpg</image:loc>
+      <image:caption>Kampala 1st Drone Show Concept</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://emmanuelchege.com/drone-shows/la-mada-drone-show</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://img.youtube.com/vi/_MZahXi2uck/maxresdefault.jpg</image:loc>
+      <image:caption>La Mada Drone Show Concept</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://emmanuelchege.com/drone-shows/eu-kenya-relations</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://img.youtube.com/vi/AgCrVkj5FRQ/maxresdefault.jpg</image:loc>
+      <image:caption>EU–Kenya Relations Drone Show Concept</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://emmanuelchege.com/drone-shows/hfck-drone-show</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://img.youtube.com/vi/z3jYN-6Ym_8/maxresdefault.jpg</image:loc>
+      <image:caption>HFCK Drone Show Concept</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://emmanuelchege.com/drone-shows/our-oceans-conference</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://img.youtube.com/vi/_-eVseiaA7g/maxresdefault.jpg</image:loc>
+      <image:caption>Our Oceans Conference Drone Show Concept</image:caption>
+    </image:image>
+  </url>
+</urlset>

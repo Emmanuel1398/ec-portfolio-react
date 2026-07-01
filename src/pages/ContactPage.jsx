@@ -350,10 +350,22 @@ function BtsEasterEgg() {
   );
 }
 
-/* ── Main page ── */
+import { useEffect } from 'react';
+import { useSeoContext } from '../providers/SeoProvider';
+import site from '../config/site';
+
 export default function ContactPage() {
   const [r, v]   = useIntersection();
   const [r2, v2] = useIntersection();
+  const { updateSeo } = useSeoContext();
+
+  useEffect(() => {
+    updateSeo({
+      title: `About & Contact | ${site.name}`,
+      description: 'Emmanuel Chege — Hyperrealistic 3D Artist & Motion Designer. Available for commissions, collaborations and projects worldwide from Nairobi, Kenya.',
+      canonical: `${site.url}/contact`,
+    });
+  }, [updateSeo]);
 
   return (
     <div className="page">
