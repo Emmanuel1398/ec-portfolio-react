@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useIntersection } from '../hooks';
 import VideoModal from '../components/VideoModal';
 import { EVENTS_REAL } from '../data/portfolio';
@@ -63,7 +63,7 @@ export default function EventVideosPage() {
   const [r, v] = useIntersection();
   const { updateSeo } = useSeoContext();
 
-  React.useEffect(() => {
+  useEffect(() => {
     updateSeo({
       title: `Full Event Videos | ${site.name}`,
       description: 'Final event films and animations delivered to clients for broadcast, social media, documentation, and archival purposes.',
