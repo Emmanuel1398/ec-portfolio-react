@@ -31,6 +31,19 @@ const STATIC_PAGES = [
   '/drone-shows'
 ];
 
+function escapeXml(unsafe) {
+  if (typeof unsafe !== 'string') return '';
+  return unsafe.replace(/[<>&'"]/g, function (c) {
+    switch (c) {
+      case '<': return '&lt;';
+      case '>': return '&gt;';
+      case '&': return '&amp;';
+      case '\'': return '&apos;';
+      case '"': return '&quot;';
+    }
+  });
+}
+
 function ensureDirs() {
   if (!fs.existsSync(PUBLIC_DIR)) fs.mkdirSync(PUBLIC_DIR);
   if (!fs.existsSync(DIST_DIR)) fs.mkdirSync(DIST_DIR);
@@ -51,7 +64,7 @@ function generateStaticSitemap() {
   const urls = STATIC_PAGES.map(route => {
     return `
   <url>
-    <loc>${SITE_URL}${route}</loc>
+    <loc>${escapeXml(`${SITE_URL}${route}`)}</loc>
     <changefreq>monthly</changefreq>
     <priority>${route === '' ? '1.0' : '0.8'}</priority>
   </url>`;
@@ -69,13 +82,13 @@ function generateCharactersSitemap() {
   const urls = CHARACTER_BLOGS.map(char => {
     const imgTag = char.hero ? `
     <image:image>
-      <image:loc>${char.hero}</image:loc>
-      <image:caption>${char.name} — ${char.epithet}</image:caption>
+      <image:loc>${escapeXml(char.hero)}</image:loc>
+      <image:caption>${escapeXml(char.name + ' — ' + char.epithet)}</image:caption>
     </image:image>` : '';
     
     return `
   <url>
-    <loc>${SITE_URL}/characters/${char.slug}</loc>
+    <loc>${escapeXml(`${SITE_URL}/characters/${char.slug}`)}</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>${imgTag}
   </url>`;
@@ -95,12 +108,12 @@ function generateDroneShowsSitemap() {
     const imgUrl = `https://img.youtube.com/vi/${show.conceptYoutubeId}/maxresdefault.jpg`;
     return `
   <url>
-    <loc>${SITE_URL}/drone-shows/${show.slug}</loc>
+    <loc>${escapeXml(`${SITE_URL}/drone-shows/${show.slug}`)}</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
-      <image:loc>${imgUrl}</image:loc>
-      <image:caption>${show.title}</image:caption>
+      <image:loc>${escapeXml(imgUrl)}</image:loc>
+      <image:caption>${escapeXml(show.title)}</image:caption>
     </image:image>
   </url>`;
   }).join('');
