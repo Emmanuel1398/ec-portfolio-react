@@ -3,7 +3,7 @@ const site = {
     tagline:      import.meta.env.VITE_SITE_TAGLINE      || '3D Characters, Drone Show Concepts, & Visualization',
     description:  import.meta.env.VITE_SITE_DESCRIPTION  || 'Portfolio of Emmanuel Chege featuring yearly reels, 3D characters, drone show concepts, event visualization, and more.',
     url:          import.meta.env.VITE_SITE_URL          || 'https://emmanuelchege.com',
-    ogImage:      import.meta.env.VITE_SITE_OG_IMAGE     || '',
+    ogImage:      import.meta.env.VITE_SITE_OG_IMAGE     || 'https://emmanuelchege.com/Hyperlink_card.png',
     supportEmail: import.meta.env.VITE_SITE_SUPPORT_EMAIL|| 'hello@emmanuelchege.com',
     twitter:      import.meta.env.VITE_SITE_TWITTER_HANDLE|| '@emmanuelchege',
     hashtag:      import.meta.env.VITE_SITE_HASHTAG      || '#EmmanuelChege',
