@@ -93,6 +93,7 @@ function cBlog(meta) {
     slug: meta.slug, name: meta.name, epithet: meta.epithet,
     category: meta.category, year: meta.year, tagline: meta.tagline,
     hero: meta.hero || null,
+    heroBg: meta.heroBg || null,
     specs: meta.specs || {},
     blocks: buildBlocks(meta.img),
   };
