@@ -60,7 +60,11 @@ export default function CharacterDetailPage() {
 
       {/* Dark base + faded full-fit hero render, fixed behind everything */}
       <div style={{ position:'fixed', inset:0, zIndex:0, background:'var(--bg)' }} />
-      {c.hero && <div className="char-hero-bg" style={{ backgroundImage:`url(${c.hero})` }} />}
+      {(c.heroBg || c.hero) && (
+        <div className="char-hero-bg"
+          style={{ backgroundImage:`url(${c.heroBg || c.hero})`,
+            backgroundSize: c.heroBg ? 'cover' : 'contain' }} />
+      )}
 
       <div style={{ position:'relative', zIndex:1 }}>
 
