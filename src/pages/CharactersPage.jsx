@@ -73,14 +73,14 @@ export default function CharactersPage() {
 
   return (
     <div style={{ minHeight:'100vh', background:'var(--bg)' }}>
-      <div style={{ padding:'9rem 5vw 3rem', maxWidth:'1500px', margin:'0 auto' }}>
+      <div className="pg-head" style={{ padding:'9rem 5vw 3rem', maxWidth:'1500px', margin:'0 auto' }}>
         <div className="cat-label">3D Characters<span className="cat-num">{CHARACTER_BLOGS.length} Breakdowns</span></div>
-        <h1 style={{ fontFamily:'var(--serif)', fontSize:'clamp(3rem,7vw,8rem)', fontWeight:600,
+        <h1 className="pg-title" style={{ fontFamily:'var(--serif)', fontSize:'clamp(3rem,7vw,8rem)', fontWeight:600,
           lineHeight:.92, letterSpacing:'.01em', color:'var(--text)', marginBottom:'1.5rem' }}>
           3D <em style={{ fontStyle:'normal', color:'var(--gold)' }}>Characters</em>
         </h1>
         <div style={{ width:60, height:1, background:'var(--gold)', marginBottom:'2rem' }}/>
-        <p style={{ fontFamily:'var(--body)', fontWeight:300, fontSize:'clamp(1rem,1.2vw,1.15rem)',
+        <p className="pg-intro" style={{ fontFamily:'var(--body)', fontWeight:300, fontSize:'clamp(1rem,1.2vw,1.15rem)',
           color:'var(--muted)', lineHeight:1.9, maxWidth:'640px' }}>
           In-depth technical breakdowns of my hyperreal, stylized and creature work — sculpt to look-development,
           with a focus on rendering melanated skin honestly. Each breakdown is built out across upcoming sessions;

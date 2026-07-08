@@ -69,7 +69,7 @@ export default function CharacterDetailPage() {
       <div style={{ position:'relative', zIndex:1 }}>
 
         {/* Back nav */}
-        <div style={{ padding:'8rem 5vw 0' }}>
+        <div className="pg-head" style={{ padding:'8rem 5vw 0' }}>
           <Link to="/characters" style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em',
             textTransform:'uppercase', color:'var(--muted)', textDecoration:'none' }}>← 3D Characters</Link>
         </div>
@@ -81,7 +81,7 @@ export default function CharacterDetailPage() {
             <span style={{ width:'2.2rem', height:1, background:'var(--gold)' }} />
             {c.category} · {c.year}
           </div>
-          <h1 style={{ fontFamily:'var(--serif)', fontWeight:600, lineHeight:.92, letterSpacing:'.01em',
+          <h1 className="cd-name" style={{ fontFamily:'var(--serif)', fontWeight:600, lineHeight:.92, letterSpacing:'.01em',
             fontSize:'clamp(3rem,8vw,7rem)', color:'var(--text)' }}>
             {c.name}<br/><span style={{ color:'var(--gold)', fontSize:'.62em' }}>{c.epithet}</span>
           </h1>

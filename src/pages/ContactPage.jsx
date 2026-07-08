@@ -13,7 +13,7 @@ function SoftwareSection() {
       <h2 className="sec-title" style={{ marginBottom:'3rem' }}>
         Software &amp; <em>Expertise</em>
       </h2>
-      <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)',
+      <div className="m-2col" style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)',
         border:'1px solid var(--border)', background:'var(--border)', gap:'1px' }}>
         {SOFTWARE_CATEGORIES.map((cat, i) => (
           <div key={cat.category} className={`rv d${Math.min(i,4)} ${v?'in':''}`}
@@ -74,7 +74,7 @@ function ContactForm() {
       <h2 className="sec-title" style={{ marginBottom:'3rem' }}>
         Send a <em>Message</em>
       </h2>
-      <div style={{ display:'grid', gridTemplateColumns:'1fr 1px 1fr',
+      <div className="m-stack ct-msg" style={{ display:'grid', gridTemplateColumns:'1fr 1px 1fr',
         gap:'6rem', alignItems:'start' }}>
 
         {/* Left — contact details */}
@@ -98,7 +98,7 @@ function ContactForm() {
             ].map(l => (
               <a key={l.label} href={l.href}
                 target={l.href.startsWith('mailto')?undefined:'_blank'} rel="noreferrer"
-                style={{ display:'grid', gridTemplateColumns:'120px 1fr', columnGap:'1.25rem',
+                className="soc-row" style={{ display:'grid', gridTemplateColumns:'120px 1fr', columnGap:'1.25rem',
                   alignItems:'center', padding:'1rem 0',
                   borderBottom:'1px solid var(--border)',
                   textDecoration:'none', color:'var(--muted)',
@@ -132,7 +132,7 @@ function ContactForm() {
 
         {/* Right — form */}
         <div style={{ display:'flex', flexDirection:'column', gap:'2rem' }}>
-          <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'2rem' }}>
+          <div className="m-stack ct-form" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'2rem' }}>
             <div style={{ display:'flex', flexDirection:'column', gap:'.4rem' }}>
               <label style={{ fontFamily:'var(--ui)', fontSize:'12px',
                 letterSpacing:'.2em', textTransform:'uppercase', color:'var(--muted)' }}>
@@ -168,7 +168,7 @@ function ContactForm() {
               letterSpacing:'.2em', textTransform:'uppercase', color:'var(--muted)' }}>
               Service Required
             </label>
-            <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:'.4rem' }}>
+            <div className="m-2col svc-grid" style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:'.4rem' }}>
               {types.map(t=>(
                 <button key={t} onClick={()=>setType(t)}
                   style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.1em',
@@ -194,7 +194,7 @@ function ContactForm() {
               className="form-textarea" style={{ minHeight:120 }}/>
           </div>
 
-          <div style={{ display:'flex', alignItems:'center', gap:'1.5rem' }}>
+          <div className="ct-submit" style={{ display:'flex', alignItems:'center', gap:'1.5rem' }}>
             <button className="btn-primary" onClick={handleSend}>
               Send Message →
             </button>
@@ -299,7 +299,7 @@ function BtsEasterEgg() {
             <EventThumb event={BTS_EVENT} onPlayFull={() => setModal(true)} />
 
             {/* Info bar below */}
-            <div style={{ display:'flex', justifyContent:'space-between',
+            <div className="ct-bts" style={{ display:'flex', justifyContent:'space-between',
               alignItems:'center', padding:'1.2rem 0',
               borderBottom:'1px solid var(--border)', marginTop:'1px' }}>
               <div>
@@ -371,7 +371,7 @@ export default function ContactPage() {
     <div className="page">
 
       {/* Page header */}
-      <div style={{ paddingTop:'11rem', paddingBottom:'5rem',
+      <div className="pg-head" style={{ paddingTop:'11rem', paddingBottom:'5rem',
         paddingLeft:'5vw', paddingRight:'5vw',
         borderBottom:'1px solid var(--border)', background:'var(--bg)',
         position:'relative', overflow:'hidden' }}>
@@ -398,7 +398,7 @@ export default function ContactPage() {
 
       {/* ── BIO + PORTRAIT ── */}
       <div style={{ background:'var(--bg2)', borderBottom:'1px solid var(--border)' }}>
-        <div style={{ display:'grid', gridTemplateColumns:'360px 1fr', alignItems:'start' }}>
+        <div className="m-stack" style={{ display:'grid', gridTemplateColumns:'360px 1fr', alignItems:'start' }}>
 
           {/* Portrait */}
           <div style={{ position:'relative', overflow:'hidden',
@@ -466,7 +466,7 @@ export default function ContactPage() {
             </div>
 
             {/* Stats */}
-            <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)',
+            <div className="m-2col ct-stats" style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)',
               borderTop:'1px solid var(--border)', paddingTop:'2rem', gap:'1rem' }}>
               {[['5+','Years Experience'],['17+','Characters'],['30+','Projects'],['16','Tools']].map(([n,l])=>(
                 <div key={l}>
@@ -497,7 +497,7 @@ export default function ContactPage() {
       <BtsEasterEgg />
 
       {/* Footer */}
-      <footer style={{ padding:'2.2rem 5vw', borderTop:'1px solid var(--border)',
+      <footer className="m-stack ct-foot" style={{ padding:'2.2rem 5vw', borderTop:'1px solid var(--border)',
         display:'grid', gridTemplateColumns:'1fr auto 1fr',
         alignItems:'center', gap:'2rem', background:'var(--bg)' }}>
         <div style={{ fontFamily:'var(--serif)', fontSize:'1.1rem', fontWeight:600,

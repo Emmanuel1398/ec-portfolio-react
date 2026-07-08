@@ -9,6 +9,8 @@ export function useCursor() {
   const raf = useRef(null);
 
   useEffect(() => {
+    // Touch devices have no persistent pointer — skip the cursor entirely.
+    if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
     const onMove = (e) => {
       pos.current = { x: e.clientX, y: e.clientY };
       if (dotRef.current) {

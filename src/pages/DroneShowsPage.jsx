@@ -341,20 +341,20 @@ export default function DroneShowsPage() {
       </div>
 
       {/* Header */}
-      <div ref={rH} style={{ position:'relative', zIndex:1, padding:'10rem 5vw 5rem',
+      <div ref={rH} className="pg-head" style={{ position:'relative', zIndex:1, padding:'10rem 5vw 5rem',
         opacity: vH ? 1 : 0, transform: vH ? 'none' : 'translateY(30px)',
         transition:'opacity 1s ease, transform 1s ease' }}>
         <div className="cat-label">
           Drone Show Concepts
           <span className="cat-num">{DRONE_SHOWS.length} Productions</span>
         </div>
-        <h1 style={{ fontFamily:'var(--serif)', fontSize:'clamp(3rem,7vw,8rem)',
+        <h1 className="pg-title" style={{ fontFamily:'var(--serif)', fontSize:'clamp(3rem,7vw,8rem)',
           fontWeight:600, lineHeight:.92, letterSpacing:'.01em',
           color:'var(--text)', marginBottom:'1.5rem' }}>
           Drone<br/><em style={{ color:'var(--gold)', fontStyle:'italic' }}>Shows</em>
         </h1>
         <div style={{ width:60, height:1, background:'var(--gold)', marginBottom:'2rem' }}/>
-        <p style={{ fontFamily:'var(--body)', fontSize:'clamp(1rem,1.2vw,1.15rem)',
+        <p className="pg-intro" style={{ fontFamily:'var(--body)', fontSize:'clamp(1rem,1.2vw,1.15rem)',
           color:'var(--muted)', lineHeight:1.95, maxWidth:'640px' }}>
           Each drone show begins as a narrative written on paper — a story, a script, a sequence
           of formations designed to tell a message in the night sky. These are those stories,

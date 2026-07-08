@@ -8,9 +8,10 @@ import EventThumb from '../components/EventThumb';
 function EventCard({ event, index }) {
   const [r, v] = useIntersection();
   const [modal, setModal] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <div ref={r} className={`rv d${index % 2} ${v?'in':''}`}
+    <div ref={r} className={`rv d${index % 2} ${v?'in':''} ev-row`}
       style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'4rem',
         alignItems:'start', paddingBottom:'5rem', marginBottom:'5rem',
         borderBottom:'1px solid var(--border)' }}>
@@ -25,12 +26,12 @@ function EventCard({ event, index }) {
           {event.client}
         </div>
 
-        <h3 style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.4rem,2.2vw,2.2rem)',
+        <h3 className="ev-title" style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.4rem,2.2vw,2.2rem)',
           fontWeight:300, lineHeight:1.05, color:'var(--text)', marginBottom:'1rem',
           cursor:'pointer' }} onClick={() => setModal(true)}>
           {event.title}
         </h3>
-        <p style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--muted)',
+        <p className={`ev-desc${showDetails ? ' open' : ''}`} style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--muted)',
           lineHeight:1.9, marginBottom:'1.8rem' }}>
           {event.description}
         </p>
@@ -48,6 +49,15 @@ function EventCard({ event, index }) {
           onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border)'; e.currentTarget.style.color='var(--muted)'; }}>
           <svg width="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
           Watch Full Video
+        </button>
+
+        {/* Mobile-only: full description behind a Details toggle */}
+        <button className="ev-details-btn" onClick={() => setShowDetails(s => !s)}
+          style={{ alignItems:'center', gap:'.7rem', background:'transparent',
+            border:'1px solid var(--border)', color: showDetails ? 'var(--gold)' : 'var(--muted)',
+            fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.16em',
+            textTransform:'uppercase', padding:'.7rem 1.4rem', cursor:'pointer' }}>
+          {showDetails ? 'Hide Details' : 'Details'}
         </button>
       </div>
 
@@ -74,7 +84,7 @@ export default function EventVideosPage() {
   return (
     <div style={{ minHeight:'100vh' }}>
       {/* Page header */}
-      <div style={{ paddingTop:'11rem', paddingBottom:'5rem',
+      <div className="pg-head" style={{ paddingTop:'11rem', paddingBottom:'5rem',
         paddingLeft:'5vw', paddingRight:'5vw',
         borderBottom:'1px solid var(--border)', background:'var(--bg)' }}>
         <div ref={r} className={`rv ${v?'in':''}`}>
@@ -87,10 +97,10 @@ export default function EventVideosPage() {
           </h1>
 
           {/* Key statement */}
-          <div style={{ marginTop:'2rem', padding:'1.6rem 2rem',
+          <div className="ev-note" style={{ marginTop:'2rem', padding:'1.6rem 2rem',
             borderLeft:'2px solid var(--gold)',
             background:'rgba(201,169,110,.04)' }}>
-            <p style={{ fontFamily:'var(--serif)',
+            <p className="ev-note-p" style={{ fontFamily:'var(--serif)',
               fontSize:'clamp(.85rem,1.1vw,1rem)', fontWeight:300,
               fontStyle:'italic', lineHeight:1.75, color:'var(--text)' }}>
               "These are final event films and animations delivered to clients for broadcast, social media, documentation, and archival purposes. My process spans the entire production pipeline: concept development, research, storyboarding, 3D modelling, simulation, texturing, look development, rigging, animation, lighting, rendering, visual effects, compositing, editing, sound design, and colour grading. Working across Maya, Unreal Engine, Twinmotion, Substance 3D Painter, Mari, Houdini, EmberGen, LiquiGen, After Effects, Nuke, Premiere Pro, and DaVinci Resolve. The result is a complete production pipeline — from initial concept to final delivery — designed to create compelling visual experiences that communicate, engage, and leave a lasting impression."
@@ -102,7 +112,7 @@ export default function EventVideosPage() {
           </div>
 
           {/* Stats row */}
-          <div style={{ marginTop:'2.5rem', display:'grid',
+          <div className="ev-stats" style={{ marginTop:'2.5rem', display:'grid',
             gridTemplateColumns:'repeat(3,1fr)', gap:'0',
             border:'1px solid var(--border)', background:'var(--border)' }}>
             {[

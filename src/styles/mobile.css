@@ -1,0 +1,104 @@
+/* ─────────────────────────────────────────────────────────────
+   MOBILE OPTIMIZATION LAYER
+   Every rule is scoped inside @media (max-width: 768px), so
+   desktop/laptop rendering is untouched by construction.
+   !important is used deliberately: it is the only way a
+   stylesheet can override the inline style={{}} declarations
+   used throughout the components — scoped to this breakpoint.
+   ───────────────────────────────────────────────────────────── */
+
+.ev-details-btn { display: none; } /* mobile-only control; invisible on desktop */
+
+@media (max-width: 768px) {
+
+  /* ── Generic grid collapse helpers ── */
+  .m-stack { grid-template-columns: 1fr !important; }
+  .m-2col  { grid-template-columns: repeat(2, 1fr) !important; }
+  .m-3col  { grid-template-columns: repeat(3, 1fr) !important; }
+
+
+  /* ── Page rhythm: cut dead space before content ── */
+  .pg-head {
+    padding-top: 6.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+  section[id] { padding-top: 4.5rem !important; }
+
+  /* ── Headings: laptop floors → phone-appropriate sizes ── */
+  .sec-title, .pg-title {
+    font-size: clamp(1.9rem, 8vw, 2.4rem) !important;
+    line-height: 1 !important;
+  }
+  .cd-name   { font-size: clamp(2.4rem, 11vw, 3.2rem) !important; }
+  .pg-display{ font-size: clamp(3rem, 17vw, 4.6rem) !important; }
+  .pg-intro  { font-size: .95rem !important; line-height: 1.7 !important; }
+
+  /* ── Event Videos: media-first, text compressed ── */
+  .ev-row {
+    grid-template-columns: 1fr !important;   /* video stacks above text */
+    gap: 1.3rem !important;
+    padding-bottom: 2.6rem !important;
+    margin-bottom: 2.6rem !important;
+  }
+  .ev-title { font-size: 1.35rem !important; margin-bottom: .6rem !important; }
+  .ev-desc { display: none !important; }     /* hidden — lives behind Details */
+  .ev-desc.open {
+    display: block !important;
+    font-size: .95rem !important;
+    line-height: 1.65 !important;
+    margin-bottom: .9rem !important;
+  }
+  .ev-details-btn { display: inline-flex !important; margin-top: .4rem !important;
+    margin-left: .6rem; padding: .6rem 1.1rem !important; }
+  .ev-row button { margin-top: .4rem !important; padding: .6rem 1.1rem !important; }
+
+  /* the long italic statement block */
+  .ev-note { margin-top: 1.4rem !important; padding: 1rem 1.2rem !important; }
+  .ev-note-p {
+    font-size: .9rem !important;
+    line-height: 1.6 !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;                    /* quote trimmed to 4 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* stats band → compact strip */
+  .ev-stats { margin-top: 1.6rem !important; }
+  .ev-stats > div { padding: .8rem .9rem !important; }
+  .ev-stats > div > div:first-child { font-size: 1.15rem !important; }
+  .ev-stats > div > div:last-child  { font-size: 10px !important; letter-spacing: .1em !important; }
+
+  /* ── Character blogs ── */
+  .cb-title  { font-size: clamp(1.7rem, 7.5vw, 2.3rem) !important; }
+  .cb-head   { margin: 3.2rem 0 1.2rem !important; padding-top: 1.8rem !important; }
+  .cb-prose p{ font-size: .98rem !important; line-height: 1.7 !important; }
+  .cb-pq     { font-size: clamp(1.3rem, 6vw, 1.8rem) !important; }
+
+  /* ── Homepage ── */
+  .hr-grid { gap: .8rem !important; }               /* stacked reels breathe */
+  .sec-rule p { font-size: 12.5px !important; letter-spacing: .1em !important; }
+
+  /* ── Contact / About page ── */
+  .ct-msg  { gap: 2.6rem !important; }
+  .ct-msg > *:nth-child(2) { display: none !important; }  /* vertical divider */
+  .ct-form { gap: 1.2rem !important; }
+  .svc-grid > button { font-size: 10px !important; letter-spacing: .06em !important;
+    padding: .55rem .3rem !important; }
+  .ct-submit { flex-wrap: wrap; row-gap: .8rem; }
+  .ct-stats { gap: 1.4rem 1rem !important; }
+  .ct-stats > div > div:first-child { font-size: 1.7rem !important; }
+  .ct-bts { flex-wrap: wrap; row-gap: .8rem; }
+  .ct-foot { gap: .9rem !important; text-align: center; }
+  .ct-foot > div { justify-content: center !important; text-align: center !important; }
+  .soc-row { grid-template-columns: 100px 1fr !important; column-gap: .8rem !important;
+    font-size: .95rem !important; }
+}
+
+/* ── Touch devices: no mouse pointer exists, so the custom cursor
+     is pure noise (it renders frozen wherever it was initialized).
+     Capability-based query — desktop mice are unaffected, and
+     touch-laptops with a mouse attached keep the cursor. ── */
+@media (hover: none), (pointer: coarse) {
+  .c-dot, .c-ring { display: none !important; }
+}

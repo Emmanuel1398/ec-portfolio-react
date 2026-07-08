@@ -332,7 +332,7 @@ function OlderReelsSection() {
         <h2 className="sec-title">Previous <em>Reels</em></h2>
         <div className="sec-rule"><p>— Archive of Previous production reels.</p></div>
       </div>
-      <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'3px' }}>
+      <div className="m-stack hr-grid" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'3px' }}>
         {OLDER_REELS.map((reel, i) => (
           <ReelCard key={i} reel={reel} onPlay={setModal}/>
         ))}
@@ -379,7 +379,7 @@ function DroneSection() {
         </div>
       </div>
       <div ref={r} className={`rv ${v?'in':''}`}
-        style={{ display:'grid', gridTemplateColumns:'repeat(6,1fr)', borderBottom:'1px solid var(--border)' }}>
+        className="m-3col" style={{ display:'grid', gridTemplateColumns:'repeat(6,1fr)', borderBottom:'1px solid var(--border)' }}>
         {DRONE_PROJECTS.map((p,i)=>(
           <div key={p.n} className={`rv d${Math.min(i,4)} ${v?'in':''}`}
             style={{ padding:'2rem 1.4rem', borderRight: i<5?'1px solid var(--border)':'none',

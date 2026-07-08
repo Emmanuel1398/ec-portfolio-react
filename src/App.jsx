@@ -10,6 +10,7 @@ import ContactPage from './pages/ContactPage';
 import DroneShowsPage from './pages/DroneShowsPage';
 import DroneShowDetailPage from './pages/DroneShowDetailPage';
 import './styles/globals.css';
+import './styles/mobile.css';
 import './App.css';
 
 const TICKER_ITEMS = [
