@@ -48,7 +48,18 @@ function VideoBlock({ label, youtubeId, fallbackMsg }) {
   const [hover, setHover] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const timer = useRef(null);
+  const containerRef = useRef(null);
   const thumb = `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
+
+  useEffect(() => {
+    if (!isMobile || !youtubeId || !containerRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowVideo(entry.isIntersecting),
+      { threshold: 0.4 }
+    );
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [youtubeId]);
 
   // No video yet → static fallback
   if (!youtubeId) {
@@ -74,6 +85,7 @@ function VideoBlock({ label, youtubeId, fallbackMsg }) {
   };
   const onLeave = () => {
     setHover(false);
+    if (isMobile) return;
     clearTimeout(timer.current);
     setShowVideo(false);
   };
@@ -86,7 +98,7 @@ function VideoBlock({ label, youtubeId, fallbackMsg }) {
       opacity: v ? 1 : 0, transform: v ? 'none' : 'translateY(30px)',
       transition:'opacity .9s ease, transform .9s ease'
     }}>
-      <div onClick={() => setModal(true)}
+      <div ref={containerRef} onClick={() => setModal(true)}
         onMouseEnter={onEnter} onMouseLeave={onLeave}
         style={{ position:'relative', aspectRatio:'16/9', overflow:'hidden',
           cursor:'pointer', background:'var(--bg3)' }}>
@@ -99,30 +111,29 @@ function VideoBlock({ label, youtubeId, fallbackMsg }) {
             transition:'filter .5s, opacity .5s ease, transform .9s var(--ease-out)',
             pointerEvents:'none' }}/>
 
-        {showVideo && !isMobile && (
+        {showVideo && (
           <iframe src={embedSrc} allow="autoplay; encrypted-media"
             style={{ position:'absolute', inset:0, width:'100%', height:'100%',
-              border:'none', pointerEvents:'none' }}/>
+              border:'none', pointerEvents: isMobile ? 'none' : 'auto' }}/>
         )}
 
-        {!showVideo && (
-          <div style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column',
-            alignItems:'center', justifyContent:'center', gap:'1.2rem', pointerEvents:'none' }}>
-            <div style={{ width:72, height:72,
-              border:`1px solid ${hover ? 'var(--gold)' : 'rgba(201,169,110,.55)'}`,
-              borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center',
-              background: hover ? 'var(--gold)' : 'rgba(6,6,6,.35)',
-              transition:'all .35s var(--ease-out)' }}>
-              <svg width="24" viewBox="0 0 24 24" fill={hover ? '#000' : 'var(--gold)'}>
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </div>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
-              textTransform:'uppercase', color:'rgba(255,255,255,.6)' }}>
-              {isMobile ? 'Tap to watch' : 'Hover to preview'} · {label}
-            </div>
+        <div style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column',
+          alignItems:'center', justifyContent:'center', gap:'1.2rem', pointerEvents:'none',
+          opacity: showVideo ? 0 : 1, transition: 'opacity .4s' }}>
+          <div style={{ width:72, height:72,
+            border:`1px solid ${hover ? 'var(--gold)' : 'rgba(201,169,110,.55)'}`,
+            borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center',
+            background: hover ? 'var(--gold)' : 'rgba(6,6,6,.35)',
+            transition:'all .35s var(--ease-out)' }}>
+            <svg width="24" viewBox="0 0 24 24" fill={hover ? '#000' : 'var(--gold)'}>
+              <path d="M8 5v14l11-7z"/>
+            </svg>
           </div>
-        )}
+          <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
+            textTransform:'uppercase', color:'rgba(255,255,255,.6)' }}>
+            {isMobile ? 'Tap to watch' : 'Hover to preview'} · {label}
+          </div>
+        </div>
       </div>
       {modal && <VideoModal youtubeId={youtubeId} title={label} onClose={() => setModal(false)}/>}
     </div>
