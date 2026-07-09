@@ -9,7 +9,7 @@ import HorizontalRow from '../components/HorizontalRow';
 import VideoModal from '../components/VideoModal';
 import VolumeSlider from '../components/VolumeSlider';
 import {
-  REEL_SLIDES, DRONE_PROJECTS, DRONE_IMAGES,
+  REEL_SLIDES, DRONE_PROJECTS, DRONE_IMAGES, CHARACTERS,
   EVENT_VIZ_REAL, HOLOGRAM_REAL, PRODUCT_VIZ_REAL, PROJECTION_REAL,
   OLDER_REELS, SOCIAL_MEDIA_ROW1, SOCIAL_MEDIA_ROW2, IMAGES
 } from '../data/portfolio';
@@ -19,6 +19,19 @@ function HoverVideoCard({ thumbnail, youtubeId, title, sub, num, width, height, 
   const [showVideo, setShowVideo] = useState(false);
   const timer  = useRef(null);
   const hvcRef = useRef(null);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (!isMobile || !youtubeId || !containerRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setShowVideo(entry.isIntersecting);
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [youtubeId]);
 
   const onEnter = () => {
     if (isMobile) return;
@@ -35,7 +48,7 @@ function HoverVideoCard({ thumbnail, youtubeId, title, sub, num, width, height, 
   };
 
   return (
-    <div className="h-item" style={{ width, minWidth, height, flexShrink:0, position:'relative',
+    <div ref={containerRef} className="h-item" style={{ width, minWidth, height, flexShrink:0, position:'relative',
       cursor: isMobile && youtubeId ? 'pointer' : 'grab' }}
       onMouseEnter={onEnter} onMouseLeave={onLeave} onClick={onClick}>
       <img src={thumbnail} alt={title} loading="lazy" draggable="false"
@@ -43,22 +56,24 @@ function HoverVideoCard({ thumbnail, youtubeId, title, sub, num, width, height, 
           display:'block', transition:'opacity .4s, transform 1.1s var(--ease-out)',
           transform: showVideo ? 'scale(1.04)' : 'scale(1)',
           opacity: showVideo ? 0 : 1 }}/>
-      {showVideo && youtubeId && !isMobile && (
+      {showVideo && youtubeId && (
         <>
           <iframe ref={hvcRef}
-            src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&loop=1&playlist=${youtubeId}&enablejsapi=1`}
-            allow="autoplay"
+            src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&loop=1&playlist=${youtubeId}&enablejsapi=1&playsinline=1`}
+            allow="autoplay; encrypted-media"
             style={{ position:'absolute', inset:0, width:'100%', height:'100%',
-              border:'none', opacity: showVideo ? 1 : 0, transition:'opacity .4s' }}/>
-          <div style={{ position:'absolute', bottom:'.5rem', right:'.5rem', zIndex:10 }}
-            onClick={e=>e.stopPropagation()}>
-            <VolumeSlider iframeRef={hvcRef}/>
-          </div>
+              border:'none', opacity: showVideo ? 1 : 0, transition:'opacity .4s', pointerEvents: isMobile ? 'none' : 'auto' }}/>
+          {!isMobile && (
+            <div style={{ position:'absolute', bottom:'.5rem', right:'.5rem', zIndex:10 }}
+              onClick={e=>e.stopPropagation()}>
+              <VolumeSlider iframeRef={hvcRef}/>
+            </div>
+          )}
         </>
       )}
       {isMobile && youtubeId && (
         <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center',
-          justifyContent:'center', pointerEvents:'none' }}>
+          justifyContent:'center', pointerEvents:'none', opacity: showVideo ? 0 : 1, transition: 'opacity .4s' }}>
           <div style={{ width:44, height:44, border:'1px solid rgba(201,169,110,.55)',
             borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center',
             background:'rgba(6,6,6,.5)' }}>
@@ -267,6 +282,19 @@ function ReelCard({ reel, onPlay }) {
   const [showVideo, setShowVideo] = useState(false);
   const iframeRef = useRef(null);
   const timer = useRef(null);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (!isMobile || !reel.youtubeId || !containerRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setShowVideo(entry.isIntersecting);
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [reel.youtubeId]);
 
   const onEnter = () => {
     if (isMobile) return;
@@ -275,6 +303,7 @@ function ReelCard({ reel, onPlay }) {
     timer.current = setTimeout(() => setShowVideo(true), 300);
   };
   const onLeave = () => {
+    if (isMobile) return;
     setHover(false);
     clearTimeout(timer.current);
     setShowVideo(false);
@@ -283,7 +312,7 @@ function ReelCard({ reel, onPlay }) {
   const src = `https://www.youtube.com/embed/${reel.youtubeId}?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&loop=1&playlist=${reel.youtubeId}&enablejsapi=1&playsinline=1`;
 
   return (
-    <div style={{ position:'relative', aspectRatio:'16/9', overflow:'hidden',
+    <div ref={containerRef} style={{ position:'relative', aspectRatio:'16/9', overflow:'hidden',
       cursor:'pointer', background:'var(--bg3)' }}
       onMouseEnter={onEnter} onMouseLeave={onLeave}
       onClick={() => onPlay(reel)}>
@@ -295,13 +324,15 @@ function ReelCard({ reel, onPlay }) {
           transition:'opacity .5s, transform .8s var(--ease-out)' }}/>
       {showVideo && (
         <>
-          <iframe ref={iframeRef} src={src} allow="autoplay"
+          <iframe ref={iframeRef} src={src} allow="autoplay; encrypted-media"
             style={{ position:'absolute', inset:0, width:'100%', height:'100%',
-              border:'none', opacity:1, transition:'opacity .4s' }}/>
-          <div style={{ position:'absolute', bottom:'.7rem', right:'.7rem', zIndex:10 }}
-            onClick={e => e.stopPropagation()}>
-            <VolumeSlider iframeRef={iframeRef}/>
-          </div>
+              border:'none', opacity:1, transition:'opacity .4s', pointerEvents: isMobile ? 'none' : 'auto' }}/>
+          {!isMobile && (
+            <div style={{ position:'absolute', bottom:'.7rem', right:'.7rem', zIndex:10 }}
+              onClick={e => e.stopPropagation()}>
+              <VolumeSlider iframeRef={iframeRef}/>
+            </div>
+          )}
         </>
       )}
       {/* Play button */}
@@ -378,8 +409,7 @@ function DroneSection() {
           </p>
         </div>
       </div>
-      <div ref={r} className={`rv ${v?'in':''}`}
-        className="m-3col" style={{ display:'grid', gridTemplateColumns:'repeat(6,1fr)', borderBottom:'1px solid var(--border)' }}>
+      <div ref={r} className={`rv m-3col ${v?'in':''}`} style={{ display:'grid', gridTemplateColumns:'repeat(6,1fr)', borderBottom:'1px solid var(--border)' }}>
         {DRONE_PROJECTS.map((p,i)=>(
           <div key={p.n} className={`rv d${Math.min(i,4)} ${v?'in':''}`}
             style={{ padding:'2rem 1.4rem', borderRight: i<5?'1px solid var(--border)':'none',
