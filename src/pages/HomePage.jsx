@@ -406,7 +406,7 @@ function DroneSection() {
 }
 
 /* ── VIDEO ROW WITH SCROLL ARROWS ── */
-function VideoRowWithArrows({ items, height, itemWidth, rowRef }) {
+function VideoRowWithArrows({ items, height, itemWidth, rowRef , onPlayModal }) {
   const [showL, setShowL] = useState(false);
   const [showR, setShowR] = useState(true);
   const drag = useRef({ active:false, startX:0, scrollLeft:0 });
@@ -457,7 +457,7 @@ function VideoRowWithArrows({ items, height, itemWidth, rowRef }) {
       <ArrowBtn dir="right" onClick={scrollRight} visible={showR}/>
       <div ref={rowRef} className="h-row" style={{ height }} onMouseDown={onDown}>
         {items.map((item,i)=>(
-          <HoverVideoCard key={i} thumbnail={item.img} youtubeId={item.youtubeId}
+          <HoverVideoCard key={i} thumbnail={item.img} youtubeId={item.youtubeId} onPlayModal={onPlayModal}
             title={item.title} sub={item.sub}
             width={itemWidth} height={height} minWidth="240px"/>
         ))}
@@ -480,7 +480,7 @@ function VideoRowSection({ id, label, title, sub, items, height='60vh', itemWidt
         <div className="sec-rule"><p>— {sub}</p></div>
       </div>
       <div ref={r2} className={`rv-img ${v2?'in':''}`}>
-        <VideoRowWithArrows items={items} height={height} itemWidth={itemWidth} rowRef={rowRef}/>
+        <VideoRowWithArrows items={items} height={height} itemWidth={itemWidth} rowRef={rowRef} onPlayModal={setModal}/>
       </div>
       {modal && <VideoModal youtubeId={modal.youtubeId} title={modal.title} onClose={()=>setModal(null)}/>}
     </section>

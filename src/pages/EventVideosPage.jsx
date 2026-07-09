@@ -69,6 +69,9 @@ function EventCard({ event, index }) {
 import { useSeoContext } from '../providers/SeoProvider';
 import site from '../config/site';
 
+const isMobile = typeof window !== 'undefined' &&
+  !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
 export default function EventVideosPage() {
   const [r, v] = useIntersection();
   const { updateSeo } = useSeoContext();
@@ -118,7 +121,7 @@ export default function EventVideosPage() {
             {[
               [EVENTS_REAL.length, 'Events Documented'],
               ['Various DCC', 'Software Used'],
-              ['Hover thumbnail', 'To preview video'],
+              isMobile ? ['Tap video', 'To watch full video'] : ['Hover thumbnail', 'To preview video'],
             ].map(([n, l]) => (
               <div key={l} style={{ background:'var(--bg)', padding:'1.2rem 1.6rem' }}>
                 <div style={{ fontFamily:'var(--serif)', fontSize:'1.8rem', fontWeight:300,
