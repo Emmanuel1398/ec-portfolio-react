@@ -70,6 +70,18 @@ export default function App() {
 
   useEffect(() => { window.scrollTo(0, 0); }, [loc.pathname]);
 
+  // Google Analytics: register a page_view on every SPA route change
+  // (the gtag snippet in index.html only fires on the first load).
+  useEffect(() => {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'page_view', {
+        page_path: loc.pathname + loc.search,
+        page_location: window.location.href,
+        page_title: document.title,
+      });
+    }
+  }, [loc.pathname, loc.search]);
+
   useEffect(() => {
     const over = () => setHovered(true);
     const out  = () => setHovered(false);

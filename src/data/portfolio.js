@@ -481,6 +481,20 @@ Fur was grown using XGen in Maya with three distinct layers: underfur, guard hai
 /* ── REAL EVENT VIDEOS (Page 2 — Full Events) ───── */
 export const EVENTS_REAL = [
   {
+    id:'ev-real-infinix-hot70',
+    thumb:'/thumbnails/ev_infinix_hot70.png',
+    youtubeId:'rPoPjQemDN8',
+    title:'Infinix Hot 70 Series — Launch Video',
+    client:'Infinix',
+    year:'2026',
+    category:'Product Launch · 3D Visualization · Motion Design',
+    description: `"One of the best collaborations I have done. Intense pressure — less than a week to complete the task, and that is not counting aiding in the creation of the venue set-up concept that went along with it. Built for a 5m × 3m screen, the video incorporated heavy 3D, motion design tricks, and even 3D GLB files used inside software like After Effects to cut the time ordinary 3D rendering would have taken in Arnold or Blender. Overall, I loved it."`,
+    screenDimensions:'1920×1080',
+    aspectRatio:'16:9',
+    format:'Full HD · 5m × 3m screen',
+    duration:null,
+  },
+  {
     id:'ev-real-stjohn',
     thumb:'/thumbnails/ev_st_john_strategic.png',
     youtubeId:'O4igHBU7W8k',
