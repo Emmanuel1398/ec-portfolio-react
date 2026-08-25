@@ -3,6 +3,15 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <url>
+    <loc>https://emmanuelchege.com/characters/arya</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>/arya/final_01.jpg</image:loc>
+      <image:caption>Arya — A Character Texturing Odyssey</image:caption>
+    </image:image>
+  </url>
+  <url>
     <loc>https://emmanuelchege.com/characters/odungi-the-fairytale</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -42,15 +51,6 @@
     <loc>https://emmanuelchege.com/characters/ndirangu-the-farmer</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://emmanuelchege.com/characters/arya</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <image:image>
-      <image:loc>https://drive.google.com/thumbnail?id=154hEbtArTuXpCv7pLYkf-q1qeDqmo3sJ&amp;sz=w1600</image:loc>
-      <image:caption>Arya — A Character Odyssey</image:caption>
-    </image:image>
   </url>
   <url>
     <loc>https://emmanuelchege.com/characters/moombi-the-angel</loc>

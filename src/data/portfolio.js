@@ -481,13 +481,13 @@ Fur was grown using XGen in Maya with three distinct layers: underfur, guard hai
 /* ── REAL EVENT VIDEOS (Page 2 — Full Events) ───── */
 export const EVENTS_REAL = [
   {
-    id:'ev-real-infinix-hot70',
-    thumb:'/thumbnails/ev_infinix_hot70.png',
+    id:'ev-real-glb-collab',
+    thumb:'https://img.youtube.com/vi/rPoPjQemDN8/maxresdefault.jpg',
     youtubeId:'rPoPjQemDN8',
-    title:'Infinix Hot 70 Series — Launch Video',
+    title:'Infinix Hot 70 Series Launch Video',
     client:'Infinix',
     year:'2026',
-    category:'Product Launch · 3D Visualization · Motion Design',
+    category:'Event Launch · 3D · Motion Design · Real-time Workflow',
     description: `"One of the best collaborations I have done. Intense pressure — less than a week to complete the task, and that is not counting aiding in the creation of the venue set-up concept that went along with it. Built for a 5m × 3m screen, the video incorporated heavy 3D, motion design tricks, and even 3D GLB files used inside software like After Effects to cut the time ordinary 3D rendering would have taken in Arnold or Blender. Overall, I loved it."`,
     screenDimensions:'1920×1080',
     aspectRatio:'16:9',
@@ -726,6 +726,7 @@ export const EVENTS_REAL = [
     client:'KWAL',
     year:'2026',
     category:'Brand Launch · 3D Compositing · AI Workflow',
+    extraVideos:[{ youtubeId:'G2H2RBNbDSI', label:'Launch Site Video' }],
     description: `"This is one of those videos that's a mental game-changer. From doing the scenes in Maya, to rendering out frames and exploring the capabilities of AI, and even playing with 3D obj/glb files in After Effects, this video had me rethinking how to be more efficient and change my workflow, especially when it comes to long render times in Maya as opposed to 3D integrated models in AE."`,
     screenDimensions:'1920×1080',
     aspectRatio:'16:9',
@@ -751,6 +752,19 @@ export const HOLOGRAM_REAL = [
 ];
 
 export const PRODUCT_VIZ_REAL = [
+  { img:'/thumbnails/ev_prod_coca_cola_anamorphic.png', title:'Coca Cola 3D Anamorphic',
+    sub:'Anamorphic 3D \u00b7 Concept Test',
+    format:'Maya \u00b7 Photoshop \u00b7 Substance Painter \u00b7 MadMapper',
+    youtubeId:'DLFZNryO2yk',
+    role:'Concept, 3D build, texturing and anamorphic camera setup \u2014 a self-initiated feasibility test.',
+    description:`This was a rough test, made to answer one question: is a 3D anamorphic video actually doable in-house? It was never intended as a finished piece \u2014 the point was to prove the illusion holds before committing it to a client brief.
+The illusion depends on building the scene around a single fixed viewing position. The bottle is modelled and lit so that the forced-perspective box behind it reads as real depth from that one angle, then breaks apart the moment the camera moves off-axis. Getting that corner geometry and the camera to agree is where the work sits.
+The result is that the logic carries. The same setup applies to LED screens, projection surfaces and holograms \u2014 the maths of the forced perspective does not change, only the surface it is mapped onto. That makes it a technique worth having ready rather than a one-off.`,
+    siteInstall:{
+      label:'Client Preview',
+      note:'The anamorphic test as prepared for client preview \u2014 the illusion running on screen.',
+      videos:['OOku9x0aLAk'], images:[],
+    } },
   { img:'/thumbnails/ev_prod_asili.png',            title:'Asili Homes 3D Visualization',         sub:'Property · Twinmotion',           youtubeId:'4mUtipeiTCI' },
   { img:'/thumbnails/ev_prod_better_living.png',    title:'Better Living — 3D Sachet Render',     sub:'Product Render · 3D',             youtubeId:'-9KBgvsCPF0' },
   { img:'/thumbnails/ev_prod_better_living_brown.png', title:'Better Living Brown — 3D Sachet',  sub:'Product Render · 3D',             youtubeId:'qvXD4uweI_w' },
@@ -758,13 +772,30 @@ export const PRODUCT_VIZ_REAL = [
 ];
 
 export const PROJECTION_REAL = [
+  {
+    img:'/thumbnails/ev_proj_infinix_wall.png',
+    title:'Infinix Hot 70 Series Wall Projection',
+    sub:'Projection Mapping · Building Wall',
+    youtubeId:'CqWglovCwyM',
+    siteInstall:{
+      event:'Infinix Hot 70 Series Launch Event',
+      location:'Glee Hotel, Outside Ruby Club',
+      videos:['GeHYPumF0Sw'],
+      images:['/thumbnails/ev_proj_infinix_wall_site.jpg'],
+    },
+  },
   { img:'/thumbnails/ev_proj_africa_summit.png',  title:'Africa Summit Building Projection 2026', sub:'Architectural Mapping · Summit 2026',  youtubeId:'T2ULW6GWciM' },
-  { img:'/thumbnails/ev_proj_wedding_cake.png',   title:'Wedding Cake Projection',                 sub:'Event · Object Projection Mapping',     youtubeId:'EB0eHcqVAws' },
-  { img:'/thumbnails/ev_proj_wedding_dress.png',  title:'Wedding Dress Projection',                sub:'Event · Object Projection Mapping',     youtubeId:'q487ByHe0JQ' },
+  { img:'/thumbnails/ev_proj_wedding_cake.png', title:'Wedding Cake Projection', sub:'Event · Object Projection Mapping', youtubeId:'EB0eHcqVAws',
+    siteInstall:{ event:'Wedding', location:'Coast, Kenya', videos:['cGU1q4i6CGo'], images:[] } },
+  { img:'/thumbnails/ev_proj_wedding_dress.png', title:'Wedding Dress Projection', sub:'Event · Object Projection Mapping', youtubeId:'q487ByHe0JQ',
+    siteInstall:{ event:'Wedding', location:'Coast, Kenya', videos:['EC-s4x65WgU','ByZPocpIUu8'], images:[] } },
   { img:'/thumbnails/ev_proj_kicc_xmas.png',      title:'KICC Christmas Projection Video',         sub:'Architectural · Festive Mapping',      youtubeId:'SnVOUKtUV4M' },
   { img:'/thumbnails/ev_proj_kicc_raila.png',     title:'KICC Raila Memorial Projection',          sub:'Commemorative · Architectural Mapping', youtubeId:'gjEAIJEYa9I' },
-  { img:'/thumbnails/ev_proj_tusker.png',         title:'Tusker Lite Launch CBD Projection',       sub:'Brand Launch · Thika Road · Nairobi CBD', youtubeId:'j_x2hXqsGUc' },
-  { img:'/thumbnails/ev_proj_chrome.png',         title:'Chrome Party KICC Projection',            sub:'Event · Architectural Mapping · KICC',  youtubeId:'MvdeIPAZNrU' },
+  { img:'/thumbnails/ev_proj_tusker.png', title:'Tusker Lite Launch CBD Projection', sub:'Brand Launch · Thika Road · Nairobi CBD', youtubeId:'j_x2hXqsGUc',
+    siteInstall:{ label:'City Guerilla Mapping Preview', note:'Guerilla projection mapping across the Nairobi CBD — client preview.', videos:['SG4aQvBLsDY','4kcZooKLgBM'], images:[] } },
+  { img:'/thumbnails/ev_proj_chrome.png', title:'Chrome Party KICC Projection', sub:'Event · Architectural Mapping · KICC', youtubeId:'MvdeIPAZNrU',
+    siteInstall:{ event:'Chrome City Gin Launch', location:'KICC Building', videos:['tJV3gaku0c8'],
+      images:['/thumbnails/ev_proj_chrome_site_1.jpg','/thumbnails/ev_proj_chrome_site_2.jpg','/thumbnails/ev_proj_chrome_site_3.jpg','/thumbnails/ev_proj_chrome_site_4.jpg','/thumbnails/ev_proj_chrome_site_5.jpg'] } },
 ];
 
 /* ── OLDER REELS ─────────────────────────────────── */

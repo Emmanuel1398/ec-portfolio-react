@@ -8,8 +8,8 @@ import site from '../config/site';
 
 const HERO_BG_CSS = `
 .char-hero-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-position:center center;background-repeat:no-repeat;background-size:contain;
-  filter:blur(3px) saturate(1.05);opacity:.30;}
+  background-position:center top;background-repeat:no-repeat;background-size:cover;background-attachment:fixed;
+  filter:blur(4px) saturate(1.04);opacity:.34;}
 .char-hero-bg::after{content:'';position:absolute;inset:0;
   background:
     radial-gradient(ellipse 70% 55% at 50% 18%, rgba(201,169,110,.06), transparent 60%),
@@ -45,6 +45,7 @@ export default function CharacterDetailPage() {
   }
 
   const [heroZoom, setHeroZoom] = useState(false);
+  const [outroZoom, setOutroZoom] = useState(false);
   const idx = CHARACTER_BLOGS.findIndex(x => x.slug === slug);
   const next = CHARACTER_BLOGS[(idx + 1) % CHARACTER_BLOGS.length];
 
@@ -63,19 +64,19 @@ export default function CharacterDetailPage() {
       {(c.heroBg || c.hero) && (
         <div className="char-hero-bg"
           style={{ backgroundImage:`url(${c.heroBg || c.hero})`,
-            backgroundSize: c.heroBg ? 'cover' : 'contain' }} />
+            backgroundSize:'cover' }} />
       )}
 
       <div style={{ position:'relative', zIndex:1 }}>
 
         {/* Back nav */}
-        <div className="pg-head" style={{ padding:'8rem 5vw 0' }}>
+        <div className="pg-head" style={{ padding:'8rem 3vw 0', maxWidth:'1760px', margin:'0 auto' }}>
           <Link to="/characters" style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em',
             textTransform:'uppercase', color:'var(--muted)', textDecoration:'none' }}>← 3D Characters</Link>
         </div>
 
         {/* Hero */}
-        <header style={{ maxWidth:'1320px', margin:'0 auto', padding:'2.5rem 5vw 0' }}>
+        <header style={{ maxWidth:'1760px', margin:'0 auto', padding:'2.5rem 3vw 0' }}>
           <div style={{ display:'flex', alignItems:'center', gap:'1rem', fontFamily:'var(--ui)', fontSize:'12px',
             letterSpacing:'.22em', textTransform:'uppercase', color:'var(--muted)', marginBottom:'1.3rem' }}>
             <span style={{ width:'2.2rem', height:1, background:'var(--gold)' }} />
@@ -98,14 +99,15 @@ export default function CharacterDetailPage() {
             aria-label={c.hero ? 'View hero render full size' : undefined}
             onClick={c.hero ? () => setHeroZoom(true) : undefined}
             onKeyDown={c.hero ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setHeroZoom(true); } } : undefined}
-            style={{ maxWidth:'860px', margin:'3rem auto 0', position:'relative', aspectRatio:'1/1',
+            style={{ width:'100%', margin:'3rem 0 0', position:'relative',
+            aspectRatio: c.hero ? undefined : '16/9',
             overflow:'hidden', background:'var(--bg2)',
             border: c.hero ? 'none' : '1px dashed rgba(201,169,110,.32)',
             boxShadow: c.hero ? '0 40px 120px -40px rgba(0,0,0,.9)' : 'none',
             display:'flex', alignItems:'center', justifyContent:'center' }}>
             {c.hero
               ? <>
-                  <img src={c.hero} alt={c.name} style={{ width:'100%', height:'100%', objectFit:'cover', display:'block' }}/>
+                  <img src={c.hero} alt={c.name} style={{ width:'100%', height:'auto', objectFit:'contain', display:'block' }}/>
                   <ZoomBadge />
                   <div style={{ position:'absolute', left:0, bottom:0, width:'100%', padding:'1.6rem 1.2rem .9rem',
                     fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.14em', textTransform:'uppercase',
@@ -124,7 +126,7 @@ export default function CharacterDetailPage() {
 
           {/* Meta */}
           {c.specs && c.specs.software && (
-            <div style={{ display:'flex', flexWrap:'wrap', gap:'.6rem', marginTop:'1.9rem', justifyContent:'center' }}>
+            <div style={{ display:'flex', flexWrap:'wrap', gap:'.6rem', marginTop:'1.9rem' }}>
               {c.specs.software.map(s => (
                 <span key={s} style={{ fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.1em',
                   textTransform:'uppercase', color:'var(--muted)', border:'1px solid var(--border)', padding:'.45rem .85rem' }}>{s}</span>
@@ -138,8 +140,30 @@ export default function CharacterDetailPage() {
           <BlockRenderer blocks={c.blocks} />
         </div>
 
+        {/* Exit render — closes the piece the way the hero opened it */}
+        {c.outro && (
+          <div style={{ maxWidth:'1760px', margin:'0 auto', padding:'1rem 3vw 4rem' }}>
+            <div className="cb-shot" role="button" tabIndex={0}
+              aria-label="View exit render full size"
+              onClick={() => setOutroZoom(true)}
+              onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOutroZoom(true); } }}
+              style={{ width:'100%', position:'relative', overflow:'hidden', background:'var(--bg2)',
+                boxShadow:'0 40px 120px -40px rgba(0,0,0,.9)' }}>
+              <img src={c.outro} alt={`${c.name} — exit render`} loading="lazy"
+                style={{ width:'100%', height:'auto', objectFit:'contain', display:'block' }}/>
+              <ZoomBadge />
+              <div style={{ position:'absolute', left:0, bottom:0, width:'100%', padding:'1.6rem 1.2rem .9rem',
+                fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.14em', textTransform:'uppercase',
+                color:'rgba(255,255,255,.78)', background:'linear-gradient(to top,rgba(6,6,6,.85),transparent)' }}>
+                Exit Render
+              </div>
+            </div>
+            {outroZoom && <Lightbox src={hiRes(c.outro)} caption={`${c.name} \u2014 Exit Render`} onClose={() => setOutroZoom(false)} />}
+          </div>
+        )}
+
         {/* Next */}
-        <div style={{ borderTop:'1px solid var(--border)', padding:'4rem 5vw', maxWidth:'1320px', margin:'0 auto' }}>
+        <div style={{ borderTop:'1px solid var(--border)', padding:'4rem 3vw', maxWidth:'1760px', margin:'0 auto' }}>
           <Link to={`/characters/${next.slug}`} style={{ textDecoration:'none', display:'block' }}>
             <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em', textTransform:'uppercase',
               color:'var(--muted)', marginBottom:'.6rem' }}>Next Character →</div>

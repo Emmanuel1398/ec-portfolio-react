@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { slugify } from '../data/categories';
 import { useIntersection } from '../hooks';
 import VideoModal from '../components/VideoModal';
 import { EVENTS_REAL } from '../data/portfolio';
@@ -7,8 +9,9 @@ import EventThumb from '../components/EventThumb';
 /* Single event card */
 function EventCard({ event, index }) {
   const [r, v] = useIntersection();
-  const [modal, setModal] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  const navigate = useNavigate();
+  const go = () => navigate('/events/' + slugify(event.title));
 
   return (
     <div ref={r} className={`rv d${index % 2} ${v?'in':''} ev-row`}
@@ -16,8 +19,8 @@ function EventCard({ event, index }) {
         alignItems:'start', paddingBottom:'5rem', marginBottom:'5rem',
         borderBottom:'1px solid var(--border)' }}>
 
-      {/* Thumbnail with hover-to-play */}
-      <EventThumb event={event} onPlayFull={() => setModal(true)} />
+      {/* Thumbnail — opens the project blog */}
+      <EventThumb event={event} onPlayFull={go} />
 
       {/* Info */}
       <div>
@@ -28,7 +31,7 @@ function EventCard({ event, index }) {
 
         <h3 className="ev-title" style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.4rem,2.2vw,2.2rem)',
           fontWeight:300, lineHeight:1.05, color:'var(--text)', marginBottom:'1rem',
-          cursor:'pointer' }} onClick={() => setModal(true)}>
+          cursor:'pointer' }} onClick={go}>
           {event.title}
         </h3>
         <p className={`ev-desc${showDetails ? ' open' : ''}`} style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--muted)',
@@ -38,8 +41,8 @@ function EventCard({ event, index }) {
 
 
 
-        {/* Watch button */}
-        <button onClick={() => setModal(true)}
+        {/* Open project blog */}
+        <button onClick={go}
           style={{ marginTop:'1.5rem', display:'inline-flex', alignItems:'center',
             gap:'.7rem', background:'transparent', border:'1px solid var(--border)',
             color:'var(--muted)', fontFamily:'var(--ui)', fontSize:'12px',
@@ -48,7 +51,7 @@ function EventCard({ event, index }) {
           onMouseEnter={e => { e.currentTarget.style.borderColor='var(--gold)'; e.currentTarget.style.color='var(--gold)'; }}
           onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border)'; e.currentTarget.style.color='var(--muted)'; }}>
           <svg width="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          Watch Full Video
+          View Project
         </button>
 
         {/* Mobile-only: full description behind a Details toggle */}
@@ -61,7 +64,6 @@ function EventCard({ event, index }) {
         </button>
       </div>
 
-      {modal && <VideoModal youtubeId={event.youtubeId} title={event.title} onClose={() => setModal(false)}/>}
     </div>
   );
 }

@@ -9,14 +9,14 @@ function CharCard({ char, index }) {
       className={`rv d${Math.min(index % 4, 3)} ${v ? 'in' : ''}`}
       style={{ textDecoration:'none', display:'block' }}>
       <div style={{ position:'relative', overflow:'hidden', background:'var(--bg2)', aspectRatio:'3/4',
-        border: char.hero ? 'none' : '1px dashed rgba(201,169,110,.3)' }}
+        border: (char.thumb||char.hero) ? 'none' : '1px dashed rgba(201,169,110,.3)' }}
         onMouseEnter={e => { const i=e.currentTarget.querySelector('img'); if(i) i.style.transform='scale(1.05)';
           e.currentTarget.querySelector('.char-overlay').style.opacity='1'; }}
         onMouseLeave={e => { const i=e.currentTarget.querySelector('img'); if(i) i.style.transform='scale(1)';
           e.currentTarget.querySelector('.char-overlay').style.opacity='0'; }}>
 
-        {char.hero
-          ? <img src={char.hero} alt={char.name} loading="lazy"
+        {(char.thumb||char.hero)
+          ? <img src={char.thumb||char.hero} alt={char.name} loading="lazy"
               style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'top center',
                 display:'block', transition:'transform 1s cubic-bezier(0.16,1,0.3,1)' }}/>
           : <div style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column',
@@ -38,10 +38,11 @@ function CharCard({ char, index }) {
             <span style={{ color:'var(--gold)', fontSize:'1.05rem' }}>{char.epithet}</span>
           </div>
           <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.14em',
-            color:'rgba(255,255,255,.4)', marginTop:'.6rem', display:'flex', gap:'1rem' }}>
+            color:'rgba(255,255,255,.4)', marginTop:'.6rem', display:'flex', gap:'.7rem',
+            flexWrap:'wrap', lineHeight:1.7 }}>
             <span>{char.year}</span>
             {char.specs && char.specs.software &&
-              <><span style={{ color:'var(--dim)' }}>·</span><span>{char.specs.software.slice(0,3).join(' · ')}</span></>}
+              <><span style={{ color:'var(--dim)' }}>·</span><span>{char.specs.software.join(' · ')}</span></>}
           </div>
           <div style={{ marginTop:'1rem', fontFamily:'var(--ui)', fontSize:'12px',
             letterSpacing:'.18em', textTransform:'uppercase', color:'var(--gold)' }}>

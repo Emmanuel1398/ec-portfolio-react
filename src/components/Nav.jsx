@@ -8,11 +8,15 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
 
   const links = [
-    { to:'/',           label:'Portfolio'     },
-    { to:'/characters',  label:'3D Characters' },
-    { to:'/drone-shows', label:'Drone Shows'   },
-    { to:'/events',      label:'Event Videos'  },
-    { to:'/contact',    label:'About'       },
+    { to:'/',             label:'Home'         },
+    { to:'/characters',   label:'3D Characters'},
+    { to:'/events',       label:'Event Videos' },
+    { to:'/projection',   label:'Projection'   },
+    { to:'/visualization',label:'Visualization'},
+    { to:'/hologram',     label:'Hologram'     },
+    { to:'/social',       label:'Social'       },
+    { to:'/drone-shows',  label:'Drone Shows'  },
+    { to:'/contact',      label:'About'        },
   ];
 
   return (

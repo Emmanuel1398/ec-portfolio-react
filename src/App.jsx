@@ -8,6 +8,9 @@ import CharacterDetailPage from './pages/CharacterDetailPage';
 import EventVideosPage from './pages/EventVideosPage';
 import ContactPage from './pages/ContactPage';
 import DroneShowsPage from './pages/DroneShowsPage';
+import CategoryPage from './pages/CategoryPage';
+import WorkBlogPage from './pages/WorkBlogPage';
+import SocialPage from './pages/SocialPage';
 import DroneShowDetailPage from './pages/DroneShowDetailPage';
 import './styles/globals.css';
 import './styles/mobile.css';
@@ -20,17 +23,6 @@ const TICKER_ITEMS = [
   {t:'Projection Mapping',     g:true }, {t:'Social Media Content',    g:false},
   {t:'emmanuelchege.com',      g:true },
 ];
-
-function Ticker() {
-  const all = [...TICKER_ITEMS,...TICKER_ITEMS];
-  return (
-    <div className="ticker">
-      <div className="ticker-t">
-        {all.map((item,i) => <span key={i} className={`t-item${item.g?' g':''}`}>{item.t}</span>)}
-      </div>
-    </div>
-  );
-}
 
 function GlobalFooter() {
   const loc = useLocation();
@@ -58,10 +50,6 @@ function GlobalFooter() {
       </div>
     </footer>
   );
-}
-
-function BottomStrip() {
-  return <Ticker />;
 }
 
 export default function App() {
@@ -108,12 +96,19 @@ export default function App() {
         <Route path="/"                       element={<HomePage />} />
         <Route path="/characters"             element={<CharactersPage />} />
         <Route path="/characters/:slug"       element={<CharacterDetailPage />} />
-        <Route path="/events"                 element={<EventVideosPage />} />
+        <Route path="/events"                 element={<CategoryPage slug="events" />} />
+        <Route path="/events/:slug"           element={<WorkBlogPage slug="events" />} />
         <Route path="/contact"                element={<ContactPage />} />
         <Route path="/drone-shows"            element={<DroneShowsPage />} />
         <Route path="/drone-shows/:slug"      element={<DroneShowDetailPage />} />
+        <Route path="/projection"            element={<CategoryPage slug="projection" />} />
+        <Route path="/projection/:slug"      element={<WorkBlogPage slug="projection" />} />
+        <Route path="/visualization"         element={<CategoryPage slug="visualization" />} />
+        <Route path="/visualization/:slug"   element={<WorkBlogPage slug="visualization" />} />
+        <Route path="/hologram"              element={<CategoryPage slug="hologram" />} />
+        <Route path="/hologram/:slug"        element={<WorkBlogPage slug="hologram" />} />
+        <Route path="/social"                element={<SocialPage />} />
       </Routes>
-      <BottomStrip />
       <GlobalFooter />
     </>
   );

@@ -1,3 +1,4 @@
+import AutoVideo from '../components/AutoVideo';
 import { useEffect, useRef, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { DRONE_SHOWS } from '../data/portfolio';
@@ -43,25 +44,8 @@ const isMobile = typeof window !== 'undefined' &&
   !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 function VideoBlock({ label, youtubeId, fallbackMsg }) {
-  const [modal, setModal] = useState(false);
   const [r, v] = useIntersection();
-  const [hover, setHover] = useState(false);
-  const [showVideo, setShowVideo] = useState(false);
-  const timer = useRef(null);
-  const containerRef = useRef(null);
-  const thumb = `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
 
-  useEffect(() => {
-    if (!isMobile || !youtubeId || !containerRef.current) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setShowVideo(entry.isIntersecting),
-      { threshold: 0.4 }
-    );
-    observer.observe(containerRef.current);
-    return () => observer.disconnect();
-  }, [youtubeId]);
-
-  // No video yet → static fallback
   if (!youtubeId) {
     return (
       <div ref={r} style={{ opacity: v ? 1 : 0, transform: v ? 'none' : 'translateY(30px)',
@@ -77,65 +61,10 @@ function VideoBlock({ label, youtubeId, fallbackMsg }) {
     );
   }
 
-  const onEnter = () => {
-    setHover(true);
-    if (isMobile) return;
-    clearTimeout(timer.current);
-    timer.current = setTimeout(() => setShowVideo(true), 300);
-  };
-  const onLeave = () => {
-    setHover(false);
-    if (isMobile) return;
-    clearTimeout(timer.current);
-    setShowVideo(false);
-  };
-
-  const embedSrc = `https://www.youtube.com/embed/${youtubeId}` +
-    `?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&loop=1&playlist=${youtubeId}&enablejsapi=1&playsinline=1`;
-
   return (
-    <div ref={r} style={{
-      opacity: v ? 1 : 0, transform: v ? 'none' : 'translateY(30px)',
-      transition:'opacity .9s ease, transform .9s ease'
-    }}>
-      <div ref={containerRef} onClick={() => setModal(true)}
-        onMouseEnter={onEnter} onMouseLeave={onLeave}
-        style={{ position:'relative', aspectRatio:'16/9', overflow:'hidden',
-          cursor:'pointer', background:'var(--bg3)' }}>
-
-        <img src={thumb} alt={label}
-          style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover',
-            filter:`brightness(${hover ? .25 : .4}) saturate(.6)`,
-            opacity: showVideo ? 0 : 1,
-            transform: hover ? 'scale(1.03)' : 'scale(1)',
-            transition:'filter .5s, opacity .5s ease, transform .9s var(--ease-out)',
-            pointerEvents:'none' }}/>
-
-        {showVideo && (
-          <iframe src={embedSrc} allow="autoplay; encrypted-media"
-            style={{ position:'absolute', inset:0, width:'100%', height:'100%',
-              border:'none', pointerEvents: isMobile ? 'none' : 'auto' }}/>
-        )}
-
-        <div style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column',
-          alignItems:'center', justifyContent:'center', gap:'1.2rem', pointerEvents:'none',
-          opacity: showVideo ? 0 : 1, transition: 'opacity .4s' }}>
-          <div style={{ width:72, height:72,
-            border:`1px solid ${hover ? 'var(--gold)' : 'rgba(201,169,110,.55)'}`,
-            borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center',
-            background: hover ? 'var(--gold)' : 'rgba(6,6,6,.35)',
-            transition:'all .35s var(--ease-out)' }}>
-            <svg width="24" viewBox="0 0 24 24" fill={hover ? '#000' : 'var(--gold)'}>
-              <path d="M8 5v14l11-7z"/>
-            </svg>
-          </div>
-          <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
-            textTransform:'uppercase', color:'rgba(255,255,255,.6)' }}>
-            {isMobile ? 'Tap to watch' : 'Hover to preview'} · {label}
-          </div>
-        </div>
-      </div>
-      {modal && <VideoModal youtubeId={youtubeId} title={label} onClose={() => setModal(false)}/>}
+    <div ref={r} style={{ opacity: v ? 1 : 0, transform: v ? 'none' : 'translateY(30px)',
+      transition:'opacity .9s ease, transform .9s ease' }}>
+      <AutoVideo youtubeId={youtubeId} title={label} />
     </div>
   );
 }
@@ -184,63 +113,81 @@ export default function DroneShowDetailPage() {
         { name: show.title, url: `${site.url}/drone-shows/${show.slug}` }
       ]} />
 
-      {/* ── HERO HEADER ── */}
-      <div ref={rH} style={{
-        position:'relative', minHeight:'70vh', display:'flex', flexDirection:'column',
-        justifyContent:'flex-end', overflow:'hidden',
-        opacity: vH ? 1 : 0, transition:'opacity 1s ease .1s'
-      }}>
-        {/* Background image */}
-        <div style={{ position:'absolute', inset:0 }}>
-          <img src={conceptThumb} alt={show.title}
-            style={{ width:'100%', height:'100%', objectFit:'cover',
-              filter:'brightness(.2) saturate(.6)' }}/>
-          <div style={{ position:'absolute', inset:0,
-            background:'linear-gradient(to top, var(--bg) 30%, transparent 80%)' }}/>
+      {/* ── HEADER (event-blog style, no background) ── */}
+      <div style={{ padding:'clamp(7rem,13vh,10rem) 5vw 2.5rem' }}>
+        <Link to="/drone-shows" style={{ fontFamily:'var(--ui)', fontSize:'12px',
+          letterSpacing:'.2em', textTransform:'uppercase', color:'var(--muted)',
+          textDecoration:'none', display:'inline-flex', alignItems:'center', gap:'.5rem',
+          marginBottom:'2rem', transition:'color .2s' }}
+          onMouseEnter={e => e.currentTarget.style.color = 'var(--gold)'}
+          onMouseLeave={e => e.currentTarget.style.color = 'var(--muted)'}>
+          <svg width="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          All Drone Shows
+        </Link>
+        <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.28em',
+          textTransform:'uppercase', color:'var(--gold)', marginBottom:'1.2rem',
+          display:'flex', alignItems:'center', gap:'1rem', flexWrap:'wrap' }}>
+          {show.client}
+          <span style={{ color:'var(--border)' }}>·</span>
+          {show.location}
+          <span style={{ color:'var(--border)' }}>·</span>
+          {show.year}
+          <span style={{ padding:'.15rem .6rem',
+            background: show.status === 'completed' ? 'rgba(201,169,110,.1)' : 'rgba(255,255,255,.05)',
+            border: `1px solid ${show.status === 'completed' ? 'rgba(201,169,110,.4)' : 'rgba(255,255,255,.15)'}`,
+            color: show.status === 'completed' ? 'var(--gold)' : 'rgba(255,255,255,.4)' }}>
+            {show.status === 'completed' ? 'Produced' : 'Concept Only'}
+          </span>
         </div>
+        <h1 style={{ fontFamily:'var(--serif)', fontSize:'clamp(2.8rem,4.8vw,5.5rem)',
+          fontWeight:300, lineHeight:.92, letterSpacing:'.01em', color:'var(--text)', maxWidth:'900px' }}>
+          {show.title}
+        </h1>
+        <div style={{ width:60, height:1, background:'var(--gold)', margin:'1.6rem 0' }}/>
+        <p style={{ fontFamily:'var(--body)', fontSize:'clamp(.95rem,1.2vw,1.1rem)',
+          color:'var(--muted)', lineHeight:1.9, maxWidth:'600px', fontStyle:'italic' }}>
+          {show.tagline}
+        </p>
+      </div>
 
-        {/* Back link */}
-        <div style={{ position:'absolute', top:'7rem', left:'5vw', zIndex:2 }}>
-          <Link to="/drone-shows" style={{ fontFamily:'var(--ui)', fontSize:'12px',
-            letterSpacing:'.2em', textTransform:'uppercase', color:'rgba(255,255,255,.4)',
-            textDecoration:'none', display:'flex', alignItems:'center', gap:'.5rem',
-            transition:'color .2s' }}
-            onMouseEnter={e => e.currentTarget.style.color = 'var(--gold)'}
-            onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,.4)'}>
-            <svg width="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            All Drone Shows
-          </Link>
-        </div>
-
-        {/* Content */}
-        <div style={{ position:'relative', zIndex:2, padding:'0 5vw 5rem' }}>
-          <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.28em',
-            textTransform:'uppercase', color:'var(--gold)', marginBottom:'1rem',
-            display:'flex', alignItems:'center', gap:'1rem', flexWrap:'wrap' }}>
-            {show.client}
-            <span style={{ color:'var(--border)' }}>·</span>
-            {show.location}
-            <span style={{ color:'var(--border)' }}>·</span>
-            {show.year}
-            <span style={{ padding:'.15rem .6rem', fontSize:'12px',
-              background: show.status === 'completed' ? 'rgba(201,169,110,.1)' : 'rgba(255,255,255,.05)',
-              border: `1px solid ${show.status === 'completed' ? 'rgba(201,169,110,.4)' : 'rgba(255,255,255,.15)'}`,
-              color: show.status === 'completed' ? 'var(--gold)' : 'rgba(255,255,255,.4)' }}>
-              {show.status === 'completed' ? 'Produced' : 'Concept Only'}
-            </span>
+      {/* ── SECTION 1: DRONE FORMATION VISUAL ── */}
+      <div style={{ padding:'6rem 5vw' }}>
+        <div ref={rV} style={{
+          marginBottom:'3rem',
+          opacity: vV ? 1 : 0, transform: vV ? 'none' : 'translateY(20px)',
+          transition:'opacity .8s ease, transform .8s ease'
+        }}>
+          <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.3em',
+            textTransform:'uppercase', color:'var(--gold)', marginBottom:'.6rem',
+            display:'flex', alignItems:'center', gap:'1.2rem' }}>
+            <span>01</span>
+            <span style={{ width:40, height:1, background:'var(--gold)' }}/>
+            Drone Show Visualizer
           </div>
-          <h1 style={{ fontFamily:'var(--serif)', fontSize:'clamp(2.2rem,5.5vw,6.5rem)',
-            fontWeight:300, lineHeight:.92, color:'var(--text)', maxWidth:'900px' }}>
-            {show.title}
-          </h1>
-          <div style={{ width:60, height:1, background:'var(--gold)', margin:'1.8rem 0' }}/>
-          <p style={{ fontFamily:'var(--body)', fontSize:'clamp(.95rem,1.2vw,1.1rem)',
-            color:'var(--muted)', lineHeight:1.9, maxWidth:'600px', fontStyle:'italic' }}>
-            {show.tagline}
-          </p>
+          <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.8rem,3vw,3.5rem)',
+            fontWeight:300, color:'var(--text)' }}>
+            Formation <em style={{ color:'var(--gold)', fontStyle:'italic' }}>Visual</em>
+          </h2>
         </div>
+
+        {show.visualizerYoutubeId ? (
+          <VideoBlock label="Drone Formation Visual" youtubeId={show.visualizerYoutubeId} sound/>
+        ) : (
+          <div style={{ aspectRatio:'16/9', background:'var(--bg2)',
+            border:'1px solid var(--border)', display:'flex', flexDirection:'column',
+            alignItems:'center', justifyContent:'center', gap:'1.2rem' }}>
+            <div style={{ width:1, height:60, background:'var(--border)' }}/>
+            <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.2rem,2vw,2rem)',
+              fontWeight:300, color:'rgba(255,255,255,.2)', textAlign:'center' }}>
+              Awaiting Production
+            </div>
+            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
+              textTransform:'uppercase', color:'rgba(201,169,110,.35)',
+              border:'1px dashed rgba(201,169,110,.15)', padding:'.4rem 1rem' }}>
+              Concept Only — Show Not Yet Produced
+            </div>
+          </div>
+        )}
       </div>
 
       {/* ── DESCRIPTION ── */}
@@ -249,28 +196,6 @@ export default function DroneShowDetailPage() {
           color:'var(--muted)', lineHeight:1.95, maxWidth:'680px' }}>
           {show.description}
         </p>
-      </div>
-
-      {/* ── SECTION 1: THE CONCEPT VIDEO ── */}
-      <div style={{ padding:'6rem 5vw' }}>
-        <div ref={rH} style={{ marginBottom:'3rem' }}>
-          <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.3em',
-            textTransform:'uppercase', color:'var(--gold)', marginBottom:'.6rem',
-            display:'flex', alignItems:'center', gap:'1.2rem' }}>
-            <span>01</span>
-            <span style={{ width:40, height:1, background:'var(--gold)' }}/>
-            The Concept
-          </div>
-          <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.8rem,3vw,3.5rem)',
-            fontWeight:300, color:'var(--text)' }}>
-            Formation <em style={{ color:'var(--gold)', fontStyle:'italic' }}>Concept</em>
-          </h2>
-        </div>
-        <VideoBlock
-          label="Concept Video"
-          youtubeId={show.conceptYoutubeId}
-          fallbackMsg="Concept video coming soon"
-        />
       </div>
 
       {/* ── SECTION 2: NARRATION / V.O. SCRIPT ── */}
@@ -305,44 +230,27 @@ export default function DroneShowDetailPage() {
         </div>
       </div>
 
-      {/* ── SECTION 3: VISUALIZER ── */}
+      {/* ── SECTION 3: THE CONCEPT VIDEO ── */}
       <div style={{ padding:'6rem 5vw' }}>
-        <div ref={rV} style={{
-          marginBottom:'3rem',
-          opacity: vV ? 1 : 0, transform: vV ? 'none' : 'translateY(20px)',
-          transition:'opacity .8s ease, transform .8s ease'
-        }}>
+        <div ref={rH} style={{ marginBottom:'3rem' }}>
           <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.3em',
             textTransform:'uppercase', color:'var(--gold)', marginBottom:'.6rem',
             display:'flex', alignItems:'center', gap:'1.2rem' }}>
             <span>03</span>
             <span style={{ width:40, height:1, background:'var(--gold)' }}/>
-            Drone Show Visualizer
+            The Concept
           </div>
           <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.8rem,3vw,3.5rem)',
             fontWeight:300, color:'var(--text)' }}>
-            Formation <em style={{ color:'var(--gold)', fontStyle:'italic' }}>Visual</em>
+            Formation <em style={{ color:'var(--gold)', fontStyle:'italic' }}>Concept</em>
           </h2>
         </div>
-
-        {show.visualizerYoutubeId ? (
-          <VideoBlock label="Drone Formation Visual" youtubeId={show.visualizerYoutubeId}/>
-        ) : (
-          <div style={{ aspectRatio:'16/9', background:'var(--bg2)',
-            border:'1px solid var(--border)', display:'flex', flexDirection:'column',
-            alignItems:'center', justifyContent:'center', gap:'1.2rem' }}>
-            <div style={{ width:1, height:60, background:'var(--border)' }}/>
-            <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.2rem,2vw,2rem)',
-              fontWeight:300, color:'rgba(255,255,255,.2)', textAlign:'center' }}>
-              Awaiting Production
-            </div>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
-              textTransform:'uppercase', color:'rgba(201,169,110,.35)',
-              border:'1px dashed rgba(201,169,110,.15)', padding:'.4rem 1rem' }}>
-              Concept Only — Show Not Yet Produced
-            </div>
-          </div>
-        )}
+        <VideoBlock
+          sound
+          label="Concept Video"
+          youtubeId={show.conceptYoutubeId}
+          fallbackMsg="Concept video coming soon"
+        />
       </div>
 
       {/* ── PREV / NEXT NAVIGATION ── */}

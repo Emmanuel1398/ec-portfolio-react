@@ -20,12 +20,12 @@
   font-size:clamp(12px, 0.8vw, 14px);
   letter-spacing:.22em; text-transform:uppercase; color:var(--gold);
 }
-.links { display:flex; gap:2.5rem; list-style:none; align-items:center; }
+.links { display:flex; gap:1.35rem; list-style:none; align-items:center; flex-wrap:nowrap; }
 .link {
   font-family:var(--ui);
-  font-size:clamp(12px, 0.9vw, 15px);
-  letter-spacing:.16em; text-transform:uppercase;
-  color:var(--muted); text-decoration:none; transition:color .2s;
+  font-size:clamp(11px, 0.72vw, 13px);
+  letter-spacing:.1em; text-transform:uppercase; white-space:nowrap;
+  color:rgba(255,255,255,.85); text-decoration:none; transition:color .2s;
   position:relative; padding-bottom:3px;
 }
 .link::after {
@@ -43,3 +43,5 @@
 .mobileLink { font-family:var(--serif); font-size: 2.5rem; font-weight:300; color:var(--text); text-decoration:none; }
 .mobileLink:hover { color:var(--gold); }
 @media(min-width:961px){.hide-desktop{display:none;}}
+@media(min-width:1101px){ .burger{display:none;} }
+@media(max-width:1100px){ .links{display:none;} }

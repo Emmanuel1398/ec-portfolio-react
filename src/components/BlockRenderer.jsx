@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import VideoModal from './VideoModal';
 import Lightbox, { hiRes, ZoomBadge } from './Lightbox';
+import AutoVideo from './AutoVideo';
 
 /* ── one asset frame: image when src present, else dashed placeholder ── */
-function Frame({ f, ratio = '4/3' }) {
+function Frame({ f, ratio = '4/3', row = false }) {
   const [open, setOpen] = useState(false);
   if (f && f.src) {
     const cap = [f.label, f.spec].filter(Boolean).join(' \u00b7 ');
@@ -13,11 +14,13 @@ function Frame({ f, ratio = '4/3' }) {
           aria-label={`View ${f.label || 'image'} full size`}
           onClick={() => setOpen(true)}
           onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(true); } }}
-          style={{ position:'relative', overflow:'hidden', background:'var(--bg2)' }}
+          style={{ position:'relative', overflow:'hidden', background:'var(--bg2)',
+            ...(row ? { height:'100%', flex:'0 0 auto' } : null) }}
           onMouseEnter={e => { const i = e.currentTarget.querySelector('img'); if (i) i.style.transform='scale(1.03)'; }}
           onMouseLeave={e => { const i = e.currentTarget.querySelector('img'); if (i) i.style.transform='scale(1)'; }}>
           <img src={f.src} alt={f.label} loading="lazy"
-            style={{ width:'100%', height:'auto', objectFit:'contain', display:'block',
+            style={{ ...(row ? { height:'100%', width:'auto' } : { width:'100%', height:'auto' }),
+              objectFit:'contain', display:'block',
               transition:'transform .9s cubic-bezier(0.16,1,0.3,1)' }}/>
           {f.tag && <span className="cb-tag">{f.tag}</span>}
           <ZoomBadge />
@@ -56,6 +59,20 @@ function VideoFrame({ block }) {
   );
 }
 
+/* paragraph that can carry inline links: 'text' or {parts:[str|{text,href}]} */
+function Para({ p }) {
+  if (typeof p === 'string') return <p>{p}</p>;
+  return (
+    <p>
+      {p.parts.map((x, i) =>
+        typeof x === 'string'
+          ? <span key={i}>{x}</span>
+          : <a key={i} href={x.href} target="_blank" rel="noopener noreferrer" className="cb-link">{x.text}</a>
+      )}
+    </p>
+  );
+}
+
 export default function BlockRenderer({ blocks }) {
   return (
     <div className="cblog">
@@ -71,16 +88,25 @@ export default function BlockRenderer({ blocks }) {
             );
           case 'prose':
             return b.body
-              ? <div className="cb-prose" key={i}>{b.body.map((p, j) => <p key={j}>{p}</p>)}</div>
+              ? <div className="cb-prose" key={i}>{b.body.map((p, j) => <Para key={j} p={p} />)}</div>
               : <p className="cb-coming" key={i}>Technical write-up coming soon.</p>;
           case 'frames': {
-            const cls = b.cols === 3 ? 'cb-grid3' : b.cols === 2 ? 'cb-grid2' : 'cb-grid1';
-            return <div className={cls} key={i}>{b.items.map((f, j) => <Frame key={j} f={f} />)}</div>;
+            const auto = b.layout === 'row' || (!b.cols && b.items.length > 1 && b.items.length < 5);
+            const cls = auto ? 'cb-row'
+              : b.cols === 4 ? 'cb-grid4' : b.cols === 3 ? 'cb-grid3' : b.cols === 2 ? 'cb-grid2' : 'cb-grid1';
+            return <div className={cls} key={i}>{b.items.map((f, j) => <Frame key={j} f={f} row={auto} />)}</div>;
           }
           case 'maps':
             return <div className="cb-maps" key={i}>{b.items.map((f, j) => <Frame key={j} f={f} ratio="1/1" />)}</div>;
           case 'nodegraph':
             return <div key={i} className="cb-mt"><Frame f={{ tag:'Node Graph', label:b.label, spec:b.spec }} ratio="16/9" /></div>;
+          case 'autovideo':
+            return (
+              <div key={i} className="cb-mt cb-av">
+                {b.label && <div className="cb-av-label">{b.label}</div>}
+                <AutoVideo youtubeId={b.youtubeId} title={b.label || ''} />
+              </div>
+            );
           case 'video':
             return <div key={i} className="cb-mt"><VideoFrame block={b} /></div>;
           case 'valueTable':
@@ -135,22 +161,30 @@ export default function BlockRenderer({ blocks }) {
 }
 
 const CB_CSS = `
-.cblog{max-width:1320px;margin:0 auto;padding:0 5vw 6rem;}
+.cblog{max-width:1760px;margin:0 auto;padding:0 3vw 6rem;}
 .cb-head{display:flex;align-items:baseline;gap:1.4rem;margin:5.5rem 0 1.8rem;padding-top:3rem;border-top:1px solid var(--border);}
 .cb-head:first-of-type{border-top:none;padding-top:0;margin-top:2rem;}
 .cb-num{font-family:var(--ui);font-size:13px;letter-spacing:.14em;color:var(--gold);flex-shrink:0;}
 .cb-title{font-family:var(--serif);font-weight:600;line-height:.98;font-size:clamp(2rem,4vw,3.4rem);letter-spacing:.01em;color:var(--text);}
 .cb-title em{font-style:normal;color:var(--gold);}
-.cb-prose{max-width:68ch;}
+.cb-prose{max-width:none;}
 .cb-prose p{margin:0 0 1.2rem;color:#cbc8c1;font-size:1.06rem;line-height:1.75;}
 .cb-coming{font-family:var(--ui);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);
   border-left:2px solid var(--border);padding:.4rem 0 .4rem 1rem;}
 .cb-grid1{margin-top:2rem;}
 .cb-grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:2rem;}
-.cb-grid3{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:2rem;}
+.cb-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:2rem;}
+.cb-grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:2rem;}
 .cb-maps{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:2rem;}
 .cb-mt{margin-top:2rem;}
-@media(max-width:720px){.cb-grid2,.cb-grid3,.cb-maps{grid-template-columns:1fr;}}
+.cb-row{display:flex;gap:6px;margin-top:2rem;height:clamp(300px,26vw,460px);overflow-x:auto;overflow-y:hidden;
+  scrollbar-width:thin;scrollbar-color:rgba(201,169,110,.35) transparent;}
+.cb-row::-webkit-scrollbar{height:6px;}
+.cb-row::-webkit-scrollbar-thumb{background:rgba(201,169,110,.35);}
+@media(max-width:720px){.cb-row{height:clamp(220px,52vw,300px);}}
+@media(max-width:1400px){.cb-grid4{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:1024px){.cb-grid4,.cb-grid3{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:720px){.cb-grid2,.cb-grid3,.cb-grid4,.cb-maps{grid-template-columns:1fr;}}
 .cb-frame{position:relative;border:1px dashed rgba(201,169,110,.32);
   background:repeating-linear-gradient(45deg,rgba(201,169,110,.02) 0 14px,transparent 14px 28px),var(--bg2);
   display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.4rem;color:var(--muted);overflow:hidden;}
@@ -187,5 +221,8 @@ const CB_CSS = `
   color:var(--gold);transition:background .2s,color .2s,transform .2s;pointer-events:none;}
 .cb-shot:hover .cb-zoom{background:var(--gold);color:#000;transform:scale(1.05);}
 .cb-zoom svg{width:16px;height:16px;display:block;}
-.cb-pq{font-family:var(--serif);font-weight:300;font-size:clamp(1.6rem,3vw,2.6rem);line-height:1.3;color:var(--text);max-width:26ch;margin:1rem 0;}
+.cb-link{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(201,169,110,.45);transition:color .25s,border-color .25s;}
+.cb-link:hover{color:var(--gold2);border-color:var(--gold2);}
+.cb-av-label{font-family:var(--ui);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;}
+.cb-pq{font-family:var(--serif);font-weight:300;font-size:clamp(1.6rem,3vw,2.6rem);line-height:1.3;color:var(--text);max-width:none;margin:1rem 0;}
 `;

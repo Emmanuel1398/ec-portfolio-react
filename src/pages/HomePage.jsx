@@ -5,6 +5,8 @@ import { useState, useRef, useEffect } from 'react';
 const isMobile = typeof window !== 'undefined' &&
   !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 import { useIntersection } from '../hooks';
+import EnterGate from '../components/EnterGate';
+import { isAudioActivated } from '../lib/audioActivation';
 import HorizontalRow from '../components/HorizontalRow';
 import VideoModal from '../components/VideoModal';
 import VolumeSlider from '../components/VolumeSlider';
@@ -136,6 +138,7 @@ function HeroReel() {
     return () => { clearInterval(auto.current); clearTimeout(t); };
   }, []);
 
+
   const slide = REEL_SLIDES[cur];
 
   return (
@@ -144,7 +147,7 @@ function HeroReel() {
       {/* AUTO-PLAY MUTED VIDEO BACKGROUND */}
       <div style={{ position:'absolute', inset:0, zIndex:1, overflow:'hidden' }}>
         <iframe
-          src="https://www.youtube.com/embed/gmiQ0bNoPgQ?autoplay=1&mute=1&loop=1&playlist=gmiQ0bNoPgQ&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1"
+          src={`https://www.youtube.com/embed/gmiQ0bNoPgQ?autoplay=1&mute=${isAudioActivated() ? 0 : 1}&loop=1&playlist=gmiQ0bNoPgQ&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&vq=hd1080`}
           ref={bgRef}
           allow="autoplay; encrypted-media"
           style={{ position:'absolute', top:'50%', left:'50%',
@@ -153,7 +156,7 @@ function HeroReel() {
             border:'none', pointerEvents:'none' }}/>
         {/* Scrim over video */}
         <div style={{ position:'absolute', inset:0,
-          background:'linear-gradient(to bottom, rgba(6,6,6,.65) 0%, rgba(6,6,6,.3) 40%, rgba(6,6,6,.78) 78%, rgba(6,6,6,1) 100%)' }}/>
+          background:'linear-gradient(to bottom, rgba(6,6,6,.9) 0%, rgba(6,6,6,.4) 10%, transparent 26%, transparent 100%)' }}/>
       </div>
 
       {/* Still image layers for inactive slides */}
@@ -194,27 +197,6 @@ function HeroReel() {
 
 
 
-          {/* Center play */}
-          {slide.youtubeId && (
-            <button onClick={() => { setPlaying(true); clearInterval(auto.current); }}
-              style={{ position:'absolute', top:'50%', left:'50%',
-                transform:'translate(-50%,-56%)', display:'flex', flexDirection:'column',
-                alignItems:'center', gap:'1rem', background:'none', border:'none',
-                cursor:'pointer', color:'var(--text)',
-                opacity: loaded ? 1 : 0, transition:'opacity 1.2s ease .5s' }}>
-              <div style={{ width:90, height:90, border:'1px solid rgba(255,255,255,.45)',
-                borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center',
-                transition:'all .4s var(--ease-out)', background:'rgba(6,6,6,.25)' }}
-                onMouseEnter={e=>{ e.currentTarget.style.background='var(--gold)'; e.currentTarget.style.borderColor='var(--gold)'; }}
-                onMouseLeave={e=>{ e.currentTarget.style.background='rgba(6,6,6,.25)'; e.currentTarget.style.borderColor='rgba(255,255,255,.45)'; }}>
-                <svg width="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-              </div>
-              <span style={{ fontFamily:'var(--ui)', fontSize:'clamp(12px,.8vw,14px)',
-                letterSpacing:'.28em', textTransform:'uppercase', color:'rgba(255,255,255,.45)' }}>
-                Watch Full Reel
-              </span>
-            </button>
-          )}
 
           {/* Bottom-right: title + volume only — no arrows/dots */}
           {!playing && (
@@ -227,7 +209,7 @@ function HeroReel() {
               {/* Title label */}
               <div style={{ textAlign:'right' }}>
                 <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(.95rem,1.4vw,1.5rem)',
-                  fontWeight:300, lineHeight:1.05, color:'rgba(255,255,255,.65)', letterSpacing:'.01em' }}>
+                  fontWeight:300, lineHeight:1.05, color:'rgba(255,255,255,.8)', letterSpacing:'.01em', textShadow:'0 2px 12px rgba(0,0,0,.7)' }}>
                   Portfolio Reel
                 </div>
                 <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(.8rem,1.1vw,1.1rem)',
@@ -236,7 +218,7 @@ function HeroReel() {
                 </div>
               </div>
               {/* Volume slider */}
-              <VolumeSlider iframeRef={bgRef}/>
+              <VolumeSlider iframeRef={bgRef} autoUnmute initialVolume={50}/>
             </div>
           )}
         </div>
@@ -576,25 +558,9 @@ export default function HomePage() {
 
   return (
     <div className="page">
+      <EnterGate/>
       <HeroReel/>
       <OlderReelsSection/>
-      <SocialSection/>
-      <VideoRowSection id="projection" bg="var(--bg2)" label="Projection Mapping Videos"
-        title="Projection <em>Mapping</em>"
-        sub="Architectural building projections, object mapping and event screen content across Nairobi and beyond."
-        items={PROJECTION_REAL} height="62vh" itemWidth="30vw"/>
-      <VideoRowSection id="event-viz" bg="var(--bg)" label="Event Visualization Videos"
-        title="Event Visualization <em>Videos</em>"
-        sub="These are the 3D visualizations of some event setups. A pre-visual to guide those setting up and the client on what their implemented vision may look like."
-        items={EVENT_VIZ_REAL} height="60vh" itemWidth="32vw"/>
-      <VideoRowSection id="products" bg="var(--bg2)" label="Product Visualization"
-        title="Product <em>Visualization</em>"
-        sub="3D product renders, architectural and vehicle visualizations."
-        items={PRODUCT_VIZ_REAL} height="62vh" itemWidth="30vw"/>
-      <VideoRowSection id="hologram" bg="var(--bg)" label="Hologram Video Content"
-        title="Hologram <em>Content</em>"
-        sub="These are the raw videos and BTS of holograms I have edited before projection."
-        items={HOLOGRAM_REAL} height="60vh" itemWidth="38vw"/>
     </div>
   );
 }

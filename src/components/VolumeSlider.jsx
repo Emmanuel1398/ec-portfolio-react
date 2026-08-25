@@ -1,15 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { activateAudio, deactivateAudio } from '../lib/audioManager';
+import { onAudioActivated } from '../lib/audioActivation';
 
 const isMobile = typeof window !== 'undefined' &&
   !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-export default function VolumeSlider({ iframeRef, style = {}, initialVolume = 0 }) {
-  const [vol, setVol] = useState(initialVolume);
+export default function VolumeSlider({ iframeRef, style = {}, initialVolume = 0, autoUnmute = false }) {
+  const [vol, setVol] = useState(autoUnmute ? 0 : initialVolume);
+  const applyRef = useRef(null);
 
   useEffect(() => {
-    if (initialVolume > 0) activateAudio(iframeRef, () => setVol(0));
-    return () => deactivateAudio(iframeRef);
+    if (initialVolume > 0 && !autoUnmute) activateAudio(iframeRef, () => setVol(0));
+    let off;
+    if (autoUnmute) off = onAudioActivated(() => applyRef.current && applyRef.current(initialVolume > 0 ? initialVolume : 50));
+    return () => { deactivateAudio(iframeRef); if (off) off(); };
   }, []);
 
   const applyVolume = (v) => {
@@ -26,6 +30,8 @@ export default function VolumeSlider({ iframeRef, style = {}, initialVolume = 0 
       }
     }
   };
+
+  applyRef.current = applyVolume;
 
   // Clicking the icon toggles mute/unmute (unmute → 40% default)
   const toggleMute = (e) => {

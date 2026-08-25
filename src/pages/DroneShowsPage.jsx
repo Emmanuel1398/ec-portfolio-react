@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DRONE_SHOWS } from '../data/portfolio';
+import './category.css';
 
 function useIntersection(threshold = 0.15) {
   const ref = useRef(null);
@@ -226,82 +227,9 @@ function ShowCard({ show, index }) {
       transition: `opacity .8s ease ${index * 0.12}s, transform .8s ease ${index * 0.12}s`,
       height:'100%',
     }}>
-      <Link to={`/drone-shows/${show.slug}`} style={{ textDecoration:'none', color:'inherit', display:'block', height:'100%' }}>
-        <div
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-          style={{
-            position:'relative', overflow:'hidden', background:'var(--bg2)',
-            cursor:'pointer', height:'100%', display:'flex', flexDirection:'column',
-          }}>
-
-          {/* Thumbnail */}
-          <div style={{ position:'relative', aspectRatio:'16/9', overflow:'hidden', flexShrink:0 }}>
-            <img src={thumb} alt={show.title}
-              style={{ width:'100%', height:'100%', objectFit:'cover', display:'block',
-                filter:`brightness(${hover ? .3 : .45}) saturate(.7)`,
-                transform: hover ? 'scale(1.04)' : 'scale(1)',
-                transition:'filter .5s ease, transform .9s var(--ease-out)' }}/>
-
-            {/* Status badge */}
-            <div style={{ position:'absolute', top:'1rem', left:'1rem',
-              fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
-              textTransform:'uppercase', padding:'.2rem .7rem',
-              background: show.status === 'completed' ? 'rgba(201,169,110,.15)' : 'rgba(255,255,255,.08)',
-              border: `1px solid ${show.status === 'completed' ? 'rgba(201,169,110,.5)' : 'rgba(255,255,255,.2)'}`,
-              color: show.status === 'completed' ? 'var(--gold)' : 'rgba(255,255,255,.5)' }}>
-              {show.status === 'completed' ? 'Produced' : 'Concept'}
-            </div>
-
-            {/* Index number */}
-            <div style={{ position:'absolute', top:'1rem', right:'1rem',
-              fontFamily:'var(--serif)', fontSize:'clamp(2rem,4vw,4rem)',
-              fontWeight:300, color:'rgba(255,255,255,.08)', lineHeight:1 }}>
-              0{index + 1}
-            </div>
-
-            {/* Hover overlay */}
-            <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center',
-              justifyContent:'center', flexDirection:'column', gap:'1rem',
-              opacity: hover ? 1 : 0, transition:'opacity .35s ease' }}>
-              <div style={{ width:60, height:60, border:'1px solid rgba(201,169,110,.7)',
-                borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center',
-                background:'rgba(6,6,6,.4)' }}>
-                <svg width="20" viewBox="0 0 24 24" fill="var(--gold)"><path d="M8 5v14l11-7z"/></svg>
-              </div>
-              <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
-                textTransform:'uppercase', color:'rgba(255,255,255,.6)' }}>
-                View Blog
-              </div>
-            </div>
-          </div>
-
-          {/* Card info */}
-          <div style={{ padding:'1.5rem 1.8rem 1.8rem', borderTop:'1px solid var(--border)', flex:1, display:'flex', flexDirection:'column' }}>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em',
-              textTransform:'uppercase', color:'var(--gold)', marginBottom:'.5rem' }}>
-              {show.client} · {show.year}
-            </div>
-            <h3 style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.2rem,1.8vw,1.8rem)',
-              fontWeight:300, color:'var(--text)', lineHeight:1.1, marginBottom:'.7rem' }}>
-              {show.title}
-            </h3>
-            <p style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--muted)',
-              lineHeight:1.7, fontStyle:'italic' }}>
-              {show.tagline}
-            </p>
-            <div style={{ display:'flex', alignItems:'center', gap:'.5rem', marginTop:'auto', paddingTop:'1.2rem',
-              fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em',
-              textTransform:'uppercase',
-              color: hover ? 'var(--gold)' : 'var(--muted)',
-              transition:'color .3s' }}>
-              Read the story
-              <svg width="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </div>
-          </div>
-        </div>
+      <Link to={`/drone-shows/${show.slug}`} className="ilm-card" style={{ height:'100%' }}>
+        <div className="ilm-card-media"><img src={thumb} alt={show.title} loading="lazy" /></div>
+        <div className="ilm-card-title">{show.title}</div>
       </Link>
     </div>
   );

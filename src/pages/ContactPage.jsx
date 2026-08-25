@@ -1,8 +1,9 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import EventThumb from '../components/EventThumb';
 import { useIntersection } from '../hooks';
 import { SOFTWARE_CATEGORIES, SOCIAL, IMAGES } from '../data/portfolio';
 import VideoModal from '../components/VideoModal';
+import AutoVideo from '../components/AutoVideo';
 
 /* ── Software & Expertise grid ── */
 function SoftwareSection() {
@@ -227,7 +228,6 @@ const BTS_EVENT = {
 
 function BtsEasterEgg() {
   const [r, v] = useIntersection();
-  const [modal, setModal] = useState(false);
   const [revealed, setRevealed] = useState(false);
 
   return (
@@ -294,63 +294,35 @@ function BtsEasterEgg() {
             </p>
           </div>
 
-          {/* Full-width event thumb with hover-to-play */}
+          {/* Autoplaying BTS video (sound on reveal, mutes when scrolled away) */}
           <div style={{ position:'relative', width:'100%' }}>
-            <EventThumb event={BTS_EVENT} onPlayFull={() => setModal(true)} />
-
-            {/* Info bar below */}
+            <AutoVideo youtubeId={BTS_EVENT.youtubeId} title={BTS_EVENT.title} />
             <div className="ct-bts" style={{ display:'flex', justifyContent:'space-between',
-              alignItems:'center', padding:'1.2rem 0',
-              borderBottom:'1px solid var(--border)', marginTop:'1px' }}>
+              alignItems:'center', padding:'1.2rem 0', borderBottom:'1px solid var(--border)', marginTop:'1px' }}>
               <div>
-                <div style={{ fontFamily:'var(--ui)', fontSize:'12px',
-                  letterSpacing:'.18em', textTransform:'uppercase',
-                  color:'var(--gold)', marginBottom:'.3rem' }}>
+                <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em',
+                  textTransform:'uppercase', color:'var(--gold)', marginBottom:'.3rem' }}>
                   {BTS_EVENT.client} · {BTS_EVENT.year}
                 </div>
-                <div style={{ fontFamily:'var(--serif)', fontSize:'1.3rem',
-                  fontWeight:300, color:'var(--text)' }}>
+                <div style={{ fontFamily:'var(--serif)', fontSize:'1.3rem', fontWeight:300, color:'var(--text)' }}>
                   {BTS_EVENT.title}
                 </div>
               </div>
-              <div style={{ display:'flex', alignItems:'center', gap:'1.5rem', flexShrink:0 }}>
-                <span style={{ fontFamily:'var(--ui)', fontSize:'12px',
-                  letterSpacing:'.14em', textTransform:'uppercase',
-                  background:'rgba(201,169,110,.07)',
-                  border:'1px solid rgba(201,169,110,.25)',
-                  color:'rgba(201,169,110,.9)', padding:'.22rem .6rem' }}>
-                  {BTS_EVENT.screenDimensions} · {BTS_EVENT.format}
-                </span>
-                <button onClick={() => setModal(true)}
-                  style={{ fontFamily:'var(--ui)', fontSize:'12px',
-                    letterSpacing:'.16em', textTransform:'uppercase',
-                    background:'transparent', border:'1px solid var(--border)',
-                    color:'var(--muted)', padding:'.6rem 1.2rem',
-                    cursor:'pointer', transition:'all .2s',
-                    display:'flex', alignItems:'center', gap:'.5rem' }}
-                  onMouseEnter={e=>{e.currentTarget.style.borderColor='var(--gold)';e.currentTarget.style.color='var(--gold)';}}
-                  onMouseLeave={e=>{e.currentTarget.style.borderColor='var(--border)';e.currentTarget.style.color='var(--muted)';}}>
-                  <svg width="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                  Watch Full Video
-                </button>
-              </div>
+              <span style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.14em',
+                textTransform:'uppercase', background:'rgba(201,169,110,.07)',
+                border:'1px solid rgba(201,169,110,.25)', color:'rgba(201,169,110,.9)',
+                padding:'.22rem .6rem', flexShrink:0 }}>
+                {BTS_EVENT.screenDimensions} · {BTS_EVENT.format}
+              </span>
             </div>
           </div>
         </div>
       )}
 
-      {modal && (
-        <VideoModal
-          youtubeId={BTS_EVENT.youtubeId}
-          title={BTS_EVENT.title}
-          onClose={() => setModal(false)}
-        />
-      )}
     </div>
   );
 }
 
-import { useEffect } from 'react';
 import { useSeoContext } from '../providers/SeoProvider';
 import site from '../config/site';
 
