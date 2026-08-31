@@ -65,7 +65,7 @@ export default function EventThumb({ event, onPlayFull }) {
         </div>
       </div>
 
-      {/* Volume slider — visible when video is playing on desktop */}
+      {/* Volume slider · visible when video is playing on desktop */}
       {showVideo && !isMobile && (
         <div style={{ position:'absolute', bottom:'.7rem', right:'.7rem', zIndex:10 }}
           onClick={e => e.stopPropagation()}>

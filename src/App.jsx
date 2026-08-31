@@ -4,6 +4,7 @@ import { useCursor } from './hooks';
 import Nav from './components/Nav';
 import HomePage from './pages/HomePage';
 import CharactersPage from './pages/CharactersPage';
+import FineArtPage from './pages/FineArtPage';
 import CharacterDetailPage from './pages/CharacterDetailPage';
 import EventVideosPage from './pages/EventVideosPage';
 import ContactPage from './pages/ContactPage';
@@ -107,6 +108,7 @@ export default function App() {
         <Route path="/visualization/:slug"   element={<WorkBlogPage slug="visualization" />} />
         <Route path="/hologram"              element={<CategoryPage slug="hologram" />} />
         <Route path="/hologram/:slug"        element={<WorkBlogPage slug="hologram" />} />
+        <Route path="/fine-art" element={<FineArtPage />} />
         <Route path="/social"                element={<SocialPage />} />
       </Routes>
       <GlobalFooter />

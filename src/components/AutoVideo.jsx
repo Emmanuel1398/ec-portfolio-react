@@ -7,7 +7,7 @@ import { isAudioActivated } from '../lib/audioActivation';
    - on pages with several videos, only the one in view plays sound (orderly);
      scrolling to the next hands the audio over and mutes the previous
    - full controls, so it can be paused or muted manually */
-export default function AutoVideo({ youtubeId, title = '', className, style }) {
+export default function AutoVideo({ youtubeId, title = '', className, style, portrait = false, loop = false }) {
   const iframeRef = useRef(null);
   const boxRef = useRef(null);
 
@@ -29,10 +29,13 @@ export default function AutoVideo({ youtubeId, title = '', className, style }) {
     return () => { io.disconnect(); clearTimeout(t1); clearTimeout(t2); };
   }, [youtubeId]);
 
-  const src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1&vq=hd1080&enablejsapi=1`;
+  const loopArgs = loop ? `&loop=1&playlist=${youtubeId}` : '';
+  const src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1&vq=hd1080&enablejsapi=1${loopArgs}`;
   return (
     <div ref={boxRef} className={className}
-      style={{ position: 'relative', aspectRatio: '16/9', overflow: 'hidden', background: '#000', ...(style || {}) }}>
+      style={{ position: 'relative', aspectRatio: portrait ? '9/16' : '16/9',
+        maxWidth: portrait ? 'min(420px, 100%)' : undefined,
+        overflow: 'hidden', background: '#000', ...(style || {}) }}>
       <iframe ref={iframeRef} src={src} title={title} frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0 }} />

@@ -25,7 +25,7 @@ export const CATEGORIES = {
   visualization: {
     slug: 'visualization', route: '/visualization', label: 'Visualization',
     title: '<em>Visualization</em>',
-    sub: '3D pre-visualization for events and products — event setups previsualized to guide the build and the client, plus product, property and vehicle renders.',
+    sub: '3D pre-visualization for events and products · event setups previsualized to guide the build and the client, plus product, property and vehicle renders.',
     groups: [
       { name: 'Event Visualization', items: EVENT_VIZ_REAL.map(norm) },
       { name: 'Product Visualization', items: PRODUCT_VIZ_REAL.map(norm) },

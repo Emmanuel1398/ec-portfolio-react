@@ -63,7 +63,7 @@ export default function VolumeSlider({ iframeRef, style = {}, initialVolume = 0,
   // Desktop: clickable icon + slider
   return (
     <div className="vol-slider" style={style}>
-      {/* Speaker icon — click to toggle mute/unmute at 40% */}
+      {/* Speaker icon · click to toggle mute/unmute at 40% */}
       <button onClick={toggleMute} style={{
         background:'none', border:'none', padding:0, cursor:'pointer',
         color: vol === 0 ? 'rgba(255,255,255,.45)' : 'var(--gold)',

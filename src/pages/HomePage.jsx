@@ -190,7 +190,7 @@ function HeroReel() {
         </div>
       )}
 
-      {/* CONTENT — entrance animation */}
+      {/* CONTENT · entrance animation */}
       {!playing && (
         <div style={{ position:'relative', zIndex:5, height:'100%',
           display:'flex', flexDirection:'column', justifyContent:'space-between', padding:'0 5vw' }}>
@@ -198,7 +198,7 @@ function HeroReel() {
 
 
 
-          {/* Bottom-right: title + volume only — no arrows/dots */}
+          {/* Bottom-right: title + volume only · no arrows/dots */}
           {!playing && (
             <div style={{
               position:'absolute', bottom:'2.5rem', right:'5vw', zIndex:6,
@@ -236,7 +236,7 @@ function CharactersSection() {
   return (
     <section id="characters" style={{ padding:'8rem 0 0', background:'var(--bg)' }}>
       <SectionHead label="3D Characters" total="17 Works" title="3D Characters &amp;<br/><em>Creatures</em>"
-        sub="— Hyperrealistic sculpts. Every detail intentional."/>
+        sub="· Hyperrealistic sculpts. Every detail intentional."/>
       <div ref={r} className={`rv-img ${v?'in':''}`}>
         <div className="h-row" style={{ height:'72vh' }}>
           {items.map((item,i)=>(
@@ -343,7 +343,7 @@ function OlderReelsSection() {
       <div ref={r} className={`rv ${v?'in':''}`} style={{ marginBottom:'3rem' }}>
         <div className="cat-label">Older Showreels</div>
         <h2 className="sec-title">Previous <em>Reels</em></h2>
-        <div className="sec-rule"><p>— Archive of Previous production reels.</p></div>
+        <div className="sec-rule"><p>· Archive of Previous production reels.</p></div>
       </div>
       <div className="m-stack hr-grid" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'3px' }}>
         {OLDER_REELS.map((reel, i) => (
@@ -378,7 +378,7 @@ function DroneSection() {
   return (
     <section id="drone" style={{ padding:'8rem 0 0', background:'var(--bg)' }}>
       <SectionHead label="Drone Show Concepts" total="6 Clients" title="Drone Show <em>Concepts</em>"
-        sub="— EU-Kenya · HFCK · NRP · Museveni · Mashariki · La Mada"/>
+        sub="· EU-Kenya · HFCK · NRP · Museveni · Mashariki · La Mada"/>
       <div style={{ position:'relative', width:'100%', height:200,
         borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)',
         overflow:'hidden', background:'var(--bg2)' }}>
@@ -489,7 +489,7 @@ function VideoRowSection({ id, label, title, sub, items, height='60vh', itemWidt
       <div ref={r} className={`rv ${v?'in':''}`} style={{ padding:'0 5vw 3rem' }}>
         <div className="cat-label">{label}<span className="cat-num">{`${items.length} Works`}</span></div>
         <h2 className="sec-title" dangerouslySetInnerHTML={{ __html: title }}/>
-        <div className="sec-rule"><p>— {sub}</p></div>
+        <div className="sec-rule"><p>· {sub}</p></div>
       </div>
       <div ref={r2} className={`rv-img ${v2?'in':''}`}>
         <VideoRowWithArrows items={items} height={height} itemWidth={itemWidth} rowRef={rowRef} onPlayModal={setModal}/>
@@ -514,7 +514,7 @@ function SocialSection() {
         <div className="cat-label">Social Media Content<span className="cat-num">{totalCount} Works</span></div>
         <h2 className="sec-title">Social Media <em>Content</em></h2>
         <div className="sec-rule">
-          <p>— Branded motion graphics, GIF animations and social-first visual storytelling.</p>
+          <p>· Branded motion graphics, GIF animations and social-first visual storytelling.</p>
           <a href="https://www.instagram.com/arte_artorius/" target="_blank" rel="noreferrer" className="sec-link">Follow @arte_artorius</a>
         </div>
       </div>
@@ -535,7 +535,7 @@ export default function HomePage() {
 
   useEffect(() => {
     updateSeo({
-      title: `${site.name} — 3D Artist & Motion Designer`,
+      title: `${site.name} · 3D Artist & Motion Designer`,
       description: site.description,
       canonical: site.url,
       structuredData: [

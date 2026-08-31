@@ -58,7 +58,7 @@ function ContactForm() {
     'Social Media','Full Event Video','General Enquiry'];
 
   const handleSend = () => {
-    const subject = encodeURIComponent(`Portfolio Enquiry: ${type || 'General'} — ${name}`);
+    const subject = encodeURIComponent(`Portfolio Enquiry: ${type || 'General'} · ${name}`);
     const body    = encodeURIComponent(
       `Name: ${name}\nEmail: ${email}\nCompany: ${company || 'N/A'}` +
       `\nService: ${type || 'N/A'}\n\nMessage:\n${message}`
@@ -78,12 +78,12 @@ function ContactForm() {
       <div className="m-stack ct-msg" style={{ display:'grid', gridTemplateColumns:'1fr 1px 1fr',
         gap:'6rem', alignItems:'start' }}>
 
-        {/* Left — contact details */}
+        {/* Left · contact details */}
         <div>
           <p style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--muted)',
             lineHeight:1.95, marginBottom:'2.5rem' }}>
             Available for freelance commissions, agency collaborations and project discussions.
-            Based in Nairobi, Kenya — operating globally and remotely.
+            Based in Nairobi, Kenya · operating globally and remotely.
           </p>
           <div style={{ display:'flex', flexDirection:'column',
             borderTop:'1px solid var(--border)' }}>
@@ -131,7 +131,7 @@ function ContactForm() {
         {/* Divider */}
         <div style={{ background:'var(--border)', alignSelf:'stretch' }}/>
 
-        {/* Right — form */}
+        {/* Right · form */}
         <div style={{ display:'flex', flexDirection:'column', gap:'2rem' }}>
           <div className="m-stack ct-form" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'2rem' }}>
             <div style={{ display:'flex', flexDirection:'column', gap:'.4rem' }}>
@@ -216,11 +216,11 @@ const BTS_EVENT = {
   id:'bts-01',
   thumb:'/thumbnails/ev_enewe_bts.png',
   youtubeId:'O7kQpz_o82Q',
-  title:'ENEWE & RRI Book Launch — Sound Editing BTS',
+  title:'ENEWE & RRI Book Launch · Sound Editing BTS',
   client:'Personal / Studio',
   year:'2026',
   category:'Behind The Scenes · Audio Post-Production · Premiere Pro',
-  description:'A behind-the-scenes look at the full audio post-production process for the ENEWE & RRI Book Launch video. Sound design, SFX layering, music mixing and final audio mastering inside Adobe Premiere Pro — from raw edit to polished delivery.',
+  description:'A behind-the-scenes look at the full audio post-production process for the ENEWE & RRI Book Launch video. Sound design, SFX layering, music mixing and final audio mastering inside Adobe Premiere Pro, from raw edit to polished delivery.',
   screenDimensions:'1920×1080',
   aspectRatio:'16:9',
   format:'Full HD',
@@ -233,7 +233,7 @@ function BtsEasterEgg() {
   return (
     <div style={{ background:'var(--bg2)', borderTop:'1px solid var(--border)',
       padding:'6rem 5vw' }}>
-      {/* Teaser — click to reveal */}
+      {/* Teaser · click to reveal */}
       <style>{`
         @keyframes btsBreath {
           0%,100% { transform:scale(1);    opacity:0.4; }
@@ -250,7 +250,7 @@ function BtsEasterEgg() {
           onClick={() => setRevealed(true)}>
           <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.35em',
             textTransform:'uppercase', color:'var(--dim)', marginBottom:'1rem' }}>
-            — Still here? —
+            · Still here? ·
           </div>
           <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.2rem,2vw,2rem)',
             fontWeight:300, fontStyle:'italic', lineHeight:1.4, marginBottom:'1.5rem',
@@ -280,7 +280,7 @@ function BtsEasterEgg() {
           <div className={`rv ${v?'in':''}`} style={{ marginBottom:'3rem' }}>
             <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.35em',
               textTransform:'uppercase', color:'var(--gold)', marginBottom:'.5rem' }}>
-              🎧 Easter Egg — You found it
+              🎧 Easter Egg · You found it
             </div>
             <h2 style={{ fontFamily:'var(--serif)',
               fontSize:'clamp(2rem,3.5vw,4rem)',
@@ -289,7 +289,7 @@ function BtsEasterEgg() {
             </h2>
             <p style={{ fontFamily:'var(--body)', fontSize:'1rem',
               color:'var(--muted)', lineHeight:1.9, maxWidth:'600px' }}>
-              A full look at the audio post-production process — sound design,
+              A full look at the audio post-production process · sound design,
               SFX layering, music mixing and final mastering inside Adobe Premiere Pro.
             </p>
           </div>
@@ -334,7 +334,7 @@ export default function ContactPage() {
   useEffect(() => {
     updateSeo({
       title: `About & Contact | ${site.name}`,
-      description: 'Emmanuel Chege — Hyperrealistic 3D Artist & Motion Designer. Available for commissions, collaborations and projects worldwide from Nairobi, Kenya.',
+      description: 'Emmanuel Chege, Hyperrealistic 3D Artist & Motion Designer. Available for commissions, collaborations and projects worldwide from Nairobi, Kenya.',
       canonical: `${site.url}/contact`,
     });
   }, [updateSeo]);
@@ -361,7 +361,7 @@ export default function ContactPage() {
           <div style={{ marginTop:'1.5rem', maxWidth:'680px' }}>
             <p style={{ fontFamily:'var(--body)', fontSize:'1rem',
               color:'var(--muted)', lineHeight:1.9 }}>
-              Emmanuel Chege — Hyperrealistic 3D Artist &amp; Motion Designer.
+              Emmanuel Chege · Hyperrealistic 3D Artist &amp; Motion Designer.
               Available for commissions, collaborations and projects worldwide from Nairobi, Kenya.
             </p>
           </div>
@@ -405,7 +405,7 @@ export default function ContactPage() {
               lineHeight:2, marginBottom:'1.6rem' }}>
               I am a <strong style={{ color:'var(--text)', fontWeight:400 }}>3D Generalist</strong> with
               a passion for pushing creative boundaries at the intersection of motion graphics,
-              animation and 3D design. My work reflects a meticulous attention to detail — from
+              animation and 3D design. My work reflects a meticulous attention to detail · from
               crafting high-fidelity 3D assets with a hyper-realistic style, to producing polished
               final artworks that communicate with visual clarity and purpose.
             </p>
@@ -419,9 +419,9 @@ export default function ContactPage() {
             <p style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--muted)',
               lineHeight:2, marginBottom:'2.5rem' }}>
               I am currently growing my presence in the industry, with a focus on reaching global
-              audiences — exploring animation in its many art forms: 3D visualizations, drone show
+              audiences · exploring animation in its many art forms: 3D visualizations, drone show
               concepts, 3D animation, hyper-realistic characters, motion graphics and projection
-              mapping. Simply put —{' '}
+              mapping. Simply put ·{' '}
               <strong style={{ color:'var(--gold)', fontWeight:400 }}>
                 I bring concepts and ideas to life.
               </strong>
@@ -455,7 +455,7 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* ── Software & Expertise — directly below bio ── */}
+        {/* ── Software & Expertise · directly below bio ── */}
         <div style={{ borderTop:'1px solid var(--border)' }}>
           <SoftwareSection />
         </div>
@@ -465,7 +465,7 @@ export default function ContactPage() {
       <ContactForm />
 
 
-      {/* ── EASTER EGG — BTS video ── */}
+      {/* ── EASTER EGG · BTS video ── */}
       <BtsEasterEgg />
 
       {/* Footer */}

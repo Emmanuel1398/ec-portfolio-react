@@ -14,6 +14,7 @@ export default function Nav() {
     { to:'/projection',   label:'Projection'   },
     { to:'/visualization',label:'Visualization'},
     { to:'/hologram',     label:'Hologram'     },
+    { to:'/fine-art',     label:'Fine Art'     },
     { to:'/social',       label:'Social'       },
     { to:'/drone-shows',  label:'Drone Shows'  },
     { to:'/contact',      label:'About'        },

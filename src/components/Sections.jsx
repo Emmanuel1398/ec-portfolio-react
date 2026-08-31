@@ -15,7 +15,7 @@ export function Statement() {
           <em style={{ color:'var(--gold)', fontStyle:'normal' }}>feels alive.</em>"
         </p>
         <div style={{ marginTop:'2.5rem', fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.24em', textTransform:'uppercase', color:'var(--muted)' }}>
-          — Emmanuel Chege, 3D Artist, Nairobi
+          · Emmanuel Chege, 3D Artist, Nairobi
         </div>
       </div>
     </div>
@@ -65,7 +65,7 @@ export function EventViz() {
         <div className="s-label">Portfolio / 04</div>
         <h2 className="s-head">Event <em>Visualizations</em></h2>
         <div style={{ marginTop:'1.5rem', borderTop:'1px solid var(--border)', paddingTop:'1rem' }}>
-          <p style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.16em', color:'var(--muted)' }}>— Nyayo Stadium · Martell XXO · Concert Setups · VVIP Lounges</p>
+          <p style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.16em', color:'var(--muted)' }}>· Nyayo Stadium · Martell XXO · Concert Setups · VVIP Lounges</p>
         </div>
       </div>
       <div ref={r2} className={`rv-img ${v2?'in':''}`}>
@@ -85,7 +85,7 @@ export function Products() {
         <div className="s-label">Portfolio / 05</div>
         <h2 className="s-head">Product <em>Renders</em></h2>
         <div style={{ marginTop:'1.5rem', borderTop:'1px solid var(--border)', paddingTop:'1rem' }}>
-          <p style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.16em', color:'var(--muted)' }}>— Photorealistic product visualisation · Michael's Bouquet Perfume</p>
+          <p style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.16em', color:'var(--muted)' }}>· Photorealistic product visualisation · Michael's Bouquet Perfume</p>
         </div>
       </div>
       <div ref={r2} className={`rv-img ${v2?'in':''}`}>
@@ -105,7 +105,7 @@ export function Projection() {
         <div className="s-label">Portfolio / 07</div>
         <h2 className="s-head">Projection <em>Mapping</em></h2>
         <div style={{ marginTop:'1.5rem', borderTop:'1px solid var(--border)', paddingTop:'1rem' }}>
-          <p style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.16em', color:'var(--muted)' }}>— KICC · State House · Mashariki · Makini · STAROOT · JAYS</p>
+          <p style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.16em', color:'var(--muted)' }}>· KICC · State House · Mashariki · Makini · STAROOT · JAYS</p>
         </div>
       </div>
       <div ref={r2} className={`rv-img ${v2?'in':''}`}>
@@ -150,13 +150,13 @@ export function About() {
         {/* Text */}
         <div ref={r2} className={`rv d1 ${v2?'in':''}`}>
           <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.28em', textTransform:'uppercase', color:'var(--gold)', marginBottom:'1.2rem' }}>
-            Portfolio / 00 — About
+            Portfolio / 00 · About
           </div>
           <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(2.5rem,4vw,4.5rem)', fontWeight:300, lineHeight:1, marginBottom:'2.5rem', color:'var(--text)' }}>
             An obsession with<br/><em style={{ fontStyle:'italic', color:'var(--gold)' }}>hyperrealistic detail.</em>
           </h2>
           <p style={{ fontFamily:'var(--ui)', fontSize:'1rem', color:'var(--muted)', lineHeight:2, marginBottom:'1.5rem', letterSpacing:'0.02em' }}>
-            I am <strong style={{ color:'var(--text)', fontWeight:400 }}>Emmanuel Chege</strong>, a hyperrealistic 3D artist and motion designer based in <strong style={{ color:'var(--text)', fontWeight:400 }}>Nairobi, Kenya</strong> with over five years of professional experience. My core discipline is character and creature design — sculpting digital beings so convincing that the line between render and photograph disappears.
+            I am <strong style={{ color:'var(--text)', fontWeight:400 }}>Emmanuel Chege</strong>, a hyperrealistic 3D artist and motion designer based in <strong style={{ color:'var(--text)', fontWeight:400 }}>Nairobi, Kenya</strong> with over five years of professional experience. My core discipline is character and creature design · sculpting digital beings so convincing that the line between render and photograph disappears.
           </p>
           <p style={{ fontFamily:'var(--ui)', fontSize:'1rem', color:'var(--muted)', lineHeight:2, marginBottom:'2.5rem', letterSpacing:'0.02em' }}>
             My practice spans the full 3D pipeline: from concept sculpting in ZBrush, texturing in Mari and Substance Painter, cloth simulation in Marvelous Designer, real-time rendering in Unreal Engine 5, to final compositing in Nuke.
@@ -200,7 +200,7 @@ export function Contact() {
             or say hello.
           </h2>
           <p style={{ fontFamily:'var(--ui)', fontSize:'1rem', color:'var(--muted)', lineHeight:2, marginBottom:'3rem', letterSpacing:'0.02em' }}>
-            Open to freelance commissions, creative collaborations and remote full-time roles. Characters, drone shows, projection mapping, motion — I'd love to hear from you.
+            Open to freelance commissions, creative collaborations and remote full-time roles. Characters, drone shows, projection mapping, motion · I'd love to hear from you.
           </p>
           <div>
             {[

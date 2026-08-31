@@ -16,7 +16,7 @@ export default function SocialPage() {
         <div className="cat-label">Social Media Content<span className="cat-num">{ALL.length} Works</span></div>
         <h2 className="sec-title">Social Media <em>Content</em></h2>
         <div className="sec-rule">
-          <p>— Branded motion graphics, GIF animations and social-first visual storytelling.</p>
+          <p>· Branded motion graphics, GIF animations and social-first visual storytelling.</p>
           <a href="https://www.instagram.com/arte_artorius/" target="_blank" rel="noreferrer" className="sec-link">Follow @arte_artorius</a>
         </div>
       </div>

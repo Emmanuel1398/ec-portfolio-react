@@ -92,7 +92,7 @@ export default function HorizontalRow({ items, height = '68vh', itemWidth = '28v
         ))}
       </div>
 
-      {/* Drag hint — right edge fade */}
+      {/* Drag hint · right edge fade */}
       <div style={{
         position: 'absolute', right: 0, top: 0, bottom: 0, width: 70,
         background: 'linear-gradient(to left, rgba(6,6,6,0.6), transparent)',

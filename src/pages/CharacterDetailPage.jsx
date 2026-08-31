@@ -87,11 +87,17 @@ export default function CharacterDetailPage() {
             {c.name}<br/><span style={{ color:'var(--gold)', fontSize:'.62em' }}>{c.epithet}</span>
           </h1>
           {c.tagline && (
-            <p style={{ maxWidth:'60ch', marginTop:'1.8rem', fontFamily:'var(--body)', fontWeight:300,
+            <p style={{ maxWidth:'none', marginTop:'1.8rem', fontFamily:'var(--body)', fontWeight:300,
               fontSize:'clamp(1.05rem,1.5vw,1.25rem)', color:'var(--muted)', lineHeight:1.7 }}>
               {c.tagline}
             </p>
           )}
+          {c.intro && c.intro.map((para, i) => (
+            <p key={i} style={{ maxWidth:'none', marginTop:'1.4rem', fontFamily:'var(--body)', fontWeight:300,
+              fontSize:'clamp(.98rem,1.15vw,1.08rem)', color:'var(--muted)', lineHeight:1.9 }}>
+              {para}
+            </p>
+          ))}
 
           {/* Square hero render / placeholder */}
           <div className={c.hero ? 'cb-shot' : undefined}
@@ -122,7 +128,7 @@ export default function CharacterDetailPage() {
                 </div>}
           </div>
 
-          {c.hero && heroZoom && <Lightbox src={hiRes(c.hero)} caption={`${c.name} \u2014 Final Hero Render`} onClose={() => setHeroZoom(false)} />}
+          {c.hero && heroZoom && <Lightbox src={hiRes(c.hero)} caption={`${c.name} · Final Hero Render`} onClose={() => setHeroZoom(false)} />}
 
           {/* Meta */}
           {c.specs && c.specs.software && (
@@ -140,25 +146,27 @@ export default function CharacterDetailPage() {
           <BlockRenderer blocks={c.blocks} />
         </div>
 
-        {/* Exit render — closes the piece the way the hero opened it */}
-        {c.outro && (
+        {/* Exit render · closes the piece the way the hero opened it */}
+        {(c.outro || c.outroPending) && (
           <div style={{ maxWidth:'1760px', margin:'0 auto', padding:'1rem 3vw 4rem' }}>
             <div className="cb-shot" role="button" tabIndex={0}
               aria-label="View exit render full size"
               onClick={() => setOutroZoom(true)}
               onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOutroZoom(true); } }}
               style={{ width:'100%', position:'relative', overflow:'hidden', background:'var(--bg2)',
-                boxShadow:'0 40px 120px -40px rgba(0,0,0,.9)' }}>
-              <img src={c.outro} alt={`${c.name} — exit render`} loading="lazy"
-                style={{ width:'100%', height:'auto', objectFit:'contain', display:'block' }}/>
-              <ZoomBadge />
+                aspectRatio: c.outro ? undefined : '16/9',
+                border: c.outro ? 'none' : '1px dashed rgba(201,169,110,.32)',
+                boxShadow: c.outro ? '0 40px 120px -40px rgba(0,0,0,.9)' : 'none' }}>
+              {c.outro && <img src={c.outro} alt={`${c.name} · exit render`} loading="lazy"
+                style={{ width:'100%', height:'auto', objectFit:'contain', display:'block' }}/>}
+              {c.outro && <ZoomBadge />}
               <div style={{ position:'absolute', left:0, bottom:0, width:'100%', padding:'1.6rem 1.2rem .9rem',
                 fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.14em', textTransform:'uppercase',
                 color:'rgba(255,255,255,.78)', background:'linear-gradient(to top,rgba(6,6,6,.85),transparent)' }}>
-                Exit Render
+                {c.outro ? 'Exit Render' : 'Exit Render · coming soon'}
               </div>
             </div>
-            {outroZoom && <Lightbox src={hiRes(c.outro)} caption={`${c.name} \u2014 Exit Render`} onClose={() => setOutroZoom(false)} />}
+            {outroZoom && c.outro && <Lightbox src={hiRes(c.outro)} caption={`${c.name} · Exit Render`} onClose={() => setOutroZoom(false)} />}
           </div>
         )}
 

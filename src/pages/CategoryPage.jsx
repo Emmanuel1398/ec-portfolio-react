@@ -25,7 +25,7 @@ export default function CategoryPage({ slug }) {
       <div ref={r} className={`rv ${v ? 'in' : ''}`} style={{ padding: 'clamp(7rem,13vh,10rem) 5vw 3.5rem' }}>
         <div className="cat-label">{cat.label}<span className="cat-num">{cat.items.length} Works</span></div>
         <h2 className="sec-title" dangerouslySetInnerHTML={{ __html: cat.title }} />
-        <div className="sec-rule"><p>— {cat.sub}</p></div>
+        <div className="sec-rule"><p>· {cat.sub}</p></div>
       </div>
       {cat.groups
         ? cat.groups.map((g) => (

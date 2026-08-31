@@ -63,7 +63,7 @@ export default function DroneShows() {
         <h2 className="s-head">Drone Show<br/><em>Concepts</em></h2>
         <div style={{ marginTop:'1.5rem', borderTop:'1px solid var(--border)', paddingTop:'1rem' }}>
           <p style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.16em', color:'var(--muted)' }}>
-            — EU-Kenya · HFCK · NRP · Museveni · Mashariki · La Mada
+            · EU-Kenya · HFCK · NRP · Museveni · Mashariki · La Mada
           </p>
         </div>
       </div>
@@ -73,7 +73,7 @@ export default function DroneShows() {
         <ConstellationCanvas />
       </div>
 
-      {/* Drone project list — single row */}
+      {/* Drone project list · single row */}
       <div style={{ padding:'3rem 5vw', display:'grid', gridTemplateColumns:'repeat(6,1fr)', gap:'1px', borderBottom:'1px solid var(--border)' }}>
         {DRONE_PROJECTS.map((p, i) => (
           <div key={p.n} ref={i===0?r3:undefined} className={`rv d${Math.min(i,4)} ${v3?'in':''}`}

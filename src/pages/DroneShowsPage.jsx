@@ -245,7 +245,7 @@ export default function DroneShowsPage() {
   useEffect(() => {
     updateSeo({
       title: `Drone Show Concepts | ${site.name}`,
-      description: 'Each drone show begins as a narrative written on paper — a story, a script, a sequence of formations designed to tell a message in the night sky.',
+      description: 'Each drone show begins as a narrative written on paper, a story, a script, a sequence of formations designed to tell a message in the night sky.',
       canonical: `${site.url}/drone-shows`,
     });
   }, [updateSeo]);
@@ -253,7 +253,7 @@ export default function DroneShowsPage() {
   return (
     <div style={{ minHeight:'100vh', background:'var(--bg)', position:'relative', overflow:'hidden' }}>
 
-      {/* Starfield hero background — fills the whole header area */}
+      {/* Starfield hero background · fills the whole header area */}
       <div style={{ position:'absolute', inset:0, top:0, left:0, right:0,
         height:'100vh', pointerEvents:'none', zIndex:0 }}>
         <ConstellationCanvas fullPage={true}/>
@@ -284,7 +284,7 @@ export default function DroneShowsPage() {
         <div style={{ width:60, height:1, background:'var(--gold)', marginBottom:'2rem' }}/>
         <p className="pg-intro" style={{ fontFamily:'var(--body)', fontSize:'clamp(1rem,1.2vw,1.15rem)',
           color:'var(--muted)', lineHeight:1.95, maxWidth:'640px' }}>
-          Each drone show begins as a narrative written on paper — a story, a script, a sequence
+          Each drone show begins as a narrative written on paper · a story, a script, a sequence
           of formations designed to tell a message in the night sky. These are those stories,
           from initial concept through storyboard to final computerised formation visual.
           My role is to translate ideas into compelling visual narratives. This involves developing

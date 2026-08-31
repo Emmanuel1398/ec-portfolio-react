@@ -8,12 +8,15 @@ function CharCard({ char, index }) {
     <Link to={`/characters/${char.slug}`} ref={r}
       className={`rv d${Math.min(index % 4, 3)} ${v ? 'in' : ''}`}
       style={{ textDecoration:'none', display:'block' }}>
-      <div style={{ position:'relative', overflow:'hidden', background:'var(--bg2)', aspectRatio:'3/4',
+      <div style={{ position:'relative', overflow:'hidden', background:'var(--bg2)', height:'100%',
         border: (char.thumb||char.hero) ? 'none' : '1px dashed rgba(201,169,110,.3)' }}
         onMouseEnter={e => { const i=e.currentTarget.querySelector('img'); if(i) i.style.transform='scale(1.05)';
-          e.currentTarget.querySelector('.char-overlay').style.opacity='1'; }}
+          e.currentTarget.querySelector('.char-overlay').style.opacity='1';
+          const b=e.currentTarget.querySelector('.char-status'); if(b) b.style.opacity='1'; }}
         onMouseLeave={e => { const i=e.currentTarget.querySelector('img'); if(i) i.style.transform='scale(1)';
-          e.currentTarget.querySelector('.char-overlay').style.opacity='0'; }}>
+          e.currentTarget.querySelector('.char-overlay').style.opacity='0';
+          const b=e.currentTarget.querySelector('.char-status');
+          if(b) b.style.opacity = char.statusAlways ? '1' : '0'; }}>
 
         {(char.thumb||char.hero)
           ? <img src={char.thumb||char.hero} alt={char.name} loading="lazy"
@@ -52,6 +55,11 @@ function CharCard({ char, index }) {
 
         <div style={{ position:'absolute', top:'1rem', left:'1.2rem', fontFamily:'var(--ui)', fontSize:'12px',
           letterSpacing:'.2em', color:'rgba(255,255,255,.3)' }}>{String(index + 1).padStart(2, '0')}</div>
+        {char.status && (
+          <div className="char-status" style={{ opacity: char.statusAlways ? 1 : 0 }}>
+            <span>{char.status}</span>
+          </div>
+        )}
       </div>
     </Link>
   );
@@ -60,6 +68,41 @@ function CharCard({ char, index }) {
 import { useEffect } from 'react';
 import { useSeoContext } from '../providers/SeoProvider';
 import site from '../config/site';
+
+/* 8-slot mosaic: three tall columns, the two large centre slots reading down the middle */
+const ORDER = ['arya','odungi-the-fairytale','lolungu-the-turkana','ndirangu-the-farmer',
+  'moombi-the-angel','otugi-the-dragon','omolara-the-omo','afrezia-the-emerald'];
+
+const MOSAIC_CSS = `
+.char-mosaic{max-width:1760px;margin:0 auto;padding:2rem 3vw 8rem;display:grid;
+  grid-template-columns:1fr 1.5fr 1fr;grid-template-rows:repeat(6,minmax(0,1fr));
+  gap:14px;aspect-ratio:3.5/3;}
+.char-mosaic>div{min-height:0;min-width:0;}
+.cm-arya{grid-column:1;grid-row:1/3;}
+.cm-ndirangu{grid-column:1;grid-row:3/5;}
+.cm-omolara{grid-column:1;grid-row:5/7;}
+.cm-odungi{grid-column:2;grid-row:1/4;}
+.cm-otugi{grid-column:2;grid-row:4/7;}
+.cm-lolungu{grid-column:3;grid-row:1/3;}
+.cm-moombi{grid-column:3;grid-row:3/5;}
+.cm-afrezia{grid-column:3;grid-row:5/7;}
+.char-mosaic>div>a{display:block;height:100%;}
+@media(max-width:900px){
+  .char-mosaic{grid-template-columns:repeat(2,1fr);grid-template-rows:none;
+    grid-auto-rows:1fr;aspect-ratio:auto;}
+  .char-mosaic>div{grid-column:auto!important;grid-row:auto!important;aspect-ratio:1/1;}
+}
+@media(max-width:560px){.char-mosaic{grid-template-columns:1fr;}}
+.char-status{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);
+  z-index:3;pointer-events:none;display:flex;justify-content:center;
+  padding:.75rem .6rem;transition:opacity .45s;}
+
+.char-status span{font-family:var(--ui);font-weight:500;
+  font-size:clamp(11px,1.15vw,17px);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);text-align:center;line-height:1.35;
+  text-shadow:0 2px 18px rgba(0,0,0,.95), 0 0 32px rgba(0,0,0,.75);}
+@media(max-width:900px){.char-status span{font-size:clamp(11px,2.6vw,15px);}}
+`;
 
 export default function CharactersPage() {
   const { updateSeo } = useSeoContext();
@@ -74,7 +117,8 @@ export default function CharactersPage() {
 
   return (
     <div style={{ minHeight:'100vh', background:'var(--bg)' }}>
-      <div className="pg-head" style={{ padding:'9rem 5vw 3rem', maxWidth:'1500px', margin:'0 auto' }}>
+      <style>{MOSAIC_CSS}</style>
+      <div className="pg-head" style={{ padding:'9rem 3vw 3rem', maxWidth:'1760px', margin:'0 auto' }}>
         <div className="cat-label">3D Characters<span className="cat-num">{CHARACTER_BLOGS.length} Breakdowns</span></div>
         <h1 className="pg-title" style={{ fontFamily:'var(--serif)', fontSize:'clamp(3rem,7vw,8rem)', fontWeight:600,
           lineHeight:.92, letterSpacing:'.01em', color:'var(--text)', marginBottom:'1.5rem' }}>
@@ -82,16 +126,23 @@ export default function CharactersPage() {
         </h1>
         <div style={{ width:60, height:1, background:'var(--gold)', marginBottom:'2rem' }}/>
         <p className="pg-intro" style={{ fontFamily:'var(--body)', fontWeight:300, fontSize:'clamp(1rem,1.2vw,1.15rem)',
-          color:'var(--muted)', lineHeight:1.9, maxWidth:'640px' }}>
-          In-depth technical breakdowns of my hyperreal, stylized and creature work — sculpt to look-development,
+          color:'var(--muted)', lineHeight:1.9, maxWidth:'none' }}>
+          In-depth technical breakdowns of my hyperreal, stylized and creature work · sculpt to look-development,
           with a focus on rendering melanated skin honestly. Each breakdown is built out across upcoming sessions;
           some sections are still being filled in.
         </p>
       </div>
 
-      <div style={{ padding:'2rem 5vw 8rem', maxWidth:'1500px', margin:'0 auto',
-        display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(min(100%,440px),1fr))', gap:'2rem' }}>
-        {CHARACTER_BLOGS.map((char, i) => <CharCard key={char.slug} char={char} index={i} />)}
+      <div className="char-mosaic">
+        {ORDER.map((slug, i) => {
+          const char = CHARACTER_BLOGS.find(c => c.slug === slug);
+          if (!char) return null;
+          return (
+            <div key={slug} className={`cm-${slug.split('-')[0]}`}>
+              <CharCard char={char} index={i} />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

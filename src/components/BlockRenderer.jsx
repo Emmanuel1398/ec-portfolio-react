@@ -45,10 +45,14 @@ function Frame({ f, ratio = '4/3', row = false }) {
 function VideoFrame({ block }) {
   const [modal, setModal] = useState(false);
   const has = !!block.youtubeId;
+  const poster = block.poster || (has ? `https://i.ytimg.com/vi/${block.youtubeId}/maxresdefault.jpg` : null);
   return (
     <>
-      <div className="cb-frame" style={{ aspectRatio:'16/9', cursor: has ? 'pointer' : 'default' }}
+      <div className="cb-frame" style={{ aspectRatio: block.portrait ? '9/16' : '16/9',
+        maxWidth: block.portrait ? 'min(420px, 100%)' : undefined, cursor: has ? 'pointer' : 'default' }}
         onClick={() => has && setModal(true)}>
+        {poster && <img src={poster} alt="" aria-hidden="true" loading="lazy" className="cb-poster"
+          onError={e => { e.currentTarget.style.display = 'none'; }} />}
         <div className="cb-play" />
         <div className="cb-fl">{block.label}</div>
         {block.spec && <div className="cb-fs">{block.spec}</div>}
@@ -67,7 +71,9 @@ function Para({ p }) {
       {p.parts.map((x, i) =>
         typeof x === 'string'
           ? <span key={i}>{x}</span>
-          : <a key={i} href={x.href} target="_blank" rel="noopener noreferrer" className="cb-link">{x.text}</a>
+          : (x.href || '').startsWith('/')
+              ? <a key={i} href={x.href} className="cb-link">{x.text}</a>
+              : <a key={i} href={x.href} target="_blank" rel="noopener noreferrer" className="cb-link">{x.text}</a>
       )}
     </p>
   );
@@ -104,11 +110,24 @@ export default function BlockRenderer({ blocks }) {
             return (
               <div key={i} className="cb-mt cb-av">
                 {b.label && <div className="cb-av-label">{b.label}</div>}
-                <AutoVideo youtubeId={b.youtubeId} title={b.label || ''} />
+                <AutoVideo youtubeId={b.youtubeId} title={b.label || ''} portrait={!!b.portrait} />
               </div>
             );
           case 'video':
             return <div key={i} className="cb-mt"><VideoFrame block={b} /></div>;
+          case 'videoRow':
+            return (
+              <div className="cb-vrow" key={i}>
+                {b.items.map((v, j) => (
+                  <div className="cb-vrow-item" key={j}>
+                    {v.auto
+                      ? <AutoVideo youtubeId={v.youtubeId} title={v.label || ''} portrait={!!v.portrait} loop={v.loop !== false} />
+                      : <VideoFrame block={v} />}
+                    {v.label && <div className="cb-vrow-cap">{v.label}</div>}
+                  </div>
+                ))}
+              </div>
+            );
           case 'valueTable':
             return (
               <div className="cb-vt" key={i}>
@@ -116,7 +135,7 @@ export default function BlockRenderer({ blocks }) {
                 {b.rows.map((r, j) => (
                   <div className="cb-vt-row" key={j}>
                     <div className="cb-k">{r.k}</div>
-                    <div className="cb-v">{r.v ? r.v : <span className="cb-dash">—</span>}</div>
+                    <div className="cb-v">{r.v ? r.v : <span className="cb-dash">·</span>}</div>
                   </div>
                 ))}
               </div>
@@ -130,10 +149,10 @@ export default function BlockRenderer({ blocks }) {
                   {b.rows.map((r, j) => (
                     <div className="cb-lt-cell" key={j} style={{ gridColumn:'1 / -1', display:'contents' }}>
                       <div className="cb-lname">{r.name}</div>
-                      <div className="cb-mut">{r.type || <span className="cb-dash">—</span>}</div>
-                      <div className="cb-mut">{r.intensity || <span className="cb-dash">—</span>}</div>
-                      <div className="cb-mut">{r.colour || <span className="cb-dash">—</span>}</div>
-                      <div className="cb-mut">{r.samples || <span className="cb-dash">—</span>}</div>
+                      <div className="cb-mut">{r.type || <span className="cb-dash">·</span>}</div>
+                      <div className="cb-mut">{r.intensity || <span className="cb-dash">·</span>}</div>
+                      <div className="cb-mut">{r.colour || <span className="cb-dash">·</span>}</div>
+                      <div className="cb-mut">{r.samples || <span className="cb-dash">·</span>}</div>
                     </div>
                   ))}
                 </div>
@@ -143,7 +162,9 @@ export default function BlockRenderer({ blocks }) {
             return (
               <div className="cb-callout" key={i}>
                 <div className="cb-ct">{b.title}</div>
-                <p className="cb-coming" style={{ margin:0 }}>{b.body || 'Notes coming soon.'}</p>
+                {b.body
+                  ? <div className="cb-cbody">{typeof b.body === 'object' ? <Para p={b.body} /> : <p>{b.body}</p>}</div>
+                  : <p className="cb-coming" style={{ margin:0 }}>Notes coming soon.</p>}
               </div>
             );
           case 'chips':
@@ -181,6 +202,12 @@ const CB_CSS = `
   scrollbar-width:thin;scrollbar-color:rgba(201,169,110,.35) transparent;}
 .cb-row::-webkit-scrollbar{height:6px;}
 .cb-row::-webkit-scrollbar-thumb{background:rgba(201,169,110,.35);}
+.cb-vrow{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:10px;margin-top:2rem;align-items:start;}
+.cb-vrow-item>div:first-child{width:100%!important;max-width:none!important;}
+.cb-vrow-cap{margin-top:.6rem;font-family:var(--ui);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(255,255,255,.45);line-height:1.5;}
+@media(max-width:1024px){.cb-vrow{grid-auto-flow:row;grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){.cb-vrow{grid-template-columns:1fr;}}
 @media(max-width:720px){.cb-row{height:clamp(220px,52vw,300px);}}
 @media(max-width:1400px){.cb-grid4{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:1024px){.cb-grid4,.cb-grid3{grid-template-columns:repeat(2,1fr);}}
@@ -194,6 +221,10 @@ const CB_CSS = `
 .cb-fl{font-family:var(--serif);font-size:1.3rem;color:var(--gold2);}
 .cb-fs{font-family:var(--ui);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.4rem;}
 .cb-fh{font-family:var(--ui);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-top:.9rem;}
+.cb-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0;}
+.cb-frame>*:not(.cb-poster){position:relative;z-index:2;}
+.cb-frame::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(to top,rgba(6,6,6,.88),rgba(6,6,6,.42) 55%,rgba(6,6,6,.55));}
 .cb-play{width:50px;height:50px;border:1px solid var(--gold);border-radius:50%;margin-bottom:.9rem;position:relative;}
 .cb-play::after{content:'';position:absolute;top:50%;left:54%;transform:translate(-50%,-50%);border-left:12px solid var(--gold);border-top:8px solid transparent;border-bottom:8px solid transparent;}
 .cb-vt,.cb-lt{margin-top:2rem;border:1px solid var(--border);background:rgba(16,16,16,.72);backdrop-filter:blur(4px);overflow-x:auto;}
@@ -212,6 +243,10 @@ const CB_CSS = `
 .cb-mut{color:var(--muted);}
 .cb-callout{margin-top:2rem;border-left:2px solid var(--gold);background:rgba(201,169,110,.07);backdrop-filter:blur(2px);padding:1.5rem 1.7rem;}
 .cb-ct{font-family:var(--ui);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.7rem;}
+.cb-cbody p{font-family:var(--body);font-weight:300;font-size:clamp(1rem,1.1vw,1.08rem);
+  line-height:1.85;color:var(--text);margin:0;}
+.cb-cbody a{color:var(--gold);font-weight:400;text-decoration:none;border-bottom:1px solid var(--gold);}
+.cb-cbody a:hover{color:var(--gold2);border-color:var(--gold2);}
 .cb-chips{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2rem;}
 .cb-chips span{font-family:var(--ui);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);padding:.45rem .85rem;}
 .cb-shot{cursor:zoom-in;outline:none;}

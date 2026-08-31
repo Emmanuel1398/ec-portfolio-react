@@ -28,7 +28,12 @@ const STATIC_PAGES = [
   '/characters',
   '/events',
   '/contact',
-  '/drone-shows'
+  '/drone-shows',
+  '/fine-art',
+  '/projection',
+  '/visualization',
+  '/hologram',
+  '/social'
 ];
 
 function escapeXml(unsafe) {

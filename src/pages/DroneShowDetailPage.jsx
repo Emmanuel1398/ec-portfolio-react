@@ -54,7 +54,7 @@ function VideoBlock({ label, youtubeId, fallbackMsg }) {
           background:'var(--bg3)', display:'flex', alignItems:'center', justifyContent:'center' }}>
           <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
             textTransform:'uppercase', color:'var(--muted)', textAlign:'center', padding:'1rem' }}>
-            {fallbackMsg || `${label} — coming soon`}
+            {fallbackMsg || `${label} · coming soon`}
           </div>
         </div>
       </div>
@@ -184,7 +184,7 @@ export default function DroneShowDetailPage() {
             <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
               textTransform:'uppercase', color:'rgba(201,169,110,.35)',
               border:'1px dashed rgba(201,169,110,.15)', padding:'.4rem 1rem' }}>
-              Concept Only — Show Not Yet Produced
+              Concept Only · Show Not Yet Produced
             </div>
           </div>
         )}
@@ -218,7 +218,7 @@ export default function DroneShowDetailPage() {
           </h2>
           <p style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--dim)',
             lineHeight:1.7, maxWidth:'480px' }}>
-            The narration voice-over delivered during the live show — each section
+            The narration voice-over delivered during the live show · each section
             corresponding to a drone formation sequence in the sky above.
           </p>
         </div>

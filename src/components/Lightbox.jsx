@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 /* Bump a Google-Drive thumbnail URL to a larger size for the zoom view.
-   Local/bundled images (no &sz=) pass through unchanged — they're already full-res. */
+   Local/bundled images (no &sz=) pass through unchanged · they're already full-res. */
 export const hiRes = (src) =>
   typeof src === 'string' ? src.replace(/([?&]sz=)w\d+/, '$1w2048') : src;
 

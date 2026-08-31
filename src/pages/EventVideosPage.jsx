@@ -19,7 +19,7 @@ function EventCard({ event, index }) {
         alignItems:'start', paddingBottom:'5rem', marginBottom:'5rem',
         borderBottom:'1px solid var(--border)' }}>
 
-      {/* Thumbnail — opens the project blog */}
+      {/* Thumbnail · opens the project blog */}
       <EventThumb event={event} onPlayFull={go} />
 
       {/* Info */}
@@ -94,7 +94,7 @@ export default function EventVideosPage() {
         borderBottom:'1px solid var(--border)', background:'var(--bg)' }}>
         <div ref={r} className={`rv ${v?'in':''}`}>
           <div className="cat-label">
-            Page 02 — Full Event Videos
+            Page 02 · Full Event Videos
             <span className="cat-num">{EVENTS_REAL.length} Events</span>
           </div>
           <h1 className="sec-title" style={{ fontSize:'clamp(3rem,6vw,7rem)' }}>
@@ -108,11 +108,11 @@ export default function EventVideosPage() {
             <p className="ev-note-p" style={{ fontFamily:'var(--serif)',
               fontSize:'clamp(.85rem,1.1vw,1rem)', fontWeight:300,
               fontStyle:'italic', lineHeight:1.75, color:'var(--text)' }}>
-              "These are final event films and animations delivered to clients for broadcast, social media, documentation, and archival purposes. My process spans the entire production pipeline: concept development, research, storyboarding, 3D modelling, simulation, texturing, look development, rigging, animation, lighting, rendering, visual effects, compositing, editing, sound design, and colour grading. Working across Maya, Unreal Engine, Twinmotion, Substance 3D Painter, Mari, Houdini, EmberGen, LiquiGen, After Effects, Nuke, Premiere Pro, and DaVinci Resolve. The result is a complete production pipeline — from initial concept to final delivery — designed to create compelling visual experiences that communicate, engage, and leave a lasting impression."
+              "These are final event films and animations delivered to clients for broadcast, social media, documentation, and archival purposes. My process spans the entire production pipeline: concept development, research, storyboarding, 3D modelling, simulation, texturing, look development, rigging, animation, lighting, rendering, visual effects, compositing, editing, sound design, and colour grading. Working across Maya, Unreal Engine, Twinmotion, Substance 3D Painter, Mari, Houdini, EmberGen, LiquiGen, After Effects, Nuke, Premiere Pro, and DaVinci Resolve. The result is a complete production pipeline · from initial concept to final delivery · designed to create compelling visual experiences that communicate, engage, and leave a lasting impression."
             </p>
             <div style={{ marginTop:'1rem', fontFamily:'var(--ui)', fontSize:'12px',
               letterSpacing:'.2em', textTransform:'uppercase', color:'var(--muted)' }}>
-              — Emmanuel Chege · Post-Production & Editing · Nairobi, Kenya
+              · Emmanuel Chege · Post-Production & Editing · Nairobi, Kenya
             </div>
           </div>
 
@@ -173,7 +173,7 @@ function EventEasterEgg() {
           onClick={() => setRevealed(true)}>
           <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.35em',
             textTransform:'uppercase', color:'var(--dim)', marginBottom:'1rem' }}>
-            — One more thing —
+            · One more thing ·
           </div>
           <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.2rem,2vw,2rem)',
             fontWeight:300, fontStyle:'italic', lineHeight:1.4, marginBottom:'1.5rem',

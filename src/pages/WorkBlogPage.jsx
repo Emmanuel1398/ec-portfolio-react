@@ -58,17 +58,17 @@ export default function WorkBlogPage({ slug }) {
                 {[w.siteInstall.event, w.siteInstall.location].filter(Boolean).map((m, i) => <span key={i}>{m}</span>)}
               </div>
             )}
-            <p className="blog-site-note">{w.siteInstall.note || 'Proof for client preview — the projection installed and running on site.'}</p>
+            <p className="blog-site-note">{w.siteInstall.note || 'Proof for client preview · the projection installed and running on site.'}</p>
             <div className="blog-site-row">
               {w.siteInstall.videos && w.siteInstall.videos.map((vid, i) => (
                 <div key={'v' + i} className="blog-site-cell video">
                   <iframe src={`https://www.youtube.com/embed/${vid}?rel=0&modestbranding=1&controls=1&playsinline=1`}
-                    title={`${w.title} — site installation`} frameBorder="0"
+                    title={`${w.title} · site installation`} frameBorder="0"
                     allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
                 </div>
               ))}
               {w.siteInstall.images && w.siteInstall.images.map((src, i) => (
-                <figure key={'i' + i} className="blog-site-cell"><img src={src} alt={`${w.title} — site installation`} loading="lazy" /></figure>
+                <figure key={'i' + i} className="blog-site-cell"><img src={src} alt={`${w.title} · site installation`} loading="lazy" /></figure>
               ))}
             </div>
           </section>

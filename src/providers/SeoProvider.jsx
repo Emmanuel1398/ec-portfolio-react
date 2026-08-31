@@ -44,7 +44,7 @@ const removeDuplicateMetaTags = (tags) => {
 
 export const SeoProvider = ({ children }) => {
   const [seo, setSeo] = useState({
-    title: `${site.name} — ${site.tagline}`,
+    title: `${site.name} · ${site.tagline}`,
     description: site.description,
     canonical: null,
     image: DEFAULT_IMAGE,
