@@ -116,6 +116,56 @@ export const SeoProvider = ({ children }) => {
   );
 };
 
+export const SEO = ({
+  title = `${site.name} · ${site.tagline}`,
+  description = site.description,
+  canonical,
+  image = DEFAULT_IMAGE,
+  type = 'website',
+  twitterHandle = site.twitter,
+  locale = 'en_US',
+  structuredData = null,
+  additionalMetaTags = [],
+  robots = 'index, follow',
+  noindex = false,
+  children,
+}) => {
+  const { updateSeo } = useSeoContext();
+
+  useEffect(() => {
+    updateSeo({
+      title,
+      description,
+      canonical,
+      image,
+      type,
+      twitterHandle,
+      locale,
+      structuredData,
+      additionalMetaTags,
+      robots,
+      noindex,
+    });
+  }, [
+    title,
+    description,
+    canonical,
+    image,
+    type,
+    twitterHandle,
+    locale,
+    structuredData,
+    additionalMetaTags,
+    robots,
+    noindex,
+    updateSeo,
+  ]);
+
+  return children ? <Helmet>{children}</Helmet> : null;
+};
+
+export const Seo = SEO;
+
 export const BreadcrumbSchema = ({ items }) => {
   const schema = {
     "@context": "https://schema.org",

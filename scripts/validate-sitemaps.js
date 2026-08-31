@@ -11,6 +11,7 @@ const files = [
   'sitemap.xml',
   'characters-sitemap.xml',
   'drone-shows-sitemap.xml',
+  'works-sitemap.xml',
   'sitemap-index.xml'
 ];
 
