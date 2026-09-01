@@ -59,14 +59,35 @@ export const SeoProvider = ({ children }) => {
 
   const updateSeo = useCallback((newSeoData) => {
     setSeo(prevSeo => {
-      const merged = { ...prevSeo, ...newSeoData };
+      let hasChanges = false;
+      const merged = { ...prevSeo };
+
+      for (const key in newSeoData) {
+        if (newSeoData[key] !== undefined && key !== 'canonical' && key !== 'additionalMetaTags') {
+          if (JSON.stringify(prevSeo[key]) !== JSON.stringify(newSeoData[key])) {
+            merged[key] = newSeoData[key];
+            hasChanges = true;
+          }
+        }
+      }
+
       if (newSeoData.canonical !== undefined) {
-        merged.canonical = newSeoData.canonical ? ensureAbsoluteUrl(newSeoData.canonical) : null;
+        const newCanonical = newSeoData.canonical ? ensureAbsoluteUrl(newSeoData.canonical) : null;
+        if (prevSeo.canonical !== newCanonical) {
+          merged.canonical = newCanonical;
+          hasChanges = true;
+        }
       }
+
       if (newSeoData.additionalMetaTags) {
-        merged.additionalMetaTags = removeDuplicateMetaTags(newSeoData.additionalMetaTags);
+        const newTags = removeDuplicateMetaTags(newSeoData.additionalMetaTags);
+        if (JSON.stringify(prevSeo.additionalMetaTags) !== JSON.stringify(newTags)) {
+          merged.additionalMetaTags = newTags;
+          hasChanges = true;
+        }
       }
-      return merged;
+
+      return hasChanges ? merged : prevSeo;
     });
   }, []);
 
@@ -78,8 +99,10 @@ export const SeoProvider = ({ children }) => {
 
   const robotsContent = seo.noindex ? 'noindex, nofollow' : seo.robots;
 
+  const contextValue = useMemo(() => ({ seo, updateSeo }), [seo, updateSeo]);
+
   return (
-    <SeoContext.Provider value={{ seo, updateSeo }}>
+    <SeoContext.Provider value={contextValue}>
       <Helmet>
         <title>{seo.title}</title>
         <meta name="description" content={seo.description} />
@@ -132,6 +155,9 @@ export const SEO = ({
 }) => {
   const { updateSeo } = useSeoContext();
 
+  const structuredDataString = JSON.stringify(structuredData);
+  const additionalMetaTagsString = JSON.stringify(additionalMetaTags);
+
   useEffect(() => {
     updateSeo({
       title,
@@ -141,8 +167,8 @@ export const SEO = ({
       type,
       twitterHandle,
       locale,
-      structuredData,
-      additionalMetaTags,
+      structuredData: structuredDataString ? JSON.parse(structuredDataString) : null,
+      additionalMetaTags: additionalMetaTagsString ? JSON.parse(additionalMetaTagsString) : [],
       robots,
       noindex,
     });
@@ -154,8 +180,8 @@ export const SEO = ({
     type,
     twitterHandle,
     locale,
-    structuredData,
-    additionalMetaTags,
+    structuredDataString,
+    additionalMetaTagsString,
     robots,
     noindex,
     updateSeo,
