@@ -1,0 +1,184 @@
+import { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { ILLUSTRATION_BLOGS, getIllustrationBlog } from '../data/illustrationBlogs';
+import BlockRenderer from '../components/BlockRenderer';
+import Lightbox, { hiRes, ZoomBadge } from '../components/Lightbox';
+import { useSeoContext, BreadcrumbSchema } from '../providers/SeoProvider';
+import site from '../config/site';
+
+const HERO_BG_CSS = `
+.char-hero-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-position:center top;background-repeat:no-repeat;background-size:cover;background-attachment:fixed;
+  filter:blur(4px) saturate(1.04);opacity:.34;}
+.char-hero-bg::after{content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 18%, rgba(201,169,110,.06), transparent 60%),
+    linear-gradient(180deg, rgba(8,8,8,.52) 0%, rgba(8,8,8,.72) 50%, rgba(8,8,8,.84) 100%);}
+`;
+
+export default function IllustrationDetailPage() {
+  const { slug } = useParams();
+  const c = getIllustrationBlog(slug);
+  const { updateSeo } = useSeoContext();
+
+  useEffect(() => {
+    if (c) {
+      updateSeo({
+        title: `${c.name} | ${site.name}`,
+        description: c.tagline || `Illustration breakdown: ${c.name}.`,
+        canonical: `${site.url}/drawings-illustrations/${c.slug}`,
+        image: c.hero || site.ogImage,
+        type: 'article',
+      });
+    }
+  }, [c, updateSeo]);
+
+  if (!c) {
+    return (
+      <div style={{ minHeight:'100vh', background:'var(--bg)', display:'flex', alignItems:'center',
+        justifyContent:'center', flexDirection:'column', gap:'1.5rem', color:'var(--muted)' }}>
+        <div style={{ fontFamily:'var(--serif)', fontSize:'2rem', color:'var(--text)' }}>Breakdown not found</div>
+        <Link to="/drawings-illustrations" style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em',
+          textTransform:'uppercase', color:'var(--gold)' }}>← Drawings & Illustrations</Link>
+      </div>
+    );
+  }
+
+  const [heroZoom, setHeroZoom] = useState(false);
+  const [outroZoom, setOutroZoom] = useState(false);
+
+  return (
+    <div style={{ minHeight:'100vh' }}>
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: site.url },
+        { name: 'Drawings & Illustrations', url: `${site.url}/drawings-illustrations` },
+        { name: c.name, url: `${site.url}/drawings-illustrations/${c.slug}` }
+      ]} />
+      <style>{HERO_BG_CSS}</style>
+
+
+      {/* Dark base + faded full-fit hero render, fixed behind everything */}
+      <div style={{ position:'fixed', inset:0, zIndex:0, background:'var(--bg)' }} />
+      {(c.heroBg || c.hero) && (
+        <div className="char-hero-bg"
+          style={{ backgroundImage:`url(${c.heroBg || c.hero})`,
+            backgroundSize:'cover' }} />
+      )}
+
+      <div style={{ position:'relative', zIndex:1 }}>
+
+        {/* Back nav */}
+        <div className="pg-head" style={{ padding:'8rem 3vw 0', maxWidth:'1760px', margin:'0 auto' }}>
+          <Link to="/drawings-illustrations" style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em',
+            textTransform:'uppercase', color:'var(--muted)', textDecoration:'none' }}>← 3D Characters</Link>
+        </div>
+
+        {/* Hero */}
+        <header style={{ maxWidth:'1760px', margin:'0 auto', padding:'2.5rem 3vw 0' }}>
+          <div style={{ display:'flex', alignItems:'center', gap:'1rem', fontFamily:'var(--ui)', fontSize:'12px',
+            letterSpacing:'.22em', textTransform:'uppercase', color:'var(--muted)', marginBottom:'1.3rem' }}>
+            <span style={{ width:'2.2rem', height:1, background:'var(--gold)' }} />
+            {c.category} · {c.year}
+          </div>
+          <h1 className="cd-name" style={{ fontFamily:'var(--serif)', fontWeight:600, lineHeight:.92, letterSpacing:'.01em',
+            fontSize:'clamp(3rem,8vw,7rem)', color:'var(--text)' }}>
+            {c.name}<br/><span style={{ color:'var(--gold)', fontSize:'.62em' }}>{c.epithet}</span>
+          </h1>
+          {c.tagline && (
+            <p style={{ maxWidth:'none', marginTop:'1.8rem', fontFamily:'var(--body)', fontWeight:300,
+              fontSize:'clamp(1.05rem,1.5vw,1.25rem)', color:'var(--muted)', lineHeight:1.7 }}>
+              {c.tagline}
+            </p>
+          )}
+          {c.intro && c.intro.map((para, i) => (
+            <p key={i} style={{ maxWidth:'none', marginTop:'1.4rem', fontFamily:'var(--body)', fontWeight:300,
+              fontSize:'clamp(.98rem,1.15vw,1.08rem)', color:'var(--muted)', lineHeight:1.9 }}>
+              {para}
+            </p>
+          ))}
+
+          {/* Square hero render / placeholder */}
+          <div className={c.hero ? 'cb-shot' : undefined}
+            role={c.hero ? 'button' : undefined} tabIndex={c.hero ? 0 : undefined}
+            aria-label={c.hero ? 'View hero render full size' : undefined}
+            onClick={c.hero ? () => setHeroZoom(true) : undefined}
+            onKeyDown={c.hero ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setHeroZoom(true); } } : undefined}
+            style={{ width:'100%', margin:'3rem 0 0', position:'relative',
+            aspectRatio: c.hero ? undefined : '16/9',
+            overflow:'hidden', background:'var(--bg2)',
+            border: c.hero ? 'none' : '1px dashed rgba(201,169,110,.32)',
+            boxShadow: c.hero ? '0 40px 120px -40px rgba(0,0,0,.9)' : 'none',
+            display:'flex', alignItems:'center', justifyContent:'center' }}>
+            {c.hero
+              ? <>
+                  <img src={c.hero} alt={c.name} style={{ width:'100%', height:'auto', objectFit:'contain', display:'block' }}/>
+                  <ZoomBadge />
+                  <div style={{ position:'absolute', left:0, bottom:0, width:'100%', padding:'1.6rem 1.2rem .9rem',
+                    fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.14em', textTransform:'uppercase',
+                    color:'rgba(255,255,255,.78)', background:'linear-gradient(to top,rgba(6,6,6,.85),transparent)' }}>
+                    Final Hero Render
+                  </div>
+                </>
+              : <div style={{ textAlign:'center' }}>
+                  <div style={{ fontFamily:'var(--serif)', fontSize:'1.5rem', color:'var(--gold2)' }}>Hero Render</div>
+                  <div style={{ fontFamily:'var(--ui)', fontSize:'10px', letterSpacing:'.16em',
+                    textTransform:'uppercase', color:'var(--dim)', marginTop:'.8rem' }}>asset coming soon</div>
+                </div>}
+          </div>
+
+          {c.hero && heroZoom && <Lightbox src={hiRes(c.hero)} caption={`${c.name} · Final Hero Render`} onClose={() => setHeroZoom(false)} />}
+
+          {/* Meta */}
+          {c.specs && c.specs.software && (
+            <div style={{ display:'flex', flexWrap:'wrap', gap:'.6rem', marginTop:'1.9rem' }}>
+              {c.specs.software.map(s => (
+                <span key={s} style={{ fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.1em',
+                  textTransform:'uppercase', color:'var(--muted)', border:'1px solid var(--border)', padding:'.45rem .85rem' }}>{s}</span>
+              ))}
+            </div>
+          )}
+        </header>
+
+        {/* Breakdown blocks */}
+        <div style={{ marginTop:'3.5rem' }}>
+          <BlockRenderer blocks={c.blocks} />
+        </div>
+
+        {/* Exit render · closes the piece the way the hero opened it */}
+        {(c.outro || c.outroPending) && (
+          <div style={{ maxWidth:'1760px', margin:'0 auto', padding:'1rem 3vw 4rem' }}>
+            <div className="cb-shot" role="button" tabIndex={0}
+              aria-label="View exit render full size"
+              onClick={() => setOutroZoom(true)}
+              onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOutroZoom(true); } }}
+              style={{ width:'100%', position:'relative', overflow:'hidden', background:'var(--bg2)',
+                aspectRatio: c.outro ? undefined : '16/9',
+                border: c.outro ? 'none' : '1px dashed rgba(201,169,110,.32)',
+                boxShadow: c.outro ? '0 40px 120px -40px rgba(0,0,0,.9)' : 'none' }}>
+              {c.outro && <img src={c.outro} alt={`${c.name} · exit render`} loading="lazy"
+                style={{ width:'100%', height:'auto', objectFit:'contain', display:'block' }}/>}
+              {c.outro && <ZoomBadge />}
+              <div style={{ position:'absolute', left:0, bottom:0, width:'100%', padding:'1.6rem 1.2rem .9rem',
+                fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.14em', textTransform:'uppercase',
+                color:'rgba(255,255,255,.78)', background:'linear-gradient(to top,rgba(6,6,6,.85),transparent)' }}>
+                {c.outro ? 'Exit Render' : 'Exit Render · coming soon'}
+              </div>
+            </div>
+            {outroZoom && c.outro && <Lightbox src={hiRes(c.outro)} caption={`${c.name} · Exit Render`} onClose={() => setOutroZoom(false)} />}
+          </div>
+        )}
+
+        {/* Back */}
+        <div style={{ borderTop:'1px solid var(--border)', padding:'4rem 3vw', maxWidth:'1760px', margin:'0 auto' }}>
+          <Link to="/drawings-illustrations" style={{ textDecoration:'none', display:'block' }}>
+            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em', textTransform:'uppercase',
+              color:'var(--muted)', marginBottom:'.6rem' }}>&larr; Back to</div>
+            <div style={{ fontFamily:'var(--serif)', fontWeight:600, fontSize:'clamp(1.8rem,3.5vw,3rem)', color:'var(--text)' }}>
+              Drawings <span style={{ color:'var(--gold)' }}>&amp; Illustrations</span>
+            </div>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
