@@ -3,7 +3,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { CHARACTER_BLOGS } from '../src/data/characterBlogs.js';
 import { DRONE_SHOWS } from '../src/data/portfolio.js';
-import { CATEGORIES } from '../src/data/categories.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,7 +29,8 @@ const STATIC_PAGES = [
   '/events',
   '/contact',
   '/drone-shows',
-  '/fine-art',
+  '/drawings-illustrations',
+  '/drawings-illustrations/new-year-crackers',
   '/projection',
   '/visualization',
   '/hologram',
@@ -133,50 +133,11 @@ ${urls}
   writeSitemap('drone-shows-sitemap.xml', xml);
 }
 
-function generateWorksSitemap() {
-  const allWorks = [];
-  for (const cat of Object.values(CATEGORIES)) {
-    for (const item of cat.items) {
-      allWorks.push({
-        url: `${SITE_URL}${cat.route}/${item.slug}`,
-        title: item.title,
-        img: item.img
-          ? (item.img.startsWith('http') ? item.img : `${SITE_URL}${item.img}`)
-          : (item.youtubeId ? `https://img.youtube.com/vi/${item.youtubeId}/maxresdefault.jpg` : null)
-      });
-    }
-  }
-
-  const urls = allWorks.map(w => {
-    const imgTag = w.img ? `
-    <image:image>
-      <image:loc>${escapeXml(w.img)}</image:loc>
-      <image:caption>${escapeXml(w.title)}</image:caption>
-    </image:image>` : '';
-
-    return `
-  <url>
-    <loc>${escapeXml(w.url)}</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>${imgTag}
-  </url>`;
-  }).join('');
-
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-${urls}
-</urlset>`;
-
-  writeSitemap('works-sitemap.xml', xml);
-}
-
 function generateSitemapIndex() {
   const sitemaps = [
     'sitemap.xml',
     'characters-sitemap.xml',
-    'drone-shows-sitemap.xml',
-    'works-sitemap.xml'
+    'drone-shows-sitemap.xml'
   ];
 
   const sitemapTags = sitemaps.map(sm => `
@@ -198,7 +159,6 @@ function generateAll() {
   generateStaticSitemap();
   generateCharactersSitemap();
   generateDroneShowsSitemap();
-  generateWorksSitemap();
   generateSitemapIndex();
 }
 

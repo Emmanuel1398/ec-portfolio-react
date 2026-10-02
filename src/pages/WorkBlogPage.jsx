@@ -3,43 +3,15 @@ import { useParams, Link } from 'react-router-dom';
 import { getCategory, getWork } from '../data/categories';
 import './category.css';
 import AutoVideo from '../components/AutoVideo';
-import { SEO, BreadcrumbSchema } from '../providers/SeoProvider';
-import site from '../config/site';
 
 export default function WorkBlogPage({ slug }) {
   const { slug: workSlug } = useParams();
   const cat = getCategory(slug);
   const w = getWork(slug, workSlug);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [slug, workSlug]);
-
   if (!cat || !w) return <div className="page"><div className="blog-wrap"><h1 className="sec-title">Not found</h1></div></div>;
-
-  const pageTitle = `${w.title} | ${cat.label} | ${site.name}`;
-  const canonicalUrl = `${site.url}${cat.route}/${w.slug}`;
-  const metaDesc = w.description
-    ? w.description.slice(0, 160).replace(/\n/g, ' ')
-    : `${w.title} - ${cat.label} project by ${site.name}.`;
-  const shareImage = w.img
-    || (w.gallery?.[0] ? (typeof w.gallery[0] === 'string' ? w.gallery[0] : w.gallery[0].src) : null)
-    || (w.youtubeId ? `https://img.youtube.com/vi/${w.youtubeId}/maxresdefault.jpg` : site.ogImage);
-
   return (
     <article className="page">
-      <SEO
-        title={pageTitle}
-        description={metaDesc}
-        canonical={canonicalUrl}
-        image={shareImage}
-        type="article"
-      />
-      <BreadcrumbSchema items={[
-        { name: 'Home', url: site.url },
-        { name: cat.label, url: `${site.url}${cat.route}` },
-        { name: w.title, url: canonicalUrl }
-      ]} />
       <div className="blog-wrap">
         <Link to={cat.route} className="blog-back">← {cat.label}</Link>
         {w.sub && <div className="cat-label" style={{ marginBottom: '1rem' }}>{w.sub}</div>}

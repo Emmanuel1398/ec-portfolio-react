@@ -2,8 +2,6 @@ import { useEffect } from 'react';
 import { useIntersection } from '../hooks';
 import { HoverVideoCard } from '../components/VideoRow';
 import { SOCIAL_MEDIA_ROW1, SOCIAL_MEDIA_ROW2 } from '../data/portfolio';
-import { SEO } from '../providers/SeoProvider';
-import site from '../config/site';
 import './category.css';
 
 const ALL = [...SOCIAL_MEDIA_ROW1, ...SOCIAL_MEDIA_ROW2];
@@ -14,11 +12,6 @@ export default function SocialPage() {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   return (
     <div className="page">
-      <SEO
-        title={`Social Media Content | ${site.name}`}
-        description="Branded motion graphics, GIF animations and social-first visual storytelling by Emmanuel Chege."
-        canonical={`${site.url}/social`}
-      />
       <div ref={r} className={`rv ${v ? 'in' : ''}`} style={{ padding: 'clamp(7rem,13vh,10rem) 5vw 3rem' }}>
         <div className="cat-label">Social Media Content<span className="cat-num">{ALL.length} Works</span></div>
         <h2 className="sec-title">Social Media <em>Content</em></h2>

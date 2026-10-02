@@ -2,8 +2,6 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getCategory } from '../data/categories';
 import { useIntersection } from '../hooks';
-import { SEO } from '../providers/SeoProvider';
-import site from '../config/site';
 import './category.css';
 
 /* ILM-style card: thumbnail image + title. No hover-play, no description —
@@ -22,19 +20,8 @@ export default function CategoryPage({ slug }) {
   const [r, v] = useIntersection();
   useEffect(() => { window.scrollTo(0, 0); }, [slug]);
   if (!cat) return <div className="page" />;
-
-  const plainTitle = cat.title ? cat.title.replace(/<[^>]+>/g, '') : cat.label;
-  const canonicalUrl = `${site.url}${cat.route}`;
-  const firstImage = cat.items?.[0]?.img || site.ogImage;
-
   return (
     <div className="page">
-      <SEO
-        title={`${plainTitle} | ${site.name}`}
-        description={cat.sub || site.description}
-        canonical={canonicalUrl}
-        image={firstImage}
-      />
       <div ref={r} className={`rv ${v ? 'in' : ''}`} style={{ padding: 'clamp(7rem,13vh,10rem) 5vw 3.5rem' }}>
         <div className="cat-label">{cat.label}<span className="cat-num">{cat.items.length} Works</span></div>
         <h2 className="sec-title" dangerouslySetInnerHTML={{ __html: cat.title }} />

@@ -2,7 +2,7 @@
    their own pages. Data comes straight from portfolio.js (no dupes).
    Add `role`, `description` and `gallery:[...]` to any item in
    portfolio.js and its blog page fills in automatically. */
-import { PROJECTION_REAL, EVENT_VIZ_REAL, PRODUCT_VIZ_REAL, HOLOGRAM_REAL, EVENTS_REAL } from './portfolio.js';
+import { PROJECTION_REAL, EVENT_VIZ_REAL, PRODUCT_VIZ_REAL, HOLOGRAM_REAL, EVENTS_REAL } from './portfolio';
 
 export const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '').slice(0, 64);
 const norm = (raw) => ({

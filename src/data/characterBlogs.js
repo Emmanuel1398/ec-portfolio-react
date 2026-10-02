@@ -188,10 +188,11 @@ const ODUNGI_BLOCKS = [
     'These renders are the skin test. They are where the texture work, the displacement and the light rig finally have to agree with each other, and where melanated skin either holds up under close range or falls apart.',
   ]},
   { t:'frames', cols:1, items:[ OF('hypershade','Hypershade','Maya \u00b7 aiStandardSurface Network','diffuse \u00b7 specular \u00b7 roughness \u00b7 normal \u00b7 broad and fine displacement') ]},
-  { t:'frames', cols:3, items:[
+  { t:'frames', layout:'row', items:[
     OF('lookdev_01','Look Dev','Three Quarter \u00b7 Horns and Ear','skin test'),
     OF('lookdev_02','Look Dev','Front \u00b7 Bust','skin test'),
     OF('lookdev_03','Look Dev','Close Up \u00b7 Eyes and Pore Detail','skin test'),
+    OF('lookdev_04','Look Dev','Three Quarter \u00b7 Expression','teeth, tusks and beadwork'),
   ]},
 
   { t:'head', num:'07', title:'', accent:'Rigging' },

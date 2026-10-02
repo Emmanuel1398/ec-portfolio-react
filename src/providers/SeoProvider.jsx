@@ -59,35 +59,14 @@ export const SeoProvider = ({ children }) => {
 
   const updateSeo = useCallback((newSeoData) => {
     setSeo(prevSeo => {
-      let hasChanges = false;
-      const merged = { ...prevSeo };
-
-      for (const key in newSeoData) {
-        if (newSeoData[key] !== undefined && key !== 'canonical' && key !== 'additionalMetaTags') {
-          if (JSON.stringify(prevSeo[key]) !== JSON.stringify(newSeoData[key])) {
-            merged[key] = newSeoData[key];
-            hasChanges = true;
-          }
-        }
-      }
-
+      const merged = { ...prevSeo, ...newSeoData };
       if (newSeoData.canonical !== undefined) {
-        const newCanonical = newSeoData.canonical ? ensureAbsoluteUrl(newSeoData.canonical) : null;
-        if (prevSeo.canonical !== newCanonical) {
-          merged.canonical = newCanonical;
-          hasChanges = true;
-        }
+        merged.canonical = newSeoData.canonical ? ensureAbsoluteUrl(newSeoData.canonical) : null;
       }
-
       if (newSeoData.additionalMetaTags) {
-        const newTags = removeDuplicateMetaTags(newSeoData.additionalMetaTags);
-        if (JSON.stringify(prevSeo.additionalMetaTags) !== JSON.stringify(newTags)) {
-          merged.additionalMetaTags = newTags;
-          hasChanges = true;
-        }
+        merged.additionalMetaTags = removeDuplicateMetaTags(newSeoData.additionalMetaTags);
       }
-
-      return hasChanges ? merged : prevSeo;
+      return merged;
     });
   }, []);
 
@@ -99,10 +78,8 @@ export const SeoProvider = ({ children }) => {
 
   const robotsContent = seo.noindex ? 'noindex, nofollow' : seo.robots;
 
-  const contextValue = useMemo(() => ({ seo, updateSeo }), [seo, updateSeo]);
-
   return (
-    <SeoContext.Provider value={contextValue}>
+    <SeoContext.Provider value={{ seo, updateSeo }}>
       <Helmet>
         <title>{seo.title}</title>
         <meta name="description" content={seo.description} />
@@ -138,59 +115,6 @@ export const SeoProvider = ({ children }) => {
     </SeoContext.Provider>
   );
 };
-
-export const SEO = ({
-  title = `${site.name} · ${site.tagline}`,
-  description = site.description,
-  canonical,
-  image = DEFAULT_IMAGE,
-  type = 'website',
-  twitterHandle = site.twitter,
-  locale = 'en_US',
-  structuredData = null,
-  additionalMetaTags = [],
-  robots = 'index, follow',
-  noindex = false,
-  children,
-}) => {
-  const { updateSeo } = useSeoContext();
-
-  const structuredDataString = JSON.stringify(structuredData);
-  const additionalMetaTagsString = JSON.stringify(additionalMetaTags);
-
-  useEffect(() => {
-    updateSeo({
-      title,
-      description,
-      canonical,
-      image,
-      type,
-      twitterHandle,
-      locale,
-      structuredData: structuredDataString ? JSON.parse(structuredDataString) : null,
-      additionalMetaTags: additionalMetaTagsString ? JSON.parse(additionalMetaTagsString) : [],
-      robots,
-      noindex,
-    });
-  }, [
-    title,
-    description,
-    canonical,
-    image,
-    type,
-    twitterHandle,
-    locale,
-    structuredDataString,
-    additionalMetaTagsString,
-    robots,
-    noindex,
-    updateSeo,
-  ]);
-
-  return children ? <Helmet>{children}</Helmet> : null;
-};
-
-export const Seo = SEO;
 
 export const BreadcrumbSchema = ({ items }) => {
   const schema = {
