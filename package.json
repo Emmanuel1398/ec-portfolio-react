@@ -5,12 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/generate-sitemaps.js all",
+    "build": "vite build && node scripts/generate-sitemaps.js all && node scripts/generate-share-pages.js",
     "lint": "eslint .",
     "preview": "vite preview",
     "generate-sitemaps": "node scripts/generate-sitemaps.js all",
     "generate-sitemap-index": "node scripts/generate-sitemaps.js index",
-    "validate-sitemaps": "node scripts/validate-sitemaps.js"
+    "validate-sitemaps": "node scripts/validate-sitemaps.js",
+    "generate-share-pages": "node scripts/generate-share-pages.js"
   },
   "dependencies": {
     "framer-motion": "^12.40.0",
@@ -28,6 +29,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
+    "sharp": "^0.34.4",
     "vite": "^8.0.12"
   }
 }

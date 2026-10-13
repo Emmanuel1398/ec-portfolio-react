@@ -747,7 +747,8 @@ export const EVENT_VIZ_REAL = [
 ];
 
 export const HOLOGRAM_REAL = [
-  { img:'/thumbnails/ev_hologram_safaricom.png',   title:'Safaricom Emerald Hologram BTS',       sub:'Hologram · BTS · Safaricom',      youtubeId:'1VyJpDsTG9c' },
+  { img:'/thumbnails/ev_hologram_safaricom.png',   title:'Safaricom Emerald Hologram BTS',       sub:'Hologram · BTS · Safaricom',      youtubeId:'1VyJpDsTG9c',
+    siteInstall:{ label:'Onsite Video', note:'Afrezia, the character built for the launch, playing as a hologram.', videos:['pjqOpzNLG2U'], images:[] } },
   { img:'/thumbnails/ev_hologram_xiaomi.png',      title:'Xiaomi Redmi Note 14 Hologram',        sub:'Product Hologram · Xiaomi',       youtubeId:'_m7PEg7vFK8' },
 ];
 

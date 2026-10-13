@@ -99,6 +99,7 @@ function cBlog(meta) {
     hero: meta.hero || null,
     heroBg: meta.heroBg || null,
     outro: meta.outro || null,
+    outroYoutubeId: meta.outroYoutubeId || null,
     outroPending: !!meta.outroPending,
     specs: meta.specs || {},
     blocks: meta.blocks || buildBlocks(meta.img),
@@ -221,6 +222,179 @@ const ODUNGI_BLOCKS = [
   { t:'head', num:'10', title:'', accent:'Animation' },
   { t:'prose' },
   { t:'video', label:'Animation Test', spec:'process video', youtubeId:null },
+];
+
+
+/* ── LOLUNGU · bespoke case study, rebuilt from scratch (v85) ── */
+const L = (n) => `/lolungu/${n}.jpg`;
+const LF = (n, tag, label, spec) => F(L(n), tag, label, spec);
+
+const LOLUNGU_BLOCKS = [
+  { t:'head', num:'01', title:'Reference &', accent:'Intent' },
+  { t:'prose', body:[
+    'His references were drawn from images of older men and, truthfully, from other character artists’ sculpts of older people. Though not the best anatomical reference, they gave me an understanding of what other artists look out for.',
+    'His main reference was centred on Turkana culture: their beadwork, their clothes, ornaments and hairstyles. Gathering beard reference was also a first for me, as I was working out how to approach it in XGen.',
+    'The reference board was put together in PureRef.',
+  ]},
+  { t:'frames', cols:1, items:[ LF('reference_board','Reference','Reference Board · PureRef','body · main · ornaments · beard') ]},
+
+  { t:'head', num:'02', title:'Blockout &', accent:'Sculpt' },
+  { t:'prose', body:[
+    'Sculpting Lolungu made me realise I needed to break the work down into forms: primary, secondary and tertiary. While other artists would layer these individually, finishing all of the body’s primary forms before moving on, I tend to navigate by individual parts. I would, for example, finish the face, both its primary and secondary forms, before moving to another part.',
+    'This approach helped me understand and cross reference different anatomy books, and apply as much of that information as I could understand at the time. All of the sculpting was done in ZBrush.',
+  ]},
+  { t:'videoRow', items:[
+    { youtubeId:'kiKkK2McD6o', label:'Sculpting Timelapse · Part 1', auto:false },
+    { youtubeId:'ep1hiOgr8sQ', label:'Sculpting Timelapse · Part 2', auto:false },
+    { youtubeId:'zpJCodXZS0o', label:'Sculpting Timelapse · Part 3', auto:false },
+    { youtubeId:'vv2CtnDUnAo', label:'Sculpting Timelapse · Part 4', auto:false },
+    { youtubeId:'eRDK1Xss3XY', label:'Sculpting Timelapse · Part 5', auto:false },
+  ]},
+  { t:'frames', cols:3, items:[
+    LF('clay_01','Clay','Front · Head','ZBrush final clay'),
+    LF('clay_02','Clay','Three Quarter · Head','ZBrush final clay'),
+    LF('clay_03','Clay','Bust · Beaded Collar','ZBrush final clay'),
+  ]},
+  { t:'videoRow', items:[
+    { youtubeId:'1T2KXKscz34', label:'Final Sculpt Turntable · Head', auto:false },
+    { youtubeId:'cRfRNliO0HI', label:'Skin Detail Sculpt Turntable', auto:false },
+  ]},
+
+  { t:'head', num:'03', title:'Retopo &', accent:'UVs' },
+  { t:'prose', body:[
+    'A particularly hard part I encountered when sculpting was the ear holes. In many African cultures, holes are made in the ears, the lips and sometimes the nose, to hold ornaments that represent beauty and initiation practices.',
+    'During retopology these became a real problem to figure out, and so did laying out the UVs around them.',
+  ]},
+  { t:'frames', layout:'row', items:[
+    F(img('1rz93YvxtVcTsno8USjxGU9l6-XYdlc6Q'),'Wire','Lowpoly · Game','retopo'),
+    F(img('14R85bqAcwNeBy53ux4OtxL6zIPXGGkfI'),'Wire','Lowpoly · Film','retopo'),
+    LF('uv_layout','UVs','UV Layout · Checker','body shells'),
+  ]},
+
+  { t:'head', num:'04', title:'Texturing &', accent:'Map Authoring' },
+  { t:'prose', body:[
+    'My main software for texturing at the time was Substance 3D Painter. The timelapse below is a simple explainer of the texturing process.',
+    'The maps created during texturing were base colour, roughness, specular level, ambient occlusion, displacement and normal, shown here in the viewport and across the UV layout, followed by the final texturing renders.',
+  ]},
+  { t:'video', label:'Texturing Timelapse', spec:'Substance 3D Painter · process video', youtubeId:'HYDXaCEuoIg' },
+  { t:'maps', items:[
+    LF('map_basecolor','Map','Base Colour','Substance 3D Painter'),
+    LF('map_roughness','Map','Roughness','Substance 3D Painter'),
+    LF('map_specular','Map','Specular Level','Substance 3D Painter'),
+    LF('map_ao','Map','Ambient Occlusion','Substance 3D Painter'),
+    LF('map_displacement','Map','Displacement','Substance 3D Painter'),
+    LF('map_normal','Map','Normal · Height · Mesh','Substance 3D Painter'),
+  ]},
+  { t:'frames', cols:2, items:[
+    LF('texture_01','Render','Three Quarter · Face Paint','final texturing render'),
+    LF('texture_02','Render','Close Up · Eye and Skin','final texturing render'),
+  ]},
+
+  { t:'head', num:'05', title:'Shading ·', accent:'Hypershade' },
+  { t:'prose', body:[
+    'In Maya I used an aiLayerShader to separate the skin and the paint, so I could control each layer individually, especially the displacement.',
+    'The first layer carries the skin shader and the second carries the paint shader, each with its own maps, and a mask decides where the paint sits on top of the skin.',
+  ]},
+  { t:'frames', cols:1, items:[ LF('hypershade','Hypershade','Maya · aiLayerShader Network','layer 1 skin · layer 2 paint · mask') ]},
+
+  { t:'head', num:'06', title:'', accent:'Lighting' },
+  { t:'prose', body:[
+    'The scene is lit with a three point setup, a key light and two backlights, with an HDRI skydome added on top.',
+    'The four renders below show how the character reads under different lighting setups.',
+  ]},
+  { t:'frames', cols:1, items:[ LF('light_setup','Setup','Three Point Setup + HDRI','key · backlight 1 · backlight 2 · aiSkyDomeLight') ]},
+  { t:'chips', items:['Key Light','Backlight 1','Backlight 2','HDRI Skydome'] },
+  { t:'frames', cols:2, items:[
+    LF('light_01','Lighting','Three Quarter · Head','cool setup'),
+    LF('light_02','Lighting','Three Quarter · Head','warm setup'),
+    LF('light_03','Lighting','Bust · Shuka','cool setup'),
+    LF('light_04','Lighting','Bust · Shuka','warm setup'),
+  ]},
+
+  { t:'head', num:'07', title:'Look', accent:'Development' },
+  { t:'prose', body:[
+    'Lolungu was rendered in Arnold using an sRGB colour management workflow. I was not aware of the ACES workflow back then, and it is something I only moved to in later projects.',
+  ]},
+  { t:'callout', title:'Colour management · then and now', body:{ parts:[
+    'This build sits in sRGB. The move to ACES came later, and you can follow that shift in ',
+    { text:'Arya', href:'/characters/arya' },
+    '.',
+  ]}},
+  { t:'frames', cols:2, items:[
+    LF('lookdev_01','Look Dev','Three Quarter · Head','Arnold · sRGB'),
+    LF('lookdev_02','Look Dev','Bust · Shuka','Arnold · sRGB'),
+    LF('lookdev_03','Look Dev','Full Figure · Spear and Shield','Arnold · sRGB'),
+    LF('lookdev_04','Look Dev','Macro · Eye and Beard','Arnold · sRGB'),
+  ]},
+
+  { t:'head', num:'08', title:'Grooming ·', accent:'XGen' },
+  { t:'prose', body:[
+    'This was my first time actually using XGen. I used the XGen Interactive Grooming tools in particular, as I was not aware of the traditional XGen workflow at the time.',
+    'XGen Interactive was much easier and more straightforward to understand at that stage. It allowed me to be more artistic, without the complexity of learning too many technicalities in scripting and expressions.',
+  ]},
+  { t:'chips', items:['Eyebrows','Upper Lashes','Lower Lashes','Beard Stubble','Peach Fuzz','Braid Root Base','Braids'] },
+  { t:'frames', cols:2, items:[
+    LF('xgen_descriptions','XGen','Interactive Groom · Descriptions','eyebrows · lashes · beard · peach fuzz · braids'),
+    LF('xgen_guides','XGen','Interactive Groom · Viewport','braids · beard · ornaments'),
+  ]},
+
+  { t:'head', num:'09', title:'', accent:'Rigging' },
+  { t:'callout', title:'Rigging and animation by Darius Gitonga', body:{ parts:[
+    'Lolungu was rigged and animated by ',
+    { text:'Darius Gitonga', href:'https://www.youtube.com/@darius.k_gitonga' },
+    '.',
+  ]}},
+  { t:'video', label:'Rigging Breakdown', spec:'Lolungu rig', youtubeId:'0AyGoHsaE7s' },
+
+  { t:'head', num:'10', title:'', accent:'Animation' },
+  { t:'video', label:'Animation', spec:'animated by Darius Gitonga', youtubeId:'drlOQfbbk8g' },
+
+  { t:'head', num:'11', title:'', accent:'Props' },
+  { t:'prose', body:[
+    'All the props carry a cultural background, with patterns common to the local culture: masks, animals and abstract drawings.',
+    'Akalas are made from leather, rubber and stitching. They are a common traditional wear among many cultures in Kenya.',
+  ]},
+  { t:'frames', cols:2, items:[
+    LF('prop_akala_01','Prop','Akala · Shoes','leather · rubber · stitching'),
+    LF('prop_akala_02','Prop','Akala · Side View','leather · rubber · stitching'),
+  ]},
+  { t:'prose', body:[
+    'The clothes are mainly textured with local Turkana and Maasai patterns.',
+  ]},
+  { t:'frames', cols:2, items:[
+    LF('prop_clothes_01','Prop','Clothes · Front','Turkana and Maasai patterns'),
+    LF('prop_clothes_02','Prop','Clothes · Back','Turkana and Maasai patterns'),
+  ]},
+  { t:'prose', body:[
+    'Most of the ear ornaments were made from copper and metal alloys, with patterns sculpted onto the pieces to signify different things. The mouth ornament is a shell with sisal rope attachments.',
+  ]},
+  { t:'frames', cols:2, items:[
+    LF('prop_face_ornaments_01','Prop','Face Ornaments · Front','copper · metal alloys · shell and sisal'),
+    LF('prop_face_ornaments_02','Prop','Face Ornaments · Side','copper · metal alloys · shell and sisal'),
+  ]},
+  { t:'prose', body:[
+    'The shield is made from wood and covered with cow hide, with African patterns added all over it.',
+  ]},
+  { t:'frames', cols:2, items:[
+    LF('prop_shield_front','Prop','Shield · Front','cow hide'),
+    LF('prop_shield_back','Prop','Shield · Back','carved wood'),
+  ]},
+  { t:'prose', body:[
+    'One set of arm ornaments is made from coloured beads and strings, while the other is made from wood, with copper for the bracelets. The spear and the walking stick are carved with African inscriptions and patterns.',
+  ]},
+  { t:'frames', cols:3, items:[
+    LF('prop_arm_ornaments','Prop','Arm Ornaments','beads · strings · wood · copper'),
+    LF('prop_spear','Prop','Spear','carved inscriptions'),
+    LF('prop_walking_stick','Prop','Walking Stick','carved inscriptions'),
+  ]},
+
+  { t:'head', num:'12', title:'', accent:'Retrospective' },
+  { t:'pullquote', text:'Every skin fold, wrinkle and pore became a piece of my identity.' },
+  { t:'prose', body:[
+    'Lolungu was the first character that made me fall in love with 3D characters and realism. He was a stepping stone, and every other character began with him.',
+    'He made me love melanated skin and African culture more deeply. Every skin fold, wrinkle and skin pore became a piece of my identity, an imprint of my personal life that I could sculpt and mould.',
+    'While most people would shy away from showing their first character sculpt, I embrace it, because it reminds me how I started.',
+  ]},
 ];
 
 
@@ -386,6 +560,232 @@ const ARYA_BLOCKS = [
   ]},
 ];
 
+/* ── AFREZIA · bespoke case study, Safaricom Emerald hologram launch ── */
+const AZ = (n) => `/afrezia/${n}.jpg`;
+const AZF = (n, tag, label, spec) => F(AZ(n), tag, label, spec);
+
+const AFREZIA_BLOCKS = [
+  { t:'head', num:'01', title:'Reference &', accent:'Intent' },
+  { t:'prose', body:[
+    'In trying to create this character, we ended up incorporating AI into the referencing, as well as into parts of the facial animation.',
+    'The reference looks the way it does because it follows what the client shared as the main reference.',
+    'Afrezia was meant to look both human and relatable, and like a droid or machine at the same time. One of the inspirations I referenced for the idea was Alita: Battle Angel.',
+    'Another key element was to retain an African look, while adapting the character to the brand.',
+  ]},
+  { t:'frames', cols:1, items:[ AZF('reference_board','Reference','Reference Board','client reference · cybernetic design · emissive lines') ]},
+
+  { t:'head', num:'02', title:'Blockout &', accent:'Sculpt' },
+  { t:'prose', body:[
+    'I used one of my base meshes as a starting point. It was also my first time working on hard surface concepts, and every alpha and brush felt like a new experiment.',
+    'I am used to organic shapes, but this one felt like a new style that I was happily experimenting with, on short notice. I remember it being less than two days and nights of work for the whole project.',
+  ]},
+  { t:'video', label:'Sculpting Process', spec:'ZBrush · process video', youtubeId:'f5Mj8s8_i7c' },
+  { t:'frames', cols:3, items:[
+    AZF('sculpt_front','Sculpt','Front · Head','ZBrush · hard surface'),
+    AZF('sculpt_profile','Sculpt','Profile · Head and Torso','ZBrush · hard surface'),
+    AZF('sculpt_apose','Sculpt','A-Pose · Clothed','ZBrush'),
+  ]},
+  { t:'frames', cols:1, items:[ AZF('sculpt_turnaround','Sculpt','Turnaround · Front, Three Quarter, Back','ZBrush · hard surface') ]},
+  { t:'video', label:'Sculpt Short', spec:'ZBrush', youtubeId:'eIADYGW5uAA', portrait:true },
+  { t:'head', num:'03', title:'Retopo &', accent:'UVs' },
+  { t:'prose', body:[
+    'The UVs were laid out across three UDIM tiles. It was a deliberate choice, because I wanted to render the character fast, as opposed to how long it would take to render one huge texture map.',
+  ]},
+  { t:'frames', cols:1, items:[ AZF('uv_layout','UVs','UDIM Layout · Three Tiles','1001 head and neck · 1002 torso and legs · 1003 arms and hands') ]},
+
+  { t:'head', num:'04', title:'Texturing &', accent:'Map Authoring' },
+  { t:'prose', body:[
+    'Texturing was done in Substance 3D Painter. Below are the eight maps authored for the character, each shown on the model in the viewport alongside the three UDIM tiles, followed by the Iray renders straight out of Substance 3D Painter.',
+  ]},
+  { t:'video', label:'Substance 3D Painter Viewport', spec:'texturing preview', youtubeId:'IkNVWZHleMA' },
+  { t:'frames', cols:2, items:[
+    AZF('map_basecolor','Map','Base Colour','Substance 3D Painter'),
+    AZF('map_roughness','Map','Roughness','Substance 3D Painter'),
+    AZF('map_metallic','Map','Metallic','Substance 3D Painter'),
+    AZF('map_normal','Map','Normal','Substance 3D Painter'),
+    AZF('map_height','Map','Height','Substance 3D Painter'),
+    AZF('map_emissive','Map','Emissive','Substance 3D Painter'),
+    AZF('map_ao','Map','Ambient Occlusion','Substance 3D Painter'),
+    AZF('map_curvature','Map','Curvature','Substance 3D Painter'),
+  ]},
+  { t:'frames', cols:3, items:[
+    AZF('iray_01','Iray','Three Quarter · Head','Substance 3D Painter Iray'),
+    AZF('iray_02','Iray','Front · Head','Substance 3D Painter Iray'),
+    AZF('iray_03','Iray','Three Quarter · Bust','Substance 3D Painter Iray'),
+    AZF('iray_04','Iray','Front · Face and Neck','Substance 3D Painter Iray'),
+    AZF('iray_05','Iray','Close Up · Face','Substance 3D Painter Iray'),
+    AZF('iray_06','Iray','Macro · Cheek and Ear','Substance 3D Painter Iray'),
+    AZF('iray_07','Iray','Profile · Back of Head','Substance 3D Painter Iray'),
+    AZF('iray_08','Iray','Side · Torso and Arm','Substance 3D Painter Iray'),
+    AZF('iray_09','Iray','Forearm and Hand','Substance 3D Painter Iray'),
+  ]},
+  { t:'head', num:'05', title:'Shading ·', accent:'Hypershade' },
+  { t:'prose', body:[
+    'I tried to keep the node network quite simple, and used textures of 2K at most across the character, for faster rendering and texture loading.',
+  ]},
+  { t:'frames', cols:1, items:[ AZF('hypershade','Hypershade','Maya · aiStandardSurface Networks','skin · body · base colour · metallic · roughness · normal · emissive') ]},
+
+  { t:'head', num:'06', title:'Grooming ·', accent:'XGen' },
+  { t:'prose', body:[
+    'When it came to grooming, I stuck to simple grooming groups, the lashes and the brows, to still retain the human look.',
+  ]},
+  { t:'chips', items:['Eyebrows','Eyelashes'] },
+  { t:'frames', cols:1, items:[
+    AZF('xgen_face','XGen','Brows and Lashes · Viewport','density mask · spline primitives'),
+    AZF('xgen_body','XGen','Groom in Scene · Viewport','eyebrow and eyelash description'),
+  ]},
+
+  { t:'head', num:'07', title:'', accent:'Lighting' },
+  { t:'prose', body:[
+    { parts:[
+      'For lighting, I stuck to the same three point studio setup I used on ',
+      { text:'Lolungu', href:'/characters/lolungu-the-turkana' },
+      ', plus an HDRI.',
+    ]},
+  ]},
+  { t:'chips', items:['Area Light 1','Area Light 2','Area Light 3','HDRI Skydome'] },
+  { t:'frames', cols:1, items:[ AZF('light_setup','Setup','Three Point Setup + HDRI','three aiAreaLights · aiSkyDomeLight') ]},
+
+  { t:'head', num:'08', title:'Look', accent:'Development' },
+  { t:'prose', body:[
+    'Afrezia was rendered in Arnold. Subsurface scattering was not needed, because we were trying to achieve a droid look, and we followed an sRGB colour management workflow.',
+  ]},
+  { t:'frames', cols:2, items:[
+    AZF('lookdev_01','Render','Front · Head','Arnold · sRGB'),
+    AZF('lookdev_02','Render','Three Quarter · Bust','Arnold · sRGB'),
+  ]},
+
+  { t:'head', num:'09', title:'', accent:'Rigging' },
+  { t:'prose', body:[
+    { parts:[
+      'I rigged the character using MetaHuman from Unreal Engine, just like ',
+      { text:'Lolungu', href:'/characters/lolungu-the-turkana' },
+      '.',
+    ]},
+  ]},
+  { t:'callout', title:'Rigging support from Daniel Ngatia', body:{ parts:[
+    'This time a lot of the help came from ',
+    { text:'Daniel Ngatia', href:'https://www.linkedin.com/in/danielngatia/' },
+    '.',
+  ]}},
+  { t:'video', label:'Animation Rig Test', spec:'MetaHuman rig', youtubeId:'Z7kFA-hvVn8' },
+
+  { t:'head', num:'10', title:'', accent:'Animation' },
+  { t:'prose', body:[
+    'Because of the time we had, we posed Afrezia in various poses and rendered the images out. The images were then uploaded to an AI platform of choice, Kling being one of them, and animated to match each pose.',
+    'The animation felt more human than machine, but we could easily get away with it, because it was going to play as a hologram.',
+  ]},
+  { t:'video', label:'AI Animation · Output Compilation', spec:'posed renders animated with Kling', youtubeId:'vMO6lU8vg9A', portrait:true },
+
+  { t:'head', num:'11', title:'', accent:'Retrospective' },
+  { t:'pullquote', text:'This project tested both my patience and my adaptability.' },
+  { t:'prose', body:[
+    'My workflow had to be interrupted at the time to embrace AI workflows, a fairly new way of working back then. It cut render time by a big chunk, which allowed faster video editing towards the final delivery video.',
+  ]},
+];
+
+/* ── OMOLARA · bespoke case study ── */
+const OM = (n) => `/omolara/${n}.jpg`;
+const OMF = (n, tag, label, spec) => F(OM(n), tag, label, spec);
+
+const OMOLARA_BLOCKS = [
+  { t:'head', num:'01', title:'Reference &', accent:'Intent' },
+  { t:'prose', body:[
+    'The reference board covers different Ethiopian cultures, especially the Omo tribe. For this character I leaned into actual photographs: a main reference, hair and ornament references for XGen, render poses, background ideas and traditional attire.',
+    'I have come to understand that the smoother someone’s face is, the harder it becomes to texture. Their skin has no folds to carry the story, so the story has to be told subtly, through the skin itself: light blemishes, light scars, a subtle sunburn.',
+  ]},
+  { t:'frames', cols:1, items:[ OMF('reference_board','Reference','Reference Board','main reference · XGen and ornaments · render poses · background · attire') ]},
+
+  { t:'head', num:'02', title:'Blockout &', accent:'Sculpt' },
+  { t:'prose', body:[
+    'Guilty to say, I forgot to render the sculpt. What I do have is the ZBrush viewport, the hair blockouts and a turntable of the character.',
+  ]},
+  { t:'frames', layout:'row', items:[
+    OMF('sculpt_01','Sculpt','ZBrush · Curled Hair Blockout','viewport'),
+    OMF('sculpt_02','Sculpt','ZBrush · Twisted Locs and Lashes','viewport'),
+  ]},
+  { t:'video', label:'ZBrush Turntable', spec:'Omolara sculpt', youtubeId:'225cVlSaIvU', portrait:true },
+
+  { t:'head', num:'03', title:'Retopo &', accent:'UVs' },
+  { t:'prose', body:[
+    'The character is laid out across ten UDIM tiles.',
+  ]},
+  { t:'frames', cols:1, items:[
+    OMF('topology','Topology','Wireframe · Head','Maya'),
+    OMF('uv_layout','UVs','UDIM Layout · Ten Tiles','1001 to 1010'),
+  ]},
+
+  { t:'head', num:'04', title:'Texturing &', accent:'Map Authoring' },
+  { t:'prose', body:[
+    'The skin started with a texture transfer: I used ZWrap to wrap a scan onto the head, then moved into Mari for the skin textures. My colour management was sRGB at this particular time.',
+    'Mari has been a very useful tool, especially when trying to achieve very detailed textures. It allows a non destructive workflow, so I can correct very specific details without starting over.',
+  ]},
+  { t:'frames', cols:1, items:[
+    OMF('mari_nodegraph','Node Graph','Mari · Channel Groups','diffuse · specular · roughness · normal · displacement'),
+    OMF('mari_viewport','Mari','Mari · Viewport','sRGB'),
+  ]},
+  { t:'frames', cols:2, items:[
+    OMF('map_diffuse','Map','Diffuse','Mari'),
+    OMF('map_specular','Map','Specular','Mari'),
+    OMF('map_roughness','Map','Roughness','Mari'),
+    OMF('map_normal','Map','Normal','Mari'),
+    OMF('map_displacement','Map','Displacement','Mari · graded'),
+  ]},
+
+  { t:'head', num:'05', title:'Shading ·', accent:'Hypershade' },
+  { t:'prose', body:[
+    'I kept the shading quite simple: a single aiStandardSurface shader carrying the skin, fed by the Mari maps.',
+  ]},
+  { t:'frames', cols:1, items:[ OMF('hypershade','Hypershade','Maya · aiStandardSurface Network','diffuse · specular · roughness · normal · displacement') ]},
+
+  { t:'head', num:'06', title:'', accent:'Lighting' },
+  { t:'prose', body:[
+    { parts:[
+      'For lighting, I stuck to the same three point setup with an HDRI that I used on ',
+      { text:'Lolungu', href:'/characters/lolungu-the-turkana' },
+      ' and ',
+      { text:'Afrezia', href:'/characters/afrezia-the-emerald' },
+      '.',
+    ]},
+  ]},
+  { t:'chips', items:['Key Light','Fill Light','Back Light','HDRI Skydome'] },
+  { t:'head', num:'07', title:'Grooming ·', accent:'XGen' },
+  { t:'prose', body:[
+    'A particularly hard one to figure out was the head hair. I was rendering on a laptop, an Intel i7 with an RTX 3050 (4GB VRAM) and 16GB of RAM, and XGen really gave me a hard time rendering and handling the many small braids.',
+    'Omo hairstyles are made with a mixture of red soil and mud that preserves the hair. Because of that, the hair had to be more of a mesh with strands of hair over it, and the shiny specular of the wet mud had to be heightened.',
+  ]},
+  { t:'chips', items:['Head Hair · Mesh + Strands','Eyebrows','Eyelashes','Peach Fuzz'] },
+  { t:'frames', cols:1, items:[
+    OMF('xgen_bust','XGen','Groom in Scene · Bust','braids · ornaments · cowrie shells'),
+  ]},
+  { t:'frames', cols:2, items:[
+    OMF('xgen_face','XGen','Brows and Lashes · Collections','eye area · eyebrow and eyelash descriptions'),
+    OMF('xgen_editor','XGen','Eyebrow Description · Editor','density mask · spline primitives'),
+  ]},
+
+  { t:'head', num:'08', title:'Look', accent:'Development' },
+  { t:'prose', body:[
+    'The beadwork was particularly hard to attain. I used a MASH network to distribute the cowrie shells across the ornaments.',
+    'Following Omo culture, the clothes and the cowrie shell neck ornaments were added in this pass. The attire is made of cow hide.',
+  ]},
+  { t:'frames', cols:2, items:[
+    OMF('lookdev_01','Look Dev','Split · Textured and Clay','Arnold'),
+    OMF('lookdev_03','Look Dev','Split · Three Quarter','Arnold'),
+    OMF('lookdev_04','Look Dev','Front · Head and Ornaments','Arnold'),
+    OMF('lookdev_02','Look Dev','Macro · Eye and Skin','Arnold'),
+  ]},
+  { t:'frames', layout:'row', items:[
+    OMF('clothes','Attire','Cow Hide Garment','cowrie shell ornament · Arnold'),
+  ]},
+
+  { t:'head', num:'09', title:'', accent:'Retrospective' },
+  { t:'pullquote', text:'A study that inspired me to test other cultures I can try crafting.' },
+  { t:'prose', body:[
+    'Omolara was an exploration, a test of how well I could portray a culture I am not very knowledgeable about. It was a study that inspired me to try crafting other cultures too.',
+    'The melanin was acceptable against the reference, but this is definitely a project I can revamp and test again in future.',
+  ]},
+];
+
 export const CHARACTER_BLOGS = [
   cBlog({
     slug:'arya', name:'Arya', epithet:'A Character Texturing Odyssey',
@@ -416,62 +816,50 @@ export const CHARACTER_BLOGS = [
   }),
   cBlog({
     slug:'lolungu-the-turkana', name:'Lolungu', epithet:'The Turkana',
-    category:'Hyperrealistic Character', year:'2025',
+    category:'Hyperrealistic Character', year:'2023',
     tagline:'A Turkana portrait, weathered skin, beadwork and the optical truth of melanin under hard northern light.',
     thumb:'/characters/lolungu.jpg',
-    status:'Being Revamped',
-    specs:{ software:['ZBrush','Maya','Mari','Arnold'] },
-    hero: img('1Cxe3diwxEJQeTehn-Kg10Pw8o-ILHE8e','w1600'),
-    img:{
-      ref:[
-        F(img('13kroEdCEDYOSYQKLpqZU2JbFpUDJoPtG'),'Ref','Quarter Shape','blockout'),
-        F(img('1YT3Ylaa13yK3UZ-2ivtSNSLxOnNmQ7VZ'),'Ref','Quarter · Beads','adornment'),
-      ],
-      sculpt:[
-        F(img('1kkHNOLC_m-vXd2m6QWeVnyiwADqhpecl'),'Sculpt','ZBrush Clay','primary forms'),
-        F(img('1_wnl4z6a4lBO8XGqlKh86TU_nHKgdVwd'),'Sculpt','ZBrush Clay','secondary'),
-        F(img('1Pad3JgiaQpoKCGmU2oGruquu1PXb2lQ1'),'Sculpt','ZBrush Clay','detail'),
-      ],
-      uv:[
-        F(img('1rz93YvxtVcTsno8USjxGU9l6-XYdlc6Q'),'Wire','Lowpoly · Game','retopo'),
-        F(img('14R85bqAcwNeBy53ux4OtxL6zIPXGGkfI'),'Wire','Lowpoly · Film','retopo'),
-      ],
-      tex:[
-        F(img('1mvrj2XAf-qFnZHz4N36Gm9D5JfVwJ56S'),'Texture','Body + Paint','Mari'),
-        F(img('1AsmBR9zHXiChdK80k3bL-jCfzUL9wxMW'),'Texture','Shoulder Detail','2K'),
-      ],
-      shading:[
-        F(img('1g0mYexlAlcoYgiAH7NQ_-xOZv029wDmz'),'Lookdev','SSS Calibration','skin response'),
-        F(img('1cZPB92mP4mbhztpxqwhZPleyDXyqznOf'),'Lookdev','Eye Close-up','detail'),
-      ],
-      lookdev:[
-        F(img('1Cxe3diwxEJQeTehn-Kg10Pw8o-ILHE8e'),'Render','Front Camera','final'),
-        F(img('11rKJl1g-jWJdfI9ciMSOF3Lqrx3ISsU4'),'Render','Half Shot','final'),
-      ],
-    },
+    status:'Complete',
+    specs:{ software:['PureRef','Autodesk Maya','ZBrush','Photoshop','Substance 3D Painter','Marvelous Designer','Arnold'] },
+    hero:'/lolungu/hero.jpg',
+    heroBg:'/lolungu/hero_bg.jpg',
+    outro:'/lolungu/exit_render.jpg',
+    intro:[
+      'Lolungu was my first ZBrush character sculpt, and my first real attempt at realism. Most artists would shy away from showing their first attempt, but I embrace it.',
+      'It wasn’t just about figuring out how to sculpt realism. It was also my first time working through skin and cloth texturing, XGen and 3D cloth, all for a character.',
+      'I chose to sculpt Lolungu in retrospect of what I wanted to achieve. I particularly chose an older man because I was trying to figure out what I wanted to achieve long term in 3D, and whether my original reason for switching from 2D fine art pencil drawing to 3D could reach the level of realistic detail I was looking for.',
+    ],
+    blocks: LOLUNGU_BLOCKS,
   }),
   cBlog({
     slug:'afrezia-the-emerald', name:'Afrezia', epithet:'The Emerald',
     category:'Hyperrealistic Character', year:'2025',
-    tagline:'A jewel-toned hyperreal portrait, emerald adornment against deep skin.',
-    status:'Pending',
-    specs:{ software:['Maya','ZBrush','Mari'] },
+    tagline:'A cybernetic character built in under two days and nights for the Safaricom Emerald hologram launch, embracing AI-assisted techniques inside a traditional CGI workflow.',
+    status:'Complete',
+    specs:{ software:['ZBrush','Maya','Substance 3D Painter','XGen','Arnold','MetaHuman','Kling'] },
     hero: img('1A3CdSQkLq1gEYtTpIjz0OvamB8oavEBp','w1600'),
-    img:{
-      lookdev:[ F(img('1A3CdSQkLq1gEYtTpIjz0OvamB8oavEBp'),'Render','Hero Render','final') ],
-    },
+    heroBg:'/afrezia/hero_bg.jpg',
+    outroYoutubeId:'pjqOpzNLG2U',
+    intro:[
+      'Afrezia was a project for a hologram launch for Emerald by Safaricom. It came in last minute, and we had only a few nights to create a fully working 3D character.',
+      'Afrezia was made to be an embrace of modern techniques within traditional CGI workflows.',
+    ],
+    blocks: AFREZIA_BLOCKS,
   }),
   cBlog({
     slug:'omolara-the-omo', name:'Omolara', epithet:'The Omo',
     category:'Hyperrealistic Character', year:'2024',
     tagline:'An Omo Valley portrait, ceremonial paint, ornament and skin under natural light.',
     thumb:'/characters/omolara.jpg',
-    status:'Being Revamped',
-    specs:{ software:['ZBrush','Maya','Mari'] },
-    hero: img('1vZme7yIW7VbUOlTw5CtYTV00zFObasrs','w1600'),
-    img:{
-      lookdev:[ F(img('1vZme7yIW7VbUOlTw5CtYTV00zFObasrs'),'Render','Hero Render','final') ],
-    },
+    status:'Complete',
+    specs:{ software:['ZBrush','ZWrap','Maya','Mari','XGen','MASH','Arnold'] },
+    hero:'/omolara/hero.jpg',
+    heroBg:'/omolara/hero_bg.jpg',
+    outro:'/omolara/exit_render.jpg',
+    intro:[
+      'Omolara was a character inspired by a deep dive into Ethiopian culture, and a chance to polish a few 3D techniques, like texture transfer and skin texturing in Mari.',
+    ],
+    blocks: OMOLARA_BLOCKS,
   }),
   cBlog({
     slug:'ndirangu-the-farmer', name:'Ndirangu', epithet:'The Farmer',

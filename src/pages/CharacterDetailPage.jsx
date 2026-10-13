@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { CHARACTER_BLOGS, getCharacterBlog } from '../data/characterBlogs';
 import BlockRenderer from '../components/BlockRenderer';
+import AutoVideo from '../components/AutoVideo';
 import Lightbox, { hiRes, ZoomBadge } from '../components/Lightbox';
 import { useSeoContext, BreadcrumbSchema } from '../providers/SeoProvider';
 import site from '../config/site';
@@ -146,8 +147,18 @@ export default function CharacterDetailPage() {
           <BlockRenderer blocks={c.blocks} />
         </div>
 
+        {/* Exit render as video */}
+        {c.outroYoutubeId && (
+          <div style={{ maxWidth:'1760px', margin:'0 auto', padding:'1rem 3vw 4rem' }}>
+            <div style={{ fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.18em', textTransform:'uppercase',
+              color:'var(--gold)', marginBottom:'.8rem' }}>Exit Render</div>
+            <AutoVideo youtubeId={c.outroYoutubeId} title={`${c.name} · Exit Render`}
+              style={{ boxShadow:'0 40px 120px -40px rgba(0,0,0,.9)' }} />
+          </div>
+        )}
+
         {/* Exit render · closes the piece the way the hero opened it */}
-        {(c.outro || c.outroPending) && (
+        {!c.outroYoutubeId && (c.outro || c.outroPending) && (
           <div style={{ maxWidth:'1760px', margin:'0 auto', padding:'1rem 3vw 4rem' }}>
             <div className="cb-shot" role="button" tabIndex={0}
               aria-label="View exit render full size"

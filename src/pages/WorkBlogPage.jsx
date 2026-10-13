@@ -3,11 +3,25 @@ import { useParams, Link } from 'react-router-dom';
 import { getCategory, getWork } from '../data/categories';
 import './category.css';
 import AutoVideo from '../components/AutoVideo';
+import { useSeoContext } from '../providers/SeoProvider';
+import site from '../config/site';
 
 export default function WorkBlogPage({ slug }) {
   const { slug: workSlug } = useParams();
   const cat = getCategory(slug);
   const w = getWork(slug, workSlug);
+  const { updateSeo } = useSeoContext();
+
+  useEffect(() => {
+    if (!cat || !w) return;
+    updateSeo({
+      title: `${w.title} | ${site.name}`,
+      description: (w.role || w.description || w.sub || cat.sub || '').replace(/\s+/g, ' ').slice(0, 190),
+      canonical: `${site.url}${cat.route}/${w.slug}`,
+      image: w.img || site.ogImage,
+      type: 'article',
+    });
+  }, [cat, w, updateSeo]);
 
   if (!cat || !w) return <div className="page"><div className="blog-wrap"><h1 className="sec-title">Not found</h1></div></div>;
   return (

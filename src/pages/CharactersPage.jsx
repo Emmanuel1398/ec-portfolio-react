@@ -33,6 +33,9 @@ function CharCard({ char, index }) {
           background:'linear-gradient(to top, rgba(6,6,6,.97) 0%, rgba(6,6,6,.5) 45%, transparent 75%)',
           opacity:0, transition:'opacity .4s', display:'flex', flexDirection:'column',
           justifyContent:'flex-end', padding:'1.8rem 1.5rem' }}>
+          {char.status && !char.statusAlways && (
+            <div className="char-status-inline"><span>{char.status}</span></div>
+          )}
           <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
             textTransform:'uppercase', color:'var(--gold)', marginBottom:'.4rem' }}>{char.category}</div>
           <div style={{ fontFamily:'var(--serif)', fontSize:'1.6rem', fontWeight:600,
@@ -55,7 +58,7 @@ function CharCard({ char, index }) {
 
         <div style={{ position:'absolute', top:'1rem', left:'1.2rem', fontFamily:'var(--ui)', fontSize:'12px',
           letterSpacing:'.2em', color:'rgba(255,255,255,.3)' }}>{String(index + 1).padStart(2, '0')}</div>
-        {char.status && (
+        {char.status && char.statusAlways && (
           <div className="char-status" style={{ opacity: char.statusAlways ? 1 : 0 }}>
             <span>{char.status}</span>
           </div>
@@ -97,11 +100,12 @@ const MOSAIC_CSS = `
   z-index:3;pointer-events:none;display:flex;justify-content:center;
   padding:.75rem .6rem;transition:opacity .45s;}
 
-.char-status span{font-family:var(--ui);font-weight:500;
+.char-status-inline{display:flex;justify-content:center;margin:0 0 1.6rem;}
+.char-status span,.char-status-inline span{font-family:var(--ui);font-weight:500;
   font-size:clamp(11px,1.15vw,17px);letter-spacing:.2em;text-transform:uppercase;
   color:var(--gold);text-align:center;line-height:1.35;
   text-shadow:0 2px 18px rgba(0,0,0,.95), 0 0 32px rgba(0,0,0,.75);}
-@media(max-width:900px){.char-status span{font-size:clamp(11px,2.6vw,15px);}}
+@media(max-width:900px){.char-status span,.char-status-inline span{font-size:clamp(11px,2.6vw,15px);}}
 `;
 
 export default function CharactersPage() {

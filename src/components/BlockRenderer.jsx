@@ -189,6 +189,7 @@ const CB_CSS = `
 .cb-title{font-family:var(--serif);font-weight:600;line-height:.98;font-size:clamp(2rem,4vw,3.4rem);letter-spacing:.01em;color:var(--text);}
 .cb-title em{font-style:normal;color:var(--gold);}
 .cb-prose{max-width:none;}
+.cb-grid1+.cb-prose,.cb-grid2+.cb-prose,.cb-grid3+.cb-prose,.cb-grid4+.cb-prose,.cb-row+.cb-prose,.cb-maps+.cb-prose{margin-top:2.2rem;}
 .cb-prose p{margin:0 0 1.2rem;color:#cbc8c1;font-size:1.06rem;line-height:1.75;}
 .cb-coming{font-family:var(--ui);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);
   border-left:2px solid var(--border);padding:.4rem 0 .4rem 1rem;}

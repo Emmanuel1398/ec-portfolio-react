@@ -88,7 +88,7 @@ function generateCharactersSitemap() {
   const urls = CHARACTER_BLOGS.map(char => {
     const imgTag = char.hero ? `
     <image:image>
-      <image:loc>${escapeXml(char.hero)}</image:loc>
+      <image:loc>${escapeXml(char.hero.startsWith('/') ? SITE_URL + char.hero : char.hero)}</image:loc>
       <image:caption>${escapeXml(char.name + ' — ' + char.epithet)}</image:caption>
     </image:image>` : '';
     
