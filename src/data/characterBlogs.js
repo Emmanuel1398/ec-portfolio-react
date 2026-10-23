@@ -103,6 +103,9 @@ function cBlog(meta) {
     outroPending: !!meta.outroPending,
     specs: meta.specs || {},
     blocks: meta.blocks || buildBlocks(meta.img),
+    /* optional SEO fields · real values only (see docs/aeo/README.md) */
+    summary: meta.summary || '', faqs: meta.faqs || [],
+    published: meta.published || null, updated: meta.updated || null,
   };
 }
 

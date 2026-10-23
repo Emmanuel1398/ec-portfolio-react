@@ -1,20 +1,21 @@
-Sitemap: https://emmanuelchege.com/sitemap-index.xml
+# emmanuelchege.com
+# Everything public is crawlable. Tracking parameters (?utm_, ?fbclid, ...)
+# are handled by canonical tags, not blocked here, so crawlers can see
+# which clean URL each one points to.
+#
+# AI crawlers: all allowed (unchanged from before). Search/answer bots such
+# as OAI-SearchBot, ChatGPT-User, PerplexityBot, Claude-SearchBot and
+# Claude-User should stay allowed for the site to be cited. To opt out of
+# AI *training* only, uncomment the block below.
+#
+# User-agent: GPTBot
+# User-agent: ClaudeBot
+# User-agent: Google-Extended
+# User-agent: CCBot
+# User-agent: Applebot-Extended
+# Disallow: /
 
 User-agent: *
 Allow: /
-Crawl-delay: 10
 
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 5
-
-User-agent: facebookexternalhit
-User-agent: Twitterbot
-User-agent: AhrefsBot
-Allow: /
-
-# Block tracking parameters
-Disallow: /*?ref=*
-Disallow: /*?utm_*
-Disallow: /*?fbclid=*
-Disallow: /*?gclid=*
+Sitemap: https://emmanuelchege.com/sitemap-index.xml

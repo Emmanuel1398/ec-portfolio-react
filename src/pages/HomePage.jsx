@@ -528,33 +528,12 @@ function SocialSection() {
 }
 
 import { useSeoContext } from '../providers/SeoProvider';
-import site from '../config/site';
+import { homeSeo } from '../seo/pages';
 
 export default function HomePage() {
   const { updateSeo } = useSeoContext();
 
-  useEffect(() => {
-    updateSeo({
-      title: `${site.name} · 3D Artist & Motion Designer`,
-      description: site.description,
-      canonical: site.url,
-      structuredData: [
-        {
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "name": site.name,
-          "url": site.url
-        },
-        {
-          "@context": "https://schema.org",
-          "@type": "Person",
-          "name": "Emmanuel Chege",
-          "jobTitle": "3D Artist & Motion Designer",
-          "url": site.url
-        }
-      ]
-    });
-  }, [updateSeo]);
+  useEffect(() => { updateSeo(homeSeo()); }, [updateSeo]);
 
   return (
     <div className="page">

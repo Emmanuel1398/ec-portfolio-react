@@ -1,172 +1,103 @@
+/* ─────────────────────────────────────────────────────────────
+   SITEMAPS + llms.txt · generated from src/seo/routes.js, the same
+   registry the prerendered pages come from, so every sitemap URL has
+   a page and every indexable page is in a sitemap.
+
+   <lastmod> is only written when a data entry has a real `updated`
+   date. changefreq/priority are left out (Google ignores them).
+   Files are written to public/ (dev server) and dist/ (deploy).
+   ───────────────────────────────────────────────────────────── */
+import { ROOT } from './lib/env.js';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import { CHARACTER_BLOGS } from '../src/data/characterBlogs.js';
-import { DRONE_SHOWS } from '../src/data/portfolio.js';
+import site from '../src/config/site.js';
+import { getRoutes, SITEMAPS } from '../src/seo/routes.js';
+import { abs } from '../src/seo/schema.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const ROOT_DIR = path.resolve(__dirname, '..');
-const PUBLIC_DIR = path.join(ROOT_DIR, 'public');
-const DIST_DIR = path.join(ROOT_DIR, 'dist');
-
-// Determine site URL from .env (fallback to a default)
-// Read .env manually
-let SITE_URL = 'https://emmanuelchege.com';
-try {
-  const envFile = fs.readFileSync(path.join(ROOT_DIR, '.env'), 'utf-8');
-  const match = envFile.match(/VITE_SITE_URL=(.*)/);
-  if (match && match[1]) {
-    SITE_URL = match[1].trim().replace(/\/$/, '');
-  }
-} catch (e) {
-  console.warn("Could not read .env, using default SITE_URL", SITE_URL);
-}
-
-const STATIC_PAGES = [
-  '',
-  '/characters',
-  '/events',
-  '/contact',
-  '/drone-shows',
-  '/drawings-illustrations',
-  '/drawings-illustrations/new-year-crackers',
-  '/projection',
-  '/visualization',
-  '/hologram',
-  '/social'
-];
+const PUBLIC_DIR = path.join(ROOT, 'public');
+const DIST_DIR = path.join(ROOT, 'dist');
 
 function escapeXml(unsafe) {
   if (typeof unsafe !== 'string') return '';
-  return unsafe.replace(/[<>&'"]/g, function (c) {
-    switch (c) {
-      case '<': return '&lt;';
-      case '>': return '&gt;';
-      case '&': return '&amp;';
-      case '\'': return '&apos;';
-      case '"': return '&quot;';
-    }
-  });
+  return unsafe.replace(/[<>&'"]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '\'': '&apos;', '"': '&quot;' }[c]));
 }
 
-function ensureDirs() {
-  if (!fs.existsSync(PUBLIC_DIR)) fs.mkdirSync(PUBLIC_DIR);
-  if (!fs.existsSync(DIST_DIR)) fs.mkdirSync(DIST_DIR);
-}
-
-function writeSitemap(filename, content) {
-  const publicPath = path.join(PUBLIC_DIR, filename);
-  const distPath = path.join(DIST_DIR, filename);
-  
-  fs.writeFileSync(publicPath, content, 'utf8');
-  if (fs.existsSync(DIST_DIR)) {
-    fs.writeFileSync(distPath, content, 'utf8');
-  }
+function write(filename, content) {
+  fs.writeFileSync(path.join(PUBLIC_DIR, filename), content, 'utf8');
+  if (fs.existsSync(DIST_DIR)) fs.writeFileSync(path.join(DIST_DIR, filename), content, 'utf8');
   console.log(`Generated ${filename}`);
 }
 
-function generateStaticSitemap() {
-  const urls = STATIC_PAGES.map(route => {
-    return `
-  <url>
-    <loc>${escapeXml(`${SITE_URL}${route}`)}</loc>
-    <changefreq>monthly</changefreq>
-    <priority>${route === '' ? '1.0' : '0.8'}</priority>
-  </url>`;
-  }).join('');
+const routes = getRoutes().filter(r => !r.noindex);
 
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls}
-</urlset>`;
-
-  writeSitemap('sitemap.xml', xml);
-}
-
-function generateCharactersSitemap() {
-  const urls = CHARACTER_BLOGS.map(char => {
-    const imgTag = char.hero ? `
+function generateSitemap(group, filename) {
+  const urls = routes.filter(r => r.sitemap === group).map(r => {
+    const img = r.image ? `
     <image:image>
-      <image:loc>${escapeXml(char.hero.startsWith('/') ? SITE_URL + char.hero : char.hero)}</image:loc>
-      <image:caption>${escapeXml(char.name + ' — ' + char.epithet)}</image:caption>
+      <image:loc>${escapeXml(abs(r.image))}</image:loc>
     </image:image>` : '';
-    
+    const lastmod = r.updated ? `
+    <lastmod>${escapeXml(r.updated)}</lastmod>` : '';
     return `
   <url>
-    <loc>${escapeXml(`${SITE_URL}/characters/${char.slug}`)}</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>${imgTag}
+    <loc>${escapeXml(r.canonical)}</loc>${lastmod}${img}
   </url>`;
   }).join('');
 
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+  write(filename, `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urls}
-</urlset>`;
-
-  writeSitemap('characters-sitemap.xml', xml);
-}
-
-function generateDroneShowsSitemap() {
-  const urls = DRONE_SHOWS.map(show => {
-    const imgUrl = `https://img.youtube.com/vi/${show.conceptYoutubeId}/maxresdefault.jpg`;
-    return `
-  <url>
-    <loc>${escapeXml(`${SITE_URL}/drone-shows/${show.slug}`)}</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <image:image>
-      <image:loc>${escapeXml(imgUrl)}</image:loc>
-      <image:caption>${escapeXml(show.title)}</image:caption>
-    </image:image>
-  </url>`;
-  }).join('');
-
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-${urls}
-</urlset>`;
-
-  writeSitemap('drone-shows-sitemap.xml', xml);
+</urlset>
+`);
 }
 
 function generateSitemapIndex() {
-  const sitemaps = [
-    'sitemap.xml',
-    'characters-sitemap.xml',
-    'drone-shows-sitemap.xml'
-  ];
-
-  const sitemapTags = sitemaps.map(sm => `
+  const tags = Object.entries(SITEMAPS).map(([group, file]) => {
+    const dates = routes.filter(r => r.sitemap === group && r.updated).map(r => r.updated).sort();
+    const lastmod = dates.length ? `
+    <lastmod>${escapeXml(dates[dates.length - 1])}</lastmod>` : '';
+    return `
   <sitemap>
-    <loc>${SITE_URL}/${sm}</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-  </sitemap>`).join('');
+    <loc>${site.url}/${file}</loc>${lastmod}
+  </sitemap>`;
+  }).join('');
 
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+  write('sitemap-index.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${sitemapTags}
-</sitemapindex>`;
+${tags}
+</sitemapindex>
+`);
+}
 
-  writeSitemap('sitemap-index.xml', xml);
+/* plain-text guide for LLM tools (llmstxt.org) · a convenience, not a
+   ranking factor · rebuilt from the same routes on every build */
+function generateLlmsTxt() {
+  const section = (heading, group, filter = () => true) => {
+    const list = routes.filter(r => r.sitemap === group && filter(r));
+    if (!list.length) return '';
+    return `## ${heading}\n\n${list.map(r => `- [${r.title.replace(` | ${site.name}`, '')}](${r.canonical}): ${r.description}`).join('\n')}\n`;
+  };
+  const home = routes.find(r => r.path === '/');
+  const txt = [
+    `# ${site.name}\n`,
+    `> ${site.name} · ${site.jobTitle}, based in ${site.city}, Kenya. ${home ? home.description : ''}\n`,
+    section('Main pages', 'pages', r => r.path.split('/').length <= 2),
+    section('3D character breakdowns', 'characters'),
+    section('Drone show concepts', 'drone-shows'),
+    section('Event, projection, visualization and hologram work', 'works'),
+    section('Illustration breakdowns', 'pages', r => r.path.split('/').length > 2),
+  ].filter(Boolean).join('\n');
+  write('llms.txt', txt);
 }
 
 function generateAll() {
-  ensureDirs();
-  generateStaticSitemap();
-  generateCharactersSitemap();
-  generateDroneShowsSitemap();
+  if (!fs.existsSync(PUBLIC_DIR)) fs.mkdirSync(PUBLIC_DIR);
+  for (const [group, file] of Object.entries(SITEMAPS)) generateSitemap(group, file);
   generateSitemapIndex();
+  generateLlmsTxt();
 }
 
 const arg = process.argv[2] || 'all';
-
-if (arg === 'index') {
-  ensureDirs();
-  generateSitemapIndex();
-} else {
-  generateAll();
-}
+if (arg === 'index') generateSitemapIndex();
+else generateAll();

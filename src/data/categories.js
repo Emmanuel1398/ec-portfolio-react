@@ -13,6 +13,9 @@ const norm = (raw) => ({
   role: raw.role || '', description: raw.description || '', gallery: raw.gallery || [],
   extraVideos: raw.extraVideos || [],
   siteInstall: raw.siteInstall || null,
+  /* optional SEO fields · real values only (see docs/aeo/README.md) */
+  summary: raw.summary || '', faqs: raw.faqs || [],
+  uploadDate: raw.uploadDate || null, published: raw.published || null, updated: raw.updated || null,
 });
 
 export const CATEGORIES = {

@@ -3,8 +3,9 @@ import { useParams, Link } from 'react-router-dom';
 import { ILLUSTRATION_BLOGS, getIllustrationBlog } from '../data/illustrationBlogs';
 import BlockRenderer from '../components/BlockRenderer';
 import Lightbox, { hiRes, ZoomBadge } from '../components/Lightbox';
-import { useSeoContext, BreadcrumbSchema } from '../providers/SeoProvider';
-import site from '../config/site';
+import AnswerBlock from '../components/AnswerBlock';
+import { useSeoContext } from '../providers/SeoProvider';
+import { illustrationSeo, notFoundSeo } from '../seo/pages';
 
 const HERO_BG_CSS = `
 .char-hero-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -20,18 +21,10 @@ export default function IllustrationDetailPage() {
   const { slug } = useParams();
   const c = getIllustrationBlog(slug);
   const { updateSeo } = useSeoContext();
+  const [heroZoom, setHeroZoom] = useState(false);
+  const [outroZoom, setOutroZoom] = useState(false);
 
-  useEffect(() => {
-    if (c) {
-      updateSeo({
-        title: `${c.name} | ${site.name}`,
-        description: c.tagline || `Illustration breakdown: ${c.name}.`,
-        canonical: `${site.url}/drawings-illustrations/${c.slug}`,
-        image: c.hero || site.ogImage,
-        type: 'article',
-      });
-    }
-  }, [c, updateSeo]);
+  useEffect(() => { updateSeo(c ? illustrationSeo(c) : notFoundSeo()); }, [c, updateSeo]);
 
   if (!c) {
     return (
@@ -44,16 +37,8 @@ export default function IllustrationDetailPage() {
     );
   }
 
-  const [heroZoom, setHeroZoom] = useState(false);
-  const [outroZoom, setOutroZoom] = useState(false);
-
   return (
     <div style={{ minHeight:'100vh' }}>
-      <BreadcrumbSchema items={[
-        { name: 'Home', url: site.url },
-        { name: 'Drawings & Illustrations', url: `${site.url}/drawings-illustrations` },
-        { name: c.name, url: `${site.url}/drawings-illustrations/${c.slug}` }
-      ]} />
       <style>{HERO_BG_CSS}</style>
 
 
@@ -84,6 +69,7 @@ export default function IllustrationDetailPage() {
             fontSize:'clamp(3rem,8vw,7rem)', color:'var(--text)' }}>
             {c.name}<br/><span style={{ color:'var(--gold)', fontSize:'.62em' }}>{c.epithet}</span>
           </h1>
+          <AnswerBlock summary={c.summary} />
           {c.tagline && (
             <p style={{ maxWidth:'none', marginTop:'1.8rem', fontFamily:'var(--body)', fontWeight:300,
               fontSize:'clamp(1.05rem,1.5vw,1.25rem)', color:'var(--muted)', lineHeight:1.7 }}>
@@ -96,6 +82,7 @@ export default function IllustrationDetailPage() {
               {para}
             </p>
           ))}
+          <AnswerBlock faqs={c.faqs} />
 
           {/* Square hero render / placeholder */}
           <div className={c.hero ? 'cb-shot' : undefined}

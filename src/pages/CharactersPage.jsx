@@ -70,7 +70,7 @@ function CharCard({ char, index }) {
 
 import { useEffect } from 'react';
 import { useSeoContext } from '../providers/SeoProvider';
-import site from '../config/site';
+import { charactersSeo } from '../seo/pages';
 
 /* 8-slot mosaic: three tall columns, the two large centre slots reading down the middle */
 const ORDER = ['arya','odungi-the-fairytale','lolungu-the-turkana','ndirangu-the-farmer',
@@ -111,13 +111,7 @@ const MOSAIC_CSS = `
 export default function CharactersPage() {
   const { updateSeo } = useSeoContext();
 
-  useEffect(() => {
-    updateSeo({
-      title: `3D Characters & Creatures | ${site.name}`,
-      description: 'In-depth technical breakdowns of my hyperreal, stylized and creature work.',
-      canonical: `${site.url}/characters`,
-    });
-  }, [updateSeo]);
+  useEffect(() => { updateSeo(charactersSeo()); }, [updateSeo]);
 
   return (
     <div style={{ minHeight:'100vh', background:'var(--bg)' }}>

@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getCategory } from '../data/categories';
 import { useIntersection } from '../hooks';
+import { useSeoContext } from '../providers/SeoProvider';
+import { categorySeo } from '../seo/pages';
 import './category.css';
 
 /* ILM-style card: thumbnail image + title. No hover-play, no description —
@@ -18,13 +20,15 @@ function Card({ route, item }) {
 export default function CategoryPage({ slug }) {
   const cat = getCategory(slug);
   const [r, v] = useIntersection();
+  const { updateSeo } = useSeoContext();
   useEffect(() => { window.scrollTo(0, 0); }, [slug]);
+  useEffect(() => { if (cat) updateSeo(categorySeo(cat)); }, [cat, updateSeo]);
   if (!cat) return <div className="page" />;
   return (
     <div className="page">
       <div ref={r} className={`rv ${v ? 'in' : ''}`} style={{ padding: 'clamp(7rem,13vh,10rem) 5vw 3.5rem' }}>
         <div className="cat-label">{cat.label}<span className="cat-num">{cat.items.length} Works</span></div>
-        <h2 className="sec-title" dangerouslySetInnerHTML={{ __html: cat.title }} />
+        <h1 className="sec-title" dangerouslySetInnerHTML={{ __html: cat.title }} />
         <div className="sec-rule"><p>· {cat.sub}</p></div>
       </div>
       {cat.groups

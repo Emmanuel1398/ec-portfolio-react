@@ -11,7 +11,8 @@
     "generate-sitemaps": "node scripts/generate-sitemaps.js all",
     "generate-sitemap-index": "node scripts/generate-sitemaps.js index",
     "validate-sitemaps": "node scripts/validate-sitemaps.js",
-    "generate-share-pages": "node scripts/generate-share-pages.js"
+    "generate-share-pages": "node scripts/generate-share-pages.js",
+    "validate-seo": "node scripts/validate-seo.js"
   },
   "dependencies": {
     "framer-motion": "^12.40.0",

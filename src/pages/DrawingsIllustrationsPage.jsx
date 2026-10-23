@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ILLUSTRATION_BLOGS } from '../data/illustrationBlogs';
 import Lightbox from '../components/Lightbox';
 import { useSeoContext } from '../providers/SeoProvider';
-import site from '../config/site';
+import { drawingsSeo } from '../seo/pages';
 
 const A = (n) => `/fine-art/${n}.jpg`;
 const T = (n) => `/fine-art/${n}-thumb.jpg`;
@@ -101,11 +101,7 @@ export default function DrawingsIllustrationsPage() {
   const { updateSeo } = useSeoContext();
 
   useEffect(() => {
-    updateSeo({
-      title: `Drawings & Illustrations | ${site.name}`,
-      description: 'Graphite and charcoal studies, and illustration work for print and product.',
-      canonical: `${site.url}/drawings-illustrations`,
-    });
+    updateSeo(drawingsSeo());
     window.scrollTo(0, 0);
   }, [updateSeo]);
 

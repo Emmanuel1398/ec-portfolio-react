@@ -4,8 +4,9 @@ import { CHARACTER_BLOGS, getCharacterBlog } from '../data/characterBlogs';
 import BlockRenderer from '../components/BlockRenderer';
 import AutoVideo from '../components/AutoVideo';
 import Lightbox, { hiRes, ZoomBadge } from '../components/Lightbox';
-import { useSeoContext, BreadcrumbSchema } from '../providers/SeoProvider';
-import site from '../config/site';
+import AnswerBlock from '../components/AnswerBlock';
+import { useSeoContext } from '../providers/SeoProvider';
+import { characterSeo, notFoundSeo } from '../seo/pages';
 
 const HERO_BG_CSS = `
 .char-hero-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -21,18 +22,10 @@ export default function CharacterDetailPage() {
   const { slug } = useParams();
   const c = getCharacterBlog(slug);
   const { updateSeo } = useSeoContext();
+  const [heroZoom, setHeroZoom] = useState(false);
+  const [outroZoom, setOutroZoom] = useState(false);
 
-  useEffect(() => {
-    if (c) {
-      updateSeo({
-        title: `${c.name} | ${site.name}`,
-        description: c.tagline || `3D Character breakdown: ${c.name}.`,
-        canonical: `${site.url}/characters/${c.slug}`,
-        image: c.hero || site.ogImage,
-        type: 'article',
-      });
-    }
-  }, [c, updateSeo]);
+  useEffect(() => { updateSeo(c ? characterSeo(c) : notFoundSeo()); }, [c, updateSeo]);
 
   if (!c) {
     return (
@@ -45,18 +38,11 @@ export default function CharacterDetailPage() {
     );
   }
 
-  const [heroZoom, setHeroZoom] = useState(false);
-  const [outroZoom, setOutroZoom] = useState(false);
   const idx = CHARACTER_BLOGS.findIndex(x => x.slug === slug);
   const next = CHARACTER_BLOGS[(idx + 1) % CHARACTER_BLOGS.length];
 
   return (
     <div style={{ minHeight:'100vh' }}>
-      <BreadcrumbSchema items={[
-        { name: 'Home', url: site.url },
-        { name: 'Characters', url: `${site.url}/characters` },
-        { name: c.name, url: `${site.url}/characters/${c.slug}` }
-      ]} />
       <style>{HERO_BG_CSS}</style>
 
 
@@ -87,6 +73,7 @@ export default function CharacterDetailPage() {
             fontSize:'clamp(3rem,8vw,7rem)', color:'var(--text)' }}>
             {c.name}<br/><span style={{ color:'var(--gold)', fontSize:'.62em' }}>{c.epithet}</span>
           </h1>
+          <AnswerBlock summary={c.summary} />
           {c.tagline && (
             <p style={{ maxWidth:'none', marginTop:'1.8rem', fontFamily:'var(--body)', fontWeight:300,
               fontSize:'clamp(1.05rem,1.5vw,1.25rem)', color:'var(--muted)', lineHeight:1.7 }}>
@@ -99,6 +86,7 @@ export default function CharacterDetailPage() {
               {para}
             </p>
           ))}
+          <AnswerBlock faqs={c.faqs} />
 
           {/* Square hero render / placeholder */}
           <div className={c.hero ? 'cb-shot' : undefined}

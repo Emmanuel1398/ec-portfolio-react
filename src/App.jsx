@@ -1,14 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { useCursor } from './hooks';
 import Nav from './components/Nav';
+import { useSeoContext } from './providers/SeoProvider';
+import { SOCIAL } from './data/portfolio';
 import HomePage from './pages/HomePage';
 import CharactersPage from './pages/CharactersPage';
 import DrawingsIllustrationsPage from './pages/DrawingsIllustrationsPage';
 import IllustrationDetailPage from './pages/IllustrationDetailPage';
 import CharacterDetailPage from './pages/CharacterDetailPage';
-import EventVideosPage from './pages/EventVideosPage';
 import ContactPage from './pages/ContactPage';
+import NotFoundPage from './pages/NotFoundPage';
 import DroneShowsPage from './pages/DroneShowsPage';
 import CategoryPage from './pages/CategoryPage';
 import WorkBlogPage from './pages/WorkBlogPage';
@@ -39,10 +41,10 @@ function GlobalFooter() {
       </div>
       <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.16em',
         textTransform:'uppercase', color:'var(--dim)', textAlign:'center' }}>
-        © 2025 · emmanuelchege.com · Nairobi, Kenya
+        © {new Date().getFullYear()} · emmanuelchege.com · Nairobi, Kenya
       </div>
       <div style={{ display:'flex', gap:'1.8rem', justifyContent:'flex-end' }}>
-        {[['Instagram','https://www.instagram.com/arte_artorius/'],['ArtStation','https://www.artstation.com/emmanuel_chege'],['LinkedIn','https://www.linkedin.com/in/emmanuelchegekamau'],['YouTube','https://youtu.be/gmiQ0bNoPgQ']].map(([l,h])=>(
+        {[['Instagram',SOCIAL.instagram],['ArtStation',SOCIAL.artstation],['LinkedIn',SOCIAL.linkedin],['YouTube',SOCIAL.youtube]].map(([l,h])=>(
           <a key={l} href={h} target="_blank" rel="noreferrer"
             style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.16em',
               textTransform:'uppercase', color:'var(--muted)', textDecoration:'none', transition:'color .2s' }}
@@ -57,20 +59,26 @@ function GlobalFooter() {
 export default function App() {
   const { dotRef, ringRef, hovered, setHovered } = useCursor();
   const loc = useLocation();
+  const { seo } = useSeoContext();
+  const lastView = useRef(null);
 
   useEffect(() => { window.scrollTo(0, 0); }, [loc.pathname]);
 
   // Google Analytics: register a page_view on every SPA route change
   // (the gtag snippet in index.html only fires on the first load).
+  // Waits until the new page has called updateSeo (seo.path matches), so
+  // page_title is this page's title, not the previous one's.
   useEffect(() => {
-    if (typeof window.gtag === 'function') {
-      window.gtag('event', 'page_view', {
-        page_path: loc.pathname + loc.search,
-        page_location: window.location.href,
-        page_title: document.title,
-      });
-    }
-  }, [loc.pathname, loc.search]);
+    if (typeof window.gtag !== 'function' || seo.path !== loc.pathname) return;
+    const key = loc.pathname + loc.search;
+    if (lastView.current === key) return;
+    lastView.current = key;
+    window.gtag('event', 'page_view', {
+      page_path: key,
+      page_location: window.location.href,
+      page_title: seo.title,
+    });
+  }, [seo.path, seo.title, loc.pathname, loc.search]);
 
   useEffect(() => {
     const over = () => setHovered(true);
@@ -112,6 +120,7 @@ export default function App() {
         <Route path="/drawings-illustrations" element={<DrawingsIllustrationsPage />} />
         <Route path="/drawings-illustrations/:slug" element={<IllustrationDetailPage />} />
         <Route path="/social"                element={<SocialPage />} />
+        <Route path="*"                      element={<NotFoundPage />} />
       </Routes>
       <GlobalFooter />
     </>

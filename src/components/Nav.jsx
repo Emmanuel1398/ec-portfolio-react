@@ -1,24 +1,14 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useScrolled } from '../hooks';
+import { NAV_LINKS } from '../data/nav';
 import s from './Nav.module.css';
 
 export default function Nav() {
   const scrolled = useScrolled();
   const [open, setOpen] = useState(false);
 
-  const links = [
-    { to:'/',             label:'Home'         },
-    { to:'/characters',   label:'3D Characters'},
-    { to:'/events',       label:'Event Videos' },
-    { to:'/projection',   label:'Projection'   },
-    { to:'/visualization',label:'Visualization'},
-    { to:'/hologram',     label:'Hologram'     },
-    { to:'/drawings-illustrations', label:'Drawings & Illustrations' },
-    { to:'/social',       label:'Social'       },
-    { to:'/drone-shows',  label:'Drone Shows'  },
-    { to:'/contact',      label:'About'        },
-  ];
+  const links = NAV_LINKS;
 
   return (
     <nav className={`${s.nav} ${scrolled ? s.s : ''}`}>

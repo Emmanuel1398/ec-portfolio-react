@@ -1,34 +1,25 @@
-import React, { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
+import { createContext, useContext, useState, useMemo, useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 import site from '../config/site';
+import { abs, serializeJsonLd } from '../seo/schema';
 
 export const SeoContext = createContext();
 
 export const useSeoContext = () => useContext(SeoContext);
 
-const DEFAULT_BASE_URL = site.url;
-const DEFAULT_IMAGE = site.ogImage;
-
-const ensureAbsoluteUrl = (url) => {
-  if (!url || typeof url !== 'string') return DEFAULT_BASE_URL;
-  let finalUrl = url;
-  if (!url.startsWith('http://') && !url.startsWith('https://')) {
-    const cleanUrl = url.startsWith('/') ? url : `/${url}`;
-    finalUrl = `${DEFAULT_BASE_URL}${cleanUrl}`;
-  }
-  // Strip trailing slash unless it's just the base URL
-  if (finalUrl !== DEFAULT_BASE_URL && finalUrl.endsWith('/')) {
-    finalUrl = finalUrl.slice(0, -1);
-  }
-  return finalUrl;
-};
-
-const isEmpty = (value) => value === null || value === undefined || value === '';
-
-const normalizeMetaValue = (val) => {
-  if (typeof val === 'string') return val;
-  if (typeof val === 'number') return String(val);
-  return null;
+const DEFAULTS = {
+  title: `${site.name} · ${site.tagline}`,
+  description: site.description,
+  canonical: null,
+  image: site.ogImage,
+  type: 'website',
+  twitterHandle: site.twitter,
+  locale: site.locale,
+  structuredData: null,
+  additionalMetaTags: [],
+  robots: 'index, follow',
+  noindex: false,
+  path: null,
 };
 
 const removeDuplicateMetaTags = (tags) => {
@@ -43,53 +34,40 @@ const removeDuplicateMetaTags = (tags) => {
 };
 
 export const SeoProvider = ({ children }) => {
-  const [seo, setSeo] = useState({
-    title: `${site.name} · ${site.tagline}`,
-    description: site.description,
-    canonical: null,
-    image: DEFAULT_IMAGE,
-    type: 'website',
-    twitterHandle: site.twitter,
-    locale: 'en_US',
-    structuredData: null,
-    additionalMetaTags: [],
-    robots: 'index, follow',
-    noindex: false,
-  });
+  const [seo, setSeo] = useState(DEFAULTS);
 
+  /* Each call REPLACES the page's SEO (on top of the defaults) rather than
+     merging into the previous page's, so canonical, JSON-LD and noindex
+     never leak from one route to the next. `path` lets the GA tracker in
+     App.jsx wait until the new page has set its title. */
   const updateSeo = useCallback((newSeoData) => {
-    setSeo(prevSeo => {
-      const merged = { ...prevSeo, ...newSeoData };
-      if (newSeoData.canonical !== undefined) {
-        merged.canonical = newSeoData.canonical ? ensureAbsoluteUrl(newSeoData.canonical) : null;
-      }
-      if (newSeoData.additionalMetaTags) {
-        merged.additionalMetaTags = removeDuplicateMetaTags(newSeoData.additionalMetaTags);
-      }
-      return merged;
+    setSeo({
+      ...DEFAULTS,
+      ...newSeoData,
+      image: newSeoData.image || DEFAULTS.image,
+      additionalMetaTags: removeDuplicateMetaTags(newSeoData.additionalMetaTags),
+      path: window.location.pathname,
     });
   }, []);
 
-  const canonicalUrl = useMemo(() => ensureAbsoluteUrl(seo.canonical || window.location.pathname), [seo.canonical]);
-  const validImageUrl = useMemo(() => ensureAbsoluteUrl(seo.image || DEFAULT_IMAGE), [seo.image]);
-  const ogUrl = useMemo(() => canonicalUrl, [canonicalUrl]);
-  const cleanAdditionalMetaTags = useMemo(() => removeDuplicateMetaTags(seo.additionalMetaTags), [seo.additionalMetaTags]);
+  const canonicalUrl = useMemo(() => abs(seo.canonical || window.location.pathname), [seo.canonical]);
+  const validImageUrl = useMemo(() => abs(seo.image), [seo.image]);
 
-
-  const robotsContent = seo.noindex ? 'noindex, nofollow' : seo.robots;
+  const robotsContent = seo.noindex ? 'noindex, follow' : seo.robots;
 
   return (
     <SeoContext.Provider value={{ seo, updateSeo }}>
       <Helmet>
         <title>{seo.title}</title>
         <meta name="description" content={seo.description} />
-        <link rel="canonical" href={canonicalUrl} />
+        {!seo.noindex && <link rel="canonical" href={canonicalUrl} />}
         <meta name="robots" content={robotsContent} />
 
         <meta property="og:title" content={seo.title} />
         <meta property="og:description" content={seo.description} />
-        <meta property="og:url" content={ogUrl} />
+        <meta property="og:url" content={canonicalUrl} />
         <meta property="og:image" content={validImageUrl} />
+        <meta property="og:image:alt" content={seo.title} />
         <meta property="og:type" content={seo.type} />
         <meta property="og:site_name" content={site.name} />
         <meta property="og:locale" content={seo.locale} />
@@ -101,38 +79,17 @@ export const SeoProvider = ({ children }) => {
         <meta name="twitter:description" content={seo.description} />
         <meta name="twitter:image" content={validImageUrl} />
 
-        {cleanAdditionalMetaTags.map((tag, i) => (
+        {seo.additionalMetaTags.map((tag, i) => (
           <meta key={i} {...tag} />
         ))}
 
         {seo.structuredData && (
           <script type="application/ld+json">
-            {JSON.stringify(seo.structuredData)}
+            {serializeJsonLd(seo.structuredData)}
           </script>
         )}
       </Helmet>
       {children}
     </SeoContext.Provider>
-  );
-};
-
-export const BreadcrumbSchema = ({ items }) => {
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": items.map((item, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "name": item.name,
-      "item": item.url
-    }))
-  };
-
-  return (
-    <Helmet>
-      <script type="application/ld+json">
-        {JSON.stringify(schema)}
-      </script>
-    </Helmet>
   );
 };

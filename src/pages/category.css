@@ -30,7 +30,8 @@
 .blog-gallery figure{overflow:hidden;background:var(--bg3);}
 .blog-gallery img{width:100%;display:block;}
 .blog-gallery figcaption{padding:.7rem 0;font-family:var(--ui);font-size:12px;color:var(--muted);}
-.blog-foot{margin-top:3rem;padding-top:1.6rem;border-top:1px solid var(--border);}
+.blog-foot{margin-top:3rem;padding-top:1.6rem;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;}
+.blog-related{margin-top:4.5rem;}
 
 /* Social — square videos, well spaced, title below (always visible) */
 .social-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2.2rem 1.8rem;}

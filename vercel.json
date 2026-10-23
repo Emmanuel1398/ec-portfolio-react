@@ -7,10 +7,6 @@
     {
       "source": "/:section(characters|events|projection|visualization|hologram|drone-shows|drawings-illustrations|contact|social)",
       "destination": "/:section/index.html"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
     }
   ],
   "headers": [

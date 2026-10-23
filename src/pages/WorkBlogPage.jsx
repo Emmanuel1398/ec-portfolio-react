@@ -3,8 +3,10 @@ import { useParams, Link } from 'react-router-dom';
 import { getCategory, getWork } from '../data/categories';
 import './category.css';
 import AutoVideo from '../components/AutoVideo';
+import AnswerBlock from '../components/AnswerBlock';
 import { useSeoContext } from '../providers/SeoProvider';
-import site from '../config/site';
+import { workSeo, relatedWorks } from '../seo/pages';
+import NotFoundPage from './NotFoundPage';
 
 export default function WorkBlogPage({ slug }) {
   const { slug: workSlug } = useParams();
@@ -13,17 +15,11 @@ export default function WorkBlogPage({ slug }) {
   const { updateSeo } = useSeoContext();
 
   useEffect(() => {
-    if (!cat || !w) return;
-    updateSeo({
-      title: `${w.title} | ${site.name}`,
-      description: (w.role || w.description || w.sub || cat.sub || '').replace(/\s+/g, ' ').slice(0, 190),
-      canonical: `${site.url}${cat.route}/${w.slug}`,
-      image: w.img || site.ogImage,
-      type: 'article',
-    });
+    if (cat && w) updateSeo(workSeo(cat, w));
   }, [cat, w, updateSeo]);
 
-  if (!cat || !w) return <div className="page"><div className="blog-wrap"><h1 className="sec-title">Not found</h1></div></div>;
+  if (!cat || !w) return <NotFoundPage />;
+  const related = relatedWorks(cat, w);
   return (
     <article className="page">
       <div className="blog-wrap">
@@ -33,6 +29,7 @@ export default function WorkBlogPage({ slug }) {
         {[w.client, w.year, w.format].filter(Boolean).length > 0 && (
           <div className="blog-meta">{[w.client, w.year, w.format].filter(Boolean).map((m, i) => <span key={i}>{m}</span>)}</div>
         )}
+        <AnswerBlock summary={w.summary} />
 
         {w.youtubeId && (
           <AutoVideo youtubeId={w.youtubeId} title={w.title} className="blog-video" />
@@ -57,7 +54,7 @@ export default function WorkBlogPage({ slug }) {
           <div className="blog-gallery">
             {w.gallery.map((g, i) => (
               <figure key={i}>
-                <img src={typeof g === 'string' ? g : g.src} alt={typeof g === 'string' ? '' : (g.caption || '')} loading="lazy" />
+                <img src={typeof g === 'string' ? g : g.src} alt={typeof g === 'string' ? `${w.title} · image ${i + 1}` : (g.caption || `${w.title} · image ${i + 1}`)} loading="lazy" />
                 {g.caption && <figcaption>{g.caption}</figcaption>}
               </figure>
             ))}
@@ -88,7 +85,26 @@ export default function WorkBlogPage({ slug }) {
           </section>
         )}
 
-        <div className="blog-foot"><Link to={cat.route} className="blog-back">← Back to {cat.label}</Link></div>
+        <AnswerBlock faqs={w.faqs} />
+
+        {related.length > 0 && (
+          <section className="blog-related">
+            <h2 className="cat-group">More {cat.label}</h2>
+            <div className="cat-grid">
+              {related.map((o) => (
+                <Link key={o.slug} to={`${cat.route}/${o.slug}`} className="ilm-card">
+                  <div className="ilm-card-media"><img src={o.img} alt={o.title} loading="lazy" /></div>
+                  <div className="ilm-card-title">{o.title}</div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <div className="blog-foot">
+          <Link to={cat.route} className="blog-back">← Back to {cat.label}</Link>
+          <Link to="/contact" className="blog-back">Discuss a project like this →</Link>
+        </div>
       </div>
     </article>
   );

@@ -4,62 +4,50 @@
 
   <url>
     <loc>https://emmanuelchege.com/characters/arya</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
     <image:image>
-      <image:loc>https://emmanuelchege.com/arya/final_01.jpg</image:loc>
-      <image:caption>Arya — A Character Texturing Odyssey</image:caption>
+      <image:loc>https://emmanuelchege.com/arya/cover.jpg</image:loc>
     </image:image>
   </url>
   <url>
     <loc>https://emmanuelchege.com/characters/odungi-the-fairytale</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://emmanuelchege.com/characters/odungi.jpg</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://emmanuelchege.com/characters/lolungu-the-turkana</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
     <image:image>
-      <image:loc>https://emmanuelchege.com/lolungu/hero.jpg</image:loc>
-      <image:caption>Lolungu — The Turkana</image:caption>
+      <image:loc>https://emmanuelchege.com/characters/lolungu.jpg</image:loc>
     </image:image>
   </url>
   <url>
     <loc>https://emmanuelchege.com/characters/afrezia-the-emerald</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
     <image:image>
       <image:loc>https://drive.google.com/thumbnail?id=1A3CdSQkLq1gEYtTpIjz0OvamB8oavEBp&amp;sz=w1600</image:loc>
-      <image:caption>Afrezia — The Emerald</image:caption>
     </image:image>
   </url>
   <url>
     <loc>https://emmanuelchege.com/characters/omolara-the-omo</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
     <image:image>
-      <image:loc>https://emmanuelchege.com/omolara/hero.jpg</image:loc>
-      <image:caption>Omolara — The Omo</image:caption>
+      <image:loc>https://emmanuelchege.com/characters/omolara.jpg</image:loc>
     </image:image>
   </url>
   <url>
     <loc>https://emmanuelchege.com/characters/ndirangu-the-farmer</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://emmanuelchege.com/characters/ndirangu.jpg</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://emmanuelchege.com/characters/moombi-the-angel</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
     <image:image>
-      <image:loc>https://drive.google.com/thumbnail?id=1Ro5J75-KlaowzZf1-97LLJDZCgiAj61O&amp;sz=w1600</image:loc>
-      <image:caption>Moombi — The Angel</image:caption>
+      <image:loc>https://emmanuelchege.com/characters/moombi.jpg</image:loc>
     </image:image>
   </url>
   <url>
     <loc>https://emmanuelchege.com/characters/otugi-the-dragon</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://emmanuelchege.com/characters/otugi.jpg</image:loc>
+    </image:image>
   </url>
 </urlset>

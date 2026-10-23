@@ -1,6 +1,6 @@
 import AutoVideo from '../components/AutoVideo';
 import { useEffect, useRef, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { DRONE_SHOWS } from '../data/portfolio';
 import VideoModal from '../components/VideoModal';
 
@@ -69,12 +69,13 @@ function VideoBlock({ label, youtubeId, fallbackMsg }) {
   );
 }
 
-import { useSeoContext, BreadcrumbSchema } from '../providers/SeoProvider';
-import site from '../config/site';
+import { useSeoContext } from '../providers/SeoProvider';
+import { droneSeo } from '../seo/pages';
+import NotFoundPage from './NotFoundPage';
+import AnswerBlock from '../components/AnswerBlock';
 
 export default function DroneShowDetailPage() {
   const { slug } = useParams();
-  const navigate = useNavigate();
   const show = DRONE_SHOWS.find(s => s.slug === slug);
 
   const currentIndex = DRONE_SHOWS.findIndex(s => s.slug === slug);
@@ -88,30 +89,16 @@ export default function DroneShowDetailPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (!show) {
-      navigate('/drone-shows');
-      return;
-    }
-    updateSeo({
-      title: `${show.title} | ${site.name}`,
-      description: show.tagline || `Drone show concept: ${show.title}.`,
-      canonical: `${site.url}/drone-shows/${show.slug}`,
-      image: `https://img.youtube.com/vi/${show.conceptYoutubeId}/maxresdefault.jpg`,
-      type: 'article',
-    });
-  }, [slug, show, navigate, updateSeo]);
+    if (show) updateSeo(droneSeo(show));
+  }, [slug, show, updateSeo]);
 
-  if (!show) return null;
+  /* unknown slug: a real not-found page (noindex) instead of a silent redirect */
+  if (!show) return <NotFoundPage />;
 
   const conceptThumb = `https://img.youtube.com/vi/${show.conceptYoutubeId}/maxresdefault.jpg`;
 
   return (
     <div style={{ minHeight:'100vh', background:'var(--bg)' }}>
-      <BreadcrumbSchema items={[
-        { name: 'Home', url: site.url },
-        { name: 'Drone Shows', url: `${site.url}/drone-shows` },
-        { name: show.title, url: `${site.url}/drone-shows/${show.slug}` }
-      ]} />
 
       {/* ── HEADER (event-blog style, no background) ── */}
       <div style={{ padding:'clamp(7rem,13vh,10rem) 5vw 2.5rem' }}>
@@ -148,6 +135,7 @@ export default function DroneShowDetailPage() {
           color:'var(--muted)', lineHeight:1.9, maxWidth:'600px', fontStyle:'italic' }}>
           {show.tagline}
         </p>
+        <AnswerBlock summary={show.summary} faqs={show.faqs} />
       </div>
 
       {/* ── SECTION 1: DRONE FORMATION VISUAL ── */}

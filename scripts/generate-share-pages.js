@@ -1,52 +1,40 @@
 /* ─────────────────────────────────────────────────────────────
-   SHARE PAGES · per-link previews for WhatsApp, LinkedIn, X, etc.
+   SHARE PAGES · prerendered HTML for link previews, search engines
+   and AI crawlers that do not run JavaScript.
 
-   Link-preview bots do not run JavaScript, so they only ever saw the
-   default tags in index.html. After `vite build`, this script writes a
-   copy of dist/index.html for every blog route (dist/<route>/index.html)
-   with that blog's own title, description and thumbnail baked in.
+   After `vite build`, this script writes a copy of dist/index.html
+   for every route in src/seo/routes.js (dist/<route>/index.html),
+   plus dist/404.html, each with:
+     · the page's own title, description, canonical, robots, OG/Twitter
+       tags and JSON-LD (same builders the React pages use)
+     · a readable fallback inside <div id="root">: h1, summary, facts
+       and links. React replaces it when it mounts (createRoot).
 
    Thumbnails stored on the site are resized into dist/og/ (max 1200px
    wide, compressed JPG) so WhatsApp reliably shows them. Remote images
    (Google Drive, YouTube) are linked as they are.
 
-   New blogs are picked up automatically from the data files, nothing
-   to add by hand.
+   New works are picked up automatically from the data files.
+   Safe to re-run: injected blocks are marked and replaced.
    ───────────────────────────────────────────────────────────── */
+import { ROOT } from './lib/env.js';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import { CHARACTER_BLOGS } from '../src/data/characterBlogs.js';
-import { ILLUSTRATION_BLOGS } from '../src/data/illustrationBlogs.js';
-import { DRONE_SHOWS } from '../src/data/portfolio.js';
-import { CATEGORIES } from '../src/data/categories.js';
+import site from '../src/config/site.js';
+import { getRoutes } from '../src/seo/routes.js';
+import { notFoundSeo } from '../src/seo/pages.js';
+import { serializeJsonLd } from '../src/seo/schema.js';
+import { NAV_LINKS } from '../src/data/nav.js';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
-
-let SITE_URL = 'https://emmanuelchege.com';
-try {
-  const m = fs.readFileSync(path.join(ROOT, '.env'), 'utf-8').match(/VITE_SITE_URL=(.*)/);
-  if (m && m[1]) SITE_URL = m[1].trim().replace(/\/$/, '');
-} catch (e) { /* default */ }
-
-const SITE_NAME = 'Emmanuel Chege';
-const DEFAULT_IMAGE = `${SITE_URL}/Hyperlink_card.png`;
+const DEFAULT_IMAGE = site.ogImage;
 
 let sharp = null;
 try { sharp = (await import('sharp')).default; }
-catch (e) { console.warn('sharp not installed, share images will use the original files'); }
+catch { console.warn('sharp not installed, share images will use the original files'); }
 
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/"/g, '&quot;')
   .replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-/* first ~190 characters of plain text, cut on a word */
-const clip = (s, n = 190) => {
-  const t = String(s || '').replace(/\s+/g, ' ').replace(/^["“]+|["”]+$/g, '').trim();
-  if (t.length <= n) return t;
-  return t.slice(0, n).replace(/\s+\S*$/, '') + '…';
-};
 
 /* local image → compressed copy in dist/og; remote image → as is */
 async function shareImage(src, key) {
@@ -54,7 +42,7 @@ async function shareImage(src, key) {
   if (/^https?:\/\//.test(src)) return { url: src };
   const file = path.join(DIST, src.replace(/^\//, ''));
   if (!fs.existsSync(file)) return { url: DEFAULT_IMAGE };
-  if (!sharp) return { url: SITE_URL + src };
+  if (!sharp || !key) return { url: site.url + src };
   const outDir = path.join(DIST, 'og');
   fs.mkdirSync(outDir, { recursive: true });
   const out = path.join(outDir, `${key}.jpg`);
@@ -67,103 +55,92 @@ async function shareImage(src, key) {
       if (info.size <= 280 * 1024) break;          // WhatsApp prefers small previews
       quality -= 10; width = Math.round(width * 0.85);
     }
-    return { url: `${SITE_URL}/og/${key}.jpg`, width: info.width, height: info.height };
+    return { url: `${site.url}/og/${key}.jpg`, width: info.width, height: info.height };
   } catch (e) {
     console.warn(`share image failed for ${src}: ${e.message}`);
-    return { url: SITE_URL + src };
+    return { url: site.url + src };
   }
 }
 
-const template = fs.readFileSync(path.join(DIST, 'index.html'), 'utf-8');
+/* ── crawler-readable fallback (replaced by React on mount) ── */
+const link = (l) => {
+  const ext = /^(https?:|mailto:)/.test(l.href);
+  return `<a href="${esc(l.href)}"${ext && !l.href.startsWith('mailto:') ? ' rel="noreferrer"' : ''}>${esc(l.text)}</a>`;
+};
 
-function render({ route, title, description, image, type = 'article' }) {
-  const url = `${SITE_URL}${route}`;
+function renderBody(b) {
+  const out = [];
+  out.push(`<nav class="pre-nav">${NAV_LINKS.map(l => link({ text: l.label, href: l.to })).join('')}</nav>`);
+  out.push('<main class="pre">');
+  if (b.eyebrow) out.push(`<p class="pre-eyebrow">${esc(b.eyebrow)}</p>`);
+  out.push(`<h1>${esc(b.h1)}${b.sub ? `<span>${esc(b.sub)}</span>` : ''}</h1>`);
+  if (b.facts && b.facts.length)
+    out.push(`<dl class="pre-facts">${b.facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>`);
+  for (const p of b.paragraphs || []) out.push(`<p>${esc(p)}</p>`);
+  for (const s of b.sections || []) {
+    out.push('<section>');
+    if (s.heading) out.push(`<h2>${esc(s.heading)}</h2>`);
+    for (const p of s.paragraphs || []) out.push(`<p>${esc(p)}</p>`);
+    if (s.items && s.items.length)
+      out.push(`<ul>${s.items.map(i => `<li>${i.href ? link(i) : esc(i.text)}${i.note ? ` · <span>${esc(i.note)}</span>` : ''}</li>`).join('')}</ul>`);
+    out.push('</section>');
+  }
+  for (const f of b.faqs || []) out.push(`<section><h2>${esc(f.q)}</h2><p>${esc(f.a)}</p></section>`);
+  if (b.links && b.links.length) out.push(`<p class="pre-links">${b.links.map(link).join('')}</p>`);
+  out.push('</main>');
+  return out.join('\n');
+}
+
+/* pristine template: strip anything a previous run injected */
+const clean = (html) => html
+  .replace(/\s*<!--seo-->[\s\S]*?<!--\/seo-->/, '')
+  .replace(/<div id="root">[\s\S]*?<!--\/pre--><\/div>/, '<div id="root"></div>');
+
+const template = clean(fs.readFileSync(path.join(DIST, 'index.html'), 'utf-8'));
+
+function render(seo, image, file) {
   const setMeta = (html, prop, value) =>
     html.replace(new RegExp(`(<meta[^>]*property="${prop}"[^>]*content=")[^"]*(")`), `$1${esc(value)}$2`);
 
-  let html = template.replace(/<title([^>]*)>[\s\S]*?<\/title>/, `<title$1>${esc(title)}</title>`);
-  html = setMeta(html, 'og:title', title);
-  html = setMeta(html, 'og:description', description);
-  html = setMeta(html, 'og:type', type);
-  html = setMeta(html, 'og:url', url);
+  let html = template.replace(/<title([^>]*)>[\s\S]*?<\/title>/, `<title$1>${esc(seo.title)}</title>`);
+  html = setMeta(html, 'og:title', seo.title);
+  html = setMeta(html, 'og:description', seo.description);
+  html = setMeta(html, 'og:type', seo.type);
+  html = setMeta(html, 'og:url', seo.canonical || site.url);
   html = setMeta(html, 'og:image', image.url);
+  html = setMeta(html, 'og:locale', site.locale);
 
-  const extra = [
-    `<meta data-rh="true" name="description" content="${esc(description)}" />`,
+  const tags = [
+    `<meta data-rh="true" name="description" content="${esc(seo.description)}" />`,
+    `<meta data-rh="true" name="robots" content="${seo.noindex ? 'noindex, follow' : 'index, follow'}" />`,
+    seo.canonical ? `<link data-rh="true" rel="canonical" href="${esc(seo.canonical)}" />` : '',
     image.width ? `<meta data-rh="true" property="og:image:width" content="${image.width}" />` : '',
     image.height ? `<meta data-rh="true" property="og:image:height" content="${image.height}" />` : '',
-    `<meta data-rh="true" property="og:image:alt" content="${esc(title)}" />`,
+    `<meta data-rh="true" property="og:image:alt" content="${esc(seo.title)}" />`,
     `<meta data-rh="true" name="twitter:card" content="summary_large_image" />`,
-    `<meta data-rh="true" name="twitter:title" content="${esc(title)}" />`,
-    `<meta data-rh="true" name="twitter:description" content="${esc(description)}" />`,
+    `<meta data-rh="true" name="twitter:title" content="${esc(seo.title)}" />`,
+    `<meta data-rh="true" name="twitter:description" content="${esc(seo.description)}" />`,
     `<meta data-rh="true" name="twitter:image" content="${esc(image.url)}" />`,
-    `<link data-rh="true" rel="canonical" href="${esc(url)}" />`,
+    seo.structuredData ? `<script data-rh="true" type="application/ld+json">${serializeJsonLd(seo.structuredData)}</script>` : '',
   ].filter(Boolean).join('\n  ');
-  html = html.replace('</head>', `  ${extra}\n</head>`);
+  html = html.replace('</head>', `  <!--seo-->\n  ${tags}\n  <!--/seo-->\n</head>`);
+  html = html.replace('<div id="root"></div>', `<div id="root">${renderBody(seo.body)}<!--/pre--></div>`);
 
-  const dir = path.join(DIST, route.replace(/^\//, ''));
-  fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(dir, 'index.html'), html, 'utf8');
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(file, html, 'utf8');
 }
-
-const pages = [];
-
-/* listing pages */
-const LISTINGS = [
-  ['/characters', '3D Characters & Creatures', 'In-depth technical breakdowns of hyperreal, stylized and creature work, sculpt to look development, with a focus on rendering melanated skin honestly.'],
-  ['/drone-shows', 'Drone Show Concepts', 'Drone show concepts and visualizers, aerial storytelling designed for live events.'],
-  ['/drawings-illustrations', 'Drawings & Illustrations', 'Illustration work, from hand drawn pieces to designs carried through into 3D.'],
-  ['/contact', 'Contact', 'Get in touch with Emmanuel Chege for 3D characters, motion design, visualization and event content.'],
-  ['/social', 'Social', 'Follow Emmanuel Chege across social platforms.'],
-];
-for (const [route, name, desc] of LISTINGS)
-  pages.push({ route, title: `${name} | ${SITE_NAME}`, description: desc, img: null, key: null, type: 'website' });
-for (const cat of Object.values(CATEGORIES))
-  pages.push({ route: cat.route, title: `${cat.label} | ${SITE_NAME}`, description: cat.sub, img: null, key: null, type: 'website' });
-
-/* characters */
-for (const c of CHARACTER_BLOGS)
-  pages.push({
-    route: `/characters/${c.slug}`,
-    title: `${c.name} · ${c.epithet} | ${SITE_NAME}`,
-    description: c.tagline || `3D character breakdown: ${c.name}.`,
-    img: c.thumb || c.hero, key: `characters-${c.slug}`,
-  });
-
-/* event videos, projection, visualization, hologram */
-for (const cat of Object.values(CATEGORIES))
-  for (const w of cat.items)
-    pages.push({
-      route: `${cat.route}/${w.slug}`,
-      title: `${w.title} | ${SITE_NAME}`,
-      description: w.role || w.description || [w.sub, w.client, w.year].filter(Boolean).join(' · ') || cat.sub,
-      img: w.img || (w.youtubeId ? `https://img.youtube.com/vi/${w.youtubeId}/hqdefault.jpg` : null),
-      key: `${cat.slug}-${w.slug}`,
-    });
-
-/* drone shows */
-for (const s of DRONE_SHOWS)
-  pages.push({
-    route: `/drone-shows/${s.slug}`,
-    title: `${s.title} | ${SITE_NAME}`,
-    description: s.tagline || s.description || `Drone show concept: ${s.title}.`,
-    img: s.thumb || (s.conceptYoutubeId ? `https://img.youtube.com/vi/${s.conceptYoutubeId}/hqdefault.jpg` : null),
-    key: `drone-${s.slug}`,
-  });
-
-/* illustrations */
-for (const c of ILLUSTRATION_BLOGS)
-  pages.push({
-    route: `/drawings-illustrations/${c.slug}`,
-    title: `${c.name} | ${SITE_NAME}`,
-    description: c.tagline || `Illustration breakdown: ${c.name}.`,
-    img: c.thumb || c.hero, key: `illustrations-${c.slug}`,
-  });
 
 let n = 0;
-for (const p of pages) {
-  const image = p.img ? await shareImage(p.img, p.key) : { url: DEFAULT_IMAGE };
-  render({ route: p.route, title: p.title, description: clip(p.description), image, type: p.type });
+for (const route of getRoutes()) {
+  const image = route.image ? await shareImage(route.image, route.key) : { url: DEFAULT_IMAGE };
+  const file = route.path === '/'
+    ? path.join(DIST, 'index.html')
+    : path.join(DIST, route.path.replace(/^\//, ''), 'index.html');
+  render(route, image, file);
   n++;
 }
-console.log(`Generated ${n} share pages`);
+
+/* Vercel serves dist/404.html, with a 404 status, for unknown paths */
+render(notFoundSeo(), { url: DEFAULT_IMAGE }, path.join(DIST, '404.html'));
+
+console.log(`Generated ${n} prerendered pages + 404.html`);
