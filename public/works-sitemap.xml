@@ -147,6 +147,18 @@
     </image:image>
   </url>
   <url>
+    <loc>https://emmanuelchege.com/events/thamani-asili-book-launch-video</loc>
+    <image:image>
+      <image:loc>https://emmanuelchege.com/thumbnails/ev_thamani_asili.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://emmanuelchege.com/events/deloitte-opener-vj-loop-fort-jesus-projection-mapping</loc>
+    <image:image>
+      <image:loc>https://emmanuelchege.com/thumbnails/ev_deloitte_fort_jesus.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
     <loc>https://emmanuelchege.com/events/4th-of-july-us-embassy-laser-hologram-show</loc>
     <image:image>
       <image:loc>https://emmanuelchege.com/thumbnails/ev_4th_july.png</image:loc>
@@ -186,6 +198,12 @@
     <loc>https://emmanuelchege.com/events/gemini-1-launch-video</loc>
     <image:image>
       <image:loc>https://emmanuelchege.com/thumbnails/ev_gemini1.png</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://emmanuelchege.com/events/gemini-ii-building-launch-video</loc>
+    <image:image>
+      <image:loc>https://emmanuelchege.com/thumbnails/ev_gemini2.jpg</image:loc>
     </image:image>
   </url>
   <url>

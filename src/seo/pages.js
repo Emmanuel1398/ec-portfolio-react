@@ -180,7 +180,8 @@ function breakdown({ c, path, hub, hubLabel, workType, extraWork = {}, next }) {
     creator: { '@id': PERSON_ID },
     ...(c.year ? { dateCreated: c.year } : {}),
     ...(c.category ? { genre: c.category } : {}),
-    ...(software.length ? { keywords: software.join(', ') } : {}),
+    ...((c.keywords || []).length || software.length
+      ? { keywords: [...new Set([...(c.keywords || []), ...software])].join(', ') } : {}),
     ...(c.status ? { creativeWorkStatus: c.status } : {}),
     ...dates(c),
     ...extraWork,
@@ -259,6 +260,7 @@ export function workSeo(cat, w) {
         creator: { '@id': PERSON_ID },
         ...(w.year ? { dateCreated: w.year } : {}),
         ...(w.sub ? { genre: w.sub } : {}),
+        ...((w.keywords || []).length ? { keywords: w.keywords.join(', ') } : {}),
         ...dates(w),
         ...(video ? { video } : {}),
       },

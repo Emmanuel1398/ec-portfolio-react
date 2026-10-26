@@ -75,6 +75,7 @@ export const ILLUSTRATION_BLOGS = [
     year: '2026',
     tagline: 'Three festive crackers designed from African pattern outward, drawn in Illustrator and visualized in Maya.',
     specs: { software: ['Illustrator', 'Maya', 'Arnold', 'Photoshop'] },
+    keywords: ['African New Year crackers design','Binti Afrika cracker','The Moran cracker','Malkia cracker','African pattern packaging design','Illustrator packaging design','Maya product visualization','festive cracker design Kenya'],
     thumb: '/crackers/thumb.jpg',
     hero: '/crackers/opening.jpg',
     heroBg: '/crackers/bg.jpg',

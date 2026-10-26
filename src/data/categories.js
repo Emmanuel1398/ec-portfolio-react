@@ -16,6 +16,7 @@ const norm = (raw) => ({
   /* optional SEO fields · real values only (see docs/aeo/README.md) */
   summary: raw.summary || '', faqs: raw.faqs || [],
   uploadDate: raw.uploadDate || null, published: raw.published || null, updated: raw.updated || null,
+  keywords: raw.keywords || [],   /* search phrases for this blog, see README */
 });
 
 export const CATEGORIES = {
