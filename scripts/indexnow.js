@@ -9,25 +9,32 @@
 
    Manual run after a deploy:  npm run indexnow -- --force
    Check without sending:      npm run indexnow -- --force --dry-run
-   The key file lives at public/<key>.txt and must stay deployed.
+   The key file is written to dist/<key>.txt on build for hosting.
    ───────────────────────────────────────────────────────────── */
+import './lib/env.js';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const KEY = 'a13e2a31ce24bf27ec91b82d39ecfcb7';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'dist');
 
-let SITE_URL = 'https://emmanuelchege.com';
-try {
-  const m = fs.readFileSync(path.join(ROOT, '.env'), 'utf-8').match(/VITE_SITE_URL=(.*)/);
-  if (m && m[1]) SITE_URL = m[1].trim().replace(/\/$/, '');
-} catch (e) { /* default */ }
+const KEY = (process.env.INDEXNOW_KEY || process.env.VITE_INDEXNOW_KEY || '').trim();
+const SITE_URL = (process.env.VITE_SITE_URL || 'https://emmanuelchege.com').trim().replace(/\/$/, '');
+
+// Ensure key verification file is created in dist/ for hosting if build output exists
+if (KEY && fs.existsSync(DIST)) {
+  fs.writeFileSync(path.join(DIST, `${KEY}.txt`), KEY, 'utf-8');
+}
 
 const force = process.argv.includes('--force');
 if (!force && process.env.VERCEL_ENV !== 'production') {
   console.log('IndexNow: skipped (only runs on Vercel production builds, or with --force)');
+  process.exit(0);
+}
+
+if (!KEY) {
+  console.warn('IndexNow: INDEXNOW_KEY not found in environment, skipping submission');
   process.exit(0);
 }
 

@@ -28,5 +28,6 @@ search, for example "melanated skin rendering", "3D character artist Kenya",
 ### IndexNow (Bing, Copilot)
 
 `scripts/indexnow.js` runs at the end of every Vercel production build and submits all sitemap
-URLs to IndexNow. Local and preview builds skip it. The key file `public/a13e2a31ce24bf27ec91b82d39ecfcb7.txt`
-must stay in the project. Manual run after a deploy: `npm run indexnow -- --force`.
+URLs to IndexNow. Local and preview builds skip it. The key is configured via `INDEXNOW_KEY`
+in `.env` (and Vercel environment variables), and the verification file `<key>.txt` is generated
+automatically into `dist/` on build. Manual run after a deploy: `npm run indexnow -- --force`.
