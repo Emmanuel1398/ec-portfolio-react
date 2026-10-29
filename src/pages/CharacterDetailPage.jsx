@@ -47,7 +47,7 @@ export default function CharacterDetailPage() {
 
 
       {/* Dark base + faded full-fit hero render, fixed behind everything */}
-      <div style={{ position:'fixed', inset:0, zIndex:0, background:'var(--bg)' }} />
+      {(c.heroBg || c.hero) && <div style={{ position:'fixed', inset:0, zIndex:0, background:'var(--bg-solid)' }} />}
       {(c.heroBg || c.hero) && (
         <div className="char-hero-bg"
           style={{ backgroundImage:`url(${c.heroBg || c.hero})`,
@@ -106,7 +106,7 @@ export default function CharacterDetailPage() {
                   <ZoomBadge />
                   <div style={{ position:'absolute', left:0, bottom:0, width:'100%', padding:'1.6rem 1.2rem .9rem',
                     fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.14em', textTransform:'uppercase',
-                    color:'rgba(255,255,255,.78)', background:'linear-gradient(to top,rgba(6,6,6,.85),transparent)' }}>
+                    color:'rgba(255,255,255,0.88)', background:'linear-gradient(to top,rgba(6,6,6,.85),transparent)' }}>
                     Final Hero Render
                   </div>
                 </>
@@ -161,7 +161,7 @@ export default function CharacterDetailPage() {
               {c.outro && <ZoomBadge />}
               <div style={{ position:'absolute', left:0, bottom:0, width:'100%', padding:'1.6rem 1.2rem .9rem',
                 fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.14em', textTransform:'uppercase',
-                color:'rgba(255,255,255,.78)', background:'linear-gradient(to top,rgba(6,6,6,.85),transparent)' }}>
+                color:'rgba(255,255,255,0.88)', background:'linear-gradient(to top,rgba(6,6,6,.85),transparent)' }}>
                 {c.outro ? 'Exit Render' : 'Exit Render · coming soon'}
               </div>
             </div>

@@ -166,7 +166,7 @@ export default function DroneShowDetailPage() {
             alignItems:'center', justifyContent:'center', gap:'1.2rem' }}>
             <div style={{ width:1, height:60, background:'var(--border)' }}/>
             <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.2rem,2vw,2rem)',
-              fontWeight:300, color:'rgba(255,255,255,.2)', textAlign:'center' }}>
+              fontWeight:300, color:'rgba(255,255,255,0.75)', textAlign:'center' }}>
               Awaiting Production
             </div>
             <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',

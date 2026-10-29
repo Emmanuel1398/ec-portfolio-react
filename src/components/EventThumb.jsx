@@ -90,7 +90,7 @@ export default function EventThumb({ event, onPlayFull }) {
       {!showVideo && (
         <div style={{ position:'absolute', bottom:'.7rem', right:'.7rem',
           fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.14em',
-          textTransform:'uppercase', color:'rgba(255,255,255,.45)',
+          textTransform:'uppercase', color:'rgba(255,255,255,0.75)',
           background:'rgba(6,6,6,.7)', padding:'.15rem .45rem', pointerEvents:'none' }}>
           {isMobile ? 'Tap to watch' : 'Hover to preview'}
         </div>

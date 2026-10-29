@@ -25,7 +25,7 @@
   font-family:var(--ui);
   font-size:clamp(11px, 0.72vw, 13px);
   letter-spacing:.1em; text-transform:uppercase; white-space:nowrap;
-  color:rgba(255,255,255,.85); text-decoration:none; transition:color .2s;
+  color:rgba(255,255,255,0.95); text-decoration:none; transition:color .2s;
   position:relative; padding-bottom:3px;
 }
 .link::after {
@@ -39,7 +39,7 @@
 .active { color:var(--text); }
 .burger { display:flex; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
 .burger span { display:block; width:22px; height:1px; background:var(--text); }
-.mobileMenu { position:fixed; inset:0; background:var(--bg); z-index:999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2rem; }
+.mobileMenu { position:fixed; inset:0; background:var(--bg-solid); z-index:999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2rem; }
 .mobileLink { font-family:var(--serif); font-size: 2.5rem; font-weight:300; color:var(--text); text-decoration:none; }
 .mobileLink:hover { color:var(--gold); }
 @media(min-width:961px){.hide-desktop{display:none;}}

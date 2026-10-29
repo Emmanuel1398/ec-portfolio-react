@@ -9,6 +9,6 @@
 .dn { font-family: var(--ui); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); padding-top: 0.2rem; }
 .dt { font-family: var(--serif); font-size: 1.15rem; font-weight: 300; margin-bottom: 0.2rem; color: var(--text); }
 .dd { font-size: 1rem; color: var(--muted); line-height: 1.6; }
-.da { font-size: 1rem; color: rgba(255,255,255,0.2); align-self: center; transition: all 0.25s; }
+.da { font-size: 1rem; color: rgba(255,255,255,0.75); align-self: center; transition: all 0.25s; }
 .item:hover .da { color: var(--gold); transform: translateX(4px); }
 @media(max-width:960px){ .layout{grid-template-columns:1fr} }

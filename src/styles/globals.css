@@ -4,9 +4,13 @@
 html{scroll-behavior:smooth;overflow-x:hidden;width:100%;}
 
 :root{
-  --bg:#060606; --bg2:#0c0c0c; --bg3:#111111;
+  /* --bg / --bg2 are see-through so the silk backgrounds show behind the
+     pages; --bg-solid is for things that must stay opaque (menus, gates). */
+  --bg-solid:#060606;
+  --bg:transparent; --bg2:rgba(8,8,8,.8); --bg3:#111111;
   --gold:#c9a96e; --gold2:#e8d5a8; --gold-lo:rgba(201,169,110,0.08);
-  --text:#ededea; --muted:#888580; --dim:#2f2d2b; --faint:rgba(255,255,255,0.05);
+  /* text is pure white and the greys are lifted so copy stays legible on the silk backgrounds */
+  --text:#ffffff; --muted:#c6c6c6; --dim:#8f8f8f; --faint:rgba(255,255,255,0.05);
   --border:rgba(255,255,255,0.07); --border-bright:rgba(255,255,255,0.12);
   --serif:'Cormorant Garamond',serif;
   --ui:'Inter',sans-serif;
@@ -15,7 +19,8 @@ html{scroll-behavior:smooth;overflow-x:hidden;width:100%;}
   --ease-out:cubic-bezier(0.16,1,0.3,1);
 }
 
-body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:300;overflow-x:hidden;line-height:1.7;width:100%;max-width:100vw;}
+html{background:var(--bg-solid);}
+body{background:transparent;color:var(--text);font-family:var(--body);font-weight:300;overflow-x:hidden;line-height:1.7;width:100%;max-width:100vw;}
 ::selection{background:var(--gold);color:#000;}
 ::-webkit-scrollbar{width:2px;}
 ::-webkit-scrollbar-thumb{background:var(--gold);}
@@ -32,6 +37,30 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:
 .rv.d1{transition-delay:.1s;}.rv.d2{transition-delay:.25s;}.rv.d3{transition-delay:.4s;}.rv.d4{transition-delay:.55s;}.rv.d5{transition-delay:.7s;}
 .rv-img{opacity:0;transition:opacity 1.8s var(--ease);}
 .rv-img.in{opacity:1;}
+
+/* ── SITE BACKGROUNDS ──────────────────────────────────────
+   Fixed silk image behind every page (see SiteBackground in App.jsx).
+   Gold: darkness 35%, blur 2px, sections at 80%.
+   Red:  darkness 68%, blur 12px. */
+.site-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;}
+.site-bg__img{position:absolute;inset:0;background-position:center;background-size:cover;background-repeat:no-repeat;}
+.site-bg__shade{position:absolute;inset:0;}
+.site-bg--gold .site-bg__img{background-image:url('/backgrounds/silk-gold.jpg');filter:blur(10px);transform:scale(1.08);}
+.site-bg--gold .site-bg__shade{background:radial-gradient(ellipse 80% 60% at 50% 30%, rgba(6,6,6,.32), rgba(6,6,6,.5) 70%);}
+/* About & Contact: original sharper, lighter silk */
+.site-bg--gold.site-bg--sharp .site-bg__img{filter:blur(2px);transform:scale(1.03);}
+.site-bg--gold.site-bg--sharp .site-bg__shade{background:radial-gradient(ellipse 80% 60% at 50% 30%, rgba(6,6,6,.15), rgba(6,6,6,.35) 70%);}
+
+/* ── TEXT LEGIBILITY over the silk ── a soft dark halo behind every line of text
+   (inherited, so it reaches paragraphs, headings, labels and links site-wide) */
+body{text-shadow:0 1px 2px rgba(0,0,0,.55), 0 0 22px rgba(0,0,0,.6);}
+video, img, svg, canvas{text-shadow:none;}
+.site-bg--red .site-bg__img{background-image:url('/backgrounds/silk-red.jpg');filter:blur(12px);transform:scale(1.08);}
+.site-bg--red .site-bg__shade{background:linear-gradient(180deg, rgba(6,4,4,.83) 0%, rgba(6,4,4,.68) 35%, rgba(6,4,4,.78) 100%);}
+
+/* ── GOLD CARD FRAMES ── blog cards, social videos, previous reels */
+.ilm-card-media,.social-video,.fa-card,.char-card,.reel-card{
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.85), 0 0 0 1px rgba(201,169,110,.45);}
 
 /* ── PAGE WRAPPER ── */
 .page{min-height:100vh;display:flex;flex-direction:column;}

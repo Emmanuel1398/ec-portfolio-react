@@ -8,7 +8,7 @@ function CharCard({ char, index }) {
     <Link to={`/characters/${char.slug}`} ref={r}
       className={`rv d${Math.min(index % 4, 3)} ${v ? 'in' : ''}`}
       style={{ textDecoration:'none', display:'block' }}>
-      <div style={{ position:'relative', overflow:'hidden', background:'var(--bg2)', height:'100%',
+      <div className="char-card" style={{ position:'relative', overflow:'hidden', background:'var(--bg2)', height:'100%',
         border: (char.thumb||char.hero) ? 'none' : '1px dashed rgba(201,169,110,.3)' }}
         onMouseEnter={e => { const i=e.currentTarget.querySelector('img'); if(i) i.style.transform='scale(1.05)';
           e.currentTarget.querySelector('.char-overlay').style.opacity='1';
@@ -44,7 +44,7 @@ function CharCard({ char, index }) {
             <span style={{ color:'var(--gold)', fontSize:'1.05rem' }}>{char.epithet}</span>
           </div>
           <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.14em',
-            color:'rgba(255,255,255,.4)', marginTop:'.6rem', display:'flex', gap:'.7rem',
+            color:'rgba(255,255,255,0.75)', marginTop:'.6rem', display:'flex', gap:'.7rem',
             flexWrap:'wrap', lineHeight:1.7 }}>
             <span>{char.year}</span>
             {char.specs && char.specs.software &&
@@ -57,7 +57,7 @@ function CharCard({ char, index }) {
         </div>
 
         <div style={{ position:'absolute', top:'1rem', left:'1.2rem', fontFamily:'var(--ui)', fontSize:'12px',
-          letterSpacing:'.2em', color:'rgba(255,255,255,.3)' }}>{String(index + 1).padStart(2, '0')}</div>
+          letterSpacing:'.2em', color:'rgba(255,255,255,0.75)' }}>{String(index + 1).padStart(2, '0')}</div>
         {char.status && char.statusAlways && (
           <div className="char-status" style={{ opacity: char.statusAlways ? 1 : 0 }}>
             <span>{char.status}</span>

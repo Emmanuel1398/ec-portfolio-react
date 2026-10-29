@@ -209,7 +209,7 @@ function HeroReel() {
               {/* Title label */}
               <div style={{ textAlign:'right' }}>
                 <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(.95rem,1.4vw,1.5rem)',
-                  fontWeight:300, lineHeight:1.05, color:'rgba(255,255,255,.8)', letterSpacing:'.01em', textShadow:'0 2px 12px rgba(0,0,0,.7)' }}>
+                  fontWeight:300, lineHeight:1.05, color:'rgba(255,255,255,0.95)', letterSpacing:'.01em', textShadow:'0 2px 12px rgba(0,0,0,.7)' }}>
                   Portfolio Reel
                 </div>
                 <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(.8rem,1.1vw,1.1rem)',
@@ -249,7 +249,7 @@ function CharactersSection() {
             pointerEvents:'none', zIndex:2, display:'flex', alignItems:'center',
             justifyContent:'flex-end', paddingRight:'1rem' }}>
             <span style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
-              color:'rgba(255,255,255,.28)', writingMode:'vertical-rl' }}>DRAG →</span>
+              color:'rgba(255,255,255,0.75)', writingMode:'vertical-rl' }}>DRAG →</span>
           </div>
         </div>
       </div>
@@ -294,7 +294,7 @@ function ReelCard({ reel, onPlay }) {
   const src = `https://www.youtube.com/embed/${reel.youtubeId}?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&loop=1&playlist=${reel.youtubeId}&enablejsapi=1&playsinline=1`;
 
   return (
-    <div ref={containerRef} style={{ position:'relative', aspectRatio:'16/9', overflow:'hidden',
+    <div ref={containerRef} className="reel-card" style={{ position:'relative', aspectRatio:'16/9', overflow:'hidden',
       cursor:'pointer', background:'var(--bg3)' }}
       onMouseEnter={onEnter} onMouseLeave={onLeave}
       onClick={() => onPlay(reel)}>

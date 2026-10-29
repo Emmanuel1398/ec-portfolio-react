@@ -343,7 +343,7 @@ export default function ContactPage() {
         position:'relative', overflow:'hidden' }}>
         <div style={{ position:'absolute', right:'-5vw', bottom:'-1rem',
           fontFamily:'var(--serif)', fontSize:'clamp(6rem,16vw,20rem)',
-          fontWeight:600, color:'rgba(255,255,255,.012)',
+          fontWeight:600, color:'rgba(255,255,255,.012)', textShadow:'none',
           pointerEvents:'none', lineHeight:1, userSelect:'none' }}>
           ABOUT
         </div>
@@ -377,7 +377,7 @@ export default function ContactPage() {
               background:'linear-gradient(135deg,transparent 60%,rgba(6,6,6,.5) 100%)' }}/>
             <div style={{ position:'absolute', bottom:'1.2rem', left:'1.2rem',
               fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
-              textTransform:'uppercase', color:'rgba(255,255,255,.45)' }}>
+              textTransform:'uppercase', color:'rgba(255,255,255,0.75)' }}>
               Nairobi, Kenya · 2025
             </div>
           </div>

@@ -28,6 +28,21 @@ const TICKER_ITEMS = [
   {t:'emmanuelchege.com',      g:true },
 ];
 
+/* Silk background behind every page: red for characters, projection,
+   hologram and social; black-and-gold everywhere else. */
+const RED_SECTIONS = ['/characters', '/projection', '/hologram', '/social'];
+function SiteBackground() {
+  const { pathname } = useLocation();
+  const red = RED_SECTIONS.some(s => pathname === s || pathname.startsWith(s + '/'));
+  const sharp = !red && pathname.replace(/\/$/, '') === '/contact'; // About & Contact keeps the unblurred silk
+  return (
+    <div className={`site-bg site-bg--${red ? 'red' : 'gold'}${sharp ? ' site-bg--sharp' : ''}`} aria-hidden="true">
+      <div className="site-bg__img" />
+      <div className="site-bg__shade" />
+    </div>
+  );
+}
+
 function GlobalFooter() {
   const loc = useLocation();
   if (loc.pathname === '/contact') return null;
@@ -101,6 +116,7 @@ export default function App() {
     <>
       <div ref={dotRef} className="c-dot"/>
       <div ref={ringRef} className={`c-ring${hovered?' on':''}`}/>
+      <SiteBackground />
       <Nav />
       <Routes>
         <Route path="/"                       element={<HomePage />} />

@@ -132,7 +132,7 @@ export function About() {
               onMouseLeave={e=>e.currentTarget.style.transform='scale(1)'}
             />
             <div style={{ position:'absolute', bottom:0, left:0, right:0, height:'40%', background:'linear-gradient(to top, rgba(10,10,10,0.7), transparent)' }}/>
-            <div style={{ position:'absolute', bottom:'1.2rem', left:'1.2rem', fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.2em', textTransform:'uppercase', color:'rgba(255,255,255,0.45)' }}>
+            <div style={{ position:'absolute', bottom:'1.2rem', left:'1.2rem', fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.2em', textTransform:'uppercase', color:'rgba(255,255,255,0.75)' }}>
               Nairobi, Kenya · 2025
             </div>
           </div>
@@ -189,7 +189,7 @@ export function Contact() {
   return (
     <section id="contact" style={{ padding:'9rem 5vw', background:'var(--bg)', borderTop:'1px solid var(--border)', position:'relative', overflow:'hidden' }}>
       {/* Large watermark */}
-      <div style={{ position:'absolute', right:'-5vw', top:'50%', transform:'translateY(-50%)', fontFamily:'var(--serif)', fontSize:'clamp(8rem,18vw,24rem)', fontWeight:600, color:'rgba(255,255,255,0.012)', pointerEvents:'none', lineHeight:1, userSelect:'none', letterSpacing:'-0.05em' }}>
+      <div style={{ position:'absolute', right:'-5vw', top:'50%', transform:'translateY(-50%)', fontFamily:'var(--serif)', fontSize:'clamp(8rem,18vw,24rem)', fontWeight:600, color:'rgba(255,255,255,0.012)', textShadow:'none', pointerEvents:'none', lineHeight:1, userSelect:'none', letterSpacing:'-0.05em' }}>
         WORK
       </div>
       <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'8rem', position:'relative', zIndex:1 }}>

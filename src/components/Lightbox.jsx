@@ -47,7 +47,7 @@ export default function Lightbox({ src, caption, onClose }) {
         <div onClick={(e) => e.stopPropagation()}
           style={{ position:'fixed', bottom:'1.6rem', left:0, right:0, textAlign:'center',
             fontFamily:'var(--ui)', fontSize:'11px', letterSpacing:'.16em', textTransform:'uppercase',
-            color:'rgba(255,255,255,.65)', pointerEvents:'none' }}>{caption}</div>
+            color:'rgba(255,255,255,0.88)', pointerEvents:'none' }}>{caption}</div>
       )}
     </div>
   );
