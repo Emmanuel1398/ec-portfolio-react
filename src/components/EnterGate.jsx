@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import './EnterGate.css';
+import { holdAudio, releaseAudio } from '../lib/audioActivation';
 
 /* Module-level so the gate shows once per full page load (the click satisfies the
    browser's audio-activation requirement and starts the reel WITH sound), but does
@@ -32,6 +33,11 @@ export default function EnterGate() {
   const trRef = useRef(null);
   const timers = useRef([]);
 
+  /* no sound until Enter. Held during render too, so the hero reel rendered below
+     the gate already starts muted; the effect re-holds after StrictMode's remount. */
+  if (show) holdAudio();
+  useEffect(() => { if (show) return holdAudio(); }, [show]);
+
   useEffect(() => {
     if (show) document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = ''; };
@@ -56,6 +62,7 @@ export default function EnterGate() {
   const enter = () => {
     if (phase !== 'idle') return;
     hasEntered = true;
+    releaseAudio();                          // the reel's theme starts with this click
     const tr = trRef.current;
     if (!tr || reduceMotion()) { leave(); return; }
 

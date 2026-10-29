@@ -110,6 +110,8 @@ function HeroReel() {
   const [playing, setPlaying] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [bgMuted, setBgMuted] = useState(true);
+  // fixed at mount: the slide timer re-renders, and a changed src would reload the reel
+  const [startMuted] = useState(() => !isAudioActivated());
   const auto = useRef(null);
   const bgRef = useRef(null);
   const total = REEL_SLIDES.length;
@@ -147,7 +149,7 @@ function HeroReel() {
       {/* AUTO-PLAY MUTED VIDEO BACKGROUND */}
       <div style={{ position:'absolute', inset:0, zIndex:1, overflow:'hidden' }}>
         <iframe
-          src={`https://www.youtube.com/embed/gmiQ0bNoPgQ?autoplay=1&mute=${isAudioActivated() ? 0 : 1}&loop=1&playlist=gmiQ0bNoPgQ&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&vq=hd1080`}
+          src={`https://www.youtube.com/embed/gmiQ0bNoPgQ?autoplay=1&mute=${startMuted ? 1 : 0}&loop=1&playlist=gmiQ0bNoPgQ&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&vq=hd1080`}
           ref={bgRef}
           allow="autoplay; encrypted-media"
           style={{ position:'absolute', top:'50%', left:'50%',
