@@ -137,7 +137,7 @@ export default function EventVideosPage() {
       </div>
 
       {/* Events list */}
-      <div style={{ padding:'7rem 5vw', background:'var(--bg)' }}>
+      <div style={{ padding:'7rem 7vw', background:'var(--bg)' }}>
         {EVENTS_REAL.map((event, i) => (
           <EventCard key={event.id} event={event} index={i} />
         ))}
