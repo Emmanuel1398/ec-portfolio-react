@@ -90,7 +90,6 @@ export default function FineArtPage() {
       <div className="pg-head" style={{ padding:'9rem 3vw 3rem', maxWidth:'1760px', margin:'0 auto' }}>
         <div style={{ display:'flex', alignItems:'center', gap:'1rem', fontFamily:'var(--ui)', fontSize:'12px',
           letterSpacing:'.22em', textTransform:'uppercase', color:'var(--muted)', marginBottom:'1.3rem' }}>
-          <span style={{ width:'2.2rem', height:1, background:'var(--gold)' }} />
           Fine Art
           <span style={{ marginLeft:'auto', color:'var(--dim)' }}>16 works · 2022 to 2023</span>
         </div>

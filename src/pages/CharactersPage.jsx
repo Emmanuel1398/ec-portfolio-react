@@ -68,7 +68,7 @@ function CharCard({ char, index }) {
   );
 }
 
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { useSeoContext } from '../providers/SeoProvider';
 import { charactersSeo } from '../seo/pages';
 
@@ -76,7 +76,17 @@ import { charactersSeo } from '../seo/pages';
 const ORDER = ['arya','odungi-the-fairytale','lolungu-the-turkana','ndirangu-the-farmer',
   'moombi-the-angel','otugi-the-dragon','omolara-the-omo','afrezia-the-emerald'];
 
+/* gap left between the bottom of the first-row images and the bottom of the first fold */
+const FOLD_GAP = 10;
+
 const MOSAIC_CSS = `
+.char-head{max-width:1760px;margin:0 auto;padding:calc(var(--navh) + 1.5rem) 3vw 1rem;
+  display:flex;flex-direction:column;justify-content:flex-end;}
+.char-title{font-family:var(--serif);font-size:clamp(2.2rem,3.4vw,3.6rem);font-weight:600;
+  line-height:.95;letter-spacing:.01em;color:var(--text);margin-bottom:.9rem;}
+.char-title em{font-style:normal;color:var(--gold);}
+.char-intro{font-family:var(--body);font-weight:300;font-size:clamp(.95rem,1vw,1.05rem);
+  color:var(--muted);line-height:1.7;max-width:none;}
 .char-mosaic{max-width:1760px;margin:0 auto;padding:2rem 3vw 8rem;display:grid;
   grid-template-columns:1fr 1.5fr 1fr;grid-template-rows:repeat(6,minmax(0,1fr));
   gap:14px;aspect-ratio:3.5/3;}
@@ -113,25 +123,45 @@ export default function CharactersPage() {
 
   useEffect(() => { updateSeo(charactersSeo()); }, [updateSeo]);
 
+  /* Desktop mosaic: size the header so the first fold ends FOLD_GAP px below the
+     first-row images (Arya, Lolungu). The images keep their size; only the header
+     grows or shrinks, with its content pinned to the bottom. */
+  const headRef = useRef(null);
+  const mosaicRef = useRef(null);
+  useLayoutEffect(() => {
+    const head = headRef.current, mosaic = mosaicRef.current;
+    if (!head || !mosaic) return;
+    const fit = () => {
+      if (window.innerWidth <= 900) { head.style.minHeight = ''; return; }
+      const cells = [...mosaic.querySelectorAll('.cm-arya, .cm-lolungu')];
+      if (!cells.length) return;
+      const firstRow = Math.max(...cells.map(c => c.getBoundingClientRect().bottom))
+        - mosaic.getBoundingClientRect().top;
+      head.style.minHeight = `${document.documentElement.clientHeight - FOLD_GAP - firstRow}px`;
+    };
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(mosaic);
+    window.addEventListener('resize', fit);
+    return () => { ro.disconnect(); window.removeEventListener('resize', fit); };
+  }, []);
+
   return (
     <div style={{ minHeight:'100vh', background:'var(--bg)' }}>
       <style>{MOSAIC_CSS}</style>
-      <div className="pg-head" style={{ padding:'9rem 3vw 3rem', maxWidth:'1760px', margin:'0 auto' }}>
+      <div className="pg-head char-head" ref={headRef}>
         <div className="cat-label">3D Characters<span className="cat-num">{CHARACTER_BLOGS.length} Breakdowns</span></div>
-        <h1 className="pg-title" style={{ fontFamily:'var(--serif)', fontSize:'clamp(3rem,7vw,8rem)', fontWeight:600,
-          lineHeight:.92, letterSpacing:'.01em', color:'var(--text)', marginBottom:'1.5rem' }}>
-          3D <em style={{ fontStyle:'normal', color:'var(--gold)' }}>Characters</em>
+        <h1 className="pg-title char-title">
+          3D <em>Characters</em>
         </h1>
-        <div style={{ width:60, height:1, background:'var(--gold)', marginBottom:'2rem' }}/>
-        <p className="pg-intro" style={{ fontFamily:'var(--body)', fontWeight:300, fontSize:'clamp(1rem,1.2vw,1.15rem)',
-          color:'var(--muted)', lineHeight:1.9, maxWidth:'none' }}>
+        <p className="pg-intro char-intro">
           In-depth technical breakdowns of my hyperreal, stylized and creature work · sculpt to look-development,
           with a focus on rendering melanated skin honestly. Each breakdown is built out across upcoming sessions;
           some sections are still being filled in.
         </p>
       </div>
 
-      <div className="char-mosaic">
+      <div className="char-mosaic" ref={mosaicRef}>
         {ORDER.map((slug, i) => {
           const char = CHARACTER_BLOGS.find(c => c.slug === slug);
           if (!char) return null;

@@ -69,7 +69,6 @@ const MOSAIC_CSS = `
 }
 @media(max-width:520px){.fa-mosaic{grid-template-columns:1fr;}}
 .fa-sec{max-width:1760px;margin:0 auto;padding:3.5rem 3vw 0;}
-.fa-sec-rule{width:2.2rem;height:1px;background:var(--gold);margin-bottom:1.1rem;}
 .fa-sec-t{font-family:var(--serif);font-weight:300;font-size:clamp(1.9rem,3.6vw,3rem);
   color:var(--text);margin:0 0 1.4rem;line-height:1;}
 .fa-sec-copy{font-family:var(--body);font-weight:300;font-size:clamp(1rem,1.15vw,1.1rem);
@@ -112,7 +111,6 @@ export default function DrawingsIllustrationsPage() {
       <div className="pg-head" style={{ padding:'9rem 3vw 3rem', maxWidth:'1760px', margin:'0 auto' }}>
         <div style={{ display:'flex', alignItems:'center', gap:'1rem', fontFamily:'var(--ui)', fontSize:'12px',
           letterSpacing:'.22em', textTransform:'uppercase', color:'var(--muted)', marginBottom:'1.3rem' }}>
-          <span style={{ width:'2.2rem', height:1, background:'var(--gold)' }} />
           Drawings &amp; Illustrations
           <span style={{ marginLeft:'auto', color:'var(--dim)' }}>16 drawings · 1 illustration breakdown</span>
         </div>
@@ -132,7 +130,6 @@ export default function DrawingsIllustrationsPage() {
       </div>
 
       <div className="fa-sec">
-        <div className="fa-sec-rule" />
         <h2 className="fa-sec-t">Drawings</h2>
         <div className="fa-sec-copy">
           <p style={{ margin:0 }}>
@@ -194,7 +191,6 @@ export default function DrawingsIllustrationsPage() {
       </div>
 
       <div className="fa-sec">
-        <div className="fa-sec-rule" />
         <h2 className="fa-sec-t">Illustrations</h2>
         <div className="fa-sec-copy">
           <p style={{ margin:0 }}>

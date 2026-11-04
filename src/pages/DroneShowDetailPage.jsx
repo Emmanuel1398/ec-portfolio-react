@@ -27,7 +27,6 @@ function ScriptBlock({ block, index }) {
         <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.28em',
           textTransform:'uppercase', color:'var(--gold)', marginBottom:'1rem',
           display:'flex', alignItems:'center', gap:'1rem' }}>
-          <span style={{ width:20, height:1, background:'var(--gold)', flexShrink:0 }}/>
           {block.section}
         </div>
       )}
@@ -149,7 +148,6 @@ export default function DroneShowDetailPage() {
             textTransform:'uppercase', color:'var(--gold)', marginBottom:'.6rem',
             display:'flex', alignItems:'center', gap:'1.2rem' }}>
             <span>01</span>
-            <span style={{ width:40, height:1, background:'var(--gold)' }}/>
             Drone Show Visualizer
           </div>
           <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.8rem,3vw,3.5rem)',
@@ -197,7 +195,6 @@ export default function DroneShowDetailPage() {
             textTransform:'uppercase', color:'var(--gold)', marginBottom:'.6rem',
             display:'flex', alignItems:'center', gap:'1.2rem' }}>
             <span>02</span>
-            <span style={{ width:40, height:1, background:'var(--gold)' }}/>
             Narration / V.O. Script
           </div>
           <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.8rem,3vw,3.5rem)',
@@ -225,7 +222,6 @@ export default function DroneShowDetailPage() {
             textTransform:'uppercase', color:'var(--gold)', marginBottom:'.6rem',
             display:'flex', alignItems:'center', gap:'1.2rem' }}>
             <span>03</span>
-            <span style={{ width:40, height:1, background:'var(--gold)' }}/>
             The Concept
           </div>
           <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.8rem,3vw,3.5rem)',

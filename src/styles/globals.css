@@ -75,7 +75,6 @@ video, img, svg, canvas{text-shadow:none;}
   font-family:var(--ui);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
   margin-bottom:.6rem;
 }
-.cat-label::before{content:'';width:2rem;height:1px;background:var(--gold);flex-shrink:0;}
 .cat-num{margin-left:auto;color:var(--dim);}
 
 .sec-title{

@@ -62,7 +62,6 @@ export default function IllustrationDetailPage() {
         <header style={{ maxWidth:'1760px', margin:'0 auto', padding:'2.5rem 3vw 0' }}>
           <div style={{ display:'flex', alignItems:'center', gap:'1rem', fontFamily:'var(--ui)', fontSize:'12px',
             letterSpacing:'.22em', textTransform:'uppercase', color:'var(--muted)', marginBottom:'1.3rem' }}>
-            <span style={{ width:'2.2rem', height:1, background:'var(--gold)' }} />
             {c.category} · {c.year}
           </div>
           <h1 className="cd-name" style={{ fontFamily:'var(--serif)', fontWeight:600, lineHeight:.92, letterSpacing:'.01em',
