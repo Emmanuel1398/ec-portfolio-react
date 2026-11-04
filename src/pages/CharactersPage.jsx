@@ -77,13 +77,13 @@ const ORDER = ['arya','odungi-the-fairytale','lolungu-the-turkana','ndirangu-the
   'moombi-the-angel','otugi-the-dragon','omolara-the-omo','afrezia-the-emerald'];
 
 const MOSAIC_CSS = `
-.char-head{max-width:1760px;margin:0 auto;padding:calc(var(--navh) + 1.5rem) 3vw 1rem;}
+.char-head{max-width:var(--wrap);margin:0 auto;padding:calc(var(--navh) + 1.5rem) var(--gutter) 1rem;}
 .char-title{font-family:var(--serif);font-size:clamp(2.2rem,3.4vw,3.6rem);font-weight:600;
   line-height:.95;letter-spacing:.01em;color:var(--text);margin-bottom:.9rem;}
 .char-title em{font-style:normal;color:var(--gold);}
 .char-intro{font-family:var(--body);font-weight:300;font-size:clamp(.95rem,1vw,1.05rem);
   color:var(--muted);line-height:1.7;max-width:none;}
-.char-mosaic{max-width:1760px;margin:0 auto;padding:2rem 3vw 8rem;display:grid;
+.char-mosaic{max-width:var(--wrap);margin:0 auto;padding:2rem var(--gutter) 8rem;display:grid;
   grid-template-columns:1fr 1.5fr 1fr;grid-template-rows:repeat(6,minmax(0,1fr));
   gap:14px;aspect-ratio:3.5/3;}
 .char-mosaic>div{min-height:0;min-width:0;}

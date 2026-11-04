@@ -44,8 +44,8 @@ function ContactForm() {
   return (
     /* the reveal sits on the parts, not this wrapper: an opacity fade here would
        switch off the glass panel's backdrop blur until it finished */
-    <div ref={r}
-      style={{ padding:'calc(var(--navh, 84px) + 4rem) 5vw 6rem', background:'var(--bg)' }}>
+    <div ref={r} className="pg-wrap"
+      style={{ paddingTop:'calc(var(--navh, 84px) + 4rem)', paddingBottom:'6rem', background:'var(--bg)' }}>
       <div className={`rv ${v?'in':''}`}>
         <div className="cat-label">Get in Touch</div>
         <h1 className="sec-title" style={{ marginBottom:'3rem' }}>
@@ -213,8 +213,8 @@ function BtsEasterEgg() {
   const [revealed, setRevealed] = useState(false);
 
   return (
-    <div style={{ background:'var(--bg2)', borderTop:'1px solid var(--border)',
-      padding:'6rem 5vw' }}>
+    <div className="pad-x" style={{ background:'var(--bg2)', borderTop:'1px solid var(--border)',
+      paddingBlock:'6rem' }}>
       {/* Teaser · click to reveal */}
       <style>{`
         @keyframes btsBreath {

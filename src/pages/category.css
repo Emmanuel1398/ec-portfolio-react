@@ -11,7 +11,7 @@
 .ilm-card:hover .ilm-card-title{color:var(--gold);}
 
 /* Per-video blog — big centre-piece video, text in a readable column */
-.blog-wrap{max-width:1400px;margin:0 auto;padding:clamp(7rem,13vh,10rem) 3vw 6rem;}
+.blog-wrap{max-width:1400px;margin:0 auto;padding:clamp(7rem,13vh,10rem) var(--gutter) 6rem;}
 .blog-back{display:inline-block;font-family:var(--ui);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
   text-decoration:none;transition:color .3s;margin-bottom:2rem;}
 .blog-back:hover{color:var(--gold);}

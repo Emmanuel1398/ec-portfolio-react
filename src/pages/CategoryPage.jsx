@@ -32,12 +32,12 @@ export default function CategoryPage({ slug }) {
       </div>
       {cat.groups
         ? cat.groups.map((g) => (
-            <section key={g.name} style={{ padding: '0 5vw 3rem' }}>
+            <section key={g.name} className="pg-wrap" style={{ paddingBottom: '3rem' }}>
               <h3 className="cat-group">{g.name}</h3>
               <div className="cat-grid">{g.items.map((it) => <Card key={it.slug} route={cat.route} item={it} />)}</div>
             </section>
           ))
-        : <div style={{ padding: '0 5vw 6rem' }}><div className="cat-grid">{cat.items.map((it) => <Card key={it.slug} route={cat.route} item={it} />)}</div></div>}
+        : <div className="pg-wrap" style={{ paddingBottom: '6rem' }}><div className="cat-grid">{cat.items.map((it) => <Card key={it.slug} route={cat.route} item={it} />)}</div></div>}
     </div>
   );
 }

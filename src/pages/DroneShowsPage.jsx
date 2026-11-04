@@ -69,10 +69,10 @@ export default function DroneShowsPage() {
       </div>
 
       {/* Rule */}
-      <div style={{ borderTop:'1px solid var(--border)', margin:'0 5vw' }}/>
+      <div className="pg-wrap"><div style={{ borderTop:'1px solid var(--border)' }}/></div>
 
       {/* Show grid */}
-      <div style={{ padding:'2rem 5vw 5rem',
+      <div className="pg-wrap" style={{ paddingTop:'2rem', paddingBottom:'5rem',
         display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(min(100%,500px),1fr))',
         gap:'3px' }}>
         {DRONE_SHOWS.map((show, i) => (
@@ -81,7 +81,7 @@ export default function DroneShowsPage() {
       </div>
 
       {/* Drone formation animation · "Formation · Flight · Light" · bottom of the page */}
-      <div style={{ padding:'0 5vw 10rem' }}>
+      <div className="pg-wrap" style={{ paddingBottom:'10rem' }}>
         <div style={{ position:'relative', height:'clamp(380px,72vh,760px)', overflow:'hidden',
           border:'1px solid rgba(201,169,110,.25)', pointerEvents:'none',
           /* night sky: deep blue overhead, a faint glow on the horizon, dark sea below */

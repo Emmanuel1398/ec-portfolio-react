@@ -100,7 +100,7 @@ export default function DroneShowDetailPage() {
     <div style={{ minHeight:'100vh', background:'var(--bg)' }}>
 
       {/* ── HEADER (event-blog style, no background) ── */}
-      <div style={{ padding:'clamp(7rem,13vh,10rem) 5vw 2.5rem' }}>
+      <div className="pg-wrap" style={{ paddingTop:'clamp(7rem,13vh,10rem)', paddingBottom:'2.5rem' }}>
         <Link to="/drone-shows" style={{ fontFamily:'var(--ui)', fontSize:'12px',
           letterSpacing:'.2em', textTransform:'uppercase', color:'var(--muted)',
           textDecoration:'none', display:'inline-flex', alignItems:'center', gap:'.5rem',
@@ -138,7 +138,7 @@ export default function DroneShowDetailPage() {
       </div>
 
       {/* ── SECTION 1: DRONE FORMATION VISUAL ── */}
-      <div style={{ padding:'6rem 5vw' }}>
+      <div className="pg-wrap" style={{ paddingBlock:'6rem' }}>
         <div ref={rV} style={{
           marginBottom:'3rem',
           opacity: vV ? 1 : 0, transform: vV ? 'none' : 'translateY(20px)',
@@ -177,7 +177,7 @@ export default function DroneShowDetailPage() {
       </div>
 
       {/* ── DESCRIPTION ── */}
-      <div style={{ padding:'4rem 5vw', borderBottom:'1px solid var(--border)' }}>
+      <div className="pg-wrap" style={{ paddingBlock:'4rem', borderBottom:'1px solid var(--border)' }}>
         <p style={{ fontFamily:'var(--body)', fontSize:'clamp(.95rem,1.15vw,1.08rem)',
           color:'var(--muted)', lineHeight:1.95, maxWidth:'680px' }}>
           {show.description}
@@ -185,7 +185,7 @@ export default function DroneShowDetailPage() {
       </div>
 
       {/* ── SECTION 2: NARRATION / V.O. SCRIPT ── */}
-      <div style={{ background:'var(--bg2)', padding:'6rem 5vw' }}>
+      <div className="pad-x" style={{ background:'var(--bg2)', paddingBlock:'6rem' }}>
         <div ref={rS} style={{
           marginBottom:'3.5rem',
           opacity: vS ? 1 : 0, transform: vS ? 'none' : 'translateY(20px)',
@@ -216,7 +216,7 @@ export default function DroneShowDetailPage() {
       </div>
 
       {/* ── SECTION 3: THE CONCEPT VIDEO ── */}
-      <div style={{ padding:'6rem 5vw' }}>
+      <div className="pg-wrap" style={{ paddingBlock:'6rem' }}>
         <div ref={rH} style={{ marginBottom:'3rem' }}>
           <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.3em',
             textTransform:'uppercase', color:'var(--gold)', marginBottom:'.6rem',
@@ -238,11 +238,11 @@ export default function DroneShowDetailPage() {
       </div>
 
       {/* ── PREV / NEXT NAVIGATION ── */}
-      <div style={{ borderTop:'1px solid var(--border)', display:'grid',
+      <div className="pad-x" style={{ borderTop:'1px solid var(--border)', display:'grid',
         gridTemplateColumns:'1fr 1fr' }}>
         {prevShow ? (
           <Link to={`/drone-shows/${prevShow.slug}`} style={{ textDecoration:'none',
-            padding:'2.5rem 5vw', borderRight:'1px solid var(--border)',
+            padding:'2.5rem 2rem 2.5rem 0', borderRight:'1px solid var(--border)',
             display:'flex', flexDirection:'column', gap:'.4rem', transition:'background .2s' }}
             onMouseEnter={e => e.currentTarget.style.background = 'var(--bg2)'}
             onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
@@ -261,7 +261,7 @@ export default function DroneShowDetailPage() {
 
         {nextShow ? (
           <Link to={`/drone-shows/${nextShow.slug}`} style={{ textDecoration:'none',
-            padding:'2.5rem 5vw', textAlign:'right',
+            padding:'2.5rem 0 2.5rem 2rem', textAlign:'right',
             display:'flex', flexDirection:'column', gap:'.4rem', transition:'background .2s' }}
             onMouseEnter={e => e.currentTarget.style.background = 'var(--bg2)'}
             onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>

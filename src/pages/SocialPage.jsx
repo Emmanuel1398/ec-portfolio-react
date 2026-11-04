@@ -22,7 +22,7 @@ export default function SocialPage() {
           <a href="https://www.instagram.com/arte_artorius/" target="_blank" rel="noreferrer" className="sec-link">Follow @arte_artorius</a>
         </div>
       </div>
-      <div ref={r2} className={`rv-img ${v2 ? 'in' : ''} social-grid`} style={{ padding: '0 5vw 8rem' }}>
+      <div ref={r2} className={`rv-img ${v2 ? 'in' : ''} social-grid pg-wrap`} style={{ paddingBottom: '8rem' }}>
         {ALL.map((item, i) => (
           <div className="social-cell" key={i}>
             <div className="social-video">

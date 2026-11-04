@@ -29,7 +29,7 @@ export default function ShowreelPage() {
         <p className="hm-lede hm-rv hm-d2" style={{ maxWidth: 'none' }}>2024 / 2025 · Characters, motion graphics and event work in one cut. Best with sound on.</p>
       </header>
 
-      <section style={{ padding: '0 5vw' }}>
+      <section className="pg-wrap">
         <div className="hm-player hm-frame hm-rv">
           {mainOn ? (
             <iframe src={embed(MAIN_REEL)} title="Emmanuel Chege portfolio reel 2024 / 2025"

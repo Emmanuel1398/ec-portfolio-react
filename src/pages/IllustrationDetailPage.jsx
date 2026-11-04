@@ -53,13 +53,13 @@ export default function IllustrationDetailPage() {
       <div style={{ position:'relative', zIndex:1 }}>
 
         {/* Back nav */}
-        <div className="pg-head" style={{ padding:'8rem 3vw 0', maxWidth:'1760px', margin:'0 auto' }}>
+        <div className="pg-head" style={{ padding:'8rem var(--gutter) 0', maxWidth:'var(--wrap)', margin:'0 auto' }}>
           <Link to="/drawings-illustrations" style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em',
             textTransform:'uppercase', color:'var(--muted)', textDecoration:'none' }}>← 3D Characters</Link>
         </div>
 
         {/* Hero */}
-        <header style={{ maxWidth:'1760px', margin:'0 auto', padding:'2.5rem 3vw 0' }}>
+        <header style={{ maxWidth:'var(--wrap)', margin:'0 auto', padding:'2.5rem var(--gutter) 0' }}>
           <div style={{ display:'flex', alignItems:'center', gap:'1rem', fontFamily:'var(--ui)', fontSize:'12px',
             letterSpacing:'.22em', textTransform:'uppercase', color:'var(--muted)', marginBottom:'1.3rem' }}>
             {c.category} · {c.year}
@@ -132,7 +132,7 @@ export default function IllustrationDetailPage() {
 
         {/* Exit render · closes the piece the way the hero opened it */}
         {(c.outro || c.outroPending) && (
-          <div style={{ maxWidth:'1760px', margin:'0 auto', padding:'1rem 3vw 4rem' }}>
+          <div style={{ maxWidth:'var(--wrap)', margin:'0 auto', padding:'1rem var(--gutter) 4rem' }}>
             <div className="cb-shot" role="button" tabIndex={0}
               aria-label="View exit render full size"
               onClick={() => setOutroZoom(true)}
@@ -155,7 +155,7 @@ export default function IllustrationDetailPage() {
         )}
 
         {/* Back */}
-        <div style={{ borderTop:'1px solid var(--border)', padding:'4rem 3vw', maxWidth:'1760px', margin:'0 auto' }}>
+        <div style={{ borderTop:'1px solid var(--border)', padding:'4rem var(--gutter)', maxWidth:'var(--wrap)', margin:'0 auto' }}>
           <Link to="/drawings-illustrations" style={{ textDecoration:'none', display:'block' }}>
             <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em', textTransform:'uppercase',
               color:'var(--muted)', marginBottom:'.6rem' }}>&larr; Back to</div>

@@ -12,7 +12,7 @@ html,body{overflow-x:clip}
 .hm-h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,5vw,4.8rem);line-height:1;letter-spacing:.005em;color:var(--text)}
 .hm-h2 em,.hm em{font-style:normal;color:var(--gold)}
 .hm-lede{font-family:var(--ui);font-weight:300;color:var(--muted);font-size:clamp(1rem,1.1vw,1.1rem);line-height:1.8;max-width:620px;margin-top:1.2rem}
-.hm-sec{padding:8rem 5vw;position:relative}
+.hm-sec{padding:8rem var(--pad-x);position:relative}  /* --pad-x: shared page width, see globals.css */
 .hm-frame{box-shadow:0 30px 80px -30px rgba(0,0,0,.85),0 0 0 1px rgba(201,169,110,.45)}
 
 .hm-btn{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--ui);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
@@ -42,7 +42,7 @@ html,body{overflow-x:clip}
 .hm-brand span+span{color:var(--gold)}
 
 /* ── 1 · HERO ── */
-.hm-hero{min-height:100vh;padding:calc(var(--navh) + 2rem) 5vw 4.5rem;display:grid;grid-template-columns:1.15fr .85fr;gap:6vw;align-items:center}
+.hm-hero{min-height:100vh;padding:calc(var(--navh) + 2rem) var(--pad-x) 4.5rem;display:grid;grid-template-columns:1.15fr .85fr;gap:6vw;align-items:center}
 .hm-name{font-family:var(--serif);font-weight:500;font-size:clamp(3.4rem,6.4vw,7rem);line-height:.9;letter-spacing:-.005em;color:transparent;text-shadow:none;margin:0 0 1.8rem}
 .hm-name span{display:block;width:max-content;line-height:1}
 .hm-titles{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;font-family:var(--ui);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
@@ -155,12 +155,12 @@ a:hover>.hm-play svg,button:hover>.hm-play svg,.hm-gate:hover .hm-play svg{fill:
 @media(max-width:480px){.hm-sw li{font-size:1.08rem}}
 
 /* ── 5 · CONTACT CTA ── */
-.hm-ctabig{text-align:center;padding:10rem 5vw 9rem}
+.hm-ctabig{text-align:center;padding:10rem var(--pad-x) 9rem}
 .hm-ctabig .hm-h2{font-size:clamp(3rem,7vw,7rem)}
 .hm-ctabig .hm-btn{margin-top:2.8rem;padding:1.15rem 2.4rem;font-size:12px}
 
 /* ── SHOWREEL PAGE ── */
-.hm-pghead{padding:calc(var(--navh) + 0.8rem) 5vw 1rem}
+.hm-pghead{padding:calc(var(--navh) + 0.8rem) var(--pad-x) 1rem}
 .hm-pghead .hm-h2{font-size:clamp(1.8rem,2.4vw,2.5rem);line-height:1.05}
 .hm-pghead .hm-lede{max-width:none;margin-top:0.5rem}
 .hm-player{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}

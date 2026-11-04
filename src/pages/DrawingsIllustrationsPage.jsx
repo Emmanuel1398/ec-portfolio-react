@@ -1,10 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ILLUSTRATION_BLOGS } from '../data/illustrationBlogs';
 import Lightbox from '../components/Lightbox';
 import { useSeoContext } from '../providers/SeoProvider';
 import { drawingsSeo } from '../seo/pages';
-import { useFoldFit } from '../hooks/useFoldFit';
 
 const A = (n) => `/fine-art/${n}.jpg`;
 const T = (n) => `/fine-art/${n}-thumb.jpg`;
@@ -32,7 +31,7 @@ const WORKS = [
 ];
 
 const MOSAIC_CSS = `
-.fa-mosaic{max-width:1760px;margin:0 auto;padding:1rem 3vw 7rem;
+.fa-mosaic{max-width:var(--wrap);margin:0 auto;padding:1rem var(--gutter) 7rem;
   display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(6,1fr);
   gap:10px;aspect-ratio:1/1;
   grid-template-areas:
@@ -69,7 +68,7 @@ const MOSAIC_CSS = `
   .fa-slot{grid-area:auto!important;aspect-ratio:1/1;}
 }
 @media(max-width:520px){.fa-mosaic{grid-template-columns:1fr;}}
-.fa-sec{max-width:1760px;margin:0 auto;padding:3.5rem 3vw 0;}
+.fa-sec{max-width:var(--wrap);margin:0 auto;padding:3.5rem var(--gutter) 0;}
 .fa-sec-t{font-family:var(--serif);font-weight:300;font-size:clamp(1.9rem,3.6vw,3rem);
   color:var(--text);margin:0 0 1.4rem;line-height:1;}
 .fa-sec-copy{font-family:var(--body);font-weight:300;font-size:clamp(1rem,1.15vw,1.1rem);
@@ -111,16 +110,11 @@ export default function DrawingsIllustrationsPage() {
     window.scrollTo(0, 0);
   }, [updateSeo]);
 
-  const headRef = useRef(null);
-  const mosaicRef = useRef(null);
-  useFoldFit(headRef, mosaicRef, '.fa-slot');
-
   return (
     <div style={{ minHeight:'100vh', background:'var(--bg)' }}>
       <style>{MOSAIC_CSS}</style>
 
-      <div className="pg-head wk-head" ref={headRef}
-        style={{ paddingLeft:'3vw', paddingRight:'3vw', paddingBottom:'1rem', maxWidth:'1760px', margin:'0 auto' }}>
+      <div className="pg-head wk-head" style={{ paddingBottom:'1rem' }}>
         <h1 className="pg-title sec-title wk-title" style={{ fontFamily:'var(--serif)', fontWeight:300,
           color:'var(--text)' }}>
           Drawings &amp; <em style={{ fontStyle:'normal', color:'var(--gold)' }}>Illustrations</em>
@@ -176,7 +170,7 @@ export default function DrawingsIllustrationsPage() {
         </div>
       </div>
 
-      <div className="fa-mosaic" ref={mosaicRef}>
+      <div className="fa-mosaic">
         {WORKS.map((w) => (
           <div key={w.key} className="fa-slot" style={{ gridArea: w.slot }}
             role="button" tabIndex={0}
