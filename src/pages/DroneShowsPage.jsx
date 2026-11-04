@@ -48,21 +48,15 @@ export default function DroneShowsPage() {
     <div style={{ minHeight:'100vh', background:'var(--bg)', position:'relative', overflow:'hidden' }}>
 
       {/* Header */}
-      <div ref={rH} className="pg-head" style={{ position:'relative', zIndex:1, padding:'10rem 5vw 5rem',
+      <div ref={rH} className="pg-head wk-head" style={{ position:'relative', zIndex:1,
         opacity: vH ? 1 : 0, transform: vH ? 'none' : 'translateY(30px)',
         transition:'opacity 1s ease, transform 1s ease' }}>
-        <div className="cat-label">
-          Drone Show Concepts
-          <span className="cat-num">{DRONE_SHOWS.length} Productions</span>
-        </div>
-        <h1 className="pg-title" style={{ fontFamily:'var(--serif)', fontSize:'clamp(3rem,7vw,8rem)',
-          fontWeight:600, lineHeight:.92, letterSpacing:'.01em',
-          color:'var(--text)', marginBottom:'1.5rem' }}>
+        <h1 className="pg-title wk-title" style={{ fontFamily:'var(--serif)',
+          fontWeight:600, letterSpacing:'.01em',
+          color:'var(--text)', marginBottom:'.9rem' }}>
           Drone <em style={{ color:'var(--gold)', fontStyle:'italic' }}>Shows</em>
         </h1>
-        <div style={{ width:60, height:1, background:'var(--gold)', marginBottom:'2rem' }}/>
-        <p className="pg-intro" style={{ fontFamily:'var(--body)', fontSize:'clamp(1rem,1.2vw,1.15rem)',
-          color:'var(--muted)', lineHeight:1.95, maxWidth:'none' }}>
+        <p className="pg-intro wk-intro">
           Each drone show begins as a narrative written on paper · a story, a script, a sequence
           of formations designed to tell a message in the night sky. These are those stories,
           from initial concept through storyboard to final computerised formation visual.
@@ -78,7 +72,7 @@ export default function DroneShowsPage() {
       <div style={{ borderTop:'1px solid var(--border)', margin:'0 5vw' }}/>
 
       {/* Show grid */}
-      <div style={{ padding:'5rem 5vw 5rem',
+      <div style={{ padding:'2rem 5vw 5rem',
         display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(min(100%,500px),1fr))',
         gap:'3px' }}>
         {DRONE_SHOWS.map((show, i) => (

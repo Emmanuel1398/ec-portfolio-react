@@ -95,8 +95,7 @@ Reusable heading and rule components for page sections.
 
 | Class | Description |
 |---|---|
-| `.cat-label` | Uppercase UI label with optional `.cat-num` counter |
-| `.cat-num` | Right-aligned dim number inside `.cat-label` |
+| `.cat-label` | Uppercase UI label |
 | `.sec-title` | Serif heading, fluid size `clamp(2.8rem, 4.8vw, 5.5rem)`, weight 300 |
 | `.sec-title em` | Italic gold accent within a title |
 | `.sec-rule` | Horizontal rule with top border, wraps descriptive text and a link |

@@ -26,9 +26,8 @@ export default function CategoryPage({ slug }) {
   if (!cat) return <div className="page" />;
   return (
     <div className="page">
-      <div ref={r} className={`rv ${v ? 'in' : ''}`} style={{ padding: 'clamp(7rem,13vh,10rem) 5vw 3.5rem' }}>
-        <div className="cat-label">{cat.label}<span className="cat-num">{cat.items.length} Works</span></div>
-        <h1 className="sec-title" dangerouslySetInnerHTML={{ __html: cat.title }} />
+      <div ref={r} className={`wk-head rv ${v ? 'in' : ''}`}>
+        <h1 className="sec-title wk-title" dangerouslySetInnerHTML={{ __html: cat.title }} />
         <div className="sec-rule"><p>· {cat.sub}</p></div>
       </div>
       {cat.groups

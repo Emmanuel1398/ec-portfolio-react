@@ -15,9 +15,8 @@ export default function SocialPage() {
   useEffect(() => { window.scrollTo(0, 0); updateSeo(socialSeo()); }, [updateSeo]);
   return (
     <div className="page">
-      <div ref={r} className={`rv ${v ? 'in' : ''}`} style={{ padding: 'clamp(7rem,13vh,10rem) 5vw 3rem' }}>
-        <div className="cat-label">Social Media Content<span className="cat-num">{ALL.length} Works</span></div>
-        <h1 className="sec-title">Social Media <em>Content</em></h1>
+      <div ref={r} className={`wk-head rv ${v ? 'in' : ''}`}>
+        <h1 className="sec-title wk-title">Social Media <em>Content</em></h1>
         <div className="sec-rule">
           <p>· Branded motion graphics, GIF animations and social-first visual storytelling.</p>
           <a href="https://www.instagram.com/arte_artorius/" target="_blank" rel="noreferrer" className="sec-link">Follow @arte_artorius</a>

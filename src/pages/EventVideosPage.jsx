@@ -93,10 +93,6 @@ export default function EventVideosPage() {
         paddingLeft:'5vw', paddingRight:'5vw',
         borderBottom:'1px solid var(--border)', background:'var(--bg)' }}>
         <div ref={r} className={`rv ${v?'in':''}`}>
-          <div className="cat-label">
-            Page 02 · Full Event Videos
-            <span className="cat-num">{EVENTS_REAL.length} Events</span>
-          </div>
           <h1 className="sec-title" style={{ fontSize:'clamp(3rem,6vw,7rem)' }}>
             Full Event <em>Videos</em>
           </h1>

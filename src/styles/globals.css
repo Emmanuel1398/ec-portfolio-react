@@ -75,7 +75,6 @@ video, img, svg, canvas{text-shadow:none;}
   font-family:var(--ui);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
   margin-bottom:.6rem;
 }
-.cat-num{margin-left:auto;color:var(--dim);}
 
 .sec-title{
   font-family:var(--serif);
@@ -93,6 +92,16 @@ video, img, svg, canvas{text-shadow:none;}
 .sec-link{font-family:var(--ui);font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;}
 .sec-link:hover{color:var(--gold);}
 .sec-link::after{content:' →';}
+
+/* ── WORK PAGE HEADER ── small title sitting just under the nav. Pages that also
+   call useFoldFit() (Characters, Drawings) get a min-height so the first fold ends
+   10px below the first row of images, with the content pinned to the bottom. */
+.wk-head{display:flex;flex-direction:column;justify-content:flex-end;
+  padding:calc(var(--navh,84px) + 1.5rem) 5vw 2rem;}
+.wk-title{font-size:clamp(2.2rem,3.4vw,3.6rem);line-height:.95;}
+.wk-head .sec-rule{margin:1rem 0 0;}
+.wk-intro{font-family:var(--body);font-weight:300;font-size:clamp(.95rem,1vw,1.05rem);
+  color:var(--muted);line-height:1.7;max-width:none;}
 
 /* ── DIVIDER ── */
 .divider{border:none;border-top:1px solid var(--border);margin:0;}

@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ILLUSTRATION_BLOGS } from '../data/illustrationBlogs';
 import Lightbox from '../components/Lightbox';
 import { useSeoContext } from '../providers/SeoProvider';
 import { drawingsSeo } from '../seo/pages';
+import { useFoldFit } from '../hooks/useFoldFit';
 
 const A = (n) => `/fine-art/${n}.jpg`;
 const T = (n) => `/fine-art/${n}-thumb.jpg`;
@@ -104,24 +105,28 @@ export default function DrawingsIllustrationsPage() {
     window.scrollTo(0, 0);
   }, [updateSeo]);
 
+  const headRef = useRef(null);
+  const mosaicRef = useRef(null);
+  useFoldFit(headRef, mosaicRef, '.fa-slot');
+
   return (
     <div style={{ minHeight:'100vh', background:'var(--bg)' }}>
       <style>{MOSAIC_CSS}</style>
 
-      <div className="pg-head" style={{ padding:'9rem 3vw 3rem', maxWidth:'1760px', margin:'0 auto' }}>
+      <div className="pg-head wk-head" ref={headRef}
+        style={{ paddingLeft:'3vw', paddingRight:'3vw', paddingBottom:'1rem', maxWidth:'1760px', margin:'0 auto' }}>
         <div style={{ display:'flex', alignItems:'center', gap:'1rem', fontFamily:'var(--ui)', fontSize:'12px',
-          letterSpacing:'.22em', textTransform:'uppercase', color:'var(--muted)', marginBottom:'1.3rem' }}>
+          letterSpacing:'.22em', textTransform:'uppercase', color:'var(--muted)', marginBottom:'1rem' }}>
           Drawings &amp; Illustrations
           <span style={{ marginLeft:'auto', color:'var(--dim)' }}>16 drawings · 1 illustration breakdown</span>
         </div>
 
-        <h1 className="pg-title sec-title" style={{ fontFamily:'var(--serif)', fontWeight:300,
-          lineHeight:.95, fontSize:'clamp(3rem,8vw,7rem)', color:'var(--text)' }}>
+        <h1 className="pg-title sec-title wk-title" style={{ fontFamily:'var(--serif)', fontWeight:300,
+          color:'var(--text)' }}>
           Drawings &amp; <em style={{ fontStyle:'normal', color:'var(--gold)' }}>Illustrations</em>
         </h1>
 
-        <div style={{ marginTop:'2rem', fontFamily:'var(--body)', fontWeight:300,
-          fontSize:'clamp(1rem,1.15vw,1.1rem)', color:'var(--muted)', lineHeight:1.9, maxWidth:'none' }}>
+        <div className="wk-intro" style={{ marginTop:'.9rem' }}>
           <p style={{ margin:0 }}>
             Work made on paper and in vector, either side of the 3D. Graphite and charcoal studies from my
             re-introduction to fine art, and illustration commissioned for print and product.
@@ -163,7 +168,7 @@ export default function DrawingsIllustrationsPage() {
         </div>
       </div>
 
-      <div className="fa-mosaic">
+      <div className="fa-mosaic" ref={mosaicRef}>
         {WORKS.map((w) => (
           <div key={w.key} className="fa-slot" style={{ gridArea: w.slot }}
             role="button" tabIndex={0}

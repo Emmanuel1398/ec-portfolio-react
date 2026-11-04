@@ -68,16 +68,14 @@ function CharCard({ char, index }) {
   );
 }
 
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSeoContext } from '../providers/SeoProvider';
 import { charactersSeo } from '../seo/pages';
+import { useFoldFit } from '../hooks/useFoldFit';
 
 /* 8-slot mosaic: three tall columns, the two large centre slots reading down the middle */
 const ORDER = ['arya','odungi-the-fairytale','lolungu-the-turkana','ndirangu-the-farmer',
   'moombi-the-angel','otugi-the-dragon','omolara-the-omo','afrezia-the-emerald'];
-
-/* gap left between the bottom of the first-row images and the bottom of the first fold */
-const FOLD_GAP = 10;
 
 const MOSAIC_CSS = `
 .char-head{max-width:1760px;margin:0 auto;padding:calc(var(--navh) + 1.5rem) 3vw 1rem;
@@ -123,34 +121,16 @@ export default function CharactersPage() {
 
   useEffect(() => { updateSeo(charactersSeo()); }, [updateSeo]);
 
-  /* Desktop mosaic: size the header so the first fold ends FOLD_GAP px below the
-     first-row images (Arya, Lolungu). The images keep their size; only the header
-     grows or shrinks, with its content pinned to the bottom. */
+  /* Desktop mosaic: the first fold ends 10px below the first-row images (Arya, Lolungu).
+     The centre column (Odungi) also starts on row 1 but runs taller, so it is left out. */
   const headRef = useRef(null);
   const mosaicRef = useRef(null);
-  useLayoutEffect(() => {
-    const head = headRef.current, mosaic = mosaicRef.current;
-    if (!head || !mosaic) return;
-    const fit = () => {
-      if (window.innerWidth <= 900) { head.style.minHeight = ''; return; }
-      const cells = [...mosaic.querySelectorAll('.cm-arya, .cm-lolungu')];
-      if (!cells.length) return;
-      const firstRow = Math.max(...cells.map(c => c.getBoundingClientRect().bottom))
-        - mosaic.getBoundingClientRect().top;
-      head.style.minHeight = `${document.documentElement.clientHeight - FOLD_GAP - firstRow}px`;
-    };
-    fit();
-    const ro = new ResizeObserver(fit);
-    ro.observe(mosaic);
-    window.addEventListener('resize', fit);
-    return () => { ro.disconnect(); window.removeEventListener('resize', fit); };
-  }, []);
+  useFoldFit(headRef, mosaicRef, '.cm-arya, .cm-lolungu');
 
   return (
     <div style={{ minHeight:'100vh', background:'var(--bg)' }}>
       <style>{MOSAIC_CSS}</style>
       <div className="pg-head char-head" ref={headRef}>
-        <div className="cat-label">3D Characters<span className="cat-num">{CHARACTER_BLOGS.length} Breakdowns</span></div>
         <h1 className="pg-title char-title">
           3D <em>Characters</em>
         </h1>

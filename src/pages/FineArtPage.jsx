@@ -66,11 +66,17 @@ const MOSAIC_CSS = `
   .fa-slot{grid-area:auto!important;aspect-ratio:1/1;}
 }
 @media(max-width:520px){.fa-mosaic{grid-template-columns:1fr;}}
+.fa-read-more{margin-top:1.2rem;background:none;border:none;padding:0;
+  font-family:var(--ui);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;
+  transition:color .2s,opacity .2s;}
+.fa-read-more:hover{color:var(--gold2);opacity:.9;}
 `;
 
 export default function FineArtPage() {
   const [zoom, setZoom] = useState(null);
   const [playing, setPlaying] = useState(false);
+  const [readMore, setReadMore] = useState(false);
 
   const { updateSeo } = useSeoContext();
 
@@ -105,30 +111,42 @@ export default function FineArtPage() {
             I drew long before I understood 3D. These are from my re-introduction to fine art, made between 2022
             and 2023, mostly in graphite with charcoal where the darks needed to go further than pencil could take them.
           </p>
-          <p style={{ marginTop:'1.3rem' }}>
-            Most of them are studies rather than finished pieces. I was testing techniques, pushing how dark and how
-            bright a single sheet could hold at once, and going after surfaces that are difficult to draw honestly:
-            water, scales, glass, wet petals. Some of it was pure experiment, like the stippling work, and some of it
-            was chasing realism as far as the paper allowed.
-          </p>
-          <p style={{ marginTop:'1.3rem' }}>
-            I was already working in 3D when I came back to drawing. What fine art changed was what I wanted out of it.
-            Chasing realism on paper, reading light, judging value, learning how a surface actually behaves before you
-            commit to it, made me want to pursue hyperrealism in 3D rather than settle for work that merely looked
-            finished.
-          </p>
-          <p style={{ marginTop:'1.3rem' }}>
-            It pushed me further into the parts of 3D that decide whether something reads as real: lighting, look
-            development, colour. And it made me want the pieces to be more dimensional and more alive than a still
-            drawing can ever be, which is where the animation work started.
-          </p>
-          <p style={{ marginTop:'1.3rem' }}>
-            Everything is drawn on hot press grained watercolour paper using Faber-Castell Pitt matt pencils across
-            their grades. The dark backgrounds are charcoal powder and ground 8B graphite. Highlights were lifted back
-            out with Mono Zero erasers, white charcoal pencils, an electric eraser and masking fluid. Pierre Noire
-            pencils carried the deepest grades where they were needed, and each piece was finished with Winsor and
-            Newton fixative.
-          </p>
+          {readMore && (
+            <>
+              <p style={{ marginTop:'1.3rem' }}>
+                Most of them are studies rather than finished pieces. I was testing techniques, pushing how dark and how
+                bright a single sheet could hold at once, and going after surfaces that are difficult to draw honestly:
+                water, scales, glass, wet petals. Some of it was pure experiment, like the stippling work, and some of it
+                was chasing realism as far as the paper allowed.
+              </p>
+              <p style={{ marginTop:'1.3rem' }}>
+                I was already working in 3D when I came back to drawing. What fine art changed was what I wanted out of it.
+                Chasing realism on paper, reading light, judging value, learning how a surface actually behaves before you
+                commit to it, made me want to pursue hyperrealism in 3D rather than settle for work that merely looked
+                finished.
+              </p>
+              <p style={{ marginTop:'1.3rem' }}>
+                It pushed me further into the parts of 3D that decide whether something reads as real: lighting, look
+                development, colour. And it made me want the pieces to be more dimensional and more alive than a still
+                drawing can ever be, which is where the animation work started.
+              </p>
+              <p style={{ marginTop:'1.3rem' }}>
+                Everything is drawn on hot press grained watercolour paper using Faber-Castell Pitt matt pencils across
+                their grades. The dark backgrounds are charcoal powder and ground 8B graphite. Highlights were lifted back
+                out with Mono Zero erasers, white charcoal pencils, an electric eraser and masking fluid. Pierre Noire
+                pencils carried the deepest grades where they were needed, and each piece was finished with Winsor and
+                Newton fixative.
+              </p>
+            </>
+          )}
+          <button
+            type="button"
+            className="fa-read-more"
+            onClick={() => setReadMore(v => !v)}
+            aria-expanded={readMore}
+          >
+            {readMore ? 'Read less' : 'Read more'} <span aria-hidden="true">{readMore ? '↑' : '↓'}</span>
+          </button>
         </div>
       </div>
 
