@@ -82,13 +82,23 @@ export default function HomePage() {
       if (!reduce) {
         /* 2 · pinned reveal */
         if (rev) {
-          const r = rev.getBoundingClientRect(), total = r.height - vh;
-          const p = clamp(-r.top / total), k = easeOut(clamp(p / .75));
-          rev.style.setProperty('--ci', lerp(22, 0, k) + '%');
-          rev.style.setProperty('--cx', lerp(vw < 700 ? 8 : 30, 0, k) + '%');
-          rev.style.setProperty('--cr', lerp(14, 0, k) + 'px');
-          rev.style.setProperty('--sc', lerp(1.25, 1, k));
-          rev.style.setProperty('--o', clamp((p - .55) / .3));
+          if (vw <= 768) {
+            const r = rev.getBoundingClientRect();
+            const p = clamp((vh - r.top) / (vh + r.height));
+            rev.style.setProperty('--ci', '0%');
+            rev.style.setProperty('--cx', '0%');
+            rev.style.setProperty('--cr', '10px');
+            rev.style.setProperty('--sc', lerp(1.14, 1, p));
+            rev.style.setProperty('--o', '1');
+          } else {
+            const r = rev.getBoundingClientRect(), total = Math.max(1, r.height - vh);
+            const p = clamp(-r.top / total), k = easeOut(clamp(p / .75));
+            rev.style.setProperty('--ci', lerp(22, 0, k) + '%');
+            rev.style.setProperty('--cx', lerp(vw < 700 ? 8 : 30, 0, k) + '%');
+            rev.style.setProperty('--cr', lerp(14, 0, k) + 'px');
+            rev.style.setProperty('--sc', lerp(1.25, 1, k));
+            rev.style.setProperty('--o', clamp((p - .55) / .3));
+          }
         }
         /* 3 · parallax */
         if (portrait && pImg) {
@@ -208,7 +218,12 @@ export default function HomePage() {
       {/* 4 · SOFTWARE & EXPERTISE */}
       <section className="hm-sec hm-light" data-bg="#0c0a07">{/* cream comes from the section itself, so the cards above never sit on cream */}
         <div className="hm-rv">
-          <div>Capabilities</div>
+          <div className="hm-work-kicker hm-light-kicker">
+            <span className="hm-work-kicker__dot" aria-hidden="true" />
+            <span>Capabilities</span>
+            <span className="hm-work-kicker__sep" aria-hidden="true">·</span>
+            <span>04 Core Pillars</span>
+          </div>
           <h2 className="hm-h2 hm-one"><span className="hm-line"><span>Software &amp; <em>Expertise</em></span></span></h2>
         </div>
         <div className="hm-sw">
