@@ -1,0 +1,112 @@
+/* ── Contact · layout ───────────────────────────────────────────────────
+   details | divider | form. The form panel takes 60% of the row's width;
+   the details column takes what is left. */
+.ct-msg{display:grid;grid-template-columns:minmax(0,1fr) 1px 60%;gap:4rem;align-items:start;}
+
+/* the details column gets narrow next to a 60% form: when it does, each
+   label sits above its value and long URLs wrap instead of overflowing */
+.ct-details{container-type:inline-size;}
+.ct-details .soc-row{overflow-wrap:anywhere;}
+@container (max-width:440px){
+  .ct-details .soc-row{grid-template-columns:1fr !important;row-gap:.25rem;}
+}
+
+/* below 1200px there isn't room for both side by side: stack details over the form */
+@media (max-width:1200px){
+  .ct-msg{grid-template-columns:minmax(0,1fr);gap:3rem;}
+  .ct-msg > :nth-child(2){display:none;}
+}
+
+/* ── Contact · glass form panel ─────────────────────────────────────────
+   Low-opacity frosted glass over the silk. Square corners to match the
+   site's buttons and cards; gold corner ticks, a warm bloom top-left, a lit
+   top edge and a faint diagonal sheen. It warms up while the visitor is
+   filling it in (:focus-within).
+
+   The panel slides in with transform only and its contents fade separately:
+   an ancestor with opacity < 1 cuts backdrop-filter off from the page, so
+   fading the panel itself would make the blur snap on at the end. */
+.ct-glass{
+  --tick:rgba(201,169,110,.55);
+  position:relative;isolation:isolate;
+  padding:clamp(1.6rem,2.6vw,2.75rem);
+  background:
+    radial-gradient(120% 70% at 0% 0%, rgba(201,169,110,.09), transparent 60%),
+    linear-gradient(160deg, rgba(255,255,255,.065) 0%, rgba(255,255,255,.02) 50%, rgba(255,255,255,.01) 100%);
+  -webkit-backdrop-filter:blur(20px) saturate(140%);
+  backdrop-filter:blur(20px) saturate(140%);
+  border:1px solid rgba(255,255,255,.09);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.09),
+    inset 0 -1px 0 rgba(0,0,0,.25),
+    0 50px 100px -45px rgba(0,0,0,.9);
+  transform:translateY(50px);
+  transition:transform 1.5s var(--ease) .1s, border-color .5s, box-shadow .5s;
+}
+.ct-glass.in{transform:none;}
+
+/* diagonal sheen across the glass */
+.ct-glass::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(115deg, transparent 35%, rgba(255,255,255,.04) 48%,
+    rgba(255,255,255,.012) 56%, transparent 66%);}
+
+/* lit top edge */
+.ct-glass::after{content:'';position:absolute;left:8%;right:8%;top:-1px;height:1px;pointer-events:none;
+  background:linear-gradient(90deg, transparent, rgba(232,213,168,.8) 50%, transparent);
+  opacity:.55;transition:opacity .5s;}
+
+/* gold corner ticks */
+.ct-glass__frame{position:absolute;inset:-1px;pointer-events:none;--l:16px;
+  background:
+    linear-gradient(var(--tick),var(--tick)) left top / var(--l) 1px no-repeat,
+    linear-gradient(var(--tick),var(--tick)) left top / 1px var(--l) no-repeat,
+    linear-gradient(var(--tick),var(--tick)) right top / var(--l) 1px no-repeat,
+    linear-gradient(var(--tick),var(--tick)) right top / 1px var(--l) no-repeat,
+    linear-gradient(var(--tick),var(--tick)) left bottom / var(--l) 1px no-repeat,
+    linear-gradient(var(--tick),var(--tick)) left bottom / 1px var(--l) no-repeat,
+    linear-gradient(var(--tick),var(--tick)) right bottom / var(--l) 1px no-repeat,
+    linear-gradient(var(--tick),var(--tick)) right bottom / 1px var(--l) no-repeat;}
+
+/* active: the visitor is typing or choosing a service */
+.ct-glass:focus-within{--tick:rgba(232,213,168,.9);border-color:rgba(201,169,110,.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.09),
+    inset 0 -1px 0 rgba(0,0,0,.25),
+    0 50px 100px -45px rgba(0,0,0,.9),
+    0 0 70px -25px rgba(201,169,110,.22);}
+.ct-glass:focus-within::after{opacity:1;}
+
+.ct-glass__body{display:flex;flex-direction:column;gap:2rem;
+  opacity:0;transition:opacity 1.5s var(--ease) .25s;}
+.ct-glass.in .ct-glass__body{opacity:1;}
+
+/* underlines read a touch stronger on glass */
+.ct-glass .form-input,.ct-glass .form-textarea{border-bottom-color:rgba(255,255,255,.13);}
+.ct-glass .form-input:focus,.ct-glass .form-textarea:focus{border-bottom-color:var(--gold);}
+
+/* service chips: small glass tiles, gold when chosen */
+.ct-chip{font-family:var(--ui);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  padding:.5rem .4rem;min-height:2.6rem;display:flex;align-items:center;justify-content:center;
+  text-align:center;color:var(--muted);background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.08);cursor:pointer;
+  transition:color .25s,border-color .25s,background .25s,box-shadow .25s;}
+.ct-chip:hover{color:var(--text);border-color:rgba(201,169,110,.35);background:rgba(255,255,255,.045);}
+.ct-chip:focus-visible{outline:1px solid var(--gold);outline-offset:2px;}
+.ct-chip.is-on{color:var(--gold2);border-color:rgba(201,169,110,.75);
+  background:linear-gradient(180deg, rgba(201,169,110,.16), rgba(201,169,110,.06));
+  box-shadow:inset 0 1px 0 rgba(232,213,168,.18), 0 0 24px -10px rgba(201,169,110,.55);}
+
+/* no backdrop-filter support, or the visitor asked for less transparency: solid smoked glass */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .ct-glass{background:rgba(16,14,12,.78);}
+}
+@media (prefers-reduced-transparency:reduce){
+  .ct-glass{background:rgba(16,14,12,.9);-webkit-backdrop-filter:none;backdrop-filter:none;}
+}
+@media (prefers-reduced-motion:reduce){
+  .ct-glass,.ct-glass__body{transition:none;transform:none;opacity:1;}
+}
+@media (max-width:768px){
+  .ct-glass{padding:1.4rem 1.1rem;}
+  .ct-glass__body{gap:1.6rem;}
+}

@@ -3,6 +3,7 @@ import { useIntersection } from '../hooks';
 import { SOCIAL } from '../data/portfolio';
 import AutoVideo from '../components/AutoVideo';
 import { openWhatsApp } from '../lib/whatsapp';
+import './contact.css';
 
 /* ── Contact form — sends to emmanuelchege777@gmail.com via mailto ── */
 function ContactForm() {
@@ -41,17 +42,20 @@ function ContactForm() {
   };
 
   return (
-    <div ref={r} className={`rv ${v?'in':''}`}
+    /* the reveal sits on the parts, not this wrapper: an opacity fade here would
+       switch off the glass panel's backdrop blur until it finished */
+    <div ref={r}
       style={{ padding:'calc(var(--navh, 84px) + 4rem) 5vw 6rem', background:'var(--bg)' }}>
-      <div className="cat-label">Get in Touch</div>
-      <h1 className="sec-title" style={{ marginBottom:'3rem' }}>
-        Send a <em>Message</em>
-      </h1>
-      <div className="m-stack ct-msg" style={{ display:'grid', gridTemplateColumns:'1fr 1px 1fr',
-        gap:'6rem', alignItems:'start' }}>
+      <div className={`rv ${v?'in':''}`}>
+        <div className="cat-label">Get in Touch</div>
+        <h1 className="sec-title" style={{ marginBottom:'3rem' }}>
+          Send a <em>Message</em>
+        </h1>
+      </div>
+      <div className="m-stack ct-msg">
 
         {/* Left · contact details */}
-        <div>
+        <div className={`ct-details rv d1 ${v?'in':''}`}>
           <p style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--muted)',
             lineHeight:1.95, marginBottom:'2.5rem' }}>
             Available for freelance commissions, agency collaborations and project discussions.
@@ -102,24 +106,15 @@ function ContactForm() {
               Chat with me on WhatsApp
             </button>
           </div>
-          <div style={{ marginTop:'2.5rem', display:'flex', gap:'1rem', flexWrap:'wrap' }}>
-            {[['ArtStation',SOCIAL.artstation],['LinkedIn',SOCIAL.linkedin],
-              ['Instagram',SOCIAL.instagram],['TikTok',SOCIAL.tiktok],
-              ['YouTube',SOCIAL.youtube],
-              ['View More Work','https://drive.google.com/drive/folders/1gxnbPIPCY-jarzUT_78JGrobDeCuLtPB']].map(([label,href])=>(
-              <a key={label} href={href} target="_blank" rel="noreferrer"
-                className="btn-outline" style={{ fontSize:'12px' }}>
-                {label}
-              </a>
-            ))}
-          </div>
         </div>
 
         {/* Divider */}
         <div style={{ background:'var(--border)', alignSelf:'stretch' }}/>
 
-        {/* Right · form */}
-        <div style={{ display:'flex', flexDirection:'column', gap:'2rem' }}>
+        {/* Right · form, on a glass panel */}
+        <div className={`ct-glass ${v?'in':''}`}>
+          <span className="ct-glass__frame" aria-hidden="true" />
+          <div className="ct-glass__body">
           <div className="m-stack ct-form" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'2rem' }}>
             <div style={{ display:'flex', flexDirection:'column', gap:'.4rem' }}>
               <label style={{ fontFamily:'var(--ui)', fontSize:'12px',
@@ -158,14 +153,8 @@ function ContactForm() {
             </label>
             <div className="m-2col svc-grid" style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:'.4rem' }}>
               {types.map(t=>(
-                <button key={t} onClick={()=>setType(t)}
-                  style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.1em',
-                    textTransform:'uppercase', padding:'.5rem .4rem', minHeight:'2.6rem',
-                    display:'flex', alignItems:'center', justifyContent:'center', textAlign:'center',
-                    border:`1px solid ${type===t?'var(--gold)':'var(--border)'}`,
-                    background: type===t ? 'rgba(201,169,110,.08)' : 'transparent',
-                    color: type===t ? 'var(--gold)' : 'var(--muted)',
-                    cursor:'pointer', transition:'all .2s' }}>
+                <button key={t} type="button" onClick={()=>setType(t)} aria-pressed={type===t}
+                  className={`ct-chip${type===t ? ' is-on' : ''}`}>
                   {t}
                 </button>
               ))}
@@ -196,6 +185,7 @@ function ContactForm() {
             color:'var(--muted)', marginTop:'-1rem' }}>
             Email opens your mail app · WhatsApp opens a chat with your brief
           </span>
+          </div>
         </div>
       </div>
     </div>

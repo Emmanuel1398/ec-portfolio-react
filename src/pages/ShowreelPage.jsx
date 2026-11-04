@@ -25,8 +25,7 @@ export default function ShowreelPage() {
   return (
     <div className="page hm" ref={root}>
       <header className="hm-pghead">
-        <div className="hm-rv">Showreel</div>
-        <h1 className="hm-h2 hm-rv"><span className="hm-line"><span>Portfolio <em>Reel</em></span></span></h1>
+        <h1 className="hm-h2 hm-rv">Portfolio <em>Reel</em></h1>
         <p className="hm-lede hm-rv hm-d2" style={{ maxWidth: 'none' }}>2024 / 2025 · Characters, motion graphics and event work in one cut. Best with sound on.</p>
       </header>
 

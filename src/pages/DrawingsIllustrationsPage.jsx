@@ -121,12 +121,6 @@ export default function DrawingsIllustrationsPage() {
 
       <div className="pg-head wk-head" ref={headRef}
         style={{ paddingLeft:'3vw', paddingRight:'3vw', paddingBottom:'1rem', maxWidth:'1760px', margin:'0 auto' }}>
-        <div style={{ display:'flex', alignItems:'center', gap:'1rem', fontFamily:'var(--ui)', fontSize:'12px',
-          letterSpacing:'.22em', textTransform:'uppercase', color:'var(--muted)', marginBottom:'1rem' }}>
-          Drawings &amp; Illustrations
-          <span style={{ marginLeft:'auto', color:'var(--dim)' }}>16 drawings · 1 illustration breakdown</span>
-        </div>
-
         <h1 className="pg-title sec-title wk-title" style={{ fontFamily:'var(--serif)', fontWeight:300,
           color:'var(--text)' }}>
           Drawings &amp; <em style={{ fontStyle:'normal', color:'var(--gold)' }}>Illustrations</em>

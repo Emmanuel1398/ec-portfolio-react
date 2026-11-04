@@ -97,10 +97,18 @@ a:hover>.hm-play svg,button:hover>.hm-play svg,.hm-gate:hover .hm-play svg{fill:
 
 /* ── 3 · WORK (all 8 sections in rows) ── */
 .hm-work{overflow:hidden}
-.hm-work-head{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:4rem}
-.hm-grid{position:relative;z-index:2;display:grid;grid-template-columns:repeat(2,1fr);gap:72px 48px;max-width:1180px;margin:0 auto}
-.hm-card{display:flex;flex-direction:column;position:relative;text-decoration:none;color:var(--text)}
-.hm-card .im{position:relative;aspect-ratio:4/5;overflow:hidden;background:#0b0b0b}
+.hm-work-head{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-end;gap:2.5rem;flex-wrap:wrap;max-width:1180px;margin:0 auto 3.6rem;padding-bottom:2.2rem;border-bottom:1px solid rgba(255,255,255,0.08)}
+.hm-work-kicker{display:inline-flex;align-items:center;gap:.65rem;font-family:var(--ui);font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem}
+.hm-work-kicker__dot{width:5px;height:5px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(201,169,110,0.8)}
+.hm-work-kicker__sep{color:var(--dim);font-weight:300}
+.hm-work-meta{display:flex;flex-direction:column;align-items:flex-start;max-width:380px}
+.hm-work-badge{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--ui);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold2);padding:.35rem .85rem;border-radius:100px;background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.2);margin-bottom:.7rem}
+.hm-badge-dot{width:4px;height:4px;border-radius:50%;background:var(--gold)}
+.hm-work-meta .hm-lede{margin-top:0;font-size:clamp(.92rem,1vw,1rem);line-height:1.7}
+@media(max-width:900px){.hm-work-head{flex-direction:column;align-items:flex-start;gap:1.6rem}}
+.hm-grid{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);gap:72px 40px;max-width:1180px;margin:0 auto}
+.hm-card{display:flex;flex-direction:column;position:relative;height:70vh;text-decoration:none;color:var(--text)}
+.hm-card .im{position:relative;flex:1;min-height:0;overflow:hidden;background:#0b0b0b}
 .hm-card .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.4s var(--ease-out)}
 .hm-card .im::after{content:'';position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(201,169,110,0);transition:box-shadow .5s}
 .hm-card:hover .im img{transform:scale(1.15)}
@@ -113,7 +121,7 @@ a:hover>.hm-play svg,button:hover>.hm-play svg,.hm-gate:hover .hm-play svg{fill:
 .hm-card .meta{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-top:1.1rem;padding-bottom:.9rem;border-bottom:1px solid var(--border)}
 .hm-card h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.6rem,2.2vw,2.3rem);line-height:1.05;margin:0}
 .hm-card .c{font-family:var(--ui);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);white-space:nowrap}
-.hm-card p{font-family:var(--ui);font-weight:300;font-size:.98rem;color:var(--muted);margin-top:.9rem;line-height:1.6;flex:1}
+.hm-card p{font-family:var(--ui);font-weight:300;font-size:.98rem;color:var(--muted);margin-top:.9rem;line-height:1.6}
 .hm-card .go{display:inline-flex;gap:.5rem;margin-top:.8rem;font-family:var(--ui);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.7;transition:opacity .3s,gap .3s}
 .hm-card:hover .go{opacity:1;gap:.9rem}
 /* "Enter Page" appears over the image on hover */
@@ -129,6 +137,7 @@ a:hover>.hm-play svg,button:hover>.hm-play svg,.hm-gate:hover .hm-play svg{fill:
 /* titles that stay on one line */
 .hm-one{white-space:nowrap}
 @media(max-width:600px){.hm-one{white-space:normal}}
+@media(max-width:1000px){.hm-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:900px){.hm-grid{gap:48px 24px}}
 @media(max-width:640px){.hm-grid{grid-template-columns:1fr;gap:48px}}
 
@@ -151,9 +160,9 @@ a:hover>.hm-play svg,button:hover>.hm-play svg,.hm-gate:hover .hm-play svg{fill:
 .hm-ctabig .hm-btn{margin-top:2.8rem;padding:1.15rem 2.4rem;font-size:12px}
 
 /* ── SHOWREEL PAGE ── */
-.hm-pghead{padding:calc(var(--navh) + 5rem) 5vw 2.6rem}
-.hm-pghead .hm-h2{font-size:clamp(3.2rem,7vw,7rem)}
-.hm-pghead .hm-lede{max-width:none}
+.hm-pghead{padding:calc(var(--navh) + 0.8rem) 5vw 1rem}
+.hm-pghead .hm-h2{font-size:clamp(1.8rem,2.4vw,2.5rem);line-height:1.05}
+.hm-pghead .hm-lede{max-width:none;margin-top:0.5rem}
 .hm-player{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}
 .hm-player img,.hm-player iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0}
 .hm-gate{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;width:100%;

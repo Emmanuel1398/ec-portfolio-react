@@ -170,15 +170,26 @@ export default function HomePage() {
       <section className="hm-sec hm-work" id="work" data-bg="#060606">
         <div className="hm-work-head">
           <div className="hm-rv">
-            <div>Work</div>
+            <div className="hm-work-kicker">
+              <span className="hm-work-kicker__dot" aria-hidden="true" />
+              <span>Portfolio Index</span>
+              <span className="hm-work-kicker__sep" aria-hidden="true">·</span>
+              <span>08 Disciplines</span>
+            </div>
             <h2 className="hm-h2 hm-one"><span className="hm-line"><span>Eight ways I <em>create</em></span></span></h2>
           </div>
-          <p className="hm-lede hm-rv hm-d1" style={{ maxWidth: 360 }}>Every section of the portfolio, all in view. Choose one to open its page.</p>
+          <div className="hm-work-meta hm-rv hm-d1">
+            <div className="hm-work-badge">
+              <span className="hm-badge-dot" aria-hidden="true" />
+              <span>Curated Archive · 2020 — 2026</span>
+            </div>
+            <p className="hm-lede">Every section of the portfolio, all in view. Choose one to open its page.</p>
+          </div>
         </div>
         <div className="hm-grid">
           {HOME_WORK.map((w, i) => (
             <Link key={w.to} to={w.to} className="hm-card hm-rv" data-back-to="/#work" onClick={() => rememberBack(w.to)}
-              style={{ transitionDelay: `${(i % 2) * .12}s` }}>
+              style={{ transitionDelay: `${(i % 3) * .12}s` }}>
               <div className="im">
                 {w.remote && <div className="dots" />}
                 <img src={w.img} alt={w.alt} loading="lazy" width="1000" height="1250"
@@ -212,7 +223,6 @@ export default function HomePage() {
 
       {/* 5 · CONTACT */}
       <section className="hm-ctabig" data-bg="#060606">
-        <div className="hm-rv">Contact</div>
         <h2 className="hm-h2 hm-rv"><span className="hm-line"><span>Have a project</span></span><span className="hm-line"><span>or a role <em>in mind?</em></span></span></h2>
         <div className="hm-rv hm-d2"><Link to="/contact" className="hm-btn gold">Contact Me →</Link></div>
       </section>

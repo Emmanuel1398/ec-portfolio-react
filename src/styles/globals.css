@@ -94,7 +94,7 @@ video, img, svg, canvas{text-shadow:none;}
 .sec-link::after{content:' →';}
 
 /* ── WORK PAGE HEADER ── small title sitting just under the nav. Pages that also
-   call useFoldFit() (Characters, Drawings) get a min-height so the first fold ends
+   call useFoldFit() (Drawings) get a min-height so the first fold ends
    10px below the first row of images, with the content pinned to the bottom. */
 .wk-head{display:flex;flex-direction:column;justify-content:flex-end;
   padding:calc(var(--navh,84px) + 1.5rem) 5vw 2rem;}

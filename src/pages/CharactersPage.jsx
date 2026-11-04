@@ -68,18 +68,16 @@ function CharCard({ char, index }) {
   );
 }
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useSeoContext } from '../providers/SeoProvider';
 import { charactersSeo } from '../seo/pages';
-import { useFoldFit } from '../hooks/useFoldFit';
 
 /* 8-slot mosaic: three tall columns, the two large centre slots reading down the middle */
 const ORDER = ['arya','odungi-the-fairytale','lolungu-the-turkana','ndirangu-the-farmer',
   'moombi-the-angel','otugi-the-dragon','omolara-the-omo','afrezia-the-emerald'];
 
 const MOSAIC_CSS = `
-.char-head{max-width:1760px;margin:0 auto;padding:calc(var(--navh) + 1.5rem) 3vw 1rem;
-  display:flex;flex-direction:column;justify-content:flex-end;}
+.char-head{max-width:1760px;margin:0 auto;padding:calc(var(--navh) + 1.5rem) 3vw 1rem;}
 .char-title{font-family:var(--serif);font-size:clamp(2.2rem,3.4vw,3.6rem);font-weight:600;
   line-height:.95;letter-spacing:.01em;color:var(--text);margin-bottom:.9rem;}
 .char-title em{font-style:normal;color:var(--gold);}
@@ -121,16 +119,10 @@ export default function CharactersPage() {
 
   useEffect(() => { updateSeo(charactersSeo()); }, [updateSeo]);
 
-  /* Desktop mosaic: the first fold ends 10px below the first-row images (Arya, Lolungu).
-     The centre column (Odungi) also starts on row 1 but runs taller, so it is left out. */
-  const headRef = useRef(null);
-  const mosaicRef = useRef(null);
-  useFoldFit(headRef, mosaicRef, '.cm-arya, .cm-lolungu');
-
   return (
     <div style={{ minHeight:'100vh', background:'var(--bg)' }}>
       <style>{MOSAIC_CSS}</style>
-      <div className="pg-head char-head" ref={headRef}>
+      <div className="pg-head char-head">
         <h1 className="pg-title char-title">
           3D <em>Characters</em>
         </h1>
@@ -141,7 +133,7 @@ export default function CharactersPage() {
         </p>
       </div>
 
-      <div className="char-mosaic" ref={mosaicRef}>
+      <div className="char-mosaic">
         {ORDER.map((slug, i) => {
           const char = CHARACTER_BLOGS.find(c => c.slug === slug);
           if (!char) return null;
