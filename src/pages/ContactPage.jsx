@@ -1,48 +1,8 @@
-import { useState, useRef, useEffect } from 'react';
-import EventThumb from '../components/EventThumb';
+import { useState, useEffect } from 'react';
 import { useIntersection } from '../hooks';
-import { SOFTWARE_CATEGORIES, SOCIAL, IMAGES } from '../data/portfolio';
-import VideoModal from '../components/VideoModal';
+import { SOCIAL } from '../data/portfolio';
 import AutoVideo from '../components/AutoVideo';
-
-/* ── Software & Expertise grid ── */
-function SoftwareSection() {
-  const [r, v] = useIntersection();
-  return (
-    <div ref={r} className={`rv ${v?'in':''}`} style={{ padding:'5rem 5vw' }}>
-      <div className="cat-label">Capabilities</div>
-      <h2 className="sec-title" style={{ marginBottom:'3rem' }}>
-        Software &amp; <em>Expertise</em>
-      </h2>
-      <div className="m-2col" style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)',
-        border:'1px solid var(--border)', background:'var(--border)', gap:'1px' }}>
-        {SOFTWARE_CATEGORIES.map((cat, i) => (
-          <div key={cat.category} className={`rv d${Math.min(i,4)} ${v?'in':''}`}
-            style={{ background:'var(--bg2)', padding:'2rem 1.6rem',
-              transition:'background .25s', cursor:'default' }}
-            onMouseEnter={e=>e.currentTarget.style.background='rgba(255,255,255,.02)'}
-            onMouseLeave={e=>e.currentTarget.style.background='var(--bg2)'}>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
-              textTransform:'uppercase', color:'var(--gold)', marginBottom:'1rem' }}>
-              {cat.category}
-            </div>
-            <div style={{ display:'flex', flexDirection:'column', gap:'.5rem' }}>
-              {cat.tools.map(tool => (
-                <div key={tool} style={{ fontFamily:'var(--serif)', fontSize:'1.05rem',
-                  fontWeight:300, color:'var(--text)', display:'flex',
-                  alignItems:'center', gap:'.6rem' }}>
-                  <span style={{ width:3, height:3, borderRadius:'50%',
-                    background:'var(--gold)', flexShrink:0 }}/>
-                  {tool}
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+import { openWhatsApp } from '../lib/whatsapp';
 
 /* ── Contact form — sends to emmanuelchege777@gmail.com via mailto ── */
 function ContactForm() {
@@ -53,9 +13,9 @@ function ContactForm() {
   const [type, setType]       = useState('');
   const [message, setMessage] = useState('');
 
-  const types = ['3D Character','Drone Show','Event Visualization',
-    'Projection Mapping','Product Visualization','Hologram Content',
-    'Social Media','Full Event Video','General Enquiry'];
+  const types = ['3D Character','Motion Graphics','VFX','CFX','Drone Show',
+    'Event Visualization','Projection Mapping','Product Visualization',
+    'Hologram Content','Social Media','Full Event Video','General Enquiry'];
 
   const handleSend = () => {
     const subject = encodeURIComponent(`Portfolio Enquiry: ${type || 'General'} · ${name}`);
@@ -67,14 +27,26 @@ function ContactForm() {
       `mailto:emmanuelchege777@gmail.com?subject=${subject}&body=${body}`;
   };
 
+  /* same details, sent as a WhatsApp message (number is never shown on the page) */
+  const handleWhatsApp = () => {
+    const lines = [
+      `Hi Emmanuel, I'm reaching out from emmanuelchege.com.`,
+      name && `Name: ${name}`,
+      email && `Email: ${email}`,
+      company && `Company: ${company}`,
+      type && `Service: ${type}`,
+      message && `\n${message}`,
+    ].filter(Boolean);
+    openWhatsApp(lines.join('\n'));
+  };
+
   return (
     <div ref={r} className={`rv ${v?'in':''}`}
-      style={{ padding:'6rem 5vw', background:'var(--bg)',
-        borderTop:'1px solid var(--border)' }}>
+      style={{ padding:'calc(var(--navh, 84px) + 4rem) 5vw 6rem', background:'var(--bg)' }}>
       <div className="cat-label">Get in Touch</div>
-      <h2 className="sec-title" style={{ marginBottom:'3rem' }}>
+      <h1 className="sec-title" style={{ marginBottom:'3rem' }}>
         Send a <em>Message</em>
-      </h2>
+      </h1>
       <div className="m-stack ct-msg" style={{ display:'grid', gridTemplateColumns:'1fr 1px 1fr',
         gap:'6rem', alignItems:'start' }}>
 
@@ -114,6 +86,21 @@ function ContactForm() {
                 {l.text}
               </a>
             ))}
+            <button type="button" onClick={()=>openWhatsApp()}
+              className="soc-row" style={{ display:'grid', gridTemplateColumns:'120px 1fr', columnGap:'1.25rem',
+                alignItems:'center', padding:'1rem 0', width:'100%', textAlign:'left',
+                background:'none', border:'none', borderBottom:'1px solid var(--border)',
+                cursor:'pointer', color:'var(--muted)',
+                transition:'color .2s, padding-left .2s',
+                fontSize:'1rem', fontFamily:'var(--body)' }}
+              onMouseEnter={e=>{e.currentTarget.style.color='var(--text)';e.currentTarget.style.paddingLeft='.5rem';}}
+              onMouseLeave={e=>{e.currentTarget.style.color='var(--muted)';e.currentTarget.style.paddingLeft='0';}}>
+              <span style={{ fontFamily:'var(--ui)', fontSize:'12px',
+                letterSpacing:'.16em', textTransform:'uppercase', color:'var(--gold)' }}>
+                WhatsApp
+              </span>
+              Chat with me on WhatsApp
+            </button>
           </div>
           <div style={{ marginTop:'2.5rem', display:'flex', gap:'1rem', flexWrap:'wrap' }}>
             {[['ArtStation',SOCIAL.artstation],['LinkedIn',SOCIAL.linkedin],
@@ -173,7 +160,8 @@ function ContactForm() {
               {types.map(t=>(
                 <button key={t} onClick={()=>setType(t)}
                   style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.1em',
-                    textTransform:'uppercase', padding:'.5rem .4rem',
+                    textTransform:'uppercase', padding:'.5rem .4rem', minHeight:'2.6rem',
+                    display:'flex', alignItems:'center', justifyContent:'center', textAlign:'center',
                     border:`1px solid ${type===t?'var(--gold)':'var(--border)'}`,
                     background: type===t ? 'rgba(201,169,110,.08)' : 'transparent',
                     color: type===t ? 'var(--gold)' : 'var(--muted)',
@@ -195,15 +183,19 @@ function ContactForm() {
               className="form-textarea" style={{ minHeight:120 }}/>
           </div>
 
-          <div className="ct-submit" style={{ display:'flex', alignItems:'center', gap:'1.5rem' }}>
+          <div className="ct-submit" style={{ display:'flex', alignItems:'center', gap:'1rem', flexWrap:'wrap' }}>
             <button className="btn-primary" onClick={handleSend}>
-              Send Message →
+              Send by Email →
             </button>
-            <span style={{ fontFamily:'var(--ui)', fontSize:'12px',
-              letterSpacing:'.14em', color:'var(--muted)' }}>
-              Opens your email client
-            </span>
+            <button type="button" className="btn-outline" onClick={handleWhatsApp}
+              style={{ padding:'calc(.8rem - 1px) 2rem', alignItems:'center' }}>
+              Send on WhatsApp →
+            </button>
           </div>
+          <span style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.14em',
+            color:'var(--muted)', marginTop:'-1rem' }}>
+            Email opens your mail app · WhatsApp opens a chat with your brief
+          </span>
         </div>
       </div>
     </div>
@@ -327,133 +319,12 @@ import { useSeoContext } from '../providers/SeoProvider';
 import { contactSeo } from '../seo/pages';
 
 export default function ContactPage() {
-  const [r, v]   = useIntersection();
-  const [r2, v2] = useIntersection();
   const { updateSeo } = useSeoContext();
 
   useEffect(() => { updateSeo(contactSeo()); }, [updateSeo]);
 
   return (
     <div className="page">
-
-      {/* Page header */}
-      <div className="pg-head" style={{ paddingTop:'11rem', paddingBottom:'5rem',
-        paddingLeft:'5vw', paddingRight:'5vw',
-        borderBottom:'1px solid var(--border)', background:'var(--bg)',
-        position:'relative', overflow:'hidden' }}>
-        <div style={{ position:'absolute', right:'-5vw', bottom:'-1rem',
-          fontFamily:'var(--serif)', fontSize:'clamp(6rem,16vw,20rem)',
-          fontWeight:600, color:'rgba(255,255,255,.012)', textShadow:'none',
-          pointerEvents:'none', lineHeight:1, userSelect:'none' }}>
-          ABOUT
-        </div>
-        <div ref={r} className={`rv ${v?'in':''}`} style={{ position:'relative', zIndex:1 }}>
-          <div className="cat-label">Page 03</div>
-          <h1 className="sec-title" style={{ fontSize:'clamp(3rem,6vw,7rem)' }}>
-            About &amp; <em>Contact</em>
-          </h1>
-          <div style={{ marginTop:'1.5rem', maxWidth:'680px' }}>
-            <p style={{ fontFamily:'var(--body)', fontSize:'1rem',
-              color:'var(--muted)', lineHeight:1.9 }}>
-              Emmanuel Chege · Hyperrealistic 3D Artist &amp; Motion Designer.
-              Available for commissions, collaborations and projects worldwide from Nairobi, Kenya.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* ── BIO + PORTRAIT ── */}
-      <div style={{ background:'var(--bg2)', borderBottom:'1px solid var(--border)' }}>
-        <div className="m-stack" style={{ display:'grid', gridTemplateColumns:'360px 1fr', alignItems:'start' }}>
-
-          {/* Portrait */}
-          <div style={{ position:'relative', overflow:'hidden',
-            borderRight:'1px solid var(--border)', minHeight:380 }}>
-            <img src="/portrait.jpg" alt="Emmanuel Chege"
-              style={{ width:'100%', height:'100%', objectFit:'cover',
-                objectPosition:'top center', display:'block',
-                filter:'brightness(.75) saturate(.85)' }}/>
-            <div style={{ position:'absolute', inset:0,
-              background:'linear-gradient(135deg,transparent 60%,rgba(6,6,6,.5) 100%)' }}/>
-            <div style={{ position:'absolute', bottom:'1.2rem', left:'1.2rem',
-              fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
-              textTransform:'uppercase', color:'rgba(255,255,255,0.75)' }}>
-              Nairobi, Kenya · 2025
-            </div>
-          </div>
-
-          {/* Bio text */}
-          <div ref={r2} className={`rv d1 ${v2?'in':''}`}
-            style={{ padding:'5rem 5vw' }}>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.28em',
-              textTransform:'uppercase', color:'var(--gold)', marginBottom:'1.2rem' }}>
-              About Emmanuel Chege
-            </div>
-            <h2 style={{ fontFamily:'var(--serif)',
-              fontSize:'clamp(1.8rem,2.8vw,3rem)',
-              fontWeight:300, lineHeight:1, color:'var(--text)', marginBottom:'2.5rem' }}>
-              3D Generalist. <em>Motion Graphics Artist.</em>
-            </h2>
-
-            <p style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--muted)',
-              lineHeight:2, marginBottom:'1.6rem' }}>
-              I am a <strong style={{ color:'var(--text)', fontWeight:400 }}>3D Generalist</strong> with
-              a passion for pushing creative boundaries at the intersection of motion graphics,
-              animation and 3D design. My work reflects a meticulous attention to detail · from
-              crafting high-fidelity 3D assets with a hyper-realistic style, to producing polished
-              final artworks that communicate with visual clarity and purpose.
-            </p>
-            <p style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--muted)',
-              lineHeight:2, marginBottom:'1.6rem' }}>
-              I approach every project with both technical discipline and artistic curiosity,
-              consistently finding ways to maximise quality within real-world constraints.
-              Whether I am working on character work, visual effects, or dynamic motion design,
-              my dedication to the craft is evident in every frame.
-            </p>
-            <p style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--muted)',
-              lineHeight:2, marginBottom:'2.5rem' }}>
-              I am currently growing my presence in the industry, with a focus on reaching global
-              audiences · exploring animation in its many art forms: 3D visualizations, drone show
-              concepts, 3D animation, hyper-realistic characters, motion graphics and projection
-              mapping. Simply put ·{' '}
-              <strong style={{ color:'var(--gold)', fontWeight:400 }}>
-                I bring concepts and ideas to life.
-              </strong>
-            </p>
-
-            {/* Pull quote */}
-            <div style={{ borderLeft:'2px solid var(--gold)',
-              paddingLeft:'1.8rem', marginBottom:'2.5rem' }}>
-              <p style={{ fontFamily:'var(--serif)', fontSize:'1.25rem',
-                fontStyle:'italic', fontWeight:300, lineHeight:1.55, color:'var(--text)' }}>
-                "Detail is not decoration. It is the difference between something that
-                looks 3D and something that feels alive."
-              </p>
-            </div>
-
-            {/* Stats */}
-            <div className="m-2col ct-stats" style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)',
-              borderTop:'1px solid var(--border)', paddingTop:'2rem', gap:'1rem' }}>
-              {[['5+','Years Experience'],['17+','Characters'],['30+','Projects'],['16','Tools']].map(([n,l])=>(
-                <div key={l}>
-                  <div style={{ fontFamily:'var(--serif)', fontSize:'2.5rem',
-                    fontWeight:300, lineHeight:1 }}>
-                    {n.replace('+','')}<em style={{ fontStyle:'normal', color:'var(--gold)' }}>{n.includes('+')?'+':''}</em>
-                  </div>
-                  <div style={{ fontFamily:'var(--ui)', fontSize:'12px',
-                    letterSpacing:'.16em', textTransform:'uppercase',
-                    color:'var(--muted)', marginTop:'.3rem' }}>{l}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* ── Software & Expertise · directly below bio ── */}
-        <div style={{ borderTop:'1px solid var(--border)' }}>
-          <SoftwareSection />
-        </div>
-      </div>
 
       {/* ── Send a Message ── */}
       <ContactForm />

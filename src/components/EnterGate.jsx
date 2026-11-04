@@ -43,6 +43,13 @@ export default function EnterGate() {
     return () => { document.body.style.overflow = ''; };
   }, [show]);
 
+  /* while the gate is up the home page waits: its hero reveal and stat
+     count-up start when the visitor enters (see home.css / HomePage) */
+  useEffect(() => {
+    if (show) document.body.classList.add('gate-open');
+    return () => document.body.classList.remove('gate-open');
+  }, [show]);
+
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
 
   /* some browsers ignore autoplay until play() is called */
@@ -56,6 +63,8 @@ export default function EnterGate() {
 
   const leave = () => {
     setPhase('leave');                       // gate + transition fade out to the site
+    document.body.classList.remove('gate-open');
+    window.dispatchEvent(new Event('ec:entered'));
     later(finish, 900);
   };
 

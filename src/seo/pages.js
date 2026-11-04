@@ -12,7 +12,8 @@
 import site from '../config/site.js';
 import { CHARACTER_BLOGS } from '../data/characterBlogs.js';
 import { ILLUSTRATION_BLOGS } from '../data/illustrationBlogs.js';
-import { DRONE_SHOWS, REEL_SLIDES, OLDER_REELS, SOCIAL, SOCIAL_MEDIA_ROW1, SOCIAL_MEDIA_ROW2 } from '../data/portfolio.js';
+import { DRONE_SHOWS, OLDER_REELS, SOCIAL, SOCIAL_MEDIA_ROW1, SOCIAL_MEDIA_ROW2 } from '../data/portfolio.js';
+import { HOME_BIO, HOME_STATS, HOME_WORK, HOME_SOFTWARE } from '../data/home.js';
 import { NAV_LINKS } from '../data/nav.js';
 import {
   abs, PERSON_ID, graph, pageNode, breadcrumbNode, itemListNode, videoNode, faqNode, dates,
@@ -29,7 +30,7 @@ const ytThumb = (id) => (id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` :
 const paras = (s) => String(s || '').split('\n').map(p => p.trim()).filter(Boolean);
 
 const HOME_CRUMB = { name: 'Home', path: '/' };
-const CONTACT_LINK = { text: 'About & Contact', href: '/contact' };
+const CONTACT_LINK = { text: 'Contact Me', href: '/contact' };
 
 /* common return shape · fields map 1:1 onto SeoProvider state */
 const seo = ({ path, title, description, image = null, type = 'website', noindex = false, nodes = [], body, updated = null }) => ({
@@ -54,16 +55,40 @@ export function homeSeo() {
     path: '/', title, description,
     nodes: [pageNode('WebPage', url, title, description, { about: { '@id': PERSON_ID } })],
     body: {
-      eyebrow: 'Portfolio',
+      eyebrow: 'Portfolio · Nairobi, Kenya',
       h1: site.name,
-      paragraphs: ['3D Generalist · Motion Graphics Artist · Nairobi'],
+      paragraphs: ['3D Generalist · Motion Graphics Artist', stripTags(HOME_BIO),
+        HOME_STATS.map(s => `${s.n}${s.plus ? '+' : ''} ${s.label.toLowerCase()}`).join(' · ')],
       sections: [
-        { heading: 'Portfolio Reels', items: [
-          ...REEL_SLIDES.map(s => ({ text: [s.title, s.subtitle].filter(Boolean).join(' · '), note: s.sub })),
-          ...OLDER_REELS.map(r => ({ text: r.title, note: r.sub })),
-        ] },
-        { heading: 'Work', items: NAV_LINKS.filter(l => l.to !== '/').map(l => ({ text: l.label, href: l.to })) },
+        { heading: 'Showreel 2024 / 2025', items: [{ text: 'Watch the showreel', href: '/showreel' }] },
+        { heading: 'Work', items: HOME_WORK.map(w => ({ text: w.title, href: w.to, note: `${w.count} · ${w.desc}` })) },
+        { heading: 'Software & Expertise', items: HOME_SOFTWARE.map(c => ({ text: c.category, note: c.tools.join(', ') })) },
       ],
+      links: [CONTACT_LINK],
+    },
+  });
+}
+
+/* ── SHOWREEL ──────────────────────────────────────── */
+export function showreelSeo() {
+  const path = '/showreel';
+  const url = abs(path);
+  const title = `Showreel | ${site.name}`;
+  const description = 'Portfolio reel 2024 / 2025 by Emmanuel Chege: 3D characters, motion graphics and event work in one cut, plus previous motion graphics and 3D generalist reels.';
+  return seo({
+    path, title, description,
+    nodes: [
+      pageNode('WebPage', url, title, description, { breadcrumb: { '@id': `${url}#breadcrumb` }, about: { '@id': PERSON_ID } }),
+      breadcrumbNode(url, [HOME_CRUMB, { name: 'Showreel', path }]),
+    ],
+    body: {
+      eyebrow: 'Showreel',
+      h1: 'Portfolio Reel',
+      paragraphs: ['2024 / 2025 · Characters, motion graphics and event work in one cut. Best with sound on.'],
+      sections: [
+        { heading: 'Previous Reels', items: OLDER_REELS.map(r => ({ text: r.title.replace('–', ' to '), note: r.sub })) },
+      ],
+      links: [{ text: 'See the work', href: '/#work' }, CONTACT_LINK],
     },
   });
 }
@@ -130,29 +155,25 @@ export const socialSeo = () => listing({
 export function contactSeo() {
   const path = '/contact';
   const url = abs(path);
-  const title = `About & Contact | ${site.name}`;
-  const intro = `${site.name} · ${site.jobTitle}. Available for commissions, collaborations and projects worldwide from ${site.city}, Kenya.`;
+  const title = `Contact | ${site.name}`;
+  const intro = `Contact ${site.name}, ${site.jobTitle} in ${site.city}, Kenya. Available for freelance commissions, agency collaborations, studio roles and project discussions worldwide.`;
   return seo({
-    path, title, description: intro, type: 'profile',
+    path, title, description: intro,
     nodes: [
-      pageNode('ProfilePage', url, title, intro, {
+      pageNode('ContactPage', url, title, intro, {
         breadcrumb: { '@id': `${url}#breadcrumb` },
-        mainEntity: { '@id': PERSON_ID },
+        about: { '@id': PERSON_ID },
       }),
-      breadcrumbNode(url, [HOME_CRUMB, { name: 'About & Contact', path }]),
+      breadcrumbNode(url, [HOME_CRUMB, { name: 'Contact', path }]),
     ],
     body: {
-      h1: 'About & Contact',
-      paragraphs: [intro],
+      eyebrow: 'Get in Touch',
+      h1: 'Send a Message',
+      paragraphs: [
+        'Available for freelance commissions, agency collaborations and project discussions. Based in Nairobi, Kenya · operating globally and remotely.',
+      ],
       sections: [
-        { heading: 'About Emmanuel Chege · 3D Generalist. Motion Graphics Artist.', paragraphs: [
-          'I am a 3D Generalist with a passion for pushing creative boundaries at the intersection of motion graphics, animation and 3D design. My work reflects a meticulous attention to detail · from crafting high-fidelity 3D assets with a hyper-realistic style, to producing polished final artworks that communicate with visual clarity and purpose.',
-          'I approach every project with both technical discipline and artistic curiosity, consistently finding ways to maximise quality within real-world constraints. Whether I am working on character work, visual effects, or dynamic motion design, my dedication to the craft is evident in every frame.',
-          'I am currently growing my presence in the industry, with a focus on reaching global audiences · exploring animation in its many art forms: 3D visualizations, drone show concepts, 3D animation, hyper-realistic characters, motion graphics and projection mapping. Simply put · I bring concepts and ideas to life.',
-        ] },
-        { heading: 'Contact', paragraphs: [
-          'Available for freelance commissions, agency collaborations and project discussions. Based in Nairobi, Kenya · operating globally and remotely.',
-        ], items: [
+        { heading: 'Contact', items: [
           { text: `Email · ${SOCIAL.email}`, href: `mailto:${SOCIAL.email}` },
           { text: 'ArtStation', href: SOCIAL.artstation },
           { text: 'LinkedIn', href: SOCIAL.linkedin },

@@ -10,7 +10,7 @@ import { CHARACTER_BLOGS } from '../data/characterBlogs.js';
 import { ILLUSTRATION_BLOGS } from '../data/illustrationBlogs.js';
 import { DRONE_SHOWS } from '../data/portfolio.js';
 import {
-  homeSeo, charactersSeo, droneShowsSeo, drawingsSeo, contactSeo, socialSeo,
+  homeSeo, showreelSeo, charactersSeo, droneShowsSeo, drawingsSeo, contactSeo, socialSeo,
   categorySeo, characterSeo, workSeo, droneSeo, illustrationSeo,
 } from './pages.js';
 
@@ -29,6 +29,7 @@ export function getRoutes() {
   const cats = Object.values(CATEGORIES);
   return [
     r(homeSeo(), 'pages'),
+    r(showreelSeo(), 'pages'),
     r(charactersSeo(), 'pages'),
     r(droneShowsSeo(), 'pages'),
     r(drawingsSeo(), 'pages'),

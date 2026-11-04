@@ -1,547 +1,221 @@
-import { useState, useRef, useEffect } from 'react';
-
-// hover:hover = primary input can hover (mouse) = desktop
-// hover:none = primary input cannot hover (touch) = mobile
-const isMobile = typeof window !== 'undefined' &&
-  !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-import { useIntersection } from '../hooks';
-import EnterGate from '../components/EnterGate';
-import { isAudioActivated } from '../lib/audioActivation';
-import HorizontalRow from '../components/HorizontalRow';
-import VideoModal from '../components/VideoModal';
-import VolumeSlider from '../components/VolumeSlider';
-import {
-  REEL_SLIDES, DRONE_PROJECTS, DRONE_IMAGES, CHARACTERS,
-  EVENT_VIZ_REAL, HOLOGRAM_REAL, PRODUCT_VIZ_REAL, PROJECTION_REAL,
-  OLDER_REELS, SOCIAL_MEDIA_ROW1, SOCIAL_MEDIA_ROW2, IMAGES
-} from '../data/portfolio';
-
-/* ── Hover-to-play video card ── */
-function HoverVideoCard({ thumbnail, youtubeId, title, sub, num, width, height, minWidth, onPlayModal }) {
-  const [showVideo, setShowVideo] = useState(false);
-  const timer  = useRef(null);
-  const hvcRef = useRef(null);
-  const containerRef = useRef(null);
-
-  useEffect(() => {
-    if (!isMobile || !youtubeId || !containerRef.current) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setShowVideo(entry.isIntersecting);
-      },
-      { threshold: 0.4 }
-    );
-    observer.observe(containerRef.current);
-    return () => observer.disconnect();
-  }, [youtubeId]);
-
-  const onEnter = () => {
-    if (isMobile) return;
-    clearTimeout(timer.current);
-    if (youtubeId) timer.current = setTimeout(() => setShowVideo(true), 250);
-  };
-  const onLeave = () => {
-    if (isMobile) return;
-    clearTimeout(timer.current);
-    setShowVideo(false);
-  };
-  const onClick = () => {
-    if (isMobile && onPlayModal && youtubeId) onPlayModal({ youtubeId, title });
-  };
-
-  return (
-    <div ref={containerRef} className="h-item" style={{ width, minWidth, height, flexShrink:0, position:'relative',
-      cursor: isMobile && youtubeId ? 'pointer' : 'grab' }}
-      onMouseEnter={onEnter} onMouseLeave={onLeave} onClick={onClick}>
-      <img src={thumbnail} alt={title} loading="lazy" draggable="false"
-        style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'top',
-          display:'block', transition:'opacity .4s, transform 1.1s var(--ease-out)',
-          transform: showVideo ? 'scale(1.04)' : 'scale(1)',
-          opacity: showVideo ? 0 : 1 }}/>
-      {showVideo && youtubeId && (
-        <>
-          <iframe ref={hvcRef}
-            src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&loop=1&playlist=${youtubeId}&enablejsapi=1&playsinline=1`}
-            allow="autoplay; encrypted-media"
-            style={{ position:'absolute', inset:0, width:'100%', height:'100%',
-              border:'none', opacity: showVideo ? 1 : 0, transition:'opacity .4s', pointerEvents: isMobile ? 'none' : 'auto' }}/>
-          {!isMobile && (
-            <div style={{ position:'absolute', bottom:'.5rem', right:'.5rem', zIndex:10 }}
-              onClick={e=>e.stopPropagation()}>
-              <VolumeSlider iframeRef={hvcRef}/>
-            </div>
-          )}
-        </>
-      )}
-      {isMobile && youtubeId && (
-        <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center',
-          justifyContent:'center', pointerEvents:'none', opacity: showVideo ? 0 : 1, transition: 'opacity .4s' }}>
-          <div style={{ width:44, height:44, border:'1px solid rgba(201,169,110,.55)',
-            borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center',
-            background:'rgba(6,6,6,.5)' }}>
-            <svg width="16" viewBox="0 0 24 24" fill="var(--gold)"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-        </div>
-      )}
-      <div className="h-item__info">
-        {num && <div className="h-item__num">{num}</div>}
-        <div className="h-item__title">{title}</div>
-        {sub && <div className="h-item__sub">{sub}</div>}
-      </div>
-    </div>
-  );
-}
-
-/* ── Section head ── */
-function SectionHead({ label, total, title, sub, children }) {
-  const [r, v] = useIntersection();
-  return (
-    <div ref={r} className={`rv ${v?'in':''}`} style={{ padding:'0 5vw 3rem' }}>
-      <div className="cat-label">{label}{total && <span className="cat-num">{total}</span>}</div>
-      <h2 className="sec-title" dangerouslySetInnerHTML={{ __html: title }}/>
-      <div className="sec-rule"><p>{sub}</p>{children}</div>
-    </div>
-  );
-}
-
-/* ── HERO ── */
-function HeroReel() {
-  const [cur, setCur] = useState(0);
-  const [playing, setPlaying] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-  const [bgMuted, setBgMuted] = useState(true);
-  // fixed at mount: the slide timer re-renders, and a changed src would reload the reel
-  const [startMuted] = useState(() => !isAudioActivated());
-  const auto = useRef(null);
-  const bgRef = useRef(null);
-  const total = REEL_SLIDES.length;
-
-  const toggleBgVolume = (e) => {
-    e.stopPropagation();
-    if (!bgRef.current) return;
-    if (bgMuted) {
-      bgRef.current.contentWindow.postMessage(JSON.stringify({ event:'command', func:'unMute',    args:[] }), '*');
-      bgRef.current.contentWindow.postMessage(JSON.stringify({ event:'command', func:'setVolume', args:[40] }), '*');
-    } else {
-      bgRef.current.contentWindow.postMessage(JSON.stringify({ event:'command', func:'mute', args:[] }), '*');
-    }
-    setBgMuted(m => !m);
-  };
-
-  const goTo = (n) => { setPlaying(false); setCur((n+total)%total); resetAuto(); };
-  const resetAuto = () => {
-    clearInterval(auto.current);
-    auto.current = setInterval(() => setCur(p=>(p+1)%total), 8000);
-  };
-  useEffect(() => {
-    resetAuto();
-    // Entrance animation trigger
-    const t = setTimeout(() => setLoaded(true), 100);
-    return () => { clearInterval(auto.current); clearTimeout(t); };
-  }, []);
-
-
-  const slide = REEL_SLIDES[cur];
-
-  return (
-    <section id="reels" style={{ position:'relative', width:'100%', height:'100vh', overflow:'hidden' }}>
-
-      {/* AUTO-PLAY MUTED VIDEO BACKGROUND */}
-      <div style={{ position:'absolute', inset:0, zIndex:1, overflow:'hidden' }}>
-        <iframe
-          src={`https://www.youtube.com/embed/gmiQ0bNoPgQ?autoplay=1&mute=${startMuted ? 1 : 0}&loop=1&playlist=gmiQ0bNoPgQ&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&vq=hd1080`}
-          ref={bgRef}
-          allow="autoplay; encrypted-media"
-          style={{ position:'absolute', top:'50%', left:'50%',
-            transform:'translate(-50%,-50%) scale(1.15)',
-            width:'100%', height:'100%', minWidth:'100%', minHeight:'100%',
-            border:'none', pointerEvents:'none' }}/>
-        {/* Scrim over video */}
-        <div style={{ position:'absolute', inset:0,
-          background:'linear-gradient(to bottom, rgba(6,6,6,.9) 0%, rgba(6,6,6,.4) 10%, transparent 26%, transparent 100%)' }}/>
-      </div>
-
-      {/* Still image layers for inactive slides */}
-      {REEL_SLIDES.map((sl,i) => i !== 0 && (
-        <div key={sl.id} style={{ position:'absolute', inset:0,
-          opacity: i===cur ? 1 : 0,
-          transition:'opacity 1.8s cubic-bezier(0,0,0.2,1)', zIndex:0 }}>
-          <img src={sl.bg} alt=""
-            style={{ position:'absolute', inset:0, width:'100%', height:'100%',
-              objectFit:'cover', filter:'brightness(.35) saturate(.6)' }}/>
-          <div style={{ position:'absolute', inset:0,
-            background:'linear-gradient(to bottom,rgba(6,6,6,.6) 0%,rgba(6,6,6,.3) 40%,rgba(6,6,6,.78) 78%,rgba(6,6,6,1) 100%)' }}/>
-        </div>
-      ))}
-
-      {/* Full-screen playback override */}
-      {playing && slide.youtubeId && (
-        <div style={{ position:'absolute', inset:0, zIndex:20, background:'#000' }}>
-          <iframe style={{ position:'absolute', inset:0, width:'100%', height:'100%', border:'none' }}
-            src={`https://www.youtube.com/embed/${slide.youtubeId}?autoplay=1&rel=0&controls=0`}
-            allowFullScreen allow="autoplay; encrypted-media"/>
-          <button onClick={() => setPlaying(false)}
-            style={{ position:'absolute', top:'1.5rem', right:'1.5rem', zIndex:30,
-              width:42, height:42, borderRadius:'50%', border:'1px solid rgba(255,255,255,.25)',
-              background:'rgba(6,6,6,.7)', color:'var(--text)', cursor:'pointer',
-              display:'flex', alignItems:'center', justifyContent:'center', transition:'all .2s' }}>
-            <svg width="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
-              <path d="M18 6L6 18M6 6l12 12"/>
-            </svg>
-          </button>
-        </div>
-      )}
-
-      {/* CONTENT · entrance animation */}
-      {!playing && (
-        <div style={{ position:'relative', zIndex:5, height:'100%',
-          display:'flex', flexDirection:'column', justifyContent:'space-between', padding:'0 5vw' }}>
-
-
-
-
-          {/* Bottom-right: title + volume only · no arrows/dots */}
-          {!playing && (
-            <div style={{
-              position:'absolute', bottom:'2.5rem', right:'5vw', zIndex:6,
-              display:'flex', flexDirection:'column', alignItems:'flex-end', gap:'.7rem',
-              opacity: loaded ? 1 : 0, transform: loaded ? 'none' : 'translateY(20px)',
-              transition:'opacity 1.4s ease .5s, transform 1.4s ease .5s',
-            }}>
-              {/* Title label */}
-              <div style={{ textAlign:'right' }}>
-                <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(.95rem,1.4vw,1.5rem)',
-                  fontWeight:300, lineHeight:1.05, color:'rgba(255,255,255,0.95)', letterSpacing:'.01em', textShadow:'0 2px 12px rgba(0,0,0,.7)' }}>
-                  Portfolio Reel
-                </div>
-                <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(.8rem,1.1vw,1.1rem)',
-                  fontWeight:300, fontStyle:'italic', color:'var(--gold)', lineHeight:1, marginTop:'.18rem' }}>
-                  2024 / 2025
-                </div>
-              </div>
-              {/* Volume slider */}
-              <VolumeSlider iframeRef={bgRef} autoUnmute initialVolume={50}/>
-            </div>
-          )}
-        </div>
-      )}
-
-
-    </section>
-  );
-}
-
-/* ── CHARACTERS ── */
-function CharactersSection() {
-  const [r,v] = useIntersection();
-  const items = CHARACTERS.map(c=>({ img:c.img, title:c.title, sub:c.tags, num:c.id, youtubeId:null }));
-  return (
-    <section id="characters" style={{ padding:'8rem 0 0', background:'var(--bg)' }}>
-      <SectionHead label="3D Characters" total="17 Works" title="3D Characters &amp;<br/><em>Creatures</em>"
-        sub="· Hyperrealistic sculpts. Every detail intentional."/>
-      <div ref={r} className={`rv-img ${v?'in':''}`}>
-        <div className="h-row" style={{ height:'72vh' }}>
-          {items.map((item,i)=>(
-            <HoverVideoCard key={i} thumbnail={item.img} youtubeId={item.youtubeId}
-              title={item.title} sub={item.sub} num={item.num}
-              width="26vw" height="72vh" minWidth="220px"/>
-          ))}
-          <div style={{ position:'absolute', right:0, top:0, bottom:0, width:70,
-            background:'linear-gradient(to left,rgba(6,6,6,.6),transparent)',
-            pointerEvents:'none', zIndex:2, display:'flex', alignItems:'center',
-            justifyContent:'flex-end', paddingRight:'1rem' }}>
-            <span style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
-              color:'rgba(255,255,255,0.75)', writingMode:'vertical-rl' }}>DRAG →</span>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ── OLDER SHOWREELS — 2 cards side by side ── */
-/* ── Reel card with hover-to-play ── */
-function ReelCard({ reel, onPlay }) {
-  const [hover, setHover] = useState(false);
-  const [showVideo, setShowVideo] = useState(false);
-  const iframeRef = useRef(null);
-  const timer = useRef(null);
-  const containerRef = useRef(null);
-
-  useEffect(() => {
-    if (!isMobile || !reel.youtubeId || !containerRef.current) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setShowVideo(entry.isIntersecting);
-      },
-      { threshold: 0.4 }
-    );
-    observer.observe(containerRef.current);
-    return () => observer.disconnect();
-  }, [reel.youtubeId]);
-
-  const onEnter = () => {
-    if (isMobile) return;
-    setHover(true);
-    clearTimeout(timer.current);
-    timer.current = setTimeout(() => setShowVideo(true), 300);
-  };
-  const onLeave = () => {
-    if (isMobile) return;
-    setHover(false);
-    clearTimeout(timer.current);
-    setShowVideo(false);
-  };
-
-  const src = `https://www.youtube.com/embed/${reel.youtubeId}?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&loop=1&playlist=${reel.youtubeId}&enablejsapi=1&playsinline=1`;
-
-  return (
-    <div ref={containerRef} className="reel-card" style={{ position:'relative', aspectRatio:'16/9', overflow:'hidden',
-      cursor:'pointer', background:'var(--bg3)' }}
-      onMouseEnter={onEnter} onMouseLeave={onLeave}
-      onClick={() => onPlay(reel)}>
-      <img src={reel.img} alt={reel.title}
-        style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover',
-          filter:'brightness(.45) saturate(.7)',
-          opacity: showVideo ? 0 : 1,
-          transform: hover ? 'scale(1.04)' : 'scale(1)',
-          transition:'opacity .5s, transform .8s var(--ease-out)' }}/>
-      {showVideo && (
-        <>
-          <iframe ref={iframeRef} src={src} allow="autoplay; encrypted-media"
-            style={{ position:'absolute', inset:0, width:'100%', height:'100%',
-              border:'none', opacity:1, transition:'opacity .4s', pointerEvents: isMobile ? 'none' : 'auto' }}/>
-          {!isMobile && (
-            <div style={{ position:'absolute', bottom:'.7rem', right:'.7rem', zIndex:10 }}
-              onClick={e => e.stopPropagation()}>
-              <VolumeSlider iframeRef={iframeRef}/>
-            </div>
-          )}
-        </>
-      )}
-      {/* Play button */}
-      <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center',
-        justifyContent:'center', pointerEvents:'none',
-        opacity: showVideo ? 0 : 1, transition:'opacity .4s' }}>
-        <div style={{ width:70, height:70,
-          border:`1px solid ${hover ? 'var(--gold)' : 'rgba(201,169,110,.55)'}`,
-          borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center',
-          background: hover ? 'var(--gold)' : 'rgba(6,6,6,.35)',
-          transition:'all .35s var(--ease-out)' }}>
-          <svg width="22" viewBox="0 0 24 24" fill={hover ? '#000' : 'var(--gold)'}>
-            <path d="M8 5v14l11-7z"/>
-          </svg>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function OlderReelsSection() {
-  const [r,v] = useIntersection();
-  const [modal, setModal] = useState(null);
-  return (
-    <section id="older-reels" style={{ padding:'8rem 5vw', background:'var(--bg2)' }}>
-      <div ref={r} className={`rv ${v?'in':''}`} style={{ marginBottom:'3rem' }}>
-        <div className="cat-label">Older Showreels</div>
-        <h2 className="sec-title">Previous <em>Reels</em></h2>
-        <div className="sec-rule"><p>· Archive of Previous production reels.</p></div>
-      </div>
-      <div className="m-stack hr-grid" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'3px' }}>
-        {OLDER_REELS.map((reel, i) => (
-          <ReelCard key={i} reel={reel} onPlay={setModal}/>
-        ))}
-      </div>
-      {modal && <VideoModal youtubeId={modal.youtubeId} title={modal.title} onClose={()=>setModal(null)}/>}
-    </section>
-  );
-}
-
-/* ── DRONE ── */
-function DroneSection() {
-  const [r,v] = useIntersection();
-  const [r2,v2] = useIntersection();
-  const cvRef = useRef(null);
-  useEffect(() => {
-    const cv=cvRef.current; if(!cv)return;
-    const cx=cv.getContext('2d'); let W,H,pts=[],raf;
-    const rz=()=>{W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;};
-    const init=()=>{pts=[];for(let i=0;i<80;i++)pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22,r:Math.random()*1.4+.3,p:Math.random()*Math.PI*2,ps:Math.random()*.015+.004});};
-    const draw=()=>{
-      cx.clearRect(0,0,W,H);
-      for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<110){cx.beginPath();cx.strokeStyle=`rgba(201,169,110,${(.85-d/110)*.1})`;cx.lineWidth=.4;cx.moveTo(pts[i].x,pts[i].y);cx.lineTo(pts[j].x,pts[j].y);cx.stroke();}}
-      pts.forEach(p=>{p.p+=p.ps;const g=.5+Math.sin(p.p)*.5;cx.beginPath();cx.arc(p.x,p.y,p.r*(1+g*.4),0,Math.PI*2);cx.fillStyle=`rgba(201,169,110,${g*.7})`;cx.fill();p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;});
-      raf=requestAnimationFrame(draw);
-    };
-    const onR=()=>{rz();init();}; window.addEventListener('resize',onR); rz();init();draw();
-    return()=>{window.removeEventListener('resize',onR);cancelAnimationFrame(raf);};
-  },[]);
-
-  return (
-    <section id="drone" style={{ padding:'8rem 0 0', background:'var(--bg)' }}>
-      <SectionHead label="Drone Show Concepts" total="6 Clients" title="Drone Show <em>Concepts</em>"
-        sub="· EU-Kenya · HFCK · NRP · Museveni · Mashariki · La Mada"/>
-      <div style={{ position:'relative', width:'100%', height:200,
-        borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)',
-        overflow:'hidden', background:'var(--bg2)' }}>
-        <canvas ref={cvRef} style={{ position:'absolute', inset:0, width:'100%', height:'100%' }}/>
-        <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center',
-          justifyContent:'center', pointerEvents:'none' }}>
-          <p style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.2rem,2.2vw,2rem)',
-            fontWeight:300, fontStyle:'italic', color:'rgba(201,169,110,.22)', letterSpacing:'.04em' }}>
-            Formation · Flight · Light
-          </p>
-        </div>
-      </div>
-      <div ref={r} className={`rv m-3col ${v?'in':''}`} style={{ display:'grid', gridTemplateColumns:'repeat(6,1fr)', borderBottom:'1px solid var(--border)' }}>
-        {DRONE_PROJECTS.map((p,i)=>(
-          <div key={p.n} className={`rv d${Math.min(i,4)} ${v?'in':''}`}
-            style={{ padding:'2rem 1.4rem', borderRight: i<5?'1px solid var(--border)':'none',
-              cursor:'default', transition:'background .25s' }}
-            onMouseEnter={e=>e.currentTarget.style.background='rgba(255,255,255,.02)'}
-            onMouseLeave={e=>e.currentTarget.style.background='transparent'}>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em', color:'var(--gold)', marginBottom:'.7rem' }}>{p.n}</div>
-            <div style={{ fontFamily:'var(--serif)', fontSize:'1.05rem', fontWeight:300, lineHeight:1.2, color:'var(--text)', marginBottom:'.4rem' }}>{p.title}</div>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.1em', color:'var(--muted)', lineHeight:1.7 }}>{p.desc.substring(0,80)}…</div>
-          </div>
-        ))}
-      </div>
-      <div ref={r2} className={`rv-img ${v2?'in':''}`}>
-        <div className="h-row" style={{ height:'52vh' }}>
-          {DRONE_IMAGES.map((item,i)=>(
-            <HoverVideoCard key={i} thumbnail={item.img} youtubeId={null}
-              title={item.title} sub={item.sub}
-              width="30vw" height="52vh" minWidth="260px"/>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ── VIDEO ROW WITH SCROLL ARROWS ── */
-function VideoRowWithArrows({ items, height, itemWidth, rowRef , onPlayModal }) {
-  const [showL, setShowL] = useState(false);
-  const [showR, setShowR] = useState(true);
-  const drag = useRef({ active:false, startX:0, scrollLeft:0 });
-
-  const updateArrows = () => {
-    const el = rowRef.current; if(!el) return;
-    setShowL(el.scrollLeft > 5);
-    setShowR(el.scrollLeft < el.scrollWidth - el.clientWidth - 5);
-  };
-  const scrollLeft  = () => rowRef.current?.scrollBy({ left:-(rowRef.current.offsetWidth*.7), behavior:'smooth' });
-  const scrollRight = () => rowRef.current?.scrollBy({ left:  rowRef.current.offsetWidth*.7,  behavior:'smooth' });
-
-  const onDown = (e) => { drag.current={active:true,startX:e.pageX-rowRef.current.offsetLeft,scrollLeft:rowRef.current.scrollLeft}; rowRef.current.classList.add('dragging'); };
-  const onUp   = () => { drag.current.active=false; rowRef.current?.classList.remove('dragging'); };
-  const onMove = (e) => { if(!drag.current.active)return; e.preventDefault(); const x=e.pageX-rowRef.current.offsetLeft; rowRef.current.scrollLeft=drag.current.scrollLeft-(x-drag.current.startX)*1.4; };
-
-  useEffect(()=>{
-    const el=rowRef.current;
-    el.addEventListener('mousemove',onMove); el.addEventListener('mouseup',onUp);
-    el.addEventListener('mouseleave',onUp); el.addEventListener('scroll',updateArrows,{passive:true});
-    updateArrows();
-    return()=>{ el.removeEventListener('mousemove',onMove); el.removeEventListener('mouseup',onUp); el.removeEventListener('mouseleave',onUp); el.removeEventListener('scroll',updateArrows); };
-  },[]);
-
-  const ArrowBtn = ({dir, onClick, visible}) => (
-    <button onClick={onClick} style={{
-      position:'absolute', top:'50%', transform:'translateY(-50%)',
-      [dir==='left'?'left':'right']:'0.6rem', zIndex:10,
-      width:38, height:38, borderRadius:'50%',
-      border:'1px solid rgba(201,169,110,.45)',
-      background:'rgba(6,6,6,.75)', backdropFilter:'blur(8px)',
-      color:'var(--gold)', cursor:'pointer',
-      display:'flex', alignItems:'center', justifyContent:'center',
-      opacity:visible?1:0, pointerEvents:visible?'auto':'none',
-      transition:'opacity .3s, background .2s, transform .2s'
-    }}
-    onMouseEnter={e=>{e.currentTarget.style.background='rgba(201,169,110,.15)';e.currentTarget.style.transform='translateY(-50%) scale(1.08)';}}
-    onMouseLeave={e=>{e.currentTarget.style.background='rgba(6,6,6,.75)';e.currentTarget.style.transform='translateY(-50%) scale(1)';}}>
-      <svg width="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        {dir==='left'?<path d="M15 18l-6-6 6-6"/>:<path d="M9 18l6-6-6-6"/>}
-      </svg>
-    </button>
-  );
-
-  return (
-    <div style={{ position:'relative' }}>
-      <ArrowBtn dir="left"  onClick={scrollLeft}  visible={showL}/>
-      <ArrowBtn dir="right" onClick={scrollRight} visible={showR}/>
-      <div ref={rowRef} className="h-row" style={{ height }} onMouseDown={onDown}>
-        {items.map((item,i)=>(
-          <HoverVideoCard key={i} thumbnail={item.img} youtubeId={item.youtubeId} onPlayModal={onPlayModal}
-            title={item.title} sub={item.sub}
-            width={itemWidth} height={height} minWidth="240px"/>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* ── GENERIC VIDEO ROW SECTION ── */
-function VideoRowSection({ id, label, title, sub, items, height='60vh', itemWidth='32vw', bg='var(--bg)' }) {
-  const [r,v]   = useIntersection();
-  const [r2,v2] = useIntersection();
-  const rowRef  = useRef(null);
-  const [modal, setModal] = useState(null);
-  return (
-    <section id={id} style={{ padding:'8rem 0 0', background:bg }}>
-      <div ref={r} className={`rv ${v?'in':''}`} style={{ padding:'0 5vw 3rem' }}>
-        <div className="cat-label">{label}<span className="cat-num">{`${items.length} Works`}</span></div>
-        <h2 className="sec-title" dangerouslySetInnerHTML={{ __html: title }}/>
-        <div className="sec-rule"><p>· {sub}</p></div>
-      </div>
-      <div ref={r2} className={`rv-img ${v2?'in':''}`}>
-        <VideoRowWithArrows items={items} height={height} itemWidth={itemWidth} rowRef={rowRef} onPlayModal={setModal}/>
-      </div>
-      {modal && <VideoModal youtubeId={modal.youtubeId} title={modal.title} onClose={()=>setModal(null)}/>}
-    </section>
-  );
-}
-
-/* ── SOCIAL MEDIA — 2 rows with scroll arrows ── */
-function SocialSection() {
-  const [r,v]   = useIntersection();
-  const [r2,v2] = useIntersection();
-  const row1Ref = useRef(null);
-  const row2Ref = useRef(null);
-  const [modal, setModal] = useState(null);
-  const totalCount = SOCIAL_MEDIA_ROW1.length + SOCIAL_MEDIA_ROW2.length;
-
-  return (
-    <section id="social" style={{ padding:'8rem 0 0', background:'var(--bg)' }}>
-      <div ref={r} className={`rv ${v?'in':''}`} style={{ padding:'0 5vw 3rem' }}>
-        <div className="cat-label">Social Media Content<span className="cat-num">{totalCount} Works</span></div>
-        <h2 className="sec-title">Social Media <em>Content</em></h2>
-        <div className="sec-rule">
-          <p>· Branded motion graphics, GIF animations and social-first visual storytelling.</p>
-          <a href="https://www.instagram.com/arte_artorius/" target="_blank" rel="noreferrer" className="sec-link">Follow @arte_artorius</a>
-        </div>
-      </div>
-      <div ref={r2} className={`rv-img ${v2?'in':''}`} style={{ display:'flex', flexDirection:'column', gap:'3px', paddingBottom:'8rem' }}>
-        <VideoRowWithArrows items={SOCIAL_MEDIA_ROW1} height="42vh" itemWidth="22vw" rowRef={row1Ref}/>
-        <VideoRowWithArrows items={SOCIAL_MEDIA_ROW2} height="42vh" itemWidth="22vw" rowRef={row2Ref}/>
-      </div>
-      {modal && <VideoModal youtubeId={modal.youtubeId} title={modal.title} onClose={()=>setModal(null)}/>}
-    </section>
-  );
-}
-
+import { useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useSeoContext } from '../providers/SeoProvider';
 import { homeSeo } from '../seo/pages';
+import { HOME_BIO, HOME_STATS, HOME_WORK, HOME_SOFTWARE } from '../data/home';
+import { useRevealAll } from '../hooks/useRevealAll';
+import EnterGate from '../components/EnterGate';
+import { rememberBack, clearBack } from '../lib/backTo';
 
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+
+/* ─────────────────────────────────────────────────────────────
+   HOME · scroll triggers (one rAF-throttled scroll handler):
+   1. the hero name lifts out and glides into the nav logo slot
+   2. the showreel still is pinned and grows to fill the screen
+   3. the portrait drifts slightly slower than the page
+   4. the page colour shifts per section (cream for Software)
+   ───────────────────────────────────────────────────────────── */
 export default function HomePage() {
   const { updateSeo } = useSeoContext();
+  const { hash, key } = useLocation();
+  const root = useRef(null);
 
   useEffect(() => { updateSeo(homeSeo()); }, [updateSeo]);
+  useEffect(() => { clearBack(); }, []);   /* a fresh visit to Home resets where the back arrow leads */
+  useRevealAll(root);
+
+  /* /#work from the nav: scroll to the work section (after App's scroll-to-top) */
+  useEffect(() => {
+    if (hash !== '#work') return;
+    const t = setTimeout(() => {
+      const el = document.getElementById('work');
+      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 40, behavior: 'smooth' });
+    }, 80);
+    return () => clearTimeout(t);
+  }, [hash, key]);
+
+  /* count-up stats (after the landing gate, when it is showing) */
+  useEffect(() => {
+    const els = root.current.querySelectorAll('[data-count]');
+    let raf;
+    const run = () => {
+      const t1 = performance.now();
+      const step = (now) => {
+        const p = Math.min((now - t1) / 1400, 1);
+        els.forEach(b => { b.firstChild.nodeValue = Math.round(+b.dataset.count * easeOut(p)); });
+        if (p < 1) raf = requestAnimationFrame(step);
+      };
+      raf = requestAnimationFrame(step);
+    };
+    const gated = document.body.classList.contains('gate-open');
+    if (gated) window.addEventListener('ec:entered', run, { once: true }); else run();
+    return () => { cancelAnimationFrame(raf); window.removeEventListener('ec:entered', run); };
+  }, []);
+
+  /* scroll-driven animations */
+  useEffect(() => {
+    const $ = (id) => document.getElementById(id);
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const words = [['hmBrandA', 'hmNameA', 'navSlotA'], ['hmBrandB', 'hmNameB', 'navSlotB']].map(ids => ids.map($));
+    const brand = $('hmBrand'), tint = $('hmTint'), rev = $('hmReveal'), pImg = $('hmPortraitImg'), portrait = $('hmPortrait');
+    let ticking = false;
+
+    const frame = () => {
+      ticking = false;
+      const vh = window.innerHeight, vw = window.innerWidth;
+
+      /* 1 · name → logo */
+      const dist = Math.max(220, Math.min(380, vh * .36));
+      const e = reduce ? 1 : easeOut(clamp(window.scrollY / dist));
+      words.forEach(([b, h, s]) => {
+        if (!b || !h || !s) return;
+        const f = h.getBoundingClientRect(), t = s.getBoundingClientRect();
+        const big = parseFloat(getComputedStyle(h).fontSize), small = parseFloat(getComputedStyle(s).fontSize);
+        b.style.fontSize = lerp(big, small, e) + 'px';
+        b.style.transform = `translate(${lerp(f.left, t.left, e)}px,${lerp(f.top, t.top, e)}px)`;
+      });
+      brand && brand.classList.add('ready');
+
+      if (!reduce) {
+        /* 2 · pinned reveal */
+        if (rev) {
+          const r = rev.getBoundingClientRect(), total = r.height - vh;
+          const p = clamp(-r.top / total), k = easeOut(clamp(p / .75));
+          rev.style.setProperty('--ci', lerp(22, 0, k) + '%');
+          rev.style.setProperty('--cx', lerp(vw < 700 ? 8 : 30, 0, k) + '%');
+          rev.style.setProperty('--cr', lerp(14, 0, k) + 'px');
+          rev.style.setProperty('--sc', lerp(1.25, 1, k));
+          rev.style.setProperty('--o', clamp((p - .55) / .3));
+        }
+        /* 3 · parallax */
+        if (portrait && pImg) {
+          const pr = portrait.getBoundingClientRect();
+          pImg.style.transform = `translateY(${clamp((pr.top + pr.height / 2 - vh / 2) / vh, -1, 1) * -24}px)`;
+        }
+      }
+
+      /* 4 · page colour per section */
+      let col = 'rgba(6,6,6,0)';
+      root.current?.querySelectorAll('[data-bg]').forEach(s => {
+        if (s.getBoundingClientRect().top < vh * .55) col = s.dataset.bg;
+      });
+      if (tint) tint.style.backgroundColor = col;
+    };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
+    frame();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    document.fonts?.ready.then(onScroll);
+    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); };
+  }, []);
 
   return (
-    <div className="page">
-      <EnterGate/>
-      <HeroReel/>
-      <OlderReelsSection/>
+    <div className="page hm" ref={root}>
+      <EnterGate />
+      <div className="hm-tint" id="hmTint" aria-hidden="true" />
+
+      {/* the two words that fly into the nav logo */}
+      <div className="hm-brand" id="hmBrand" aria-hidden="true">
+        <span id="hmBrandA" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Emmanuel</span>
+        <span id="hmBrandB" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Chege</span>
+      </div>
+
+      {/* 1 · HERO */}
+      <section className="hm-hero" data-bg="rgba(6,6,6,0)">
+        <div>
+          <h1 className="hm-name"><span id="hmNameA">Emmanuel</span><span id="hmNameB">Chege</span></h1>
+          <div className="hm-titles hm-rv"><span>3D Generalist</span><span>Motion Graphics Artist</span></div>
+          <p className="hm-bio hm-rv hm-d1" dangerouslySetInnerHTML={{ __html: HOME_BIO }} />
+          <div className="hm-cta hm-rv hm-d2">
+            <Link to="/showreel" className="hm-btn gold">
+              <svg width="9" height="11" viewBox="0 0 10 12" fill="currentColor" aria-hidden="true"><path d="M0 0l10 6-10 6z"/></svg>
+              Watch the Showreel
+            </Link>
+            <Link to="/#work" className="hm-btn line">See the Work</Link>
+          </div>
+          <div className="hm-stats hm-rv hm-d3">
+            {HOME_STATS.map(s => (
+              <div key={s.label}><b data-count={s.n}>0{s.plus && <em>+</em>}</b><span>{s.label}</span></div>
+            ))}
+          </div>
+        </div>
+        <figure className="hm-portrait hm-frame hm-rv hm-d1" id="hmPortrait">
+          <img src="/home/portrait.jpg" alt="Emmanuel Chege, 3D generalist and motion graphics artist in Nairobi" id="hmPortraitImg" width="1100" height="1375" fetchpriority="high" />
+          <span className="hm-corner tl" /><span className="hm-corner br" />
+          <figcaption>Nairobi, Kenya</figcaption>
+          <div className="hm-mask" />
+        </figure>
+      </section>
+
+      {/* 2 · SHOWREEL REVEAL */}
+      <section className="hm-reveal" id="hmReveal" data-bg="#050505">
+        <div className="hm-pin">
+          <div className="hm-media"><img src="/home/reel-poster.jpg" alt="" loading="lazy" /></div>
+          <div className="hm-media-edge" aria-hidden="true" />
+          <span className="hm-side l">Showreel</span><span className="hm-side r">2024 / 2025</span>
+          <div className="hm-over">
+            <div>Showreel 2024 / 2025</div>
+            <h2 className="hm-h2">One cut. <em>Every craft.</em></h2>
+            <Link to="/showreel" aria-label="Watch the showreel">
+              <div className="hm-play"><svg width="24" height="26" viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0l10 6-10 6z"/></svg></div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 3 · WORK */}
+      <section className="hm-sec hm-work" id="work" data-bg="#060606">
+        <div className="hm-work-head">
+          <div className="hm-rv">
+            <div>Work</div>
+            <h2 className="hm-h2 hm-one"><span className="hm-line"><span>Eight ways I <em>create</em></span></span></h2>
+          </div>
+          <p className="hm-lede hm-rv hm-d1" style={{ maxWidth: 360 }}>Every section of the portfolio, all in view. Choose one to open its page.</p>
+        </div>
+        <div className="hm-grid">
+          {HOME_WORK.map((w, i) => (
+            <Link key={w.to} to={w.to} className="hm-card hm-rv" data-back-to="/#work" onClick={() => rememberBack(w.to)}
+              style={{ transitionDelay: `${(i % 2) * .12}s` }}>
+              <div className="im">
+                {w.remote && <div className="dots" />}
+                <img src={w.img} alt={w.alt} loading="lazy" width="1000" height="1250"
+                  onError={w.remote ? (e) => e.currentTarget.remove() : undefined} />
+                <span className="num">{String(i + 1).padStart(2, '0')}</span>
+                <span className="enter" aria-hidden="true">Enter Page <span>→</span></span>
+              </div>
+              <div className="meta"><h3>{w.title}</h3><span className="c">{w.count}</span></div>
+              <p>{w.desc}</p>
+              <span className="go">View page <span>→</span></span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* 4 · SOFTWARE & EXPERTISE */}
+      <section className="hm-sec hm-light" data-bg="#0c0a07">{/* cream comes from the section itself, so the cards above never sit on cream */}
+        <div className="hm-rv">
+          <div>Capabilities</div>
+          <h2 className="hm-h2 hm-one"><span className="hm-line"><span>Software &amp; <em>Expertise</em></span></span></h2>
+        </div>
+        <div className="hm-sw">
+          {HOME_SOFTWARE.map((c, i) => (
+            <div key={c.category} className="hm-rv" style={{ transitionDelay: `${(i % 4) * .1}s` }}>
+              <div className="cat">{c.category}</div>
+              <ul>{c.tools.map(t => <li key={t}>{t}</li>)}</ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 5 · CONTACT */}
+      <section className="hm-ctabig" data-bg="#060606">
+        <div className="hm-rv">Contact</div>
+        <h2 className="hm-h2 hm-rv"><span className="hm-line"><span>Have a project</span></span><span className="hm-line"><span>or a role <em>in mind?</em></span></span></h2>
+        <div className="hm-rv hm-d2"><Link to="/contact" className="hm-btn gold">Contact Me →</Link></div>
+      </section>
     </div>
   );
 }

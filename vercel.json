@@ -5,7 +5,7 @@
       "destination": "/:section/:slug/index.html"
     },
     {
-      "source": "/:section(characters|events|projection|visualization|hologram|drone-shows|drawings-illustrations|contact|social)",
+      "source": "/:section(characters|events|projection|visualization|hologram|drone-shows|drawings-illustrations|contact|social|showreel)",
       "destination": "/:section/index.html"
     }
   ],
