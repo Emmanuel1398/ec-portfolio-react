@@ -180,19 +180,9 @@ export default function HomePage() {
       <section className="hm-sec hm-work" id="work" data-bg="#060606">
         <div className="hm-work-head">
           <div className="hm-rv">
-            <div className="hm-work-kicker">
-              <span className="hm-work-kicker__dot" aria-hidden="true" />
-              <span>Portfolio Index</span>
-              <span className="hm-work-kicker__sep" aria-hidden="true">·</span>
-              <span>08 Disciplines</span>
-            </div>
             <h2 className="hm-h2 hm-one"><span className="hm-line"><span>Eight ways I <em>create</em></span></span></h2>
           </div>
           <div className="hm-work-meta hm-rv hm-d1">
-            <div className="hm-work-badge">
-              <span className="hm-badge-dot" aria-hidden="true" />
-              <span>Curated Archive · 2020 — 2026</span>
-            </div>
             <p className="hm-lede">Every section of the portfolio, all in view. Choose one to open its page.</p>
           </div>
         </div>
@@ -218,12 +208,6 @@ export default function HomePage() {
       {/* 4 · SOFTWARE & EXPERTISE */}
       <section className="hm-sec hm-light" data-bg="#0c0a07">{/* cream comes from the section itself, so the cards above never sit on cream */}
         <div className="hm-rv">
-          <div className="hm-work-kicker hm-light-kicker">
-            <span className="hm-work-kicker__dot" aria-hidden="true" />
-            <span>Capabilities</span>
-            <span className="hm-work-kicker__sep" aria-hidden="true">·</span>
-            <span>04 Core Pillars</span>
-          </div>
           <h2 className="hm-h2 hm-one"><span className="hm-line"><span>Software &amp; <em>Expertise</em></span></span></h2>
         </div>
         <div className="hm-sw">

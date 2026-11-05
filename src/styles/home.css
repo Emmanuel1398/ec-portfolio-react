@@ -118,7 +118,7 @@ a:hover>.hm-play svg,button:hover>.hm-play svg,.hm-gate:hover .hm-play svg{fill:
 
 /* ── 3 · WORK (all 8 sections in rows) ── */
 .hm-work{overflow:hidden}
-.hm-work-head{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-end;gap:2.5rem;flex-wrap:wrap;max-width:1180px;margin:0 auto 3.6rem;padding-bottom:2.2rem;border-bottom:1px solid rgba(255,255,255,0.08)}
+.hm-work-head{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-end;gap:2.5rem;flex-wrap:wrap;margin:0 0 3.6rem;padding-bottom:2.2rem;border-bottom:1px solid rgba(255,255,255,0.08)}
 .hm-work-kicker{display:inline-flex;align-items:center;gap:.65rem;font-family:var(--ui);font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem}
 .hm-work-kicker__dot{width:5px;height:5px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(201,169,110,0.8)}
 .hm-work-kicker__sep{color:var(--dim);font-weight:300}
@@ -127,9 +127,12 @@ a:hover>.hm-play svg,button:hover>.hm-play svg,.hm-gate:hover .hm-play svg{fill:
 .hm-badge-dot{width:4px;height:4px;border-radius:50%;background:var(--gold)}
 .hm-work-meta .hm-lede{margin-top:0;font-size:clamp(.92rem,1vw,1rem);line-height:1.7}
 @media(max-width:900px){.hm-work-head{flex-direction:column;align-items:flex-start;gap:1.6rem}}
-.hm-grid{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);gap:72px 40px;max-width:1180px;margin:0 auto}
-.hm-card{display:flex;flex-direction:column;position:relative;height:70vh;text-decoration:none;color:var(--text)}
-.hm-card .im{position:relative;flex:1;min-height:0;overflow:hidden;background:#0b0b0b}
+/* each column is as wide as the page allows, but never so wide that a card (4:5 image + its
+   title, line and link, about 15rem) is taller than the screen below the nav bar */
+.hm-grid{position:relative;z-index:2;display:grid;--col:min(calc((100% - 80px) / 3), calc((100vh - var(--navh) - 15rem) * .8));
+  grid-template-columns:repeat(3,var(--col));justify-content:space-between;gap:72px 40px}
+.hm-card{display:flex;flex-direction:column;position:relative;text-decoration:none;color:var(--text)}
+.hm-card .im{position:relative;flex:none;aspect-ratio:4/5;overflow:hidden;background:#0b0b0b}
 .hm-card .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.4s var(--ease-out)}
 .hm-card .im::after{content:'';position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(201,169,110,0);transition:box-shadow .5s}
 .hm-card:hover .im img{transform:scale(1.15)}
@@ -159,6 +162,7 @@ a:hover>.hm-play svg,button:hover>.hm-play svg,.hm-gate:hover .hm-play svg{fill:
 .hm-one{white-space:nowrap}
 @media(max-width:600px){.hm-one{white-space:normal}}
 @media(max-width:1000px){.hm-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1001px) and (max-aspect-ratio:4/3){.hm-grid{justify-content:center}}
 @media(max-width:900px){.hm-grid{gap:48px 24px}}
 @media(max-width:768px){
   .hm section.hm-sec{padding:2.5rem var(--pad-x)!important}
@@ -214,6 +218,8 @@ a:hover>.hm-play svg,button:hover>.hm-play svg,.hm-gate:hover .hm-play svg{fill:
 .hm-pghead{padding:calc(var(--navh) + 0.8rem) var(--pad-x) 1rem}
 .hm-pghead .hm-h2{font-size:clamp(1.8rem,2.4vw,2.5rem);line-height:1.05}
 .hm-pghead .hm-lede{max-width:none;margin-top:0.5rem}
+/* reels never taller than the screen under the nav bar (navh + 2.5rem breathing room) */
+.hm-player,.hm-meta4,.hm-older>div{width:min(100%, calc((100vh - var(--navh) - 2.5rem) * 16 / 9));margin-inline:auto}
 .hm-player{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}
 .hm-player img,.hm-player iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0}
 .hm-gate{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;width:100%;
