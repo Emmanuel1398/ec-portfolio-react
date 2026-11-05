@@ -137,7 +137,7 @@ export default function HomePage() {
       <section className="hm-hero" data-bg="rgba(6,6,6,0)">
         <div>
           <h1 className="hm-name"><span id="hmNameA">Emmanuel</span><span id="hmNameB">Chege</span></h1>
-          <div className="hm-titles hm-rv"><span>3D Generalist</span><span>Motion Graphics Artist</span></div>
+          <div className="hm-titles hm-rv"><span>3D Generalist</span><span>Motion Graphics Artist</span><span>Art Direction</span></div>
           <p className="hm-bio hm-rv hm-d1" dangerouslySetInnerHTML={{ __html: HOME_BIO }} />
           <div className="hm-cta hm-rv hm-d2">
             <Link to="/showreel" className="hm-btn gold">

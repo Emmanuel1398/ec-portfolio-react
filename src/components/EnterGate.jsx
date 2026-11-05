@@ -101,7 +101,7 @@ export default function EnterGate() {
       <div className="gate-inner">
         <div className="gate-eyebrow">Portfolio</div>
         <h1 className="gate-name">Emmanuel Chege</h1>
-        <div className="gate-sub">3D Generalist · Motion Graphics Artist · Nairobi</div>
+        <div className="gate-sub">3D Generalist · Motion Graphics · Art Direction</div>
         <button className="gate-btn" onClick={enter}>
           <span>Enter</span>
           <svg width="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
