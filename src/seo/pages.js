@@ -50,7 +50,7 @@ const seo = ({ path, title, description, image = null, type = 'website', noindex
 export function homeSeo() {
   const url = abs('/');
   const title = `${site.name} · 3D Artist & Motion Designer in Nairobi, Kenya`;
-  const description = site.description;
+  const description = stripTags(HOME_BIO);
   return seo({
     path: '/', title, description,
     nodes: [pageNode('WebPage', url, title, description, { about: { '@id': PERSON_ID } })],

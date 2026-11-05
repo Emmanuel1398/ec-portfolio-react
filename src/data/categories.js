@@ -21,13 +21,13 @@ const norm = (raw) => ({
 
 export const CATEGORIES = {
   projection: {
-    slug: 'projection', route: '/projection', label: 'Projection Mapping',
+    slug: 'projection', route: '/projection', label: 'Projection Mapping Videos',
     title: 'Projection <em>Mapping</em>',
     sub: 'Architectural building projections, object mapping and event screen content across Nairobi and beyond.',
     items: PROJECTION_REAL.map(norm),
   },
   visualization: {
-    slug: 'visualization', route: '/visualization', label: 'Visualization',
+    slug: 'visualization', route: '/visualization', label: 'Visualization Videos',
     title: '<em>Visualization</em>',
     sub: '3D pre-visualization for events and products · event setups previsualized to guide the build and the client, plus product, property and vehicle renders.',
     groups: [
@@ -37,7 +37,7 @@ export const CATEGORIES = {
     items: [...EVENT_VIZ_REAL, ...PRODUCT_VIZ_REAL].map(norm),
   },
   hologram: {
-    slug: 'hologram', route: '/hologram', label: 'Hologram',
+    slug: 'hologram', route: '/hologram', label: 'Hologram Videos',
     title: 'Hologram <em>Content</em>',
     sub: 'Raw videos and behind-the-scenes of holograms edited before projection.',
     items: HOLOGRAM_REAL.map(norm),

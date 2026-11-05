@@ -118,11 +118,8 @@ const OF = (n, tag, label, spec) => F(O(n), tag, label, spec);
 const ODUNGI_BLOCKS = [
   { t:'head', num:'01', title:'Reference &', accent:'Intent' },
   { t:'prose', body:[
-    'If Hollywood can build entire cinematic universes around folklore and mythology, Africa can too. And honestly, our stories are just as powerful; maybe even more unsettling. This is only the beginning.',
-  ]},
-  { t:'prose', body:[
     { parts:[
-      'I tend to still use a background of african cultures as a background in my characters. Some of my references were the same as those i used to bring to life ',
+      'I tend to still use a background of african cultures as a background in my characters. A major reference for my board involved studying East African cultures. Some of my references were the same as those i used to bring to life ',
       { text:'Lolungu', href:'/characters/lolungu-the-turkana' },
       '.',
     ]},
@@ -807,7 +804,7 @@ export const CHARACTER_BLOGS = [
   cBlog({
     slug:'odungi-the-fairytale', name:'Odungi', epithet:'The Fairytale',
     category:'Hyperrealistic Character', year:'2026',
-    tagline:'A dark African fantasy being, drawn from the mystery, fear and symbolism embedded in traditional African fables.',
+    tagline:'A technical breakdown of a dark African fantasy being; Odungi, drawn from the mystery, fear and symbolism embedded in traditional African fables.',
     status:'In Progress',
     keywords:['Odungi African creature','African dark fantasy character','African folklore 3D character','ZBrush creature sculpt','ram horns creature design','scarification sculpt','Mari texturing ACES','melanated skin creature','MetaHuman creature rig','Sankofa Asili Productions','African mythology character design','3D creature artist Kenya'],
     specs:{ software:['ZBrush','Maya','Mari','Arnold','XGen','Photoshop'] },
@@ -816,14 +813,14 @@ export const CHARACTER_BLOGS = [
       'African fantasy has always existed. It just rarely gets visualized. Growing up, many of us heard stories whispered around fires, in villages, at home, in school compounds and from our grandparents. Stories about three eyed ogres, talking animals, spirits, cursed lands, ancient beings, shape shifters and creatures people feared to even describe openly.',
       'Those stories have shaped imaginations across Africa. But somewhere along the way, our film and visual storytelling industries became afraid of exploring them visually, because of cultural taboos, religious sensitivity, or the idea that African audiences only want realism or comedy; much less the skillset that lacked to tell them. I disagree. Hence this is Odungi, my next character project.',
       'A dark African fantasy being, inspired by the mystery, fear, symbolism and folklore embedded in traditional African fables. Part of an ongoing exploration into cinematic African creature design, melanated skin, high end character development and worldbuilding for film, games and VFX.',
-      'The goal is bigger than just creating a creature. It is about pushing African storytelling into spaces we rarely see: African dark fantasy, mythological horror, indigenous creature design, cinematic worldbuilding, AAA level African visual development.',
+      'The goal is to push African storytelling into spaces we rarely see: African dark fantasy, mythological horror, indigenous creature design, cinematic worldbuilding, AAA level African visual development.',
     ],
     blocks: ODUNGI_BLOCKS,
   }),
   cBlog({
     slug:'lolungu-the-turkana', name:'Lolungu', epithet:'The Turkana',
     category:'Hyperrealistic Character', year:'2023',
-    tagline:'A Turkana portrait, weathered skin, beadwork and the optical truth of melanin under hard northern light.',
+    tagline:'A Turkana portrait, of Lolungu and the study of sculpting primary secondary and tertiary anatomical forms.',
     thumb:'/characters/lolungu.jpg',
     status:'Complete',
     keywords:['Lolungu Turkana 3D character','Turkana culture 3D','first ZBrush character sculpt','realistic old man sculpt','Substance 3D Painter skin texturing','XGen Interactive Grooming beard','Arnold aiLayerShader skin and paint','African beadwork 3D props','Marvelous Designer clothes','Turkana and Maasai patterns','MetaHuman rig and animation','Kenyan 3D character artist'],
@@ -841,16 +838,15 @@ export const CHARACTER_BLOGS = [
   cBlog({
     slug:'afrezia-the-emerald', name:'Afrezia', epithet:'The Emerald',
     category:'Hyperrealistic Character', year:'2025',
-    tagline:'A cybernetic character built in under two days and nights for the Safaricom Emerald hologram launch, embracing AI-assisted techniques inside a traditional CGI workflow.',
+    tagline:'A cybernetic character built for a hologram launch, embracing AI-assisted techniques inside a traditional CGI workflow.',
     status:'Complete',
-    keywords:['Afrezia hologram character','Safaricom Emerald hologram launch','3D hologram character Kenya','AI assisted CGI workflow','Kling AI animation','African cyborg droid character','hard surface sculpting ZBrush','Substance 3D Painter Iray renders','MetaHuman rig','Alita Battle Angel inspired character','hologram content Nairobi'],
+    keywords:['Afrezia hologram character','Safaricom Emerald hologram launch','3D hologram character Kenya','AI assisted CGI workflow','Kling AI animation','African cyborg droid character','hard surface sculpting ZBrush','Substance 3D Painter Iray renders','MetaHuman rig','hologram content Nairobi'],
     specs:{ software:['ZBrush','Maya','Substance 3D Painter','XGen','Arnold','MetaHuman','Kling'] },
     hero: img('1A3CdSQkLq1gEYtTpIjz0OvamB8oavEBp','w1600'),
     heroBg:'/afrezia/hero_bg.jpg',
     outroYoutubeId:'pjqOpzNLG2U',
     intro:[
-      'Afrezia was a project for a hologram launch for Emerald by Safaricom. It came in last minute, and we had only a few nights to create a fully working 3D character.',
-      'Afrezia was made to be an embrace of modern techniques within traditional CGI workflows.',
+      'Afrezia was a project for a hologram launch for Emerald by Safaricom. Afrezia was made to be an embrace of modern techniques within traditional CGI workflows.',
     ],
     blocks: AFREZIA_BLOCKS,
   }),

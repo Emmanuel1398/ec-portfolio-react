@@ -1,10 +1,10 @@
 # Emmanuel Chege
 
-> Emmanuel Chege · Hyperrealistic 3D Artist & Motion Designer, based in Nairobi, Kenya. Portfolio of Emmanuel Chege featuring yearly reels, 3D characters, drone show concepts, event visualization, and more.
+> Emmanuel Chege · Hyperrealistic 3D Artist & Motion Designer, based in Nairobi, Kenya. I turn ambitious ideas into compelling visual experiences. I partner with brands, agencies, studios, and creative teams to translate bold concepts into powerful visual content — from detailed digital characters and cinematic 3D imagery to motion graphics, 3D visualizations, social media videos, projection mapping, holograms, and drone show visuals. Bridging creative vision with technical precision, I direct and craft visuals that communicate, captivate, and leave a lasting impression.
 
 ## Main pages
 
-- [Emmanuel Chege · 3D Artist & Motion Designer in Nairobi, Kenya](https://emmanuelchege.com): Portfolio of Emmanuel Chege featuring yearly reels, 3D characters, drone show concepts, event visualization, and more.
+- [Emmanuel Chege · 3D Artist & Motion Designer in Nairobi, Kenya](https://emmanuelchege.com): I turn ambitious ideas into compelling visual experiences. I partner with brands, agencies, studios, and creative teams to translate bold concepts into powerful visual content — from detailed digital characters and cinematic 3D imagery to motion graphics, 3D visualizations, social media videos, projection mapping, holograms, and drone show visuals. Bridging creative vision with technical precision, I direct and craft visuals that communicate, captivate, and leave a lasting impression.
 - [Showreel](https://emmanuelchege.com/showreel): Portfolio reel 2024 / 2025 by Emmanuel Chege: 3D characters, motion graphics and event work in one cut, plus previous motion graphics and 3D generalist reels.
 - [3D Characters](https://emmanuelchege.com/characters): In-depth technical breakdowns of my hyperreal, stylized and creature work · sculpt to look-development, with a focus on rendering melanated skin honestly.
 - [Drone Show Concepts](https://emmanuelchege.com/drone-shows): Each drone show begins as a narrative written on paper · a story, a script, a sequence of formations designed to tell a message in the night sky.
@@ -19,9 +19,9 @@
 ## 3D character breakdowns
 
 - [Arya · A Character Texturing Odyssey](https://emmanuelchege.com/characters/arya): A texturing study that became a full pipeline rebuild, ZBrush and ZWrap to Mari, sRGB to ACES, and a search for how melanated skin should truly respond to light.
-- [Odungi · The Fairytale](https://emmanuelchege.com/characters/odungi-the-fairytale): A dark African fantasy being, drawn from the mystery, fear and symbolism embedded in traditional African fables.
-- [Lolungu · The Turkana](https://emmanuelchege.com/characters/lolungu-the-turkana): A Turkana portrait, weathered skin, beadwork and the optical truth of melanin under hard northern light.
-- [Afrezia · The Emerald](https://emmanuelchege.com/characters/afrezia-the-emerald): A cybernetic character built in under two days and nights for the Safaricom Emerald hologram launch, embracing AI-assisted techniques inside a traditional CGI workflow.
+- [Odungi · The Fairytale](https://emmanuelchege.com/characters/odungi-the-fairytale): A technical breakdown of a dark African fantasy being; Odungi, drawn from the mystery, fear and symbolism embedded in traditional African fables.
+- [Lolungu · The Turkana](https://emmanuelchege.com/characters/lolungu-the-turkana): A Turkana portrait, of Lolungu and the study of sculpting primary secondary and tertiary anatomical forms.
+- [Afrezia · The Emerald](https://emmanuelchege.com/characters/afrezia-the-emerald): A cybernetic character built for a hologram launch, embracing AI-assisted techniques inside a traditional CGI workflow.
 - [Omolara · The Omo](https://emmanuelchege.com/characters/omolara-the-omo): An Omo Valley portrait, ceremonial paint, ornament and skin under natural light.
 - [Ndirangu · The Farmer](https://emmanuelchege.com/characters/ndirangu-the-farmer): A stylized character study, exaggerated form, hand-crafted appeal, a farmer’s story.
 - [Moombi · The Angel](https://emmanuelchege.com/characters/moombi-the-angel): A winged hyperreal figure, feather grooming, luminous skin, a celestial study.

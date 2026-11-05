@@ -6,9 +6,10 @@ import { CHARACTER_BLOGS } from './characterBlogs.js';
 import { DRONE_SHOWS, SOFTWARE_CATEGORIES, SOCIAL_MEDIA_ROW1, SOCIAL_MEDIA_ROW2 } from './portfolio.js';
 
 export const HOME_BIO =
-  "I'm a <b>3D Generalist</b> with a passion for pushing creative boundaries and art direction where motion graphics, animation and 3D design meet. " +
-  'From hyperreal characters, sculpted, groomed and lit in Maya, XGen and Arnold, to drone show concepts, projection mapping and hologram content for live audiences, ' +
-  'I bring concepts and ideas to life, with the detail that makes work feel real.';
+  '<b>I turn ambitious ideas into compelling visual experiences.</b> ' +
+  'I partner with <b>brands, agencies, studios, and creative teams</b> to translate bold concepts into powerful visual content — ' +
+  'from <b>detailed digital characters</b> and <b>cinematic 3D imagery</b> to <b>motion graphics, 3D visualizations, social media videos, projection mapping, holograms, and drone show visuals</b>. ' +
+  'Bridging <b>creative vision</b> with <b>technical precision</b>, I direct and craft visuals that <em>communicate, captivate, and leave a lasting impression.</em>';
 
 /* years of experience go up by themselves every January (5+ in 2026, 6+ in 2027 ...) */
 export const CAREER_START_YEAR = 2021;
