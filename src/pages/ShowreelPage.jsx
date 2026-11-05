@@ -46,7 +46,7 @@ export default function ShowreelPage() {
         <div className="hm-meta4 hm-rv">
           <div><span>Year</span>2024 / 2025</div>
           <div><span>Role</span>3D Generalist · Motion Design</div>
-          <div><span>Core tools</span>Maya · XGen · Arnold · AE</div>
+          <div><span>Core tools</span>Maya · Unreal · Arnold · AE</div>
           <div><span>Based in</span>Nairobi, Kenya</div>
         </div>
       </section>
