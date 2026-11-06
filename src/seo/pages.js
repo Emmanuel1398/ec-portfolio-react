@@ -13,7 +13,7 @@ import site from '../config/site.js';
 import { CHARACTER_BLOGS } from '../data/characterBlogs.js';
 import { ILLUSTRATION_BLOGS } from '../data/illustrationBlogs.js';
 import { DRONE_SHOWS, OLDER_REELS, SOCIAL, SOCIAL_MEDIA_ROW1, SOCIAL_MEDIA_ROW2 } from '../data/portfolio.js';
-import { HOME_BIO, HOME_STATS, HOME_WORK, HOME_SOFTWARE } from '../data/home.js';
+import { HOME_SEO_DESC, HOME_BIO, HOME_STATS, HOME_WORK, HOME_SOFTWARE } from '../data/home.js';
 import { NAV_LINKS } from '../data/nav.js';
 import {
   abs, PERSON_ID, graph, pageNode, breadcrumbNode, itemListNode, videoNode, faqNode, dates,
@@ -50,14 +50,14 @@ const seo = ({ path, title, description, image = null, type = 'website', noindex
 export function homeSeo() {
   const url = abs('/');
   const title = `${site.name} · 3D Artist & Motion Designer in Nairobi, Kenya`;
-  const description = stripTags(HOME_BIO);
+  const description = HOME_SEO_DESC;
   return seo({
     path: '/', title, description,
     nodes: [pageNode('WebPage', url, title, description, { about: { '@id': PERSON_ID } })],
     body: {
       eyebrow: 'Portfolio · Nairobi, Kenya',
       h1: site.name,
-      paragraphs: ['3D Generalist · Motion Graphics Artist', stripTags(HOME_BIO),
+      paragraphs: [HOME_SEO_DESC, stripTags(HOME_BIO),
         HOME_STATS.map(s => `${s.n}${s.plus ? '+' : ''} ${s.label.toLowerCase()}`).join(' · ')],
       sections: [
         { heading: 'Showreel 2024 / 2025', items: [{ text: 'Watch the showreel', href: '/showreel' }] },

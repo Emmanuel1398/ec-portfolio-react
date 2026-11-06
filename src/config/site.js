@@ -6,7 +6,7 @@ const env = import.meta.env || globalThis.process?.env || {};
 const site = {
     name:         env.VITE_SITE_NAME         || 'Emmanuel Chege',
     tagline:      env.VITE_SITE_TAGLINE      || '3D Characters, Drone Show Concepts, & Visualization',
-    description:  env.VITE_SITE_DESCRIPTION  || 'Portfolio of Emmanuel Chege featuring yearly reels, 3D characters, drone show concepts, event visualization, and more.',
+    description:  env.VITE_SITE_DESCRIPTION  || '3D Generalist, Motion Graphics & Art Director in Nairobi, Kenya — crafting hyperreal 3D characters, projection mapping, 3D visuals, holograms & drone shows.',
     url:         (env.VITE_SITE_URL          || 'https://emmanuelchege.com').replace(/\/$/, ''),
     ogImage:      env.VITE_SITE_OG_IMAGE     || 'https://emmanuelchege.com/Hyperlink_card.png',
     supportEmail: env.VITE_SITE_SUPPORT_EMAIL|| 'hello@emmanuelchege.com',
