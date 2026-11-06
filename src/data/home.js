@@ -6,7 +6,7 @@ import { CHARACTER_BLOGS } from './characterBlogs.js';
 import { DRONE_SHOWS, SOFTWARE_CATEGORIES, SOCIAL_MEDIA_ROW1, SOCIAL_MEDIA_ROW2 } from './portfolio.js';
 
 export const HOME_SEO_DESC =
-  '3D Generalist, Motion Graphics & Art Director.';
+  '3D Generalist, Motion Graphics & Art Direction.';
 
 export const HOME_BIO =
   '<b>I turn ambitious ideas into compelling visual experiences.</b> ' +
