@@ -15,6 +15,7 @@
 .blog-back{display:inline-block;font-family:var(--ui);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
   text-decoration:none;transition:color .3s;margin-bottom:2rem;}
 .blog-back:hover{color:var(--gold);}
+.blog-backlink{margin-bottom:2.2rem;}
 .blog-title{margin-bottom:1.4rem;}
 .blog-meta{display:flex;flex-wrap:wrap;gap:1.3rem;margin:0 0 2.2rem;font-family:var(--ui);font-size:12px;letter-spacing:.06em;color:var(--muted);}
 .blog-meta span{position:relative;padding-right:1.3rem;}
@@ -29,7 +30,8 @@
 .blog-gallery figure{overflow:hidden;background:var(--bg3);}
 .blog-gallery img{width:100%;display:block;}
 .blog-gallery figcaption{padding:.7rem 0;font-family:var(--ui);font-size:12px;color:var(--muted);}
-.blog-foot{margin-top:3rem;padding-top:1.6rem;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;}
+.blog-foot{margin-top:3rem;padding-top:1.6rem;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;}
+.blog-foot .blog-back{margin-bottom:0;}
 .blog-related{margin-top:4.5rem;}
 
 /* Social — square videos, well spaced, title below (always visible) */

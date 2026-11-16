@@ -5,6 +5,7 @@ import BlockRenderer from '../components/BlockRenderer';
 import AutoVideo from '../components/AutoVideo';
 import Lightbox, { hiRes, ZoomBadge } from '../components/Lightbox';
 import AnswerBlock from '../components/AnswerBlock';
+import BackLink from '../components/BackLink';
 import { useSeoContext } from '../providers/SeoProvider';
 import { characterSeo, notFoundSeo } from '../seo/pages';
 
@@ -58,8 +59,7 @@ export default function CharacterDetailPage() {
 
         {/* Back nav */}
         <div className="pg-head" style={{ padding:'8rem var(--gutter) 0', maxWidth:'var(--wrap)', margin:'0 auto' }}>
-          <Link to="/characters" style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em',
-            textTransform:'uppercase', color:'var(--muted)', textDecoration:'none' }}>← 3D Characters</Link>
+          <BackLink to="/characters" label="3D Characters" />
         </div>
 
         {/* Hero */}

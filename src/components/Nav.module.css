@@ -12,12 +12,6 @@
   border-color:rgba(255,255,255,.08);
 }
 .left { display:flex; align-items:center; gap:1rem; }
-.back {
-  width:40px; height:40px; border-radius:50%; display:grid; place-items:center; flex-shrink:0;
-  border:1px solid rgba(201,169,110,.55); color:var(--gold); text-decoration:none;
-  transition:background .25s, color .25s, transform .25s;
-}
-.back:hover { background:var(--gold); color:#000; transform:translateX(-2px); }
 .logo {
   font-family:var(--serif); font-size:1.6rem; font-weight:500; letter-spacing:.02em;
   line-height:1; white-space:nowrap; color:var(--text); text-decoration:none;
@@ -76,5 +70,4 @@
   .links { display:none; }
   .burger { display:block; }
   .logo { font-size:1.4rem; }
-  .back { width:34px; height:34px; }
 }

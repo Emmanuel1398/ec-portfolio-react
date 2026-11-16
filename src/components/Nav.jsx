@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useScrolled } from '../hooks';
 import { WORK_LINKS } from '../data/nav';
-import { backTarget } from '../lib/backTo';
 import s from './Nav.module.css';
 
 /* Home · Showreel · Work (dropdown) · Contact Me
@@ -31,11 +30,6 @@ export default function Nav() {
     <>
       <nav className={`${s.nav} ${scrolled ? s.solid : ''}`}>
         <div className={s.left}>
-          {!isHome && (
-            <Link to={backTarget(pathname)} className={s.back} aria-label="Back to the home page" title="Back to Home">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M19 12H5M11 5l-7 7 7 7"/></svg>
-            </Link>
-          )}
           <Link to="/" className={s.logo} aria-label="Emmanuel Chege, home" style={{ visibility: isHome ? 'hidden' : 'visible' }}>
             <span id="navSlotA">Emmanuel</span> <span id="navSlotB" className={s.gold}>Chege</span>
           </Link>

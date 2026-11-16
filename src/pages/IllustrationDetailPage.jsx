@@ -4,6 +4,7 @@ import { ILLUSTRATION_BLOGS, getIllustrationBlog } from '../data/illustrationBlo
 import BlockRenderer from '../components/BlockRenderer';
 import Lightbox, { hiRes, ZoomBadge } from '../components/Lightbox';
 import AnswerBlock from '../components/AnswerBlock';
+import BackLink from '../components/BackLink';
 import { useSeoContext } from '../providers/SeoProvider';
 import { illustrationSeo, notFoundSeo } from '../seo/pages';
 
@@ -54,8 +55,7 @@ export default function IllustrationDetailPage() {
 
         {/* Back nav */}
         <div className="pg-head" style={{ padding:'8rem var(--gutter) 0', maxWidth:'var(--wrap)', margin:'0 auto' }}>
-          <Link to="/drawings-illustrations" style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em',
-            textTransform:'uppercase', color:'var(--muted)', textDecoration:'none' }}>← Drawings &amp; Illustrations</Link>
+          <BackLink to="/drawings-illustrations" label="Drawings & Illustrations" />
         </div>
 
         {/* Hero */}

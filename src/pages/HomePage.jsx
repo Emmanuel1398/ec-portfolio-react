@@ -5,7 +5,6 @@ import { homeSeo } from '../seo/pages';
 import { HOME_SEO_DESC, HOME_BIO, HOME_STATS, HOME_WORK, HOME_SOFTWARE } from '../data/home';
 import { useRevealAll } from '../hooks/useRevealAll';
 import EnterGate from '../components/EnterGate';
-import { rememberBack, clearBack } from '../lib/backTo';
 
 const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -24,7 +23,6 @@ export default function HomePage() {
   const root = useRef(null);
 
   useEffect(() => { updateSeo(homeSeo()); }, [updateSeo]);
-  useEffect(() => { clearBack(); }, []);   /* a fresh visit to Home resets where the back arrow leads */
   useRevealAll(root);
 
   /* /#work from the nav: scroll to the work section (after App's scroll-to-top) */
@@ -188,7 +186,7 @@ export default function HomePage() {
         </div>
         <div className="hm-grid">
           {HOME_WORK.map((w, i) => (
-            <Link key={w.to} to={w.to} className="hm-card hm-rv" data-back-to="/#work" onClick={() => rememberBack(w.to)}
+            <Link key={w.to} to={w.to} className="hm-card hm-rv"
               style={{ transitionDelay: `${(i % 3) * .12}s` }}>
               <div className="im">
                 {w.remote && <div className="dots" />}

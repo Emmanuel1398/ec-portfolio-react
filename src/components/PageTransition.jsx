@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { rememberBack } from '../lib/backTo';
 
 /* Gold transition between Home and any other page.
    On the home page, a click on any internal link to another page (except the
@@ -44,7 +43,6 @@ export default function PageTransition() {
       if (reduce) return;
       e.preventDefault(); e.stopPropagation();
       busy.current = true;
-      if (a.dataset.backTo) rememberBack(url.pathname, a.dataset.backTo);
       window.dispatchEvent(new Event('ec:navstart'));   /* lets the mobile menu close */
       const to = url.pathname + url.search + url.hash;
       const v = vRef.current;

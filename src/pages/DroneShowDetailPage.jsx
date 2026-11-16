@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { DRONE_SHOWS } from '../data/portfolio';
 import VideoModal from '../components/VideoModal';
+import BackLink from '../components/BackLink';
 
 function useIntersection(threshold = 0.12) {
   const ref = useRef(null);
@@ -101,15 +102,7 @@ export default function DroneShowDetailPage() {
 
       {/* ── HEADER (event-blog style, no background) ── */}
       <div className="pg-wrap" style={{ paddingTop:'clamp(7rem,13vh,10rem)', paddingBottom:'2.5rem' }}>
-        <Link to="/drone-shows" style={{ fontFamily:'var(--ui)', fontSize:'12px',
-          letterSpacing:'.2em', textTransform:'uppercase', color:'var(--muted)',
-          textDecoration:'none', display:'inline-flex', alignItems:'center', gap:'.5rem',
-          marginBottom:'2rem', transition:'color .2s' }}
-          onMouseEnter={e => e.currentTarget.style.color = 'var(--gold)'}
-          onMouseLeave={e => e.currentTarget.style.color = 'var(--muted)'}>
-          <svg width="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          All Drone Shows
-        </Link>
+        <BackLink to="/drone-shows" label="All Drone Shows" style={{ marginBottom:'2rem' }} />
         <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.28em',
           textTransform:'uppercase', color:'var(--gold)', marginBottom:'1.2rem',
           display:'flex', alignItems:'center', gap:'1rem', flexWrap:'wrap' }}>

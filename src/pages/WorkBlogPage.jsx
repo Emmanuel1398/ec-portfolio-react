@@ -4,6 +4,7 @@ import { getCategory, getWork } from '../data/categories';
 import './category.css';
 import AutoVideo from '../components/AutoVideo';
 import AnswerBlock from '../components/AnswerBlock';
+import BackLink from '../components/BackLink';
 import { useSeoContext } from '../providers/SeoProvider';
 import { workSeo, relatedWorks } from '../seo/pages';
 import NotFoundPage from './NotFoundPage';
@@ -23,7 +24,7 @@ export default function WorkBlogPage({ slug }) {
   return (
     <article className="page">
       <div className="blog-wrap">
-        <Link to={cat.route} className="blog-back">← {cat.label}</Link>
+        <BackLink to={cat.route} label={cat.label} className="blog-backlink" />
         {w.sub && <div className="cat-label" style={{ marginBottom: '1rem' }}>{w.sub}</div>}
         <h1 className="sec-title blog-title">{w.title}</h1>
         {[w.client, w.year, w.format].filter(Boolean).length > 0 && (
@@ -102,7 +103,7 @@ export default function WorkBlogPage({ slug }) {
         )}
 
         <div className="blog-foot">
-          <Link to={cat.route} className="blog-back">← Back to {cat.label}</Link>
+          <BackLink to={cat.route} label={cat.label} />
           <Link to="/contact" className="blog-back">Discuss a project like this →</Link>
         </div>
       </div>
