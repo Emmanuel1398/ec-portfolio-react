@@ -8,11 +8,17 @@ import { DRONE_SHOWS, SOFTWARE_CATEGORIES, SOCIAL_MEDIA_ROW1, SOCIAL_MEDIA_ROW2 
 export const HOME_SEO_DESC =
   '3D Generalist, Motion Graphics & Art Direction.';
 
+/* Emmanuel's words, verbatim. The only markup is emphasis: <b> lifts a
+   phrase to full-strength white, <em> turns the closing line gold.
+   Do not reword this copy. */
 export const HOME_BIO =
-  '<b>I turn ambitious ideas into compelling visual experiences.</b> ' +
-  'I collaborate with <b>brands, agencies, studios, and creative teams</b> worldwide to translate bold concepts into powerful visual content — ' +
-  'from <b>detailed digital characters</b> and <b>cinematic 3D imagery</b> to <b>motion graphics, 3D visualizations, social media videos, projection mapping, holograms, and aerial drone show visuals</b>. ' +
-  'Leading projects from concept, storyboarding, and look development through to final render and live event delivery, I bridge <b>creative vision</b> with <b>technical precision</b> to direct and craft visuals that <em>communicate, captivate, and leave a lasting impression.</em>';
+  '<b>Nobody backs what they can\'t picture.</b> ' +
+  'An idea can be powerful, but seeing it come alive is something else. ' +
+  'From digital characters and cinematic worlds to motion, projection mapping, holograms, visualizations, and drone visuals, ' +
+  '<b>imagination takes form, face, feeling, and presence</b>. ' +
+  'Every detail matters; <b>every shadow, light, and movement</b> culminates in a visual language that emotes expressively. ' +
+  'From the first spark to the final frame, bold ideas become visual experiences for brands, artists, agencies and dreamers alike. ' +
+  '<em>This is where I come in.</em>';
 
 /* years of experience go up by themselves every January (5+ in 2026, 6+ in 2027 ...) */
 export const CAREER_START_YEAR = 2021;

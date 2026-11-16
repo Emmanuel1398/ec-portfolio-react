@@ -7,6 +7,10 @@
     {
       "source": "/:section(characters|events|projection|visualization|hologram|drone-shows|drawings-illustrations|contact|social|showreel)",
       "destination": "/:section/index.html"
+    },
+    {
+      "source": "/:page(terms-of-use|privacy-policy|copyright-image-use|cookie-notice|rights-and-use|no-ai-use)",
+      "destination": "/:page/index.html"
     }
   ],
   "headers": [

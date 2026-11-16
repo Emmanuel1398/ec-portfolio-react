@@ -9,9 +9,10 @@ import { CATEGORIES } from '../data/categories.js';
 import { CHARACTER_BLOGS } from '../data/characterBlogs.js';
 import { ILLUSTRATION_BLOGS } from '../data/illustrationBlogs.js';
 import { DRONE_SHOWS } from '../data/portfolio.js';
+import { POLICIES } from '../data/policies.js';
 import {
   homeSeo, showreelSeo, charactersSeo, droneShowsSeo, drawingsSeo, contactSeo, socialSeo,
-  categorySeo, characterSeo, workSeo, droneSeo, illustrationSeo,
+  categorySeo, characterSeo, workSeo, droneSeo, illustrationSeo, policySeo,
 } from './pages.js';
 
 /* sitemap group → file name (order = order in sitemap-index.xml) */
@@ -40,5 +41,6 @@ export function getRoutes() {
     ...CHARACTER_BLOGS.map(c => r(characterSeo(c), 'characters', `characters-${c.slug}`)),
     ...DRONE_SHOWS.map(s => r(droneSeo(s), 'drone-shows', `drone-${s.slug}`)),
     ...cats.flatMap(cat => cat.items.map(w => r(workSeo(cat, w), 'works', `${cat.slug}-${w.slug}`))),
+    ...POLICIES.map(p => r(policySeo(p), 'pages')),
   ];
 }

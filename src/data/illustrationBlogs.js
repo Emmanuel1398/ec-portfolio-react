@@ -3,6 +3,14 @@
 const C = (n) => `/crackers/${n}.jpg`;
 const CF = (n, tag, label, spec) => ({ src: C(n), tag, label, spec });
 
+/* Christmas set · own asset folder */
+const X = (n) => `/xmas-crackers/${n}.jpg`;
+const XF = (n, tag, label, spec) => ({ src: X(n), tag, label, spec });
+
+/* Daniel Ngatia designed two of the four Christmas crackers. Same credit
+   treatment as the character blogs: name linked to his LinkedIn. */
+const DANIEL = { text: 'Daniel Ngatia', href: 'https://www.linkedin.com/in/danielngatia/' };
+
 const CRACKER_BLOCKS = [
   { t:'head', num:'01', title:'The', accent:'Brief' },
   { t:'prose', body:[
@@ -66,7 +74,124 @@ const CRACKER_BLOCKS = [
   ]},
 ];
 
+/* ── Christmas set · four crackers, two designed by Daniel Ngatia ── */
+const XMAS_BLOCKS = [
+  { t:'head', num:'01', title:'The', accent:'Set' },
+  { t:'prose', body:[
+    'Four Christmas crackers, made as one collection. Two of the designs are mine, The Savannah Mirror and Wafalme Kijani. The other two, Africa Asili and Nyimbo Halua, were designed by my friend and colleague Daniel Ngatia, and I had the privilege of building and rendering their 3D crackers.',
+    'The set runs on the same idea as the New Year crackers: a festive object whose pattern language starts in Africa rather than borrowing a European one wholesale. Here the brief was narrower, because Christmas carries its own fixed vocabulary. Wreaths, baubles, stockings, snow, a sled. The work was in finding the African equivalent of each of those without losing the season.',
+  ]},
+  { t:'frames', cols:1, items:[ XF('bg','Set','The Four Christmas Crackers','flat artwork · all four designs') ]},
+  { t:'prose', body:[
+    'Each cracker carries three panels along its length, the two ends mirroring each other around a centrepiece that appears once. That is the same structure as the New Year set, and it holds across all four designs here.',
+    'The artwork was drawn in Illustrator. From the exported designs I built the metallic and roughness maps, then took the whole set into Maya for the visualizations, so the foil bands, the gloss on the printed panels and the matt of the crimped ends read as different materials rather than one flat wrap.',
+  ]},
+
+  { t:'head', num:'02', title:'The Savannah', accent:'Mirror' },
+  { t:'prose', body:[
+    'The name comes from the centrepiece: a circular mirror holding an African savannah with African wildlife inside it. That was never just a picture. The artwork was made at a time of great personal reflection, and the mirror is the piece carrying it.',
+    'The design had to do two things at once. Embrace Africa, and still read as Christmas, while holding together as an aesthetic object in its own right. That is where the Santa symbolism comes in, except the sled is not pulled by reindeer. It is pulled by wildebeest and giraffes.',
+    'The patterns are referenced from other African patterns, fabric and clothing patterns above all, which is why the borders behave like printed cloth rather than like ornament added on top.',
+  ]},
+  { t:'frames', cols:1, items:[ XF('sm-main','Render','The Savannah Mirror','full cracker · midnight blue') ]},
+  { t:'frames', layout:'row', items:[
+    XF('sm-mirror','Centre','The Mirror','savannah and wildlife'),
+    XF('sm-sled','End','The Sled','Santa, carried African'),
+    XF('sm-wildebeest','End','Wildebeest In Flight','end panel'),
+    XF('sm-giraffes','End','Giraffes In Flight','end panel'),
+    XF('sm-sled-giraffe','Panel','Sled And Giraffe','gold on blue'),
+    XF('sm-wildebeest-pair','Panel','The Pair','gold on blue'),
+  ]},
+
+  { t:'head', num:'03', title:'Wafalme', accent:'Kijani' },
+  { t:'prose', body:[
+    'Wafalme Kijani translates as green kings, and the kings are the Big Five. Getting Kenya’s big five around the centrepiece was the whole aim, and the way in was the bauble. A bauble is already a Christmas object, so putting each animal inside one let the wildlife arrive without an argument.',
+    'The Santa concept carries over from The Savannah Mirror, sled and all, still pulled by wildebeest and giraffes.',
+    'Green is the base colour, which forced a decision on the plant illustrations. African plants drawn in green on a green cracker disappear, so they are drawn in other vibrant colours instead, and the tribal patterning is pushed out to the edges where it can hold its own.',
+    'The Christmas tree is the clearest swap in the set. Convention wants a conifer. I used a baobab, because that is what the tree looks like where I am from.',
+    'The gold bands carry their own illustrations, small pieces of common Christmas symbolism worked into the foil rather than printed over it.',
+  ]},
+  { t:'frames', cols:1, items:[ XF('wk-main','Render','Wafalme Kijani','full cracker · green') ]},
+  { t:'frames', layout:'row', items:[
+    XF('wk-baobab-centre','Centre','The Baobab','the tree, made African'),
+    XF('wk-lion','Bauble','Lion','the Big Five'),
+    XF('wk-buffalo','Bauble','Buffalo','the Big Five'),
+    XF('wk-elephant','Bauble','Elephant','the Big Five'),
+    XF('wk-rhino-leopard','Bauble','Rhino and Leopard','the Big Five'),
+    XF('wk-baobab-bauble','Bauble','Baobab','bauble panel'),
+    XF('wk-sled','End','The Sled','gold on green'),
+    XF('wk-giraffes','End','Giraffes','gold on green'),
+    XF('wk-wildebeest','End','Wildebeest','gold on green'),
+  ]},
+
+  { t:'head', num:'04', title:'Africa', accent:'Asili' },
+  { t:'prose', body:[
+    { parts:[
+      'Africa Asili was designed by ',
+      DANIEL,
+      ', a friend and colleague. The artwork is his, so the thinking behind it is his to tell rather than mine to summarise.',
+    ]},
+    'What I can speak to is the build. I had the privilege of modelling and rendering the 3D cracker from his design, carrying the same material treatment used across the rest of the set so the four read as one collection: foil bands, printed panels and matt crimped ends all behaving as separate surfaces under the same light.',
+  ]},
+  { t:'callout', title:'Design by Daniel Ngatia', body:{ parts:[
+    'The Africa Asili and Nyimbo Halua designs are the work of ',
+    DANIEL,
+    '. My role on both was the 3D model and the render.',
+  ]}},
+  { t:'frames', cols:1, items:[ XF('aa-main','Render','Africa Asili','full cracker · olive green') ]},
+  { t:'frames', layout:'row', items:[
+    XF('aa-savannah','Centre','The Savannah','centrepiece panel'),
+    XF('aa-lion','Panel','Lion','wreath panel'),
+    XF('aa-leopard','Panel','Leopard','wreath panel'),
+    XF('aa-buffalo','Panel','Buffalo','wreath panel'),
+    XF('aa-rhino','Panel','Rhino','wreath panel'),
+    XF('aa-baobab','Panel','The Baobab','end panel'),
+    XF('aa-baobab-night','Panel','Baobab At Night','end panel'),
+  ]},
+
+  { t:'head', num:'05', title:'Nyimbo', accent:'Halua' },
+  { t:'prose', body:[
+    { parts:[
+      'Nyimbo Halua is the fourth in the collection and also a ',
+      DANIEL,
+      ' design. Again, the account of the artwork belongs to him.',
+    ]},
+    'It is the only one in the set that leaves the green and blue behind for black and gold, which made it the most demanding of the four to render. Most of the design reads as metal, and metal only reads as metal when the reflections have something to reflect, so the lighting had to do more work here than on the printed panels of the other three.',
+  ]},
+  { t:'frames', cols:1, items:[ XF('nh-main','Render','Nyimbo Halua','full cracker · black and gold') ]},
+  { t:'frames', layout:'row', items:[
+    XF('nh-dancers','Centre','The Dancers','centrepiece panel'),
+    XF('nh-djembe','Panel','Djembe','end panel'),
+    XF('nh-drum','Panel','Drum','end panel'),
+    XF('nh-marimba','Panel','Marimba','end panel'),
+    XF('nh-mbira','Panel','Mbira','end panel'),
+    XF('nh-kora','Panel','Gourd And Strings','end panel'),
+    XF('nh-kora-flute','Panel','Strings And Flute','end panel'),
+  ]},
+
+  { t:'head', num:'06', title:'', accent:'Afterword' },
+  { t:'prose', body:[
+    'Four crackers, two hands, one collection. The pleasure of a set like this is that the designs have to argue with each other a little and still sit on the same table, which is why the structure, the material treatment and the lighting stay constant across all four while the colour and the subject change completely.',
+    'They are small objects that get pulled apart in a second. That is still exactly why the detail is in them.',
+  ]},
+];
+
 export const ILLUSTRATION_BLOGS = [
+  {
+    slug: 'christmas-crackers',
+    name: 'Christmas Crackers',
+    epithet: 'Savannah Mirror · Wafalme Kijani · Africa Asili · Nyimbo Halua',
+    category: 'Illustration & Product Visualization',
+    year: '2026',
+    tagline: 'A set of four Christmas crackers built on African pattern, wildlife and instruments, drawn in Illustrator and visualized in Maya. Two designs mine, two by Daniel Ngatia.',
+    specs: { software: ['Illustrator', 'Maya', 'Arnold', 'Photoshop'] },
+    keywords: ['African Christmas crackers design','Savannah Mirror cracker','Wafalme Kijani cracker','Africa Asili cracker','Nyimbo Halua cracker','African Christmas packaging design','Big Five Christmas design','baobab Christmas tree illustration','Illustrator packaging design','Maya product visualization','Christmas cracker design Kenya','African tribal pattern packaging'],
+    thumb: '/xmas-crackers/thumb.jpg',
+    hero: '/xmas-crackers/opening.jpg',
+    heroBg: '/xmas-crackers/bg.jpg',
+    outro: '/xmas-crackers/finale.jpg',
+    blocks: XMAS_BLOCKS,
+  },
   {
     slug: 'new-year-crackers',
     name: 'New Year Crackers',

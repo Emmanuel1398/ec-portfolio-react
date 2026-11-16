@@ -48,6 +48,7 @@ html,body{overflow-x:clip}
 .hm-titles{display:block;margin:0;font-family:var(--ui);font-size:clamp(.78rem,.92vw,.86rem);font-weight:400;letter-spacing:.12em;line-height:1.65;text-transform:uppercase;color:var(--gold)}
 .hm-bio{font-family:var(--ui);font-weight:300;color:var(--muted);font-size:clamp(1rem,1.15vw,1.12rem);max-width:none;margin-top:1.3rem;line-height:1.9}
 .hm-bio b{color:var(--text);font-weight:400}
+.hm-bio em{color:var(--gold);font-style:normal;font-weight:400}
 .hm-cta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.2rem}
 .hm-stats{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;margin-top:3rem;border-top:1px solid var(--border)}
 .hm-stats>div{padding:1.5rem 3rem 0 0;margin-right:3rem;border-right:1px solid var(--border)}

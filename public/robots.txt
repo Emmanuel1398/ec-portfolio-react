@@ -1,19 +1,40 @@
 # emmanuelchege.com
-# Everything public is crawlable. Tracking parameters (?utm_, ?fbclid, ...)
-# are handled by canonical tags, not blocked here, so crawlers can see
-# which clean URL each one points to.
+# Everything public is crawlable by search engines. Tracking parameters
+# (?utm_, ?fbclid, ...) are handled by canonical tags, not blocked here,
+# so crawlers can see which clean URL each one points to.
 #
-# AI crawlers: all allowed (unchanged from before). Search/answer bots such
-# as OAI-SearchBot, ChatGPT-User, PerplexityBot, Claude-SearchBot and
-# Claude-User should stay allowed for the site to be cited. To opt out of
-# AI *training* only, uncomment the block below.
+# AI TRAINING CRAWLERS ARE NOT PERMITTED.
+# The artwork on this site may not be used to train, fine-tune, test or
+# prompt any AI or machine learning system, or to build a dataset.
+# The full reservation is at https://emmanuelchege.com/no-ai-use
 #
-# User-agent: GPTBot
-# User-agent: ClaudeBot
-# User-agent: Google-Extended
-# User-agent: CCBot
-# User-agent: Applebot-Extended
-# Disallow: /
+# Search and answer bots that cite their sources (OAI-SearchBot,
+# ChatGPT-User, PerplexityBot, Claude-SearchBot, Claude-User, Bingbot,
+# Googlebot) stay allowed below, so the site can still be found and cited.
+
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: CCBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Meta-ExternalAgent
+User-agent: Meta-ExternalFetcher
+User-agent: FacebookBot
+User-agent: Bytespider
+User-agent: Amazonbot
+User-agent: cohere-ai
+User-agent: cohere-training-data-crawler
+User-agent: Diffbot
+User-agent: Omgili
+User-agent: omgilibot
+User-agent: ImagesiftBot
+User-agent: Timpibot
+User-agent: PanguBot
+User-agent: Webzio-Extended
+User-agent: AI2Bot
+User-agent: Scrapy
+Disallow: /
 
 User-agent: *
 Allow: /

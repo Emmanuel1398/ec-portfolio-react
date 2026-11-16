@@ -15,6 +15,7 @@ import { ILLUSTRATION_BLOGS } from '../data/illustrationBlogs.js';
 import { DRONE_SHOWS, OLDER_REELS, SOCIAL, SOCIAL_MEDIA_ROW1, SOCIAL_MEDIA_ROW2 } from '../data/portfolio.js';
 import { HOME_SEO_DESC, HOME_BIO, HOME_STATS, HOME_WORK, HOME_SOFTWARE } from '../data/home.js';
 import { NAV_LINKS } from '../data/nav.js';
+import { POLICIES, POLICY_UPDATED } from '../data/policies.js';
 import {
   abs, PERSON_ID, graph, pageNode, breadcrumbNode, itemListNode, videoNode, faqNode, dates,
 } from './schema.js';
@@ -30,6 +31,8 @@ const ytThumb = (id) => (id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` :
 const paras = (s) => String(s || '').split('\n').map(p => p.trim()).filter(Boolean);
 
 const HOME_CRUMB = { name: 'Home', path: '/' };
+/* the policies' human date, as ISO, for dateModified and the sitemap */
+const POLICY_UPDATED_ISO = new Date(`${POLICY_UPDATED} UTC`).toISOString().slice(0, 10);
 const CONTACT_LINK = { text: 'Contact Me', href: '/contact' };
 
 /* common return shape · fields map 1:1 onto SeoProvider state */
@@ -354,6 +357,50 @@ export function droneSeo(show) {
         { text: '← All Drone Shows', href: '/drone-shows' },
         CONTACT_LINK,
       ].filter(Boolean),
+    },
+  });
+}
+
+/* ── RIGHTS & POLICIES ─────────────────────────────── */
+/* flattens a policy block to plain text for the crawler fallback */
+const flat = (x) => typeof x === 'string' ? x
+  : x && x.parts ? x.parts.map(q => typeof q === 'string' ? q : q.text).join('')
+  : '';
+
+const policyText = (blocks) => blocks.flatMap(b => {
+  switch (b.t) {
+    case 'h':     return [b.text];
+    case 'p':     return [flat(b.body)];
+    case 'ul':
+    case 'ol':    return b.items.map(i => `· ${i}`);
+    case 'quote': return [`${b.title}: ${flat(b.body)}`];
+    case 'table': return b.rows.map(r => r.join(' · '));
+    default:      return [];
+  }
+}).filter(Boolean);
+
+export function policySeo(p) {
+  const path = `/${p.slug}`;
+  const url = abs(path);
+  const title = `${p.label} | ${site.name}`;
+  const description = clip(p.lede);
+  return seo({
+    path, title, description, updated: POLICY_UPDATED_ISO,
+    nodes: [
+      pageNode('WebPage', url, title, description, {
+        breadcrumb: { '@id': `${url}#breadcrumb` },
+        about: { '@id': PERSON_ID },
+        dateModified: POLICY_UPDATED_ISO,
+      }),
+      breadcrumbNode(url, [HOME_CRUMB, { name: p.label, path }]),
+    ],
+    body: {
+      eyebrow: 'Rights & Policies',
+      h1: p.label,
+      paragraphs: [p.lede, `Last updated ${POLICY_UPDATED}.`, ...policyText(p.blocks)],
+      sections: [{ heading: 'The other notices',
+        items: POLICIES.filter(o => o.slug !== p.slug).map(o => ({ text: o.label, href: `/${o.slug}` })) }],
+      links: [CONTACT_LINK],
     },
   });
 }

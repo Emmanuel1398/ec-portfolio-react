@@ -36,9 +36,39 @@
     <loc>https://emmanuelchege.com/contact</loc>
   </url>
   <url>
+    <loc>https://emmanuelchege.com/drawings-illustrations/christmas-crackers</loc>
+    <image:image>
+      <image:loc>https://emmanuelchege.com/xmas-crackers/thumb.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
     <loc>https://emmanuelchege.com/drawings-illustrations/new-year-crackers</loc>
     <image:image>
       <image:loc>https://emmanuelchege.com/crackers/thumb.jpg</image:loc>
     </image:image>
+  </url>
+  <url>
+    <loc>https://emmanuelchege.com/terms-of-use</loc>
+    <lastmod>2026-11-10</lastmod>
+  </url>
+  <url>
+    <loc>https://emmanuelchege.com/privacy-policy</loc>
+    <lastmod>2026-11-10</lastmod>
+  </url>
+  <url>
+    <loc>https://emmanuelchege.com/copyright-image-use</loc>
+    <lastmod>2026-11-10</lastmod>
+  </url>
+  <url>
+    <loc>https://emmanuelchege.com/cookie-notice</loc>
+    <lastmod>2026-11-10</lastmod>
+  </url>
+  <url>
+    <loc>https://emmanuelchege.com/rights-and-use</loc>
+    <lastmod>2026-11-10</lastmod>
+  </url>
+  <url>
+    <loc>https://emmanuelchege.com/no-ai-use</loc>
+    <lastmod>2026-11-10</lastmod>
   </url>
 </urlset>

@@ -1,4 +1,5 @@
 import { SOCIAL } from '../data/portfolio';
+import RightsFootnote from './RightsFootnote';
 
 const SOCIALS = [
   ['Instagram', SOCIAL.instagram], ['TikTok', SOCIAL.tiktok], ['ArtStation', SOCIAL.artstation],
@@ -16,6 +17,9 @@ export default function SiteFooter() {
         <div className="hm-ft-name">Emmanuel <em>Chege</em><small>3D Generalist · Motion Graphics Artist</small></div>
       </div>
       <div className="hm-ft-base"><span>© {new Date().getFullYear()} · emmanuelchege.com</span><span>Nairobi, Kenya</span></div>
+      {/* Notice links, centred on the last line. Renders itself only on
+          the pages that carry rights language (see RightsFootnote). */}
+      <RightsFootnote />
     </footer>
   );
 }

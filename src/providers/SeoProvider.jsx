@@ -53,7 +53,9 @@ export const SeoProvider = ({ children }) => {
   const canonicalUrl = useMemo(() => abs(seo.canonical || window.location.pathname), [seo.canonical]);
   const validImageUrl = useMemo(() => abs(seo.image), [seo.image]);
 
-  const robotsContent = seo.noindex ? 'noindex, follow' : seo.robots;
+  /* One robots tag: indexing rules plus the AI opt-out. Helmet dedupes by
+     name, so these must travel together rather than as two tags. */
+  const robotsContent = `${seo.noindex ? 'noindex, follow' : seo.robots}, noai, noimageai`;
 
   return (
     <SeoContext.Provider value={{ seo, updateSeo }}>
@@ -62,6 +64,10 @@ export const SeoProvider = ({ children }) => {
         <meta name="description" content={seo.description} />
         {!seo.noindex && <link rel="canonical" href={canonicalUrl} />}
         <meta name="robots" content={robotsContent} />
+        {/* Express reservation against AI training and text and data mining.
+            Applies to every page; the full wording is at /no-ai-use. */}
+        <meta name="tdm-reservation" content="1" />
+        <meta name="tdm-policy" content={abs('/no-ai-use')} />
 
         <meta property="og:title" content={seo.title} />
         <meta property="og:description" content={seo.description} />

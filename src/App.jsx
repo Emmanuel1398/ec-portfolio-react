@@ -18,6 +18,9 @@ import CategoryPage from './pages/CategoryPage';
 import WorkBlogPage from './pages/WorkBlogPage';
 import SocialPage from './pages/SocialPage';
 import DroneShowDetailPage from './pages/DroneShowDetailPage';
+import PolicyPage from './pages/PolicyPage';
+import { POLICIES } from './data/policies';
+import { protectImages } from './lib/protectImages';
 import './styles/globals.css';
 import './styles/mobile.css';
 import './App.css';
@@ -51,6 +54,10 @@ export default function App() {
   const lastView = useRef(null);
 
   useEffect(() => { window.scrollTo(0, 0); }, [loc.pathname]);
+
+  /* Right-click, long-press and drag saving off on every image and video,
+     once for the whole app, so new blogs are covered as they are added. */
+  useEffect(() => { protectImages(); }, []);
 
   // Google Analytics: register a page_view on every SPA route change
   // (the gtag snippet in index.html only fires on the first load).
@@ -110,6 +117,11 @@ export default function App() {
         <Route path="/drawings-illustrations" element={<DrawingsIllustrationsPage />} />
         <Route path="/drawings-illustrations/:slug" element={<IllustrationDetailPage />} />
         <Route path="/social"                element={<SocialPage />} />
+        {/* Rights & Policies · one page per notice, linked from the footnote
+            on the project pages that carry rights language. */}
+        {POLICIES.map(p => (
+          <Route key={p.slug} path={`/${p.slug}`} element={<PolicyPage slug={p.slug} />} />
+        ))}
         <Route path="*"                      element={<NotFoundPage />} />
       </Routes>
       <GlobalFooter />

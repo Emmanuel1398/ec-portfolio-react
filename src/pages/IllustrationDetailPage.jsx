@@ -55,7 +55,7 @@ export default function IllustrationDetailPage() {
         {/* Back nav */}
         <div className="pg-head" style={{ padding:'8rem var(--gutter) 0', maxWidth:'var(--wrap)', margin:'0 auto' }}>
           <Link to="/drawings-illustrations" style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em',
-            textTransform:'uppercase', color:'var(--muted)', textDecoration:'none' }}>← 3D Characters</Link>
+            textTransform:'uppercase', color:'var(--muted)', textDecoration:'none' }}>← Drawings &amp; Illustrations</Link>
         </div>
 
         {/* Hero */}

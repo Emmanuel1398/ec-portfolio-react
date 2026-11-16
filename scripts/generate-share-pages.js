@@ -112,7 +112,7 @@ function render(seo, image, file) {
 
   const tags = [
     `<meta data-rh="true" name="description" content="${esc(seo.description)}" />`,
-    `<meta data-rh="true" name="robots" content="${seo.noindex ? 'noindex, follow' : 'index, follow'}" />`,
+    `<meta data-rh="true" name="robots" content="${seo.noindex ? 'noindex, follow' : 'index, follow'}, noai, noimageai" />`,
     seo.canonical ? `<link data-rh="true" rel="canonical" href="${esc(seo.canonical)}" />` : '',
     image.width ? `<meta data-rh="true" property="og:image:width" content="${image.width}" />` : '',
     image.height ? `<meta data-rh="true" property="og:image:height" content="${image.height}" />` : '',

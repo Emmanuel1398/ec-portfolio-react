@@ -1,10 +1,10 @@
 # Emmanuel Chege
 
-> Emmanuel Chege · Hyperrealistic 3D Artist & Motion Designer, based in Nairobi, Kenya. 3D Generalist, Motion Graphics & Art Director in Nairobi, Kenya — crafting hyperreal 3D characters, projection mapping, 3D visuals, holograms & drone shows.
+> Emmanuel Chege · Hyperrealistic 3D Artist & Motion Designer, based in Nairobi, Kenya. 3D Generalist, Motion Graphics & Art Direction.
 
 ## Main pages
 
-- [Emmanuel Chege · 3D Artist & Motion Designer in Nairobi, Kenya](https://emmanuelchege.com): 3D Generalist, Motion Graphics & Art Director in Nairobi, Kenya — crafting hyperreal 3D characters, projection mapping, 3D visuals, holograms & drone shows.
+- [Emmanuel Chege · 3D Artist & Motion Designer in Nairobi, Kenya](https://emmanuelchege.com): 3D Generalist, Motion Graphics & Art Direction.
 - [Showreel](https://emmanuelchege.com/showreel): Portfolio reel 2024 / 2025 by Emmanuel Chege: 3D characters, motion graphics and event work in one cut, plus previous motion graphics and 3D generalist reels.
 - [3D Characters](https://emmanuelchege.com/characters): In-depth technical breakdowns of my hyperreal, stylized and creature work · sculpt to look-development, with a focus on rendering melanated skin honestly.
 - [Drone Show Concepts](https://emmanuelchege.com/drone-shows): Each drone show begins as a narrative written on paper · a story, a script, a sequence of formations designed to tell a message in the night sky.
@@ -15,6 +15,12 @@
 - [Event Videos](https://emmanuelchege.com/events): Full event films and launch openers delivered to clients.
 - [Social Media Content](https://emmanuelchege.com/social): Branded motion graphics, GIF animations and social-first visual storytelling.
 - [Contact](https://emmanuelchege.com/contact): Contact Emmanuel Chege, Hyperrealistic 3D Artist & Motion Designer in Nairobi, Kenya. Available for freelance commissions, agency collaborations, studio roles and project discussions worldwide.
+- [Terms of Use](https://emmanuelchege.com/terms-of-use): The rules for using this site and the work on it.
+- [Privacy Policy](https://emmanuelchege.com/privacy-policy): What this site collects, why, and what you can ask me to do about it.
+- [Copyright & Image Use](https://emmanuelchege.com/copyright-image-use): What you may do with the artwork on this site, and what needs permission first.
+- [Cookie Notice](https://emmanuelchege.com/cookie-notice): The few cookies this site uses, and how to turn them off.
+- [Rights & Use](https://emmanuelchege.com/rights-and-use): Who owns what on the project pages, and the terms each piece is shown under.
+- [No AI Use](https://emmanuelchege.com/no-ai-use): An express reservation of rights against AI training and text and data mining.
 
 ## 3D character breakdowns
 
@@ -48,6 +54,12 @@
 - [Chrome Party KICC Projection](https://emmanuelchege.com/projection/chrome-party-kicc-projection): Chrome Party KICC Projection · Event · Architectural Mapping · KICC
 - [BMB Event Visualization](https://emmanuelchege.com/visualization/bmb-event-visualization): BMB Event Visualization · Event Setup · 3D Pre-vis
 - [Heineken Mass House Visualization](https://emmanuelchege.com/visualization/heineken-mass-house-visualization): Heineken Mass House Visualization · Brand Event · Pre-vis
+- [Heineken Skate City Visualization](https://emmanuelchege.com/visualization/heineken-skate-city-visualization): Heineken Skate City Visualization · Brand Event · Pre-vis · 2025
+- [Jameson African Heritage House](https://emmanuelchege.com/visualization/jameson-african-heritage-house): Jameson African Heritage House · Brand Activation · Projection Pre-vis · 2025
+- [Infinix Moraa Hotel Event Visualization](https://emmanuelchege.com/visualization/infinix-moraa-hotel-event-visualization): Infinix Moraa Hotel Event Visualization · Product Launch · Zanzibar · Pre-vis · 2025
+- [Chinese Mantrac Event Visualization](https://emmanuelchege.com/visualization/chinese-mantrac-event-visualization): Chinese Mantrac Event Visualization · Corporate Event · Pre-vis · 2026
+- [Martell Asake VIP Event Visualization](https://emmanuelchege.com/visualization/martell-asake-vip-event-visualization): Martell Asake VIP Event Visualization · Luxury Brand · Pre-vis · 2025
+- [MultiChoice Canal+ Event Visualization](https://emmanuelchege.com/visualization/multichoice-canal-event-visualization): MultiChoice Canal+ Event Visualization · Corporate Event · Pre-vis · 2026
 - [Martell Aura by Kadi Visualization](https://emmanuelchege.com/visualization/martell-aura-by-kadi-visualization): Martell Aura by Kadi Visualization · Luxury Event · Pre-vis
 - [Martell Brunch · Junction Mall](https://emmanuelchege.com/visualization/martell-brunch-junction-mall): Martell Brunch · Junction Mall · Brand Event · Pre-vis
 - [Martell Redroom Event Visualization](https://emmanuelchege.com/visualization/martell-redroom-event-visualization): Martell Redroom Event Visualization · Event Setup · Pre-vis
@@ -84,4 +96,5 @@
 
 ## Illustration breakdowns
 
+- [Christmas Crackers · Savannah Mirror · Wafalme Kijani · Africa Asili · Nyimbo Halua](https://emmanuelchege.com/drawings-illustrations/christmas-crackers): A set of four Christmas crackers built on African pattern, wildlife and instruments, drawn in Illustrator and visualized in Maya. Two designs mine, two by Daniel Ngatia.
 - [New Year Crackers · Binti Afrika · The Moran · Malkia](https://emmanuelchege.com/drawings-illustrations/new-year-crackers): Three festive crackers designed from African pattern outward, drawn in Illustrator and visualized in Maya.
