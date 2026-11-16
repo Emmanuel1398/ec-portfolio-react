@@ -30,11 +30,11 @@ function EventCard({ event, index }) {
         </div>
 
         <h3 className="ev-title" style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.4rem,2.2vw,2.2rem)',
-          fontWeight:300, lineHeight:1.05, color:'var(--text)', marginBottom:'1rem',
+          fontWeight:400, lineHeight:1.05, color:'var(--text)', marginBottom:'1rem',
           cursor:'pointer' }} onClick={go}>
           {event.title}
         </h3>
-        <p className={`ev-desc${showDetails ? ' open' : ''}`} style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--muted)',
+        <p className={`ev-desc${showDetails ? ' open' : ''}`} style={{ fontFamily:'var(--ui)', fontSize:'1rem', color:'var(--muted)',
           lineHeight:1.9, marginBottom:'1.8rem' }}>
           {event.description}
         </p>
@@ -102,8 +102,8 @@ export default function EventVideosPage() {
             borderLeft:'2px solid var(--gold)',
             background:'rgba(201,169,110,.04)' }}>
             <p className="ev-note-p" style={{ fontFamily:'var(--serif)',
-              fontSize:'clamp(.85rem,1.1vw,1rem)', fontWeight:300,
-              fontStyle:'italic', lineHeight:1.75, color:'var(--text)' }}>
+              fontSize:'clamp(.85rem,1.1vw,1rem)', fontWeight:400,
+              lineHeight:1.75, color:'var(--text)' }}>
               "These are final event films and animations delivered to clients for broadcast, social media, documentation, and archival purposes. My process spans the entire production pipeline: concept development, research, storyboarding, 3D modelling, simulation, texturing, look development, rigging, animation, lighting, rendering, visual effects, compositing, editing, sound design, and colour grading. Working across Maya, Unreal Engine, Twinmotion, Substance 3D Painter, Mari, Houdini, EmberGen, LiquiGen, After Effects, Nuke, Premiere Pro, and DaVinci Resolve. The result is a complete production pipeline · from initial concept to final delivery · designed to create compelling visual experiences that communicate, engage, and leave a lasting impression."
             </p>
             <div style={{ marginTop:'1rem', fontFamily:'var(--ui)', fontSize:'12px',
@@ -122,7 +122,7 @@ export default function EventVideosPage() {
               isMobile ? ['Tap video', 'To watch full video'] : ['Hover thumbnail', 'To preview video'],
             ].map(([n, l]) => (
               <div key={l} style={{ background:'var(--bg)', padding:'1.2rem 1.6rem' }}>
-                <div style={{ fontFamily:'var(--serif)', fontSize:'1.8rem', fontWeight:300,
+                <div style={{ fontFamily:'var(--serif)', fontSize:'1.8rem', fontWeight:400,
                   color:'var(--gold)', lineHeight:1, marginBottom:'.3rem' }}>{n}</div>
                 <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.14em',
                   textTransform:'uppercase', color:'var(--muted)' }}>{l}</div>
@@ -172,7 +172,7 @@ function EventEasterEgg() {
             · One more thing ·
           </div>
           <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.2rem,2vw,2rem)',
-            fontWeight:300, fontStyle:'italic', lineHeight:1.4, marginBottom:'1.5rem',
+            fontWeight:400, lineHeight:1.4, marginBottom:'1.5rem',
             background:'linear-gradient(90deg, rgba(255,255,255,.22) 0%, rgba(255,255,255,.22) 40%, rgba(201,169,110,.55) 50%, rgba(255,255,255,.22) 60%, rgba(255,255,255,.22) 100%)',
             backgroundSize:'200% auto',
             WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent',
@@ -201,8 +201,8 @@ function EventEasterEgg() {
               🎬 Bonus Cut
             </div>
             <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(2rem,3.5vw,4rem)',
-              fontWeight:300, lineHeight:1, color:'var(--text)' }}>
-              An Extra <em style={{ color:'var(--gold)', fontStyle:'italic' }}>Cut</em>
+              fontWeight:400, lineHeight:1, color:'var(--text)' }}>
+              An Extra <em style={{ color:'var(--gold)' }}>Cut</em>
             </h2>
           </div>
 

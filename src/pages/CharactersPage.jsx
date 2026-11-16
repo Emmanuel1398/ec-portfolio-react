@@ -24,7 +24,7 @@ function CharCard({ char, index }) {
                 display:'block', transition:'transform 1s cubic-bezier(0.16,1,0.3,1)' }}/>
           : <div style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column',
               alignItems:'center', justifyContent:'center', gap:'.6rem' }}>
-              <div style={{ fontFamily:'var(--serif)', fontSize:'1.6rem', color:'var(--gold2)' }}>{char.name}</div>
+              <div style={{ fontFamily:'var(--serif)', fontWeight:400, fontSize:'1.6rem', color:'var(--gold2)' }}>{char.name}</div>
               <div style={{ fontFamily:'var(--ui)', fontSize:'10px', letterSpacing:'.16em',
                 textTransform:'uppercase', color:'var(--dim)' }}>render coming soon</div>
             </div>}
@@ -38,7 +38,7 @@ function CharCard({ char, index }) {
           )}
           <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
             textTransform:'uppercase', color:'var(--gold)', marginBottom:'.4rem' }}>{char.category}</div>
-          <div style={{ fontFamily:'var(--serif)', fontSize:'1.6rem', fontWeight:600,
+          <div style={{ fontFamily:'var(--serif)', fontSize:'1.6rem', fontWeight:500,
             lineHeight:1.1, color:'var(--text)' }}>
             {char.name}<br/>
             <span style={{ color:'var(--gold)', fontSize:'1.05rem' }}>{char.epithet}</span>
@@ -78,10 +78,10 @@ const ORDER = ['arya','odungi-the-fairytale','lolungu-the-turkana','ndirangu-the
 
 const MOSAIC_CSS = `
 .char-head{max-width:var(--wrap);margin:0 auto;padding:calc(var(--navh) + 1.5rem) var(--gutter) 1rem;}
-.char-title{font-family:var(--serif);font-size:clamp(2.2rem,3.4vw,3.6rem);font-weight:600;
+.char-title{font-family:var(--serif);font-size:clamp(2.2rem,3.4vw,3.6rem);font-weight:500;
   line-height:.95;letter-spacing:.01em;color:var(--text);margin-bottom:.9rem;}
 .char-title em{font-style:normal;color:var(--gold);}
-.char-intro{font-family:var(--body);font-weight:300;font-size:clamp(.95rem,1vw,1.05rem);
+.char-intro{font-family:var(--ui);font-weight:300;font-size:clamp(.95rem,1vw,1.05rem);
   color:var(--muted);line-height:1.7;max-width:none;}
 .char-mosaic{max-width:var(--wrap);margin:0 auto;padding:2rem var(--gutter) 8rem;display:grid;
   grid-template-columns:1fr 1.5fr 1fr;grid-template-rows:repeat(6,minmax(0,1fr));

@@ -1,0 +1,38 @@
+/* ─────────────────────────────────────────────────────────────
+   FONTS · the only place the site's typefaces are loaded and named.
+   Imported first in App.jsx, so every other stylesheet can use the tokens.
+   The homepage (styles/home.css) is the reference for how they're used.
+
+   Two families, five weights, no italics. Nothing else is loaded.
+
+     --serif  Cormorant Garamond   display: names, headings, titles, big numbers
+              400  headings (.hm-h2), card titles, stats, list items, quotes
+              500  page titles, the name / brand mark (.hm-name, footer name)
+
+     --ui     Inter                everything else: body copy, labels, buttons, nav
+              300  body copy (.hm-lede, .hm-bio, card text)   ← the body default
+              400  emphasis inside copy, title lines (.hm-titles)
+              500  buttons, kickers, table headers (.hm-btn, .hm-work-kicker)
+
+   Use the tokens, never a font name:
+     CSS          font-family:var(--serif);   font-family:var(--ui);
+     inline JSX   fontFamily:'var(--serif)'   fontFamily:'var(--ui)'
+     canvas       read the token with getComputedStyle (see DroneFormations.jsx)
+   Any weight not listed above (e.g. 300 or 600 serif, 700 anything) is off-standard;
+   font-synthesis:none stops the browser from faking it, so it falls back to the
+   nearest loaded weight. To add a weight, add it to the URL and the list above.
+   ───────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@300;400;500&display=swap');
+
+:root{
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --ui:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+
+html{font-synthesis:none;}
+body{font-family:var(--ui);font-weight:300;}
+
+/* browser defaults that would ask for bold (700) or italic, snapped to the standard */
+h1,h2,h3,h4,h5,h6{font-weight:400;}
+b,strong,th{font-weight:500;}
+em,i,cite{font-style:normal;}  /* emphasis is colour (gold), not slant, as on the homepage */

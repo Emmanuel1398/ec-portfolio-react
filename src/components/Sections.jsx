@@ -8,7 +8,7 @@ export function Statement() {
   return (
     <div style={{ padding:'11rem 5vw', textAlign:'center', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)', background:'var(--bg)' }}>
       <div ref={r} className={`rv ${v?'in':''}`}>
-        <p style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.8rem,3.2vw,3.2rem)', fontWeight:300, fontStyle:'italic', lineHeight:1.5, color:'var(--text)', maxWidth:'900px', margin:'0 auto' }}>
+        <p style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.8rem,3.2vw,3.2rem)', fontWeight:400, lineHeight:1.5, color:'var(--text)', maxWidth:'900px', margin:'0 auto' }}>
           "Detail is not decoration. It is the difference between something that{' '}
           <em style={{ color:'var(--gold)', fontStyle:'normal' }}>looks 3D</em>{' '}
           and something that{' '}
@@ -46,7 +46,7 @@ export function Disciplines() {
             onMouseEnter={e=>e.currentTarget.style.background='rgba(255,255,255,0.02)'}
             onMouseLeave={e=>e.currentTarget.style.background='transparent'}>
             <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.2em', color:'var(--gold)', marginBottom:'1.2rem' }}>{c.n}</div>
-            <div style={{ fontFamily:'var(--serif)', fontSize:'1.1rem', fontWeight:300, color:'var(--text)', marginBottom:'0.4rem', lineHeight:1.2 }}>{c.label}</div>
+            <div style={{ fontFamily:'var(--serif)', fontSize:'1.1rem', fontWeight:400, color:'var(--text)', marginBottom:'0.4rem', lineHeight:1.2 }}>{c.label}</div>
             <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.12em', color:'var(--muted)' }}>{c.sub}</div>
           </div>
         ))}
@@ -152,8 +152,8 @@ export function About() {
           <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.28em', textTransform:'uppercase', color:'var(--gold)', marginBottom:'1.2rem' }}>
             Portfolio / 00 · About
           </div>
-          <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(2.5rem,4vw,4.5rem)', fontWeight:300, lineHeight:1, marginBottom:'2.5rem', color:'var(--text)' }}>
-            An obsession with<br/><em style={{ fontStyle:'italic', color:'var(--gold)' }}>hyperrealistic detail.</em>
+          <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(2.5rem,4vw,4.5rem)', fontWeight:400, lineHeight:1, marginBottom:'2.5rem', color:'var(--text)' }}>
+            An obsession with<br/><em style={{ color:'var(--gold)' }}>hyperrealistic detail.</em>
           </h2>
           <p style={{ fontFamily:'var(--ui)', fontSize:'1rem', color:'var(--muted)', lineHeight:2, marginBottom:'1.5rem', letterSpacing:'0.02em' }}>
             I am <strong style={{ color:'var(--text)', fontWeight:400 }}>Emmanuel Chege</strong>, a hyperrealistic 3D artist and motion designer based in <strong style={{ color:'var(--text)', fontWeight:400 }}>Nairobi, Kenya</strong> with over five years of professional experience. My core discipline is character and creature design · sculpting digital beings so convincing that the line between render and photograph disappears.
@@ -162,14 +162,14 @@ export function About() {
             My practice spans the full 3D pipeline: from concept sculpting in ZBrush, texturing in Mari and Substance Painter, cloth simulation in Marvelous Designer, real-time rendering in Unreal Engine 5, to final compositing in Nuke.
           </p>
           <div style={{ borderLeft:'1px solid var(--gold)', paddingLeft:'1.8rem', marginBottom:'3rem' }}>
-            <p style={{ fontFamily:'var(--serif)', fontSize:'1.4rem', fontStyle:'italic', fontWeight:300, lineHeight:1.5, color:'var(--text)' }}>
+            <p style={{ fontFamily:'var(--serif)', fontSize:'1.4rem', fontWeight:400, lineHeight:1.5, color:'var(--text)' }}>
               "Detail is not decoration. It is the difference between something that looks 3D and something that feels alive."
             </p>
           </div>
           <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:'0', borderTop:'1px solid var(--border)' }}>
             {[['5+','Years Experience'],['17+','Characters'],['16','Tools Mastered']].map(([n, l]) => (
               <div key={l} style={{ padding:'1.8rem 0', borderRight:'1px solid var(--border)' }}>
-                <div style={{ fontFamily:'var(--serif)', fontSize:'3rem', fontWeight:300, color:'var(--text)', lineHeight:1 }}>
+                <div style={{ fontFamily:'var(--serif)', fontSize:'3rem', fontWeight:400, color:'var(--text)', lineHeight:1 }}>
                   {n.replace('+','')}<em style={{ fontStyle:'normal', color:'var(--gold)' }}>{n.includes('+')?'+':''}</em>
                 </div>
                 <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--muted)', marginTop:'0.3rem' }}>{l}</div>
@@ -189,14 +189,14 @@ export function Contact() {
   return (
     <section id="contact" style={{ padding:'9rem 5vw', background:'var(--bg)', borderTop:'1px solid var(--border)', position:'relative', overflow:'hidden' }}>
       {/* Large watermark */}
-      <div style={{ position:'absolute', right:'-5vw', top:'50%', transform:'translateY(-50%)', fontFamily:'var(--serif)', fontSize:'clamp(8rem,18vw,24rem)', fontWeight:600, color:'rgba(255,255,255,0.012)', textShadow:'none', pointerEvents:'none', lineHeight:1, userSelect:'none', letterSpacing:'-0.05em' }}>
+      <div style={{ position:'absolute', right:'-5vw', top:'50%', transform:'translateY(-50%)', fontFamily:'var(--serif)', fontSize:'clamp(8rem,18vw,24rem)', fontWeight:500, color:'rgba(255,255,255,0.012)', textShadow:'none', pointerEvents:'none', lineHeight:1, userSelect:'none', letterSpacing:'-0.05em' }}>
         WORK
       </div>
       <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'8rem', position:'relative', zIndex:1 }}>
         <div ref={r1} className={`rv ${v1?'in':''}`}>
           <div className="s-label">Let's Work Together</div>
-          <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(2.5rem,4.5vw,5rem)', fontWeight:300, lineHeight:1, marginBottom:'1.8rem' }}>
-            <em style={{ fontStyle:'italic', color:'var(--gold)', display:'block' }}>Start a project</em>
+          <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(2.5rem,4.5vw,5rem)', fontWeight:400, lineHeight:1, marginBottom:'1.8rem' }}>
+            <em style={{ color:'var(--gold)', display:'block' }}>Start a project</em>
             or say hello.
           </h2>
           <p style={{ fontFamily:'var(--ui)', fontSize:'1rem', color:'var(--muted)', lineHeight:2, marginBottom:'3rem', letterSpacing:'0.02em' }}>
@@ -248,7 +248,7 @@ export function Contact() {
 export function Footer() {
   return (
     <footer style={{ borderTop:'1px solid var(--border)', padding:'2.2rem 5vw', display:'grid', gridTemplateColumns:'1fr auto 1fr', alignItems:'center', gap:'2rem', background:'var(--bg)' }}>
-      <div style={{ fontFamily:'var(--serif)', fontSize:'1.1rem', fontWeight:600, letterSpacing:'0.1em', color:'var(--muted)' }}>
+      <div style={{ fontFamily:'var(--serif)', fontSize:'1.1rem', fontWeight:500, letterSpacing:'0.1em', color:'var(--muted)' }}>
         Emmanuel <em style={{ fontStyle:'normal', color:'var(--gold)' }}>Chege</em>
       </div>
       <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.16em', textTransform:'uppercase', color:'var(--dim)', textAlign:'center' }}>

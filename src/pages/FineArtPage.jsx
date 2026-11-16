@@ -48,7 +48,7 @@ const MOSAIC_CSS = `
   background:linear-gradient(to top,rgba(6,6,6,.94),rgba(6,6,6,.55) 55%,transparent);
   opacity:0;transition:opacity .35s;pointer-events:none;}
 .fa-slot:hover .fa-cap{opacity:1;}
-.fa-t{font-family:var(--serif);font-size:clamp(.85rem,1vw,1.15rem);color:var(--text);line-height:1.2;}
+.fa-t{font-family:var(--serif);font-weight:400;font-size:clamp(.85rem,1vw,1.15rem);color:var(--text);line-height:1.2;}
 .fa-s{font-family:var(--ui);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--gold);margin-top:.3rem;}
 .fa-zoom{position:absolute;top:.6rem;right:.6rem;width:26px;height:26px;border:1px solid rgba(201,169,110,.5);
@@ -100,12 +100,12 @@ export default function FineArtPage() {
           <span style={{ marginLeft:'auto', color:'var(--dim)' }}>16 works · 2022 to 2023</span>
         </div>
 
-        <h1 className="pg-title sec-title" style={{ fontFamily:'var(--serif)', fontWeight:300,
+        <h1 className="pg-title sec-title" style={{ fontFamily:'var(--serif)', fontWeight:400,
           lineHeight:.95, fontSize:'clamp(3rem,8vw,7rem)', color:'var(--text)' }}>
           Fine <em style={{ fontStyle:'normal', color:'var(--gold)' }}>Art</em>
         </h1>
 
-        <div style={{ marginTop:'2rem', fontFamily:'var(--body)', fontWeight:300,
+        <div style={{ marginTop:'2rem', fontFamily:'var(--ui)', fontWeight:300,
           fontSize:'clamp(1rem,1.15vw,1.1rem)', color:'var(--muted)', lineHeight:1.9, maxWidth:'none' }}>
           <p style={{ margin:0 }}>
             I drew long before I understood 3D. These are from my re-introduction to fine art, made between 2022

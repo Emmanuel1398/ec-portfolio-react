@@ -44,7 +44,7 @@ function ConstellationCanvas() {
     <div style={{ position:'relative', width:'100%', height:'220px', overflow:'hidden', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)' }}>
       <canvas ref={cvRef} style={{ position:'absolute', inset:0, width:'100%', height:'100%' }} />
       <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center', pointerEvents:'none' }}>
-        <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.5rem,3vw,2.2rem)', fontWeight:300, fontStyle:'italic', color:'rgba(201,169,110,0.25)', letterSpacing:'0.04em', textAlign:'center' }}>
+        <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.5rem,3vw,2.2rem)', fontWeight:400, color:'rgba(201,169,110,0.25)', letterSpacing:'0.04em', textAlign:'center' }}>
           Formation · Flight · Light
         </div>
       </div>
@@ -81,7 +81,7 @@ export default function DroneShows() {
             onMouseEnter={e=>e.currentTarget.style.background='rgba(255,255,255,0.02)'}
             onMouseLeave={e=>e.currentTarget.style.background='transparent'}>
             <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.2em', color:'var(--gold)', marginBottom:'0.8rem' }}>{p.n}</div>
-            <div style={{ fontFamily:'var(--serif)', fontSize:'1.05rem', fontWeight:300, lineHeight:1.2, color:'var(--text)', marginBottom:'0.5rem' }}>{p.title}</div>
+            <div style={{ fontFamily:'var(--serif)', fontSize:'1.05rem', fontWeight:400, lineHeight:1.2, color:'var(--text)', marginBottom:'0.5rem' }}>{p.title}</div>
             <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'0.12em', color:'var(--muted)', lineHeight:1.7 }}>{p.desc.substring(0,80)}…</div>
           </div>
         ))}

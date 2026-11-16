@@ -52,9 +52,9 @@ export default function DroneShowsPage() {
         opacity: vH ? 1 : 0, transform: vH ? 'none' : 'translateY(30px)',
         transition:'opacity 1s ease, transform 1s ease' }}>
         <h1 className="pg-title wk-title" style={{ fontFamily:'var(--serif)',
-          fontWeight:600, letterSpacing:'.01em',
+          fontWeight:500, letterSpacing:'.01em',
           color:'var(--text)', marginBottom:'.9rem' }}>
-          Drone <em style={{ color:'var(--gold)', fontStyle:'italic' }}>Shows</em>
+          Drone <em style={{ color:'var(--gold)' }}>Shows</em>
         </h1>
         <p className="pg-intro wk-intro">
           Each drone show begins as a narrative written on paper · a story, a script, a sequence
@@ -91,7 +91,7 @@ export default function DroneShowsPage() {
           <DroneFormations />
           <div style={{ position:'absolute', left:0, right:0, top:'5%', display:'flex', justifyContent:'center' }}>
             <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.2rem,2.5vw,2rem)',
-              fontWeight:300, fontStyle:'italic', color:'rgba(232,213,168,.55)',
+              fontWeight:400, color:'rgba(232,213,168,.55)',
               letterSpacing:'.08em', userSelect:'none',
               textShadow:'0 0 18px rgba(201,169,110,.55), 0 0 40px rgba(201,169,110,.25)' }}>
               Formation · Flight · Light

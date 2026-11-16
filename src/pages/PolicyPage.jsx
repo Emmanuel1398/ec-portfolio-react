@@ -63,7 +63,7 @@ export default function PolicyPage({ slug }) {
     return (
       <div style={{ minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center',
         flexDirection:'column', gap:'1.5rem', color:'var(--muted)' }}>
-        <div style={{ fontFamily:'var(--serif)', fontSize:'2rem', color:'var(--text)' }}>Notice not found</div>
+        <div style={{ fontFamily:'var(--serif)', fontWeight:400, fontSize:'2rem', color:'var(--text)' }}>Notice not found</div>
         <Link to="/" style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em',
           textTransform:'uppercase', color:'var(--gold)' }}>&larr; Home</Link>
       </div>
@@ -110,24 +110,24 @@ const POL_CSS = `
 .pol-head{margin-top:2.5rem;padding-bottom:2.2rem;border-bottom:1px solid var(--border);}
 .pol-eyebrow{font-family:var(--ui);font-size:12px;letter-spacing:.22em;text-transform:uppercase;
   color:var(--muted);margin-bottom:1.3rem;}
-.pol-title{font-family:var(--serif);font-weight:600;line-height:.96;letter-spacing:.01em;
+.pol-title{font-family:var(--serif);font-weight:500;line-height:.96;letter-spacing:.01em;
   font-size:clamp(2.6rem,6.5vw,5.2rem);color:var(--text);}
 .pol-title em{font-style:normal;color:var(--gold);}
-.pol-lede{margin-top:1.6rem;max-width:58ch;font-family:var(--body);font-weight:300;
+.pol-lede{margin-top:1.6rem;max-width:58ch;font-family:var(--ui);font-weight:300;
   font-size:clamp(1.02rem,1.4vw,1.2rem);line-height:1.7;color:var(--muted);}
 .pol-date{margin-top:1.4rem;font-family:var(--ui);font-size:11px;letter-spacing:.16em;
   text-transform:uppercase;color:var(--dim);}
 .pol-body{max-width:78ch;margin-top:3rem;}
-.pol-h{font-family:var(--serif);font-weight:600;font-size:clamp(1.25rem,2vw,1.65rem);
+.pol-h{font-family:var(--serif);font-weight:500;font-size:clamp(1.25rem,2vw,1.65rem);
   color:var(--gold);margin:3rem 0 1rem;line-height:1.3;}
 .pol-h:first-child{margin-top:0;}
-.pol-p{font-family:var(--body);font-weight:300;font-size:1.04rem;line-height:1.85;
+.pol-p{font-family:var(--ui);font-weight:300;font-size:1.04rem;line-height:1.85;
   color:#ffffff;margin:0 0 1.15rem;}
 .pol-a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(201,169,110,.45);
   transition:color .25s,border-color .25s;}
 .pol-a:hover{color:var(--gold2);border-color:var(--gold2);}
 .pol-list{margin:0 0 1.3rem;padding-left:1.15rem;}
-.pol-list li{font-family:var(--body);font-weight:300;font-size:1.04rem;line-height:1.8;
+.pol-list li{font-family:var(--ui);font-weight:300;font-size:1.04rem;line-height:1.8;
   color:#ffffff;margin-bottom:.55rem;}
 .pol-list li::marker{color:var(--gold);}
 .pol-ol{padding-left:1.4rem;}
@@ -135,7 +135,7 @@ const POL_CSS = `
   backdrop-filter:blur(2px);padding:1.5rem 1.7rem;}
 .pol-qt{font-family:var(--ui);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--gold);margin-bottom:.75rem;}
-.pol-quote p{font-family:var(--body);font-weight:300;font-size:1.02rem;line-height:1.85;
+.pol-quote p{font-family:var(--ui);font-weight:300;font-size:1.02rem;line-height:1.85;
   color:var(--text);margin:0;}
 .pol-tw{margin:1.5rem 0 2rem;border:1px solid var(--border);background:rgba(16,16,16,.72);
   backdrop-filter:blur(4px);overflow-x:auto;}
@@ -143,7 +143,7 @@ const POL_CSS = `
 .pol-t th{font-family:var(--ui);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--gold);background:rgba(201,169,110,.05);text-align:left;padding:.85rem 1.1rem;
   border-bottom:1px solid var(--border);border-right:1px solid var(--border);}
-.pol-t td{font-family:var(--body);font-weight:300;font-size:.95rem;line-height:1.65;
+.pol-t td{font-family:var(--ui);font-weight:300;font-size:.95rem;line-height:1.65;
   color:var(--text);padding:.9rem 1.1rem;border-bottom:1px solid var(--border);
   border-right:1px solid var(--border);vertical-align:top;}
 .pol-t th:last-child,.pol-t td:last-child{border-right:none;}

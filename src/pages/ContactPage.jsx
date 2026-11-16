@@ -56,7 +56,7 @@ function ContactForm() {
 
         {/* Left · contact details */}
         <div className={`ct-details rv d1 ${v?'in':''}`}>
-          <p style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--muted)',
+          <p style={{ fontFamily:'var(--ui)', fontSize:'1rem', color:'var(--muted)',
             lineHeight:1.95, marginBottom:'2.5rem' }}>
             Available for freelance commissions, agency collaborations and project discussions.
             Based in Nairobi, Kenya · operating globally and remotely.
@@ -80,7 +80,7 @@ function ContactForm() {
                   borderBottom:'1px solid var(--border)',
                   textDecoration:'none', color:'var(--muted)',
                   transition:'color .2s, padding-left .2s',
-                  fontSize:'1rem', fontFamily:'var(--body)' }}
+                  fontSize:'1rem', fontFamily:'var(--ui)' }}
                 onMouseEnter={e=>{e.currentTarget.style.color='var(--text)';e.currentTarget.style.paddingLeft='.5rem';}}
                 onMouseLeave={e=>{e.currentTarget.style.color='var(--muted)';e.currentTarget.style.paddingLeft='0';}}>
                 <span style={{ fontFamily:'var(--ui)', fontSize:'12px',
@@ -96,7 +96,7 @@ function ContactForm() {
                 background:'none', border:'none', borderBottom:'1px solid var(--border)',
                 cursor:'pointer', color:'var(--muted)',
                 transition:'color .2s, padding-left .2s',
-                fontSize:'1rem', fontFamily:'var(--body)' }}
+                fontSize:'1rem', fontFamily:'var(--ui)' }}
               onMouseEnter={e=>{e.currentTarget.style.color='var(--text)';e.currentTarget.style.paddingLeft='.5rem';}}
               onMouseLeave={e=>{e.currentTarget.style.color='var(--muted)';e.currentTarget.style.paddingLeft='0';}}>
               <span style={{ fontFamily:'var(--ui)', fontSize:'12px',
@@ -235,7 +235,7 @@ function BtsEasterEgg() {
             · Still here? ·
           </div>
           <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.2rem,2vw,2rem)',
-            fontWeight:300, fontStyle:'italic', lineHeight:1.4, marginBottom:'1.5rem',
+            fontWeight:400, lineHeight:1.4, marginBottom:'1.5rem',
             background:'linear-gradient(90deg, rgba(255,255,255,.22) 0%, rgba(255,255,255,.22) 40%, rgba(201,169,110,.55) 50%, rgba(255,255,255,.22) 60%, rgba(255,255,255,.22) 100%)',
             backgroundSize:'200% auto',
             WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent',
@@ -266,10 +266,10 @@ function BtsEasterEgg() {
             </div>
             <h2 style={{ fontFamily:'var(--serif)',
               fontSize:'clamp(2rem,3.5vw,4rem)',
-              fontWeight:300, lineHeight:1, color:'var(--text)', marginBottom:'1rem' }}>
+              fontWeight:400, lineHeight:1, color:'var(--text)', marginBottom:'1rem' }}>
               Behind The <em>Scenes</em>
             </h2>
-            <p style={{ fontFamily:'var(--body)', fontSize:'1rem',
+            <p style={{ fontFamily:'var(--ui)', fontSize:'1rem',
               color:'var(--muted)', lineHeight:1.9, maxWidth:'600px' }}>
               A full look at the audio post-production process · sound design,
               SFX layering, music mixing and final mastering inside Adobe Premiere Pro.
@@ -286,7 +286,7 @@ function BtsEasterEgg() {
                   textTransform:'uppercase', color:'var(--gold)', marginBottom:'.3rem' }}>
                   {BTS_EVENT.client} · {BTS_EVENT.year}
                 </div>
-                <div style={{ fontFamily:'var(--serif)', fontSize:'1.3rem', fontWeight:300, color:'var(--text)' }}>
+                <div style={{ fontFamily:'var(--serif)', fontSize:'1.3rem', fontWeight:400, color:'var(--text)' }}>
                   {BTS_EVENT.title}
                 </div>
               </div>
@@ -327,7 +327,7 @@ export default function ContactPage() {
       <footer className="m-stack ct-foot" style={{ padding:'2.2rem 5vw', borderTop:'1px solid var(--border)',
         display:'grid', gridTemplateColumns:'1fr auto 1fr',
         alignItems:'center', gap:'2rem', background:'var(--bg)' }}>
-        <div style={{ fontFamily:'var(--serif)', fontSize:'1.1rem', fontWeight:600,
+        <div style={{ fontFamily:'var(--serif)', fontSize:'1.1rem', fontWeight:500,
           letterSpacing:'.1em', color:'var(--muted)' }}>
           Emmanuel <em style={{ fontStyle:'normal', color:'var(--gold)' }}>Chege</em>
         </div>

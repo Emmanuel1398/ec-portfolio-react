@@ -8,7 +8,7 @@ export default function AnswerBlock({ summary, faqs }) {
   return (
     <>
       {summary && (
-        <p style={{ maxWidth:'none', marginTop:'1.8rem', fontFamily:'var(--body)', fontWeight:400,
+        <p style={{ maxWidth:'none', marginTop:'1.8rem', fontFamily:'var(--ui)', fontWeight:400,
           fontSize:'clamp(1.05rem,1.5vw,1.25rem)', color:'var(--text)', lineHeight:1.7 }}>
           {summary}
         </p>
@@ -19,7 +19,7 @@ export default function AnswerBlock({ summary, faqs }) {
             <div key={i} style={{ marginTop: i ? '1.8rem' : 0 }}>
               <h2 style={{ fontFamily:'var(--serif)', fontWeight:400, fontSize:'clamp(1.3rem,2vw,1.7rem)',
                 color:'var(--text)', lineHeight:1.2 }}>{f.q}</h2>
-              <p style={{ marginTop:'.7rem', fontFamily:'var(--body)', fontWeight:300,
+              <p style={{ marginTop:'.7rem', fontFamily:'var(--ui)', fontWeight:300,
                 fontSize:'clamp(.98rem,1.15vw,1.08rem)', color:'var(--muted)', lineHeight:1.9 }}>{f.a}</p>
             </div>
           ))}

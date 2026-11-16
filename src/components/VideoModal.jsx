@@ -55,7 +55,7 @@ export default function VideoModal({ youtubeId, title, onClose }) {
             gap:'1rem', border:'1px solid var(--border)'
           }}>
             <div style={{ fontFamily:'var(--serif)', fontSize:'1.5rem',
-              fontWeight:300, color:'var(--muted)', textAlign:'center' }}>
+              fontWeight:400, color:'var(--muted)', textAlign:'center' }}>
               Video coming soon
             </div>
             <div style={{ fontFamily:'var(--ui)', fontSize:'12px',

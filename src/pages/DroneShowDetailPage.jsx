@@ -32,8 +32,8 @@ function ScriptBlock({ block, index }) {
         </div>
       )}
       <p style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.05rem,1.4vw,1.35rem)',
-        fontWeight:300, lineHeight:1.85, color:'rgba(237,237,234,.75)',
-        whiteSpace:'pre-line', fontStyle:'italic', paddingLeft: block.section ? '2.2rem' : 0 }}>
+        fontWeight:400, lineHeight:1.85, color:'rgba(237,237,234,.75)',
+        whiteSpace:'pre-line', paddingLeft: block.section ? '2.2rem' : 0 }}>
         {block.text}
       </p>
     </div>
@@ -119,12 +119,12 @@ export default function DroneShowDetailPage() {
           </span>
         </div>
         <h1 style={{ fontFamily:'var(--serif)', fontSize:'clamp(2.8rem,4.8vw,5.5rem)',
-          fontWeight:300, lineHeight:.92, letterSpacing:'.01em', color:'var(--text)', maxWidth:'900px' }}>
+          fontWeight:400, lineHeight:.92, letterSpacing:'.01em', color:'var(--text)', maxWidth:'900px' }}>
           {show.title}
         </h1>
         <div style={{ width:60, height:1, background:'var(--gold)', margin:'1.6rem 0' }}/>
-        <p style={{ fontFamily:'var(--body)', fontSize:'clamp(.95rem,1.2vw,1.1rem)',
-          color:'var(--muted)', lineHeight:1.9, maxWidth:'600px', fontStyle:'italic' }}>
+        <p style={{ fontFamily:'var(--ui)', fontSize:'clamp(.95rem,1.2vw,1.1rem)',
+          color:'var(--muted)', lineHeight:1.9, maxWidth:'600px' }}>
           {show.tagline}
         </p>
         <AnswerBlock summary={show.summary} faqs={show.faqs} />
@@ -144,8 +144,8 @@ export default function DroneShowDetailPage() {
             Drone Show Visualizer
           </div>
           <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.8rem,3vw,3.5rem)',
-            fontWeight:300, color:'var(--text)' }}>
-            Formation <em style={{ color:'var(--gold)', fontStyle:'italic' }}>Visual</em>
+            fontWeight:400, color:'var(--text)' }}>
+            Formation <em style={{ color:'var(--gold)' }}>Visual</em>
           </h2>
         </div>
 
@@ -157,7 +157,7 @@ export default function DroneShowDetailPage() {
             alignItems:'center', justifyContent:'center', gap:'1.2rem' }}>
             <div style={{ width:1, height:60, background:'var(--border)' }}/>
             <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.2rem,2vw,2rem)',
-              fontWeight:300, color:'rgba(255,255,255,0.75)', textAlign:'center' }}>
+              fontWeight:400, color:'rgba(255,255,255,0.75)', textAlign:'center' }}>
               Awaiting Production
             </div>
             <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
@@ -171,7 +171,7 @@ export default function DroneShowDetailPage() {
 
       {/* ── DESCRIPTION ── */}
       <div className="pg-wrap" style={{ paddingBlock:'4rem', borderBottom:'1px solid var(--border)' }}>
-        <p style={{ fontFamily:'var(--body)', fontSize:'clamp(.95rem,1.15vw,1.08rem)',
+        <p style={{ fontFamily:'var(--ui)', fontSize:'clamp(.95rem,1.15vw,1.08rem)',
           color:'var(--muted)', lineHeight:1.95, maxWidth:'680px' }}>
           {show.description}
         </p>
@@ -191,10 +191,10 @@ export default function DroneShowDetailPage() {
             Narration / V.O. Script
           </div>
           <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.8rem,3vw,3.5rem)',
-            fontWeight:300, color:'var(--text)', marginBottom:'.8rem' }}>
-            The <em style={{ color:'var(--gold)', fontStyle:'italic' }}>Script</em>
+            fontWeight:400, color:'var(--text)', marginBottom:'.8rem' }}>
+            The <em style={{ color:'var(--gold)' }}>Script</em>
           </h2>
-          <p style={{ fontFamily:'var(--body)', fontSize:'1rem', color:'var(--dim)',
+          <p style={{ fontFamily:'var(--ui)', fontSize:'1rem', color:'var(--dim)',
             lineHeight:1.7, maxWidth:'480px' }}>
             The narration voice-over delivered during the live show · each section
             corresponding to a drone formation sequence in the sky above.
@@ -218,8 +218,8 @@ export default function DroneShowDetailPage() {
             The Concept
           </div>
           <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.8rem,3vw,3.5rem)',
-            fontWeight:300, color:'var(--text)' }}>
-            Formation <em style={{ color:'var(--gold)', fontStyle:'italic' }}>Concept</em>
+            fontWeight:400, color:'var(--text)' }}>
+            Formation <em style={{ color:'var(--gold)' }}>Concept</em>
           </h2>
         </div>
         <VideoBlock
@@ -248,7 +248,7 @@ export default function DroneShowDetailPage() {
               Previous
             </div>
             <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1rem,1.4vw,1.4rem)',
-              fontWeight:300, color:'var(--text)' }}>{prevShow.title}</div>
+              fontWeight:400, color:'var(--text)' }}>{prevShow.title}</div>
           </Link>
         ) : <div/>}
 
@@ -267,7 +267,7 @@ export default function DroneShowDetailPage() {
               </svg>
             </div>
             <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1rem,1.4vw,1.4rem)',
-              fontWeight:300, color:'var(--text)' }}>{nextShow.title}</div>
+              fontWeight:400, color:'var(--text)' }}>{nextShow.title}</div>
           </Link>
         ) : <div/>}
       </div>

@@ -31,7 +31,7 @@ export default function IllustrationDetailPage() {
     return (
       <div style={{ minHeight:'100vh', background:'var(--bg)', display:'flex', alignItems:'center',
         justifyContent:'center', flexDirection:'column', gap:'1.5rem', color:'var(--muted)' }}>
-        <div style={{ fontFamily:'var(--serif)', fontSize:'2rem', color:'var(--text)' }}>Breakdown not found</div>
+        <div style={{ fontFamily:'var(--serif)', fontWeight:400, fontSize:'2rem', color:'var(--text)' }}>Breakdown not found</div>
         <Link to="/drawings-illustrations" style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em',
           textTransform:'uppercase', color:'var(--gold)' }}>← Drawings & Illustrations</Link>
       </div>
@@ -64,19 +64,19 @@ export default function IllustrationDetailPage() {
             letterSpacing:'.22em', textTransform:'uppercase', color:'var(--muted)', marginBottom:'1.3rem' }}>
             {c.category} · {c.year}
           </div>
-          <h1 className="cd-name" style={{ fontFamily:'var(--serif)', fontWeight:600, lineHeight:.92, letterSpacing:'.01em',
+          <h1 className="cd-name" style={{ fontFamily:'var(--serif)', fontWeight:500, lineHeight:.92, letterSpacing:'.01em',
             fontSize:'clamp(3rem,8vw,7rem)', color:'var(--text)' }}>
             {c.name}<br/><span style={{ color:'var(--gold)', fontSize:'.62em' }}>{c.epithet}</span>
           </h1>
           <AnswerBlock summary={c.summary} />
           {c.tagline && (
-            <p style={{ maxWidth:'none', marginTop:'1.8rem', fontFamily:'var(--body)', fontWeight:300,
+            <p style={{ maxWidth:'none', marginTop:'1.8rem', fontFamily:'var(--ui)', fontWeight:300,
               fontSize:'clamp(1.05rem,1.5vw,1.25rem)', color:'var(--muted)', lineHeight:1.7 }}>
               {c.tagline}
             </p>
           )}
           {c.intro && c.intro.map((para, i) => (
-            <p key={i} style={{ maxWidth:'none', marginTop:'1.4rem', fontFamily:'var(--body)', fontWeight:300,
+            <p key={i} style={{ maxWidth:'none', marginTop:'1.4rem', fontFamily:'var(--ui)', fontWeight:300,
               fontSize:'clamp(.98rem,1.15vw,1.08rem)', color:'var(--muted)', lineHeight:1.9 }}>
               {para}
             </p>
@@ -106,7 +106,7 @@ export default function IllustrationDetailPage() {
                   </div>
                 </>
               : <div style={{ textAlign:'center' }}>
-                  <div style={{ fontFamily:'var(--serif)', fontSize:'1.5rem', color:'var(--gold2)' }}>Hero Render</div>
+                  <div style={{ fontFamily:'var(--serif)', fontWeight:400, fontSize:'1.5rem', color:'var(--gold2)' }}>Hero Render</div>
                   <div style={{ fontFamily:'var(--ui)', fontSize:'10px', letterSpacing:'.16em',
                     textTransform:'uppercase', color:'var(--dim)', marginTop:'.8rem' }}>asset coming soon</div>
                 </div>}
@@ -159,7 +159,7 @@ export default function IllustrationDetailPage() {
           <Link to="/drawings-illustrations" style={{ textDecoration:'none', display:'block' }}>
             <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em', textTransform:'uppercase',
               color:'var(--muted)', marginBottom:'.6rem' }}>&larr; Back to</div>
-            <div style={{ fontFamily:'var(--serif)', fontWeight:600, fontSize:'clamp(1.8rem,3.5vw,3rem)', color:'var(--text)' }}>
+            <div style={{ fontFamily:'var(--serif)', fontWeight:500, fontSize:'clamp(1.8rem,3.5vw,3rem)', color:'var(--text)' }}>
               Drawings <span style={{ color:'var(--gold)' }}>&amp; Illustrations</span>
             </div>
           </Link>

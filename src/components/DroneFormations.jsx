@@ -55,7 +55,9 @@ function sampleShape(shape, W, H) {
   c.strokeStyle = '#fff'; c.fillStyle = '#fff'; c.lineJoin = 'round'; c.lineCap = 'round';
   if (shape.text) {
     let fs = Math.min(H * 0.42, W * 1.5 / shape.text.length);
-    c.font = `700 ${fs}px Inter, Arial, sans-serif`;
+    /* canvas can't use var(); read the --ui family from fonts.css */
+    const ui = getComputedStyle(document.documentElement).getPropertyValue('--ui').trim() || 'sans-serif';
+    c.font = `500 ${fs}px ${ui}`;
     c.textAlign = 'center'; c.textBaseline = 'middle';
     c.lineWidth = Math.max(2, fs * 0.02);
     c.strokeText(shape.text, W / 2, H * 0.5);

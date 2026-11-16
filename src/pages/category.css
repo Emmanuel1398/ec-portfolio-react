@@ -7,7 +7,7 @@
 .ilm-card-media img{width:100%;height:100%;object-fit:cover;object-position:top;
   filter:brightness(.92) saturate(.95);transition:transform .8s var(--ease-out),filter .5s;}
 .ilm-card:hover .ilm-card-media img{transform:scale(1.04);filter:brightness(1) saturate(1);}
-.ilm-card-title{margin-top:1rem;font-family:var(--serif);font-weight:300;font-size:1.4rem;line-height:1.2;color:var(--text);transition:color .3s;}
+.ilm-card-title{margin-top:1rem;font-family:var(--serif);font-weight:400;font-size:1.4rem;line-height:1.2;color:var(--text);transition:color .3s;}
 .ilm-card:hover .ilm-card-title{color:var(--gold);}
 
 /* Per-video blog — big centre-piece video, text in a readable column */
@@ -39,7 +39,7 @@
 .social-video{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--bg3);}
 .social-video .h-item{width:100%!important;height:100%!important;min-width:0!important;}
 .social-video .h-item__info{display:none!important;}
-.social-title{margin-top:.8rem;font-family:var(--serif);font-weight:300;font-size:1.05rem;line-height:1.25;color:var(--text);}
+.social-title{margin-top:.8rem;font-family:var(--serif);font-weight:400;font-size:1.05rem;line-height:1.25;color:var(--text);}
 
 @media(max-width:1024px){.cat-grid{grid-template-columns:1fr 1fr;}.social-grid{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:768px){.social-grid{grid-template-columns:repeat(2,1fr);}.blog-gallery{grid-template-columns:1fr;}}
@@ -51,7 +51,7 @@
 
 /* Site Installation Preview — reusable across blogs (event site proofs) */
 .blog-site{margin-top:clamp(3rem,7vh,5rem);padding-top:2.6rem;border-top:1px solid var(--border);}
-.blog-site-h{font-family:var(--serif);font-weight:300;font-size:clamp(1.8rem,3.6vw,3rem);line-height:1;letter-spacing:.01em;color:var(--text);margin-bottom:.9rem;}
+.blog-site-h{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,3.6vw,3rem);line-height:1;letter-spacing:.01em;color:var(--text);margin-bottom:.9rem;}
 .blog-site-meta{display:flex;flex-wrap:wrap;gap:1.1rem;font-family:var(--ui);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;}
 .blog-site-meta span{position:relative;padding-right:1.1rem;}
 .blog-site-meta span:not(:last-child)::after{content:'';position:absolute;right:0;top:50%;width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.55;transform:translateY(-50%);}

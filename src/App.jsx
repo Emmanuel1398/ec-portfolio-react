@@ -21,6 +21,7 @@ import DroneShowDetailPage from './pages/DroneShowDetailPage';
 import PolicyPage from './pages/PolicyPage';
 import { POLICIES } from './data/policies';
 import { protectImages } from './lib/protectImages';
+import './styles/fonts.css';
 import './styles/globals.css';
 import './styles/mobile.css';
 import './App.css';

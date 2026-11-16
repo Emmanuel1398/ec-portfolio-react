@@ -7,7 +7,7 @@
 .item { display: grid !important; grid-template-columns: auto 1fr auto; gap: 1.2rem; align-items: start; padding: 1.4rem 1.4rem !important; cursor: pointer; transition: all 0.3s cubic-bezier(0.16,1,0.3,1) !important; }
 .item:hover { transform: perspective(900px) translateX(6px) !important; }
 .dn { font-family: var(--ui); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); padding-top: 0.2rem; }
-.dt { font-family: var(--serif); font-size: 1.15rem; font-weight: 300; margin-bottom: 0.2rem; color: var(--text); }
+.dt { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; margin-bottom: 0.2rem; color: var(--text); }
 .dd { font-size: 1rem; color: var(--muted); line-height: 1.6; }
 .da { font-size: 1rem; color: rgba(255,255,255,0.75); align-self: center; transition: all 0.25s; }
 .item:hover .da { color: var(--gold); transform: translateX(4px); }

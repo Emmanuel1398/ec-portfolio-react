@@ -50,7 +50,7 @@ const MOSAIC_CSS = `
   background:linear-gradient(to top,rgba(6,6,6,.94),rgba(6,6,6,.55) 55%,transparent);
   opacity:0;transition:opacity .35s;pointer-events:none;}
 .fa-slot:hover .fa-cap{opacity:1;}
-.fa-t{font-family:var(--serif);font-size:clamp(.85rem,1vw,1.15rem);color:var(--text);line-height:1.2;}
+.fa-t{font-family:var(--serif);font-weight:400;font-size:clamp(.85rem,1vw,1.15rem);color:var(--text);line-height:1.2;}
 .fa-s{font-family:var(--ui);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--gold);margin-top:.3rem;}
 .fa-zoom{position:absolute;top:.6rem;right:.6rem;width:26px;height:26px;border:1px solid rgba(201,169,110,.5);
@@ -69,9 +69,9 @@ const MOSAIC_CSS = `
 }
 @media(max-width:520px){.fa-mosaic{grid-template-columns:1fr;}}
 .fa-sec{max-width:var(--wrap);margin:0 auto;padding:3.5rem var(--gutter) 0;}
-.fa-sec-t{font-family:var(--serif);font-weight:300;font-size:clamp(1.9rem,3.6vw,3rem);
+.fa-sec-t{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,3.6vw,3rem);
   color:var(--text);margin:0 0 1.4rem;line-height:1;}
-.fa-sec-copy{font-family:var(--body);font-weight:300;font-size:clamp(1rem,1.15vw,1.1rem);
+.fa-sec-copy{font-family:var(--ui);font-weight:300;font-size:clamp(1rem,1.15vw,1.1rem);
   color:var(--muted);line-height:1.9;}
 .fa-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,520px),1fr));
   gap:18px;margin-top:2.4rem;padding-bottom:7rem;}
@@ -85,8 +85,8 @@ const MOSAIC_CSS = `
 .fa-card:hover .fa-card-img img{transform:scale(1.05);}
 .fa-card-body{padding:1.6rem 1.5rem;display:flex;flex-direction:column;justify-content:center;gap:.45rem;}
 .fa-card-cat{font-family:var(--ui);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);}
-.fa-card-name{font-family:var(--serif);font-size:clamp(1.3rem,1.8vw,1.8rem);color:var(--text);line-height:1.1;}
-.fa-card-ep{font-family:var(--serif);font-size:.98rem;color:var(--gold2);}
+.fa-card-name{font-family:var(--serif);font-weight:400;font-size:clamp(1.3rem,1.8vw,1.8rem);color:var(--text);line-height:1.1;}
+.fa-card-ep{font-family:var(--serif);font-weight:400;font-size:.98rem;color:var(--gold2);}
 .fa-card-meta{font-family:var(--ui);font-size:11px;letter-spacing:.1em;color:var(--dim);margin-top:.5rem;}
 .fa-card-cta{font-family:var(--ui);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--gold);margin-top:1rem;}
@@ -115,7 +115,7 @@ export default function DrawingsIllustrationsPage() {
       <style>{MOSAIC_CSS}</style>
 
       <div className="pg-head wk-head" style={{ paddingBottom:'1rem' }}>
-        <h1 className="pg-title sec-title wk-title" style={{ fontFamily:'var(--serif)', fontWeight:300,
+        <h1 className="pg-title sec-title wk-title" style={{ fontFamily:'var(--serif)', fontWeight:400,
           color:'var(--text)' }}>
           Drawings &amp; <em style={{ fontStyle:'normal', color:'var(--gold)' }}>Illustrations</em>
         </h1>

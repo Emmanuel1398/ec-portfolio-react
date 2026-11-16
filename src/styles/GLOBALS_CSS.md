@@ -6,13 +6,14 @@ Global stylesheet for the EC Portfolio React app. Covers resets, design tokens, 
 
 ## Fonts
 
-Imported from Google Fonts:
+Defined in [`fonts.css`](./fonts.css), which is imported before this file. That is the only place fonts are loaded or named; the homepage (`home.css`) is the reference for how they are used.
 
-| Variable | Family | Weights |
-|---|---|---|
-| `--serif` | Cormorant Garamond | 300, 400, 600 (normal + italic) |
-| `--ui` | Chakra Petch | 300, 400, 500 |
-| `--body` | DM Sans | 300, 400, 500 |
+| Variable | Family | Role | Weights (the only ones loaded) |
+|---|---|---|---|
+| `--serif` | Cormorant Garamond | Display: names, headings, titles, big numbers | 400 headings · 500 page titles, name/brand |
+| `--ui` | Inter | Everything else: body copy, labels, buttons, nav | 300 body · 400 emphasis · 500 buttons/kickers |
+
+Body text defaults to `--ui` at 300. No italics: emphasis is gold colour, not slant. Always use the tokens, never a font name.
 
 ---
 
