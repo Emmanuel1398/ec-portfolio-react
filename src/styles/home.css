@@ -205,6 +205,29 @@ a:hover>.hm-play svg,button:hover>.hm-play svg,.hm-gate:hover .hm-play svg{fill:
 
 /* ── 5 · CONTACT CTA ── */
 .hm-ctabig{text-align:center;padding:10rem var(--pad-x) 9rem}
+
+/* ── the contact section, with the silk loop behind it ──────────
+   This is the clip that used to open the site on the enter gate; it
+   moved down here when the gate took the gold ring instead. The
+   section becomes the stacking context, the video sits at the bottom
+   of it, the wash above the video, the type above both, and the whole
+   thing is clipped so nothing bleeds into the sections either side. */
+.hm-ctabig--film{position:relative;isolation:isolate;overflow:hidden}
+.hm-cta-fore{position:relative;z-index:2}
+.cta-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.cta-bg-poster,.cta-bg-vid{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block}
+/* the poster sits under the video, so there is never a black flash while
+   the clip is still loading */
+.cta-bg-poster{z-index:0}
+.cta-bg-vid{z-index:1}
+/* Keeps the headline readable: darkest through the middle where the type
+   runs, easing off at the edges so the silk is still visible. */
+.cta-bg-wash{position:absolute;inset:0;z-index:2;
+  background:
+    radial-gradient(62% 52% at 50% 50%, rgba(6,6,6,.88) 0%, rgba(6,6,6,.62) 48%, rgba(6,6,6,.34) 78%, rgba(6,6,6,.5) 100%),
+    linear-gradient(180deg, #060606 0%, rgba(6,6,6,0) 18%, rgba(6,6,6,0) 82%, #060606 100%);}
+@media (prefers-reduced-motion: reduce){ .cta-bg-vid{display:none} }
 .hm-ctabig .hm-h2{font-size:clamp(3rem,7vw,7rem)}
 .hm-ctabig .hm-btn{margin-top:2.8rem;padding:1.15rem 2.4rem;font-size:12px}
 @media(max-width:768px){

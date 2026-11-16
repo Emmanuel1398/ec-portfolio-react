@@ -5,6 +5,7 @@ import { homeSeo } from '../seo/pages';
 import { HOME_SEO_DESC, HOME_BIO, HOME_STATS, HOME_WORK, HOME_SOFTWARE } from '../data/home';
 import { useRevealAll } from '../hooks/useRevealAll';
 import EnterGate from '../components/EnterGate';
+import CtaBackground from '../components/CtaBackground';
 
 const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -219,9 +220,12 @@ export default function HomePage() {
       </section>
 
       {/* 5 · CONTACT */}
-      <section className="hm-ctabig" data-bg="#060606">
-        <h2 className="hm-h2 hm-rv"><span className="hm-line"><span>Have a project</span></span><span className="hm-line"><span>or a role <em>in mind?</em></span></span></h2>
-        <div className="hm-rv hm-d2"><Link to="/contact" className="hm-btn gold">Contact Me →</Link></div>
+      <section className="hm-ctabig hm-ctabig--film" data-bg="#060606">
+        <CtaBackground />
+        <div className="hm-cta-fore">
+          <h2 className="hm-h2 hm-rv"><span className="hm-line"><span>Have a project</span></span><span className="hm-line"><span>or a role <em>in mind?</em></span></span></h2>
+          <div className="hm-rv hm-d2"><Link to="/contact" className="hm-btn gold">Contact Me →</Link></div>
+        </div>
       </section>
     </div>
   );
