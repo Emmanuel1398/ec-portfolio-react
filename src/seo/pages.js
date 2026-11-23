@@ -35,6 +35,14 @@ const HOME_CRUMB = { name: 'Home', path: '/' };
 const POLICY_UPDATED_ISO = new Date(`${POLICY_UPDATED} UTC`).toISOString().slice(0, 10);
 const CONTACT_LINK = { text: 'Contact Me', href: '/contact' };
 
+/* Fallback <lastmod> for character, drone show and work pages whose
+   data carries no `updated` date of its own: the date the content
+   those pages are built from last changed in the repository. Set
+   `updated` on a single entry to override it when that one page
+   changes, and bump this when a change touches the whole set. */
+const CONTENT_UPDATED = '2026-11-16';
+const stamped = (x) => (x.updated ? x : { ...x, updated: CONTENT_UPDATED });
+
 /* common return shape · fields map 1:1 onto SeoProvider state */
 const seo = ({ path, title, description, image = null, type = 'website', noindex = false, nodes = [], body, updated = null }) => ({
   path,
@@ -234,7 +242,8 @@ function breakdown({ c, path, hub, hubLabel, workType, extraWork = {}, next }) {
   });
 }
 
-export function characterSeo(c) {
+export function characterSeo(raw) {
+  const c = stamped(raw);
   const i = CHARACTER_BLOGS.findIndex(x => x.slug === c.slug);
   const n = CHARACTER_BLOGS[(i + 1) % CHARACTER_BLOGS.length];
   return breakdown({
@@ -259,7 +268,8 @@ export function relatedWorks(cat, w, n = 3) {
     .map(x => x.o);
 }
 
-export function workSeo(cat, w) {
+export function workSeo(cat, raw) {
+  const w = stamped(raw);
   const path = `${cat.route}/${w.slug}`;
   const url = abs(path);
   const title = `${w.title} | ${site.name}`;
@@ -307,7 +317,8 @@ export function workSeo(cat, w) {
   });
 }
 
-export function droneSeo(show) {
+export function droneSeo(raw) {
+  const show = stamped(raw);
   const path = `/drone-shows/${show.slug}`;
   const url = abs(path);
   const title = `${show.title} | ${site.name}`;

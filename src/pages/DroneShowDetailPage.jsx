@@ -95,7 +95,44 @@ export default function DroneShowDetailPage() {
   /* unknown slug: a real not-found page (noindex) instead of a silent redirect */
   if (!show) return <NotFoundPage />;
 
-  const conceptThumb = `https://img.youtube.com/vi/${show.conceptYoutubeId}/maxresdefault.jpg`;
+  const conceptThumb = show.thumb || `https://img.youtube.com/vi/${show.conceptYoutubeId}/maxresdefault.jpg`;
+
+  /* The Formation Visual section only exists where a visualizer was actually
+     flown. On a concept that was never produced there is nothing to show, and
+     an "Awaiting Production" placeholder is worse than no section at all, so
+     the whole block goes and the sections below renumber. */
+  const hasVisual = !!show.visualizerYoutubeId;
+  /* Section numbers. The narration is always 02. The concept video is 03 on a
+     produced show, where it follows the visualizer, and 01 on a concept, where
+     it moves up to the top slot. */
+  const conceptNum = hasVisual ? '03' : '01';
+
+  /* The concept video. On a show that was never flown it is the only moving
+     image there is, so it takes the slot the visualizer would have held and
+     the visitor sees the work before reading about it. On a produced show it
+     stays below the script, where it reads as the brief behind the result. */
+  const conceptSection = (
+    <div className="pg-wrap" style={{ paddingBlock:'6rem' }}>
+      <div ref={rH} style={{ marginBottom:'3rem' }}>
+        <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.3em',
+          textTransform:'uppercase', color:'var(--gold)', marginBottom:'.6rem',
+          display:'flex', alignItems:'center', gap:'1.2rem' }}>
+          <span>{conceptNum}</span>
+          The Concept
+        </div>
+        <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.8rem,3vw,3.5rem)',
+          fontWeight:400, color:'var(--text)' }}>
+          Formation <em style={{ color:'var(--gold)' }}>Concept</em>
+        </h2>
+      </div>
+      <VideoBlock
+        sound
+        label="Concept Video"
+        youtubeId={show.conceptYoutubeId}
+        fallbackMsg="Concept video coming soon"
+      />
+    </div>
+  );
 
   return (
     <div style={{ minHeight:'100vh', background:'var(--bg)' }}>
@@ -111,6 +148,10 @@ export default function DroneShowDetailPage() {
           {show.location}
           <span style={{ color:'var(--border)' }}>·</span>
           {show.year}
+          {show.drones ? (<>
+            <span style={{ color:'var(--border)' }}>·</span>
+            {show.drones} Drones
+          </>) : null}
           <span style={{ padding:'.15rem .6rem',
             background: show.status === 'completed' ? 'rgba(201,169,110,.1)' : 'rgba(255,255,255,.05)',
             border: `1px solid ${show.status === 'completed' ? 'rgba(201,169,110,.4)' : 'rgba(255,255,255,.15)'}`,
@@ -130,7 +171,8 @@ export default function DroneShowDetailPage() {
         <AnswerBlock summary={show.summary} faqs={show.faqs} />
       </div>
 
-      {/* ── SECTION 1: DRONE FORMATION VISUAL ── */}
+      {/* ── SECTION 1: DRONE FORMATION VISUAL · only where one was flown ── */}
+      {hasVisual && (
       <div className="pg-wrap" style={{ paddingBlock:'6rem' }}>
         <div ref={rV} style={{
           marginBottom:'3rem',
@@ -168,11 +210,17 @@ export default function DroneShowDetailPage() {
           </div>
         )}
       </div>
+      )}
+
+      {/* ── no visualizer: the concept video takes the top slot instead ── */}
+      {!hasVisual && conceptSection}
 
       {/* ── DESCRIPTION ── */}
       <div className="pg-wrap" style={{ paddingBlock:'4rem', borderBottom:'1px solid var(--border)' }}>
+        {/* Fills the content column, matching the video block rather than
+            sitting in a narrow 680px measure against its left edge. */}
         <p style={{ fontFamily:'var(--ui)', fontSize:'clamp(.95rem,1.15vw,1.08rem)',
-          color:'var(--muted)', lineHeight:1.95, maxWidth:'680px' }}>
+          color:'var(--muted)', lineHeight:1.95, maxWidth:'none' }}>
           {show.description}
         </p>
       </div>
@@ -208,27 +256,8 @@ export default function DroneShowDetailPage() {
         </div>
       </div>
 
-      {/* ── SECTION 3: THE CONCEPT VIDEO ── */}
-      <div className="pg-wrap" style={{ paddingBlock:'6rem' }}>
-        <div ref={rH} style={{ marginBottom:'3rem' }}>
-          <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.3em',
-            textTransform:'uppercase', color:'var(--gold)', marginBottom:'.6rem',
-            display:'flex', alignItems:'center', gap:'1.2rem' }}>
-            <span>03</span>
-            The Concept
-          </div>
-          <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.8rem,3vw,3.5rem)',
-            fontWeight:400, color:'var(--text)' }}>
-            Formation <em style={{ color:'var(--gold)' }}>Concept</em>
-          </h2>
-        </div>
-        <VideoBlock
-          sound
-          label="Concept Video"
-          youtubeId={show.conceptYoutubeId}
-          fallbackMsg="Concept video coming soon"
-        />
-      </div>
+      {/* ── THE CONCEPT VIDEO · at the foot only on a produced show ── */}
+      {hasVisual && conceptSection}
 
       {/* ── PREV / NEXT NAVIGATION ── */}
       <div className="pad-x" style={{ borderTop:'1px solid var(--border)', display:'grid',

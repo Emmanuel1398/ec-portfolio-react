@@ -18,7 +18,9 @@ function useIntersection(threshold = 0.15) {
 function ShowCard({ show, index }) {
   const [r, v] = useIntersection();
   const [hover, setHover] = useState(false);
-  const thumb = `https://img.youtube.com/vi/${show.conceptYoutubeId}/maxresdefault.jpg`;
+  /* A local thumbnail where the show has one. The YouTube fallback is a
+     vertical crop on Shorts, which reads badly in a grid of 16:9 cards. */
+  const thumb = show.thumb || `https://img.youtube.com/vi/${show.conceptYoutubeId}/maxresdefault.jpg`;
 
   return (
     <div ref={r} style={{

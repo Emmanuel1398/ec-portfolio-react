@@ -3,7 +3,12 @@
    All classes are prefixed hm- so nothing collides with the
    section pages. Scroll animations are driven by HomePage.jsx.
    ───────────────────────────────────────────────────────────── */
-:root { --navh:84px; --cream:#ece6da; --ink:#141210; --gold-deep:#8a6a32; }
+:root { --navh:84px; --cream:#ece6da; --ink:#141210;
+  /* The gold used on the cream panel. #8a6a32 measured 4.03:1 against
+     --cream, just under the 4.5:1 WCAG AA needs for small text, and the
+     software category labels are 11px. Four points darker at the same
+     hue and saturation takes it to 4.85:1. */
+  --gold-deep:#7b5e2d; }
 /* overflow-x:hidden on both html and body turns body into a scroll box and breaks
    position:sticky (the pinned showreel reveal); clip hides overflow the same way without that */
 html,body{overflow-x:clip}

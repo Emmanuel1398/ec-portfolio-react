@@ -128,11 +128,21 @@ const ODUNGI_BLOCKS = [
 
   { t:'head', num:'02', title:'Blockout &', accent:'Sculpt' },
   { t:'video', label:'Sculpting Timelapse', spec:'ZBrush \u00b7 process video', youtubeId:'sEM1QkKo_O8', poster:O('poster_timelapse') },
+  /* The large plate sits in the same box as the timelapse above it. The page
+     loads a 1920px version; the magnifier opens a 4000px one, so the full
+     render is only fetched when somebody actually asks for it. */
+  { t:'bigshot', src:O('large_print'), full:O('large_print_full'),
+    tag:'Sculpt', label:'Odungi \u00b7 Full Sculpt', spec:'ZBrush \u00b7 click to view at full size' },
   { t:'frames', layout:'row', items:[
-    OF('sculpt_01','Sculpt','Front \u00b7 Horns and Ears','ZBrush'),
-    OF('sculpt_02','Sculpt','Three Quarter \u00b7 Ornaments','ZBrush'),
-    OF('sculpt_03','Sculpt','Face \u00b7 Scarification Detail','ZBrush'),
-    OF('sculpt_04','Sculpt','Bust \u00b7 Neck and Shoulders','ZBrush'),
+    OF('sculpt_skin_01','Sculpt','Front \u00b7 Horns and Ears','ZBrush'),
+    OF('sculpt_skin_02','Sculpt','Crown \u00b7 Between the Horns','ZBrush'),
+    OF('sculpt_skin_03','Sculpt','Three Quarter \u00b7 Pierced Ear','ZBrush'),
+    OF('sculpt_skin_04','Sculpt','Profile \u00b7 The Horn Spiral','ZBrush'),
+    OF('sculpt_skin_05','Sculpt','Eyes \u00b7 Scarification Around the Sockets','ZBrush'),
+    OF('sculpt_skin_06','Sculpt','Mouth and Chin \u00b7 Pattern Detail','ZBrush'),
+    OF('sculpt_skin_07','Sculpt','Brow \u00b7 Forehead Pattern','ZBrush'),
+    OF('sculpt_skin_08','Sculpt','Bust \u00b7 Chest Scarification','ZBrush'),
+    OF('sculpt_skin_09','Sculpt','Bust \u00b7 Back and Shoulders','ZBrush'),
   ]},
   { t:'videoRow', items:[
     { youtubeId:'--HBYdq_fUw', label:'First Sculpt Turntable', portrait:true, auto:false, poster:O('poster_turntable_first') },
@@ -190,9 +200,14 @@ const ODUNGI_BLOCKS = [
     'These renders are the skin test. They are where the texture work, the displacement and the light rig finally have to agree with each other, and where melanated skin either holds up under close range or falls apart.',
   ]},
   { t:'frames', cols:1, items:[ OF('hypershade','Hypershade','Maya \u00b7 aiStandardSurface Network','diffuse \u00b7 specular \u00b7 roughness \u00b7 normal \u00b7 broad and fine displacement') ]},
+  /* The two Recent frames sit next to the Front \u00b7 Bust render so the newest
+     pass on the skin reads against the earlier one. The first of them is the
+     same file the blog uses as its thumbnail, referenced rather than copied. */
   { t:'frames', layout:'row', items:[
     OF('lookdev_01','Look Dev','Three Quarter \u00b7 Horns and Ear','skin test'),
     OF('lookdev_02','Look Dev','Front \u00b7 Bust','skin test'),
+    F('/characters/odungi.jpg','Recent','Front \u00b7 Face','recent render'),
+    OF('lookdev_05','Recent','Three Quarter \u00b7 Face Close Up','recent render'),
     OF('lookdev_03','Look Dev','Close Up \u00b7 Eyes and Pore Detail','skin test'),
     OF('lookdev_04','Look Dev','Three Quarter \u00b7 Expression','teeth, tusks and beadwork'),
   ]},
@@ -806,6 +821,7 @@ export const CHARACTER_BLOGS = [
     category:'Hyperrealistic Character', year:'2026',
     tagline:'A technical breakdown of a dark African fantasy being; Odungi, drawn from the mystery, fear and symbolism embedded in traditional African fables.',
     status:'In Progress',
+    updated:'2026-11-23',
     keywords:['Odungi African creature','African dark fantasy character','African folklore 3D character','ZBrush creature sculpt','ram horns creature design','scarification sculpt','Mari texturing ACES','melanated skin creature','MetaHuman creature rig','Sankofa Asili Productions','African mythology character design','3D creature artist Kenya'],
     specs:{ software:['ZBrush','Maya','Mari','Arnold','XGen','Photoshop'] },
     thumb:'/characters/odungi.jpg', hero:null, heroBg:null, outro:null, outroPending:true,

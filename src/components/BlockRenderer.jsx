@@ -79,6 +79,28 @@ function Para({ p }) {
   );
 }
 
+/* ── a full-width plate with its own high-resolution zoom source ── */
+function BigShot({ block }) {
+  const [open, setOpen] = useState(false);
+  const cap = [block.label, block.spec].filter(Boolean).join(' \u00b7 ');
+  return (
+    <>
+      <div className="cb-shot cb-big" role="button" tabIndex={0}
+        aria-label={`View ${block.label || 'render'} full size`}
+        onClick={() => setOpen(true)}
+        onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(true); } }}>
+        <img src={block.src} alt={block.label} loading="lazy" />
+        {block.tag && <span className="cb-tag">{block.tag}</span>}
+        <ZoomBadge />
+        {(block.label || block.spec) && (
+          <div className="cb-cap">{block.label}{block.spec ? <span> · {block.spec}</span> : null}</div>
+        )}
+      </div>
+      {open && <Lightbox src={block.full || block.src} caption={cap} onClose={() => setOpen(false)} />}
+    </>
+  );
+}
+
 export default function BlockRenderer({ blocks }) {
   return (
     <div className="cblog">
@@ -102,6 +124,12 @@ export default function BlockRenderer({ blocks }) {
               : b.cols === 4 ? 'cb-grid4' : b.cols === 3 ? 'cb-grid3' : b.cols === 2 ? 'cb-grid2' : 'cb-grid1';
             return <div className={cls} key={i}>{b.items.map((f, j) => <Frame key={j} f={f} row={auto} />)}</div>;
           }
+          case 'bigshot':
+            /* A full-width plate sized like the video blocks above it, with a
+               separate, larger file behind the magnifier. The page loads the
+               display version; the zoom file is only fetched on click, which
+               is what keeps a 33-megapixel render off the critical path. */
+            return <BigShot key={i} block={b} />;
           case 'maps':
             return <div className="cb-maps" key={i}>{b.items.map((f, j) => <Frame key={j} f={f} ratio="1/1" />)}</div>;
           case 'nodegraph':
@@ -199,6 +227,9 @@ const CB_CSS = `
 .cb-grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:2rem;}
 .cb-maps{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:2rem;}
 .cb-mt{margin-top:2rem;}
+/* the big plate takes the same box as the video blocks above it */
+.cb-big{margin-top:2rem;position:relative;overflow:hidden;background:var(--bg2);display:block;}
+.cb-big img{width:100%;height:auto;display:block;}
 .cb-row{display:flex;gap:6px;margin-top:2rem;height:clamp(300px,26vw,460px);overflow-x:auto;overflow-y:hidden;
   scrollbar-width:thin;scrollbar-color:rgba(201,169,110,.35) transparent;}
 .cb-row::-webkit-scrollbar{height:6px;}

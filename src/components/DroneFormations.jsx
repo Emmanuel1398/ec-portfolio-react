@@ -43,6 +43,36 @@ const SHAPES = [
   { name: 'text', text: 'MCC', colors: ['#6ec6ff', '#e8d5a8', '#ffffff'] },
   { name: 'text', text: 'KAMPALA', colors: ['#ffd36e', '#ff5a5a', '#ffffff'] },
   { name: 'text', text: 'OUR OCEANS', colors: ['#6ec6ff', '#7af0b0', '#ffffff'] },
+  /* ── drawn from the newer shows ───────────────────────────────── */
+  { name: 'tower', colors: ['#6ec6ff', '#ffd36e', '#ffffff'], d:       /* CBK @ 60 */
+    'M38 92 L38 26 A12 7 0 0 1 62 26 L62 92 Z M38 26 A12 7 0 0 0 62 26' +
+    'M38 40 L62 40 M38 54 L62 54 M38 68 L62 68' +
+    'M50 14 L50 4 M26 22 L18 14 M74 22 L82 14 M20 44 L8 42 M80 44 L92 42' +
+    'M22 64 L12 70 M78 64 L88 70 M26 88 L10 92 M74 88 L90 92' },
+  { name: 'coin', colors: ['#e8d5a8', '#c9a96e', '#ffd36e'], d:        /* the shilling */
+    'M50 8 A42 42 0 1 1 49.9 8 Z M50 20 A30 30 0 1 1 49.9 20 Z' +
+    'M50 32 L50 68 M40 40 L60 40 M40 60 L60 60 M44 50 L56 50' },
+  { name: 'player', colors: ['#3ddc84', '#ffd36e', '#ffffff'], d:      /* Yanga, Simba */
+    'M50 6 A8 8 0 1 1 49.9 6 Z M50 16 L50 48 M50 22 L30 34 M50 26 L72 20' +
+    'M50 48 L36 70 L30 92 M50 48 L64 68 L70 92 M26 94 L36 90 M66 94 L76 92' },
+  { name: 'trophy', colors: ['#ffd36e', '#e8d5a8', '#ffffff'], d:
+    'M32 10 L68 10 L66 36 A16 18 0 0 1 34 36 Z M32 16 L18 16 A12 12 0 0 0 32 32' +
+    'M68 16 L82 16 A12 12 0 0 1 68 32 M50 54 L50 70 M34 70 L66 70 M28 86 L72 86 L72 78 L28 78 Z' },
+  { name: 'drum', colors: ['#ff8c42', '#ffd36e', '#e8d5a8'], d:        /* Amstel, Burundi */
+    'M28 22 L72 22 L66 80 L34 80 Z M28 22 A22 7 0 0 0 72 22 A22 7 0 0 0 28 22' +
+    'M30 34 L70 34 M32 52 L68 52 M33 66 L67 66' +
+    'M36 24 L32 78 M50 23 L50 80 M64 24 L68 78' },
+  { name: 'bottle', colors: ['#7af0b0', '#ffd36e', '#ff5a5a'], d:
+    'M42 8 L58 8 L58 26 L66 40 L66 92 L34 92 L34 40 L42 26 Z' +
+    'M40 10 L60 10 M34 50 L66 50 M34 72 L66 72 M44 58 L56 58 M44 64 L56 64' },
+  { name: 'arch', colors: ['#c38bff', '#e8d5a8', '#7fd3ff'], d:        /* Rhema: a wall rebuilt */
+    'M10 92 L10 46 L90 46 L90 92 M10 62 L90 62 M10 78 L90 78' +
+    'M26 46 L26 92 M50 46 L50 92 M74 46 L74 92' +
+    'M34 46 A16 16 0 0 1 66 46 M50 30 L50 12 M40 20 L60 20' },
+  { name: 'text', text: 'CBK 60',  colors: ['#6ec6ff', '#e8d5a8', '#ffffff'] },
+  { name: 'text', text: 'YANGA',   colors: ['#3ddc84', '#ffd36e', '#ffffff'] },
+  { name: 'text', text: 'SIMBA',   colors: ['#ff5a5a', '#ffd36e', '#ffffff'] },
+  { name: 'text', text: 'EACLC',   colors: ['#7fd3ff', '#7af0b0', '#ffffff'] },
 ];
 
 const hexToRgb = (h) => { const n = parseInt(h.slice(1), 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
@@ -116,6 +146,9 @@ export default function DroneFormations() {
     let drones = [], targets = [], stars = [], city = [];
     let phase = 0, phaseTime = 0, order = [], formIdx = 0, palette = SHAPES[0].colors.map(hexToRgb);
 
+    /* The order is already reshuffled every time the cycle restarts, so the
+       longer list below does not mean a visitor always sees the same opening
+       formations. Nothing extra is needed for that. */
     const shuffleOrder = () => { order = SHAPES.map((_, i) => i).sort(() => Math.random() - 0.5); };
 
     const resize = () => {

@@ -986,7 +986,8 @@ export const DRONE_SHOWS = [
     id:'ds-01', slug:'mcc-drone-show',
     title:`M.C.C. Drone Show Concept`,
     client:`Mashariki Cooperation Conference`,
-    year:'2026', location:`Diani, Kenya`,
+    year:'2025', drones:350, location:`Diani, Kenya`,
+    updated:'2026-11-22',
     status:'completed',
     conceptYoutubeId:'d3tHKHMC_dk',
     visualizerYoutubeId:'Uf7Qa9oGWvM',
@@ -1012,7 +1013,8 @@ export const DRONE_SHOWS = [
     id:'ds-02', slug:'kampala-museveni-swearing-in',
     title:`Kampala 1st Drone Show Concept`,
     client:`NRM / Government of Uganda`,
-    year:'2026', location:`Kololo, Kampala, Uganda`,
+    year:'2026', drones:350, location:`Kololo, Kampala, Uganda`,
+    updated:'2026-11-22',
     status:'completed',
     conceptYoutubeId:'cpQiuOn73zE',
     visualizerYoutubeId:'zsRliK41Dus',
@@ -1035,7 +1037,8 @@ export const DRONE_SHOWS = [
     id:'ds-03', slug:'la-mada-drone-show',
     title:`La Mada Drone Show Concept`,
     client:`NIS · National Intelligence Service`,
-    year:'2025', location:`Kenya`,
+    year:'2026', drones:350, location:`Kenya`,
+    updated:'2026-11-22',
     status:'completed',
     conceptYoutubeId:'_MZahXi2uck',
     visualizerYoutubeId:'XcnjwO4LLlc',
@@ -1073,7 +1076,8 @@ Amani, Upendo, Na Umoja."`},
     id:'ds-04', slug:'eu-kenya-relations',
     title:`EU–Kenya Relations Drone Show Concept`,
     client:`European Union / Kenya`,
-    year:'2025', location:`Kenya`,
+    year:'2026', drones:100, location:`Kenya`,
+    updated:'2026-11-22',
     status:'completed',
     conceptYoutubeId:'AgCrVkj5FRQ',
     visualizerYoutubeId:'PYodpMWMOFo',
@@ -1092,7 +1096,8 @@ Amani, Upendo, Na Umoja."`},
   {
     id:'ds-05', slug:'hfck-drone-show',
     title:`HFCK Drone Show Concept`,
-    client:`HFCK`, year:'2025', location:`Kenya`,
+    client:`HFCK`, year:'2026', drones:350, location:`Kenya`,
+    updated:'2026-11-22',
     status:'concept',
     conceptYoutubeId:'z3jYN-6Ym_8',
     visualizerYoutubeId:null,
@@ -1111,7 +1116,8 @@ Amani, Upendo, Na Umoja."`},
     id:'ds-06', slug:'our-oceans-conference',
     title:`Our Oceans Conference Drone Show Concept`,
     client:`Our Ocean Conference`,
-    year:'2025', location:`Mombasa, Kenya`,
+    year:'2026', drones:350, location:`Mombasa, Kenya`,
+    updated:'2026-11-22',
     status:'concept',
     conceptYoutubeId:'_-eVseiaA7g',
     visualizerYoutubeId:null,
@@ -1130,6 +1136,441 @@ Amani, Upendo, Na Umoja."`},
       {section:`Our Ocean Conference`, text:`"Today, leaders, scientists, entrepreneurs, and communities gather with a common purpose. To turn ambition into action. And commitments into measurable impact."`},
       {section:`30% by 2030`, text:`"Together, we advance the global vision of protecting thirty percent of our ocean by 2030. A promise to future generations. A commitment to our shared home."`},
       {section:`Grand Finale`, text:`"The story of the ocean is the story of humanity. What we choose today will shape the world of tomorrow. Let us protect what sustains us. Let us preserve what inspires us. Let us build a future worthy of the generations to come. Our Ocean. Our Heritage. Our Future."`},
+    ],
+  },
+  {
+    id:'ds-07', slug:'rhema-feast-drone-show',
+    title:`Rhema Feast Drone Show`,
+    client:`Rhema Feast`, year:'2026', drones:250, location:`Nairobi, Kenya`,
+    updated:'2026-11-22',
+    status:'completed',
+    conceptYoutubeId:'D-8Lr7qvdP4',
+    visualizerYoutubeId:'SY_oYbsduzo',
+    thumb:'/drone-shows/rhema-feast.jpg',
+    tagline:`Come. Let us rebuild. A story of ruins and rising, told in light above Nairobi.`,
+    description:`A drone show built on the rebuilding of Jerusalem's walls, moving from darkness and ruins through a call, a gathering of builders and the work itself, to a closing declaration. Flown with 250 drones. A show whose sole commemoration was of excellence, skill and pure storytelling, for a festival that touches hearts and souls. Proud to have been part of it.`,
+    script:[
+      {section:`The Darkness`, text:`“There are moments when you stand before what was,
+and wonder if it can ever be again.
+When walls have fallen;
+When dreams have been interrupted;
+When purpose seems buried beneath the rubble;
+And all around you, the evidence says one thing:
+It, is over."`},
+      {section:`The Ruins`, text:`“Jerusalem was broken.
+Its walls were torn down.
+Its gates had been destroyed.
+What once represented strength now testified of defeat.
+But every generation eventually reaches a moment when it must decide:
+Will we mourn the ruins,
+or will we rebuild?"`},
+      {section:`The Call`, text:`“And in the midst of the ruins, a voice arose.
+Not a voice of blame.
+Not a voice of fear.
+But a voice of vision.
+A voice that dared to say:
+Come.
+Not you rebuild.
+Not someone rebuild.
+Come. Let us rebuild."`},
+      {section:`The Gathering`, text:`“Because great things are never rebuilt by spectators.
+They are rebuilt by people who refuse to walk past what is broken.
+Builders. Visionaries. Fathers. Mothers.
+Sons. Daughters. Leaders. Dreamers.
+Every person carrying a piece of the assignment.”`},
+      {section:`The Building`, text:`“One stone. Then another.
+One gate. Then another.
+One family. One generation.
+One act of obedience at a time.
+We rebuild what was neglected.
+We restore what was lost.
+We strengthen what remains.
+We build again."`},
+      {section:`The Rising`, text:`“And suddenly, the ruins are no longer the end of the story.
+They become the foundation of a testimony.
+What was broken begins to speak again.
+What was silent begins to rise again.
+What was forgotten becomes a monument.
+Because rebuilding is not going backwards.
+Rebuilding is rising again."`},
+      {section:`The Declaration`, text:`“So we gather not to admire the ruins.
+We gather to build.
+We do not gather to remember what was.
+We gather to declare what shall be.
+We will rebuild. We will restore.
+We will rise.
+COME.
+LET US REBUILD.”`},
+    ],
+  },
+  {
+    id:'ds-08', slug:'cbk-60-drone-show',
+    title:`CBK @ 60 Drone Show Concept`,
+    client:`Central Bank of Kenya`, year:'2026', drones:350, location:`Nairobi, Kenya`,
+    updated:'2026-11-22',
+    status:'concept',
+    conceptYoutubeId:'F27AaFmz3Fg',
+    visualizerYoutubeId:null,
+    thumb:'/drone-shows/cbk-60.jpg',
+    tagline:`Sixty years of the Central Bank of Kenya, from the first shilling to the digital frontier.`,
+    description:`A drone show concept for the Central Bank of Kenya's 60th anniversary, tracing the institution from its founding in 1966, through the shilling, the bond programme and the people it serves, to the financial future it is helping to architect. Built for 350 drones. As of publication, this concept has not been produced.`,
+    script:[
+      {section:`Kenya Rising`, text:`“For six decades, a nation has grown, transformed and moved forward.
+And at the heart of that journey,
+has stood an institution entrusted with safeguarding confidence in Kenya's economy.
+Tonight, we celebrate that journey."`},
+      {section:`The Beginning`, text:`“In 1966, the Central Bank of Kenya was established.
+Six decades ago, a new institution began its journey,
+with a mandate to support monetary and financial stability.
+A journey that would become deeply connected to the story of Kenya."`},
+      {section:`The Kenya Shilling`, text:`“A nation's economy needs a trusted medium through which people can trade, build and prosper.
+From the East African Currency Board to Kenya's own sovereign money.
+Every note tells a story. Every coin carries a memory.
+In the hands of families, businesses and institutions, currency became more than money.
+It became a symbol of confidence in the nation."`},
+      {section:`The Institution`, text:`“From one institution came a responsibility that reaches far beyond its walls.
+To support a sound monetary and financial system.
+To strengthen confidence.
+To serve Kenya.”`},
+      {section:`60 Years of Stability`, text:`“Stability is not simply a number.
+It is confidence.
+It is resilience.
+It is the assurance that tomorrow can be built upon today.
+For 60 years, CBK has stood as a pillar of Kenya's monetary and financial stability."`},
+      {section:`Protecting Trust`, text:`“Currency is more than paper and metal.
+It is trust made tangible.
+Over six decades, CBK has safeguarded the integrity of our money
+Behind every transaction is trust, and every institution is confidence.
+And behind a resilient Financial system is the constant work of protecting that confidence.
+For six decades, that responsibility has remained at the centre of CBK's journey."`},
+      {section:`Kenya's Economic Journey`, text:`“As a Fiscal agent to the Government,
+CBK has redefined our debt landscape.
+The Treasury Bond program extended our maturity,
+stabilized our yields, and built a Financial architecture that supports future visions.
+Businesses have grown. Communities have transformed.
+Technology has accelerated.
+And a new generation has imagined new possibilities.
+Through every chapter, Kenya's Financial system has continued to evolve.”`},
+      {section:`The Digital Future`, text:`“The world is changing faster than ever.
+Finance is becoming more connected.
+Technology is transforming how people save, transact, invest, and participate in the economy.
+"And Kenya continues to stand at the frontier of financial innovations.”`},
+      {section:`The Heart of the Economy`, text:`“At the centre of this ecosystem is a responsibility that has endured for generations.
+To strengthen the foundations.
+To encourage confidence.
+To support a resilient financial system.
+And to help create an environment where Kenya can continue to grow”`},
+      {section:`The People's Bank`, text:`"CBK belongs to every Kenyan.
+The farmer in Bungoma. The teacher in Mombasa.
+The student in Turkana. The entrepreneur in Kisumu.
+Through Financial literacy, through inclusion, through protection ;
+the Bank serves the people.
+And the people are the true wealth of Kenya.”`},
+      {section:`The Future Is Ours`, text:`“What will the next sixty years bring?
+Climate-smart finance. Artificial intelligence in banking. An International Financial Centre.
+CBK is not just preparing for the future ,
+it is architecting it.
+The sun rises on a new era. The best chapters are yet unwritten.
+A future in which Kenya continues to rise."`},
+      {section:`CBK @ 60`, text:`”To every Kenyan who has trusted us with their savings, their business, their future,
+Asante. Thank you.
+The Central Bank of Kenya renews its promise;
+to protect, to innovate, to serve.
+For sixty years, we have been your bank.
+For the next sixty, we will be your future.
+Happy 60th Anniversary, CBK. “`},
+    ],
+  },
+  {
+    id:'ds-09', slug:'eaclc-drone-show',
+    title:`EACLC Drone Show Concept`,
+    client:`East Africa Commercial and Logistics Center`, year:'2026', drones:120, location:`Tanzania`,
+    updated:'2026-11-22',
+    status:'concept',
+    conceptYoutubeId:'4jzwxGb6VKM',
+    visualizerYoutubeId:null,
+    thumb:'/drone-shows/eaclc.jpg',
+    tagline:`Mwaka mmoja wa mafanikio. One year of connecting East African trade.`,
+    description:`A drone show concept for the first anniversary of the East Africa Commercial and Logistics Center in Tanzania, narrated in Swahili across trade, logistics, partnership and growth. Built for 120 drones. As of publication, this concept has not been produced.`,
+    script:[
+      {section:`The Rising Star`, text:`“Mwaka mmoja uliopita,
+maono yetu yaligeuka kuwa uhalisia;
+maono ya kuunganisha biashara,
+kuimarisha biashara na uwekezaji,
+na kujenga mustakabali wa biashara,
+hapa Tanzania, ndani ya Afrika Mashariki.”`},
+      {section:`Connecting East Africa`, text:`“Leo,
+maono hayo yamekuwa lango linalostawi,
+ambapo fursa husafiri kwa uhuru kuvuka mipaka,
+na ushirikiano huendelea kuimarika kila siku.”`},
+      {section:`Logistics in Motion`, text:`“Kutoka bandarini hadi kwenye barabara kuu,
+kutoka maghalani hadi angani,
+kila safari huwaleta watu, bidhaa,
+na fursa karibu zaidi.”`},
+      {section:`Commercial Growth`, text:`“Kwa pamoja,
+hatukujenga miundombinu pekee.
+Tumeunda fursa,
+tumechochea ukuaji wa uchumi,
+na kufungua njia mpya za ustawi wa ukanda huu.”`},
+      {section:`EACLC Logo`, text:`“Tukiunganishwa na ubunifu wa kimkakati,
+na kuongozwa na ubora,
+kwa fahari tunahudumu kama,
+Kituo cha Biashara na Usafirishaji cha Afrika Mashariki.
+
+East Africa Commercial and Logistics Center”`},
+      {section:`Anniversary Logo`, text:`“Leo tunaadhimisha hatua muhimu ya kipekee;
+mwaka mmoja wa maendeleo, ushirikiano,
+na mafanikio makubwa.”`},
+      {section:`Partnership Handshake`, text:`“Kila mafanikio huanza kwa kuaminiana.
+Kila hatua muhimu hujengwa kupitia ushirikiano.
+Kwa pamoja tunaendelea kuijenga kesho.”`},
+      {section:`Tree of Growth`, text:`“Kama mti wenye mizizi imara,
+na matawi yanayoendelea kupanuka,
+ukuaji wetu unaendelea kuleta thamani ya kudumu,
+kwa biashara na jamii kwa ujumla.”`},
+      {section:`EACLC Center`, text:`“The EAST AFRICA COMMERCIAL AND LOGISTICS CENTER.
+Jina linalowakilisha dira, ubunifu,
+na dhamira ya kuiunganisha Afrika Mashariki na ulimwengu."`},
+      {section:`Globe Opportunity`, text:`“Kadiri dunia inavyozidi kuunganishwa,
+ndivyo Afrika Mashariki nayo inavyoendelea kuunganishwa.
+Kwa pamoja tunaendelea kufungua milango mipya ya fursa za kimataifa.”`},
+      {section:`Mwaka Mmoja wa Mafanikio`, text:`“Mwaka mmoja wa mafanikio.
+Mwaka mmoja wa ushirikiano.
+Mwaka mmoja wa kujenga mustakabali wenye mafanikio zaidi."`},
+      {section:`Happy First Anniversary`, text:`"Tunapoadhimisha mwaka mmoja wa kipekee,
+tunaangalia mbele kwa azma kubwa zaidi.
+Kwa washirika wetu, wateja wetu, timu yetu iliyojitoa,
+na kila mmoja aliyekuwa sehemu ya safari hii;
+ASANTENI.
+Tunatazamia fursa mpya, mafanikio makubwa zaidi, na miaka mingi ijayo ya mafanikio.
+Heri ya Maadhimisho ya Kwanza,
+
+Happy First Anniversary, East Africa Commercial and Logistics Center."`},
+    ],
+  },
+  {
+    id:'ds-10', slug:'young-africans-tanzania-drone-show',
+    title:`Young Africans Tanzania Drone Show Concept`,
+    client:`Young Africans Sports Club`, year:'2026', drones:350, location:`Uhuru Stadium, Dar es Salaam, Tanzania`,
+    updated:'2026-11-22',
+    status:'concept',
+    conceptYoutubeId:'w8VSghLBqPw',
+    visualizerYoutubeId:null,
+    thumb:'/drone-shows/young-africans.jpg',
+    tagline:`Twende Yanga. Five championships behind, a sixth in front.`,
+    description:`A drone show concept created for Yanga Day 2026, Wiki ya Mwananchi, at Uhuru Stadium in Dar es Salaam. Narrated in Swahili, it runs from sunrise over Kilimanjaro through the crest, the supporters and five consecutive titles, to the pursuit of a sixth. Built for 350 drones. As of publication, this concept has not been produced.`,
+    script:[
+      {section:`Sunrise over Kilimanjaro`, text:`“Kila msimu huanza na matumaini.
+Lakini kwa Young Africans,
+Kila alfajiri huleta ahadi moja.
+Ushindi!
+
+Leo, safari mpya inaanza.”`},
+      {section:`Football Kick Off`, text:`“Msimu mpya!
+Changamoto mpya!
+Wapinzani wapya!
+Lakini lengo ni moja tu.
+
+Kutetea ubingwa."`},
+      {section:`Yanga Crest`, text:`“Hii si nembo tu! Ni alama ya heshima!
+Ni historia ya mafanikio! Ni fahari ya mamilioni ya Wananchi.
+
+Hii ndiyo Young Africans Sports Club.”`},
+      {section:`Supporters`, text:`“Kutoka Dar es Salaam, mpaka kila kona ya Tanzania,
+Sauti ni moja! Moyo ni mmoja!
+
+Nguvu ya Yanga ni Wananchi.
+
+YANGA! YANGA! YANGA!”`},
+      {section:`Five Championships`, text:`“Ubingwa wa kwanza. Ukafuatiwa na wa pili!
+Wa tatu! Wa nne!
+Na wa tano mfululizo.
+Historia imeandikwa.”`},
+      {section:`League Trophy`, text:`“Mabingwa hawalindi historia. Wanailinda hadhi yao.
+Na kila msimu huanza upya.
+
+Kwa ndoto mpya ya ushindi!”`},
+      {section:`Yanga Bingwa`, text:`“Kwa juhudi! Kwa mshikamano!
+Kwa moyo wa kupambana.
+Yanga imeendelea kutawala.
+
+YANGA BINGWA!”`},
+      {section:`Lion`, text:`“Moyo wa bingwa,
+Hausalimu amri!
+Hauogopi changamoto.
+
+Unaendelea kupigania ushindi mpaka mwisho.”`},
+      {section:`Winning Goal`, text:`“Pasi moja! Shuti moja!
+Bao moja!
+Na uwanja mzima unalipuka kwa shangwe!
+
+Huu ndio mchezo wa Wananchi.”`},
+      {section:`6th Crown`, text:`“Ubingwa wa tano ni historia.
+Lakini ndoto haijaisha.
+Lengo letu ni moja...
+
+Ubingwa wa sita mfululizo”`},
+      {section:`Mwakani Tena`, text:`“Ahadi yetu ni moja.
+Tutapambana! Tutajituma!
+Na tutarudi tena!
+
+MWAKANI TENA!."`},
+      {section:`Finale`, text:`"Kwa kila mchezaji, shabiki na mwananchi,
+Msimu mpya umeanza wa kutetea ubingwa.
+Tutaipea Tanzania fahari na tutandika historia nyingine.
+
+TWENDE YANGA!
+
+UBINGWA UNAANZA TENA LEO!"`},
+    ],
+  },
+  {
+    id:'ds-11', slug:'simba-fc-drone-show',
+    title:`Simba FC Drone Show Concept`,
+    client:`Simba SC`, year:'2026', drones:350, location:`Uhuru Stadium, Dar es Salaam, Tanzania`,
+    updated:'2026-11-22',
+    status:'concept',
+    conceptYoutubeId:'_tr0VmivSHg',
+    visualizerYoutubeId:null,
+    thumb:'/drone-shows/simba-fc.jpg',
+    tagline:`Simba Daima. A lion, a stadium, and a night built for the Wananchi.`,
+    description:`A drone show concept developed for Simba Day 2026 at Uhuru Stadium in Dar es Salaam, narrated in Swahili and celebrating the club alongside its partners. Built for 350 drones. As of publication, this concept has not been produced.`,
+    script:[
+      {section:`Lion Chasing Football`, text:`“Kila bingwa huanza na ndoto.
+Kila Simba huanza na uwindaji.
+Usiku wa leo, fahari imeamka.
+
+Simba anaikimbiza historia.”`},
+      {section:`Goal Entering the Net`, text:`“Sikilizeni ngurumo,
+Ngurumo ya ujasiri.
+Ngurumo ya mamilioni ya mashabiki wa Simba.
+Klabu moja. Familia moja.
+Fahari moja.”`},
+      {section:`MO COLA Logo`, text:`“Kila ushindi,
+Hustahili kinywaji kinachoburudisha.
+Leo tunasherehekea pamoja na,
+
+MO COLA.”`},
+      {section:`MO COLA Bottle Opening`, text:`“Fungua ladha.
+Amsha nguvu.
+Burudisha shauku.
+Kila mchezo mkubwa huanza na nguvu mpya.”`},
+      {section:`Mr. Mohammed's Portrait`, text:`“Tunatoa heshima,
+Kwa uongozi wenye maono.
+Kwa ushirikiano unaojenga mafanikio.
+Na kwa wote wanaofanya ndoto kuwa kweli.
+
+Asanteni.”`},
+      {section:`Simba FC Crest`, text:`“Nembo moja. Historia moja.
+Mamilioni ya mioyo.
+Simba daima!
+
+(Mashabiki) Simba! Simba! Simba!”`},
+      {section:`Bicycle Kick`, text:`“Ustadi. Nidhamu. Ujasiri.
+Huu ndio mchezo unaotuunganisha.
+Huu ndio mpira wa miguu.”`},
+      {section:`MeTL Group Motorcycle`, text:`“Kutoka kila mtaa,
+Kutoka kila kijiji,
+Kutoka kila jiji.
+Mashabiki wanaelekea sehemu moja.
+
+Simba Day.”`},
+      {section:`MeTL Group Bajaji`, text:`“Tanzania inasonga pamoja.
+Safari moja. Furaha moja.
+Sherehe moja.
+Simba Day.”`},
+      {section:`Fans Celebrating with MO COLA`, text:`“Ushindi huwa mtamu zaidi,
+Unaposhirikishwa.
+Marafiki. Familia. Kandanda.
+
+MO COLA.
+Furaha ya pamoja.”`},
+      {section:`Champions Trophy`, text:`“Kila pasi. Kila kuokoa. Kila bao.
+Hutukaribisha zaidi kwenye ubingwa.
+Mabingwa hawaachi kuamini.
+Mabingwa hawaachi kupambana."`},
+      {section:`Happy Simba Day`, text:`"Usiku wa leo, hatujasherehekea mpira wa miguu pekee.
+Tumeadhimisha fahari. Umoja. Ushindi. Na roho ya Watanzania.
+Kwa kila shabiki. Kwa kila familia. Kwa kila Simba.
+
+Tukiburudika na.........
+MO COLA!
+
+Heri ya Simba Day!  Happy Simba Day! Simba Daima!
+Na tusherekee pamoja."`},
+    ],
+  },
+  {
+    id:'ds-12', slug:'amstel-royale-burundi-drone-show',
+    title:`Amstel Royale Burundi Drone Show Concept`,
+    client:`Amstel Royale`, year:'2026', drones:350, location:`Burundi`,
+    updated:'2026-11-22',
+    status:'concept',
+    conceptYoutubeId:'oV_gk_lFSW4',
+    visualizerYoutubeId:null,
+    thumb:'/drone-shows/amstel-royale.jpg',
+    tagline:`Ten years of Amstel Royale, and a first drone show for Burundi.`,
+    description:`A drone show concept marking a decade of Amstel Royale in Burundi, running from the royal drum and a growing tree through brewing heritage to ten years of shared celebration. Intended as the first drone show staged in Burundi. Built for 350 drones. As of publication, this concept has not been produced.`,
+    script:[
+      {section:`Burundi Royal Drum`, text:`“Every nation has a rhythm.
+A heartbeat that echoes through generations.
+A rhythm of resilience.
+A rhythm of pride.
+A rhythm that unites us all.
+
+Tonight, we celebrate that spirit.”`},
+      {section:`Growing Tree`, text:`“Like a seed planted with purpose,
+Growth begins quietly.
+Through every season;
+Through every challenge.
+
+Strength, takes root.
+
+And resilience becomes the foundation for greatness.”`},
+      {section:`Burundi Map`, text:`“Made in our home.
+Our nation,
+And by our people.
+
+A land where every achievement is earned through perseverance and determination.”`},
+      {section:`Amsterdam Skyline`, text:`“Inspired by a legacy of brewing excellence.
+Rooted in generations of craftsmanship.
+
+A tradition that began far beyond these shores.
+And found a place in the hearts of Burundians”`},
+      {section:`Since 2016`, text:`“In 2016,
+A new chapter began.
+A journey guided by ambition.
+Driven by quality.
+And strengthened by every milestone along the way.”`},
+      {section:`Amstel Royale Bottle Reveal`, text:`“Crafted with care.
+Brewed with dedication.
+Defined by excellence.
+
+For ten years, Amstel Royale has stood as a symbol of premium quality and unforgettable moments.”`},
+      {section:`Amstel Royale Bottle Opening`, text:`“Every achievement deserves a celebration.
+Every success deserves to be shared.
+
+Tonight, we raise a toast, to a decade of resilience.”`},
+      {section:`Amstel Royale Beer Pouring`, text:`“To friendships forged over time.
+To memories that bring us together.
+To the moments that remind us how far we've come.”`},
+      {section:`Cheers`, text:`“To every challenge overcome.
+To every dream pursued.
+To every Burundian who continues to move our nation forward.
+
+Cheers to you.”`},
+      {section:`100% Malt Beer`, text:`“Crafted carefully, with selected ingredients.
+Brewed, with passion.
+Refined, through experience.
+Our commitment to quality has remained unchanged for ten remarkable years.”`},
+      {section:`Crest Royale`, text:`“A symbol of excellence. A mark of pride.
+A celebration of resilience.
+For a decade, Amstel Royale has been honored to share in Burundi's story.”`},
+      {section:`Ten Years Strong`, text:`“Ten years of growth. Ten years of consistency. Ten years of resilience.
+Ten years of unforgettable moments.
+Burundi.
+Thank you for being part of this extraordinary journey.
+Amstel Royale. Ten Years Strong. And we're only getting started.”`},
     ],
   },
 ];
