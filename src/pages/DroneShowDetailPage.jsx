@@ -117,7 +117,7 @@ export default function DroneShowDetailPage() {
               <div className="drone-script-kicker">02 · Narration / V.O. Script</div>
               <h2 className="drone-script-h">The <em>Script</em></h2>
               <p className="drone-script-note">
-                The narration voice-over written to accompany the live performance — each section corresponding to a synchronized drone formation in the night sky.
+                The narration voice-over written to bring the drone show to life, each section corresponding to a synchronized drone formation in the night sky.
               </p>
             </div>
             <div className="drone-script-list">
