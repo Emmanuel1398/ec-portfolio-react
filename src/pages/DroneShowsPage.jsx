@@ -1,101 +1,100 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import DroneFormations from '../components/DroneFormations';
 import { DRONE_SHOWS } from '../data/portfolio';
-import './category.css';
-
-function useIntersection(threshold = 0.15) {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => { if(e.isIntersecting) setVisible(true); }, { threshold });
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return [ref, visible];
-}
-
-function ShowCard({ show, index }) {
-  const [r, v] = useIntersection();
-  const [hover, setHover] = useState(false);
-  /* A local thumbnail where the show has one. The YouTube fallback is a
-     vertical crop on Shorts, which reads badly in a grid of 16:9 cards. */
-  const thumb = show.thumb || `https://img.youtube.com/vi/${show.conceptYoutubeId}/maxresdefault.jpg`;
-
-  return (
-    <div ref={r} style={{
-      opacity: v ? 1 : 0,
-      transform: v ? 'none' : 'translateY(40px)',
-      transition: `opacity .8s ease ${index * 0.12}s, transform .8s ease ${index * 0.12}s`,
-      height:'100%',
-    }}>
-      <Link to={`/drone-shows/${show.slug}`} className="ilm-card" style={{ height:'100%' }}>
-        <div className="ilm-card-media"><img src={thumb} alt={show.title} loading="lazy" /></div>
-        <div className="ilm-card-title">{show.title}</div>
-      </Link>
-    </div>
-  );
-}
-
+import { useIntersection } from '../hooks';
 import { useSeoContext } from '../providers/SeoProvider';
 import { droneShowsSeo } from '../seo/pages';
+import './category.css';
 
 export default function DroneShowsPage() {
-  const [rH, vH] = useIntersection(0.05);
+  const [r, v] = useIntersection();
+  const [readMore, setReadMore] = useState(false);
   const { updateSeo } = useSeoContext();
 
+  useEffect(() => { window.scrollTo(0, 0); }, []);
   useEffect(() => { updateSeo(droneShowsSeo()); }, [updateSeo]);
 
   return (
-    <div style={{ minHeight:'100vh', background:'var(--bg)', position:'relative', overflow:'hidden' }}>
-
-      {/* Header */}
-      <div ref={rH} className="pg-head wk-head" style={{ position:'relative', zIndex:1,
-        opacity: vH ? 1 : 0, transform: vH ? 'none' : 'translateY(30px)',
-        transition:'opacity 1s ease, transform 1s ease' }}>
-        <h1 className="pg-title wk-title" style={{ fontFamily:'var(--serif)',
-          fontWeight:500, letterSpacing:'.01em',
-          color:'var(--text)', marginBottom:'.9rem' }}>
-          Drone <em style={{ color:'var(--gold)' }}>Shows</em>
+    <div className="page">
+      {/* ── HEADER (matching Projection Mapping & category hubs) ── */}
+      <div ref={r} className={`wk-head rv ${v ? 'in' : ''}`}>
+        <h1 className="sec-title wk-title">
+          Drone <em>Shows</em>
         </h1>
-        <p className="pg-intro wk-intro">
-          Each drone show begins as a narrative written on paper · a story, a script, a sequence
-          of formations designed to tell a message in the night sky. These are those stories,
-          from initial concept through storyboard to final computerised formation visual.
-          My role is to translate ideas into compelling visual narratives. This involves developing
-          the artistic and creative concept, writing the show script, designing the key imagery,
-          and crafting the narration and voice-over that bring meaning to each formation and
-          transition. Once the creative vision is fully defined, it is handed over to the drone
-          show programmers, who transform the concept into a synchronized aerial performance.
-        </p>
+        <div className="sec-rule">
+          <p>· Aerial formation concepts and show narratives for state, cultural and brand events.</p>
+        </div>
       </div>
 
-      {/* Rule */}
-      <div className="pg-wrap"><div style={{ borderTop:'1px solid var(--border)' }}/></div>
-
-      {/* Show grid */}
-      <div className="pg-wrap" style={{ paddingTop:'2rem', paddingBottom:'5rem',
-        display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(min(100%,500px),1fr))',
-        gap:'3px' }}>
-        {DRONE_SHOWS.map((show, i) => (
-          <ShowCard key={show.id} show={show} index={i}/>
-        ))}
+      {/* ── EDITORIAL INTRO WITH READ MORE (matching Drawings & Illustrations) ── */}
+      <div className="pg-wrap" style={{ paddingBottom: '2.5rem' }}>
+        <div className="wk-intro" style={{ maxWidth: '840px' }}>
+          <p style={{ margin: 0, color: 'var(--muted)', lineHeight: 1.8 }}>
+            Each drone show begins as a narrative written on paper · a story, a script, a sequence
+            of formations designed to tell a message in the night sky. These are those stories,
+            from initial concept through storyboard to final computerised formation visual.
+          </p>
+          {readMore && (
+            <p style={{ marginTop: '1.2rem', color: 'var(--muted)', lineHeight: 1.8 }}>
+              My role is to translate ideas into compelling visual narratives. This involves developing
+              the artistic and creative concept, writing the show script, designing the key imagery,
+              and crafting the narration and voice-over that bring meaning to each formation and
+              transition. Once the creative vision is fully defined, it is handed over to the drone
+              show programmers, who transform the concept into a synchronized aerial performance.
+            </p>
+          )}
+          <button
+            type="button"
+            className="fa-read-more"
+            onClick={() => setReadMore(val => !val)}
+            style={{
+              marginTop: '1.2rem', background: 'none', border: 'none',
+              fontFamily: 'var(--ui)', fontSize: '11px', letterSpacing: '.18em',
+              textTransform: 'uppercase', color: 'var(--gold)', cursor: 'pointer',
+              display: 'inline-flex', alignItems: 'center', gap: '.4rem'
+            }}
+            aria-expanded={readMore}
+          >
+            {readMore ? 'Read less ↑' : 'Read more ↓'}
+          </button>
+        </div>
       </div>
 
-      {/* Drone formation animation · "Formation · Flight · Light" · bottom of the page */}
-      <div className="pg-wrap" style={{ paddingBottom:'10rem' }}>
-        <div style={{ position:'relative', height:'clamp(380px,72vh,760px)', overflow:'hidden',
-          border:'1px solid rgba(201,169,110,.25)', pointerEvents:'none',
-          /* night sky: deep blue overhead, a faint glow on the horizon, dark sea below */
-          background:'radial-gradient(120% 60% at 50% 88%, rgba(255,170,90,.14), transparent 60%),'
+      {/* ── 3-COLUMN ILM SHOW GRID (matching Projection Mapping screenshot) ── */}
+      <div className="pg-wrap" style={{ paddingBottom: '6rem' }}>
+        <div className="cat-grid">
+          {DRONE_SHOWS.map((show) => {
+            const thumb = show.thumb || (show.conceptYoutubeId ? `https://img.youtube.com/vi/${show.conceptYoutubeId}/hqdefault.jpg` : null);
+            return (
+              <Link key={show.id} to={`/drone-shows/${show.slug}`} className="ilm-card">
+                <div className="ilm-card-media">
+                  <img src={thumb} alt={show.title} loading="lazy" />
+                </div>
+                <div className="ilm-card-title">{show.title}</div>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ── DRONE FORMATION ANIMATION FEATURE ── */}
+      <div className="pg-wrap" style={{ paddingBottom: '8rem' }}>
+        <div style={{
+          position: 'relative', height: 'clamp(320px, 50vh, 560px)', overflow: 'hidden',
+          border: '1px solid rgba(201,169,110,.25)', pointerEvents: 'none',
+          background: 'radial-gradient(120% 60% at 50% 88%, rgba(255,170,90,.12), transparent 60%),'
             + 'linear-gradient(180deg, #02040b 0%, #050b1d 38%, #0b1834 72%, #101c33 86%, #03060d 87%, #050a16 100%)',
-          boxShadow:'0 40px 100px -40px rgba(0,0,0,.9)' }} aria-hidden="true">
+          boxShadow: '0 40px 100px -40px rgba(0,0,0,.9)'
+        }} aria-hidden="true">
           <DroneFormations />
-          <div style={{ position:'absolute', left:0, right:0, top:'5%', display:'flex', justifyContent:'center' }}>
-            <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.2rem,2.5vw,2rem)',
-              fontWeight:400, color:'rgba(232,213,168,.55)',
-              letterSpacing:'.08em', userSelect:'none',
-              textShadow:'0 0 18px rgba(201,169,110,.55), 0 0 40px rgba(201,169,110,.25)' }}>
+          <div style={{ position: 'absolute', left: 0, right: 0, top: '7%', display: 'flex', justifyContent: 'center' }}>
+            <div style={{
+              fontFamily: 'var(--serif)', fontSize: 'clamp(1.1rem, 2vw, 1.6rem)',
+              fontWeight: 400, color: 'rgba(232,213,168,.65)',
+              letterSpacing: '.1em', userSelect: 'none',
+              textShadow: '0 0 18px rgba(201,169,110,.55), 0 0 40px rgba(201,169,110,.25)'
+            }}>
               Formation · Flight · Light
             </div>
           </div>

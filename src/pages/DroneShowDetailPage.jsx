@@ -1,90 +1,21 @@
-import AutoVideo from '../components/AutoVideo';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { DRONE_SHOWS } from '../data/portfolio';
-import VideoModal from '../components/VideoModal';
+import AutoVideo from '../components/AutoVideo';
 import BackLink from '../components/BackLink';
-
-function useIntersection(threshold = 0.12) {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => { if(e.isIntersecting) setVisible(true); }, { threshold });
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return [ref, visible];
-}
-
-function ScriptBlock({ block, index }) {
-  const [r, v] = useIntersection();
-  return (
-    <div ref={r} style={{
-      padding:'2.5rem 0', borderBottom:'1px solid rgba(255,255,255,.06)',
-      opacity: v ? 1 : 0, transform: v ? 'none' : 'translateY(24px)',
-      transition:`opacity .7s ease ${Math.min(index*.07,.4)}s, transform .7s ease ${Math.min(index*.07,.4)}s`,
-    }}>
-      {block.section && (
-        <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.28em',
-          textTransform:'uppercase', color:'var(--gold)', marginBottom:'1rem',
-          display:'flex', alignItems:'center', gap:'1rem' }}>
-          {block.section}
-        </div>
-      )}
-      <p style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.05rem,1.4vw,1.35rem)',
-        fontWeight:400, lineHeight:1.85, color:'rgba(237,237,234,.75)',
-        whiteSpace:'pre-line', paddingLeft: block.section ? '2.2rem' : 0 }}>
-        {block.text}
-      </p>
-    </div>
-  );
-}
-
-const isMobile = typeof window !== 'undefined' &&
-  !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-function VideoBlock({ label, youtubeId, fallbackMsg }) {
-  const [r, v] = useIntersection();
-
-  if (!youtubeId) {
-    return (
-      <div ref={r} style={{ opacity: v ? 1 : 0, transform: v ? 'none' : 'translateY(30px)',
-        transition:'opacity .9s ease, transform .9s ease' }}>
-        <div style={{ position:'relative', aspectRatio:'16/9', overflow:'hidden',
-          background:'var(--bg3)', display:'flex', alignItems:'center', justifyContent:'center' }}>
-          <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
-            textTransform:'uppercase', color:'var(--muted)', textAlign:'center', padding:'1rem' }}>
-            {fallbackMsg || `${label} · coming soon`}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div ref={r} style={{ opacity: v ? 1 : 0, transform: v ? 'none' : 'translateY(30px)',
-      transition:'opacity .9s ease, transform .9s ease' }}>
-      <AutoVideo youtubeId={youtubeId} title={label} />
-    </div>
-  );
-}
-
+import AnswerBlock from '../components/AnswerBlock';
 import { useSeoContext } from '../providers/SeoProvider';
 import { droneSeo } from '../seo/pages';
 import NotFoundPage from './NotFoundPage';
-import AnswerBlock from '../components/AnswerBlock';
+import './category.css';
 
 export default function DroneShowDetailPage() {
   const { slug } = useParams();
   const show = DRONE_SHOWS.find(s => s.slug === slug);
-
   const currentIndex = DRONE_SHOWS.findIndex(s => s.slug === slug);
   const prevShow = DRONE_SHOWS[currentIndex - 1] || null;
   const nextShow = DRONE_SHOWS[currentIndex + 1] || null;
-
-  const [rH, vH] = useIntersection(0.05);
-  const [rS, vS] = useIntersection(0.05);
-  const [rV, vV] = useIntersection(0.05);
+  const relatedShows = DRONE_SHOWS.filter(s => s.slug !== slug).slice(0, 3);
   const { updateSeo } = useSeoContext();
 
   useEffect(() => {
@@ -92,215 +23,162 @@ export default function DroneShowDetailPage() {
     if (show) updateSeo(droneSeo(show));
   }, [slug, show, updateSeo]);
 
-  /* unknown slug: a real not-found page (noindex) instead of a silent redirect */
   if (!show) return <NotFoundPage />;
 
-  const conceptThumb = show.thumb || `https://img.youtube.com/vi/${show.conceptYoutubeId}/maxresdefault.jpg`;
-
-  /* The Formation Visual section only exists where a visualizer was actually
-     flown. On a concept that was never produced there is nothing to show, and
-     an "Awaiting Production" placeholder is worse than no section at all, so
-     the whole block goes and the sections below renumber. */
-  const hasVisual = !!show.visualizerYoutubeId;
-  /* Section numbers. The narration is always 02. The concept video is 03 on a
-     produced show, where it follows the visualizer, and 01 on a concept, where
-     it moves up to the top slot. */
-  const conceptNum = hasVisual ? '03' : '01';
-
-  /* The concept video. On a show that was never flown it is the only moving
-     image there is, so it takes the slot the visualizer would have held and
-     the visitor sees the work before reading about it. On a produced show it
-     stays below the script, where it reads as the brief behind the result. */
-  const conceptSection = (
-    <div className="pg-wrap" style={{ paddingBlock:'6rem' }}>
-      <div ref={rH} style={{ marginBottom:'3rem' }}>
-        <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.3em',
-          textTransform:'uppercase', color:'var(--gold)', marginBottom:'.6rem',
-          display:'flex', alignItems:'center', gap:'1.2rem' }}>
-          <span>{conceptNum}</span>
-          The Concept
-        </div>
-        <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.8rem,3vw,3.5rem)',
-          fontWeight:400, color:'var(--text)' }}>
-          Formation <em style={{ color:'var(--gold)' }}>Concept</em>
-        </h2>
-      </div>
-      <VideoBlock
-        sound
-        label="Concept Video"
-        youtubeId={show.conceptYoutubeId}
-        fallbackMsg="Concept video coming soon"
-      />
-    </div>
-  );
+  const primaryVideoId = show.visualizerYoutubeId || show.conceptYoutubeId || null;
+  const hasSecondaryVideo = show.visualizerYoutubeId && show.conceptYoutubeId;
 
   return (
-    <div style={{ minHeight:'100vh', background:'var(--bg)' }}>
+    <article className="page">
+      <div className="blog-wrap">
+        {/* Back navigation */}
+        <BackLink to="/drone-shows" label="Drone Shows" className="blog-backlink" />
 
-      {/* ── HEADER (event-blog style, no background) ── */}
-      <div className="pg-wrap" style={{ paddingTop:'clamp(7rem,13vh,10rem)', paddingBottom:'2.5rem' }}>
-        <BackLink to="/drone-shows" label="All Drone Shows" style={{ marginBottom:'2rem' }} />
-        <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.28em',
-          textTransform:'uppercase', color:'var(--gold)', marginBottom:'1.2rem',
-          display:'flex', alignItems:'center', gap:'1rem', flexWrap:'wrap' }}>
-          {show.client}
-          <span style={{ color:'var(--border)' }}>·</span>
-          {show.location}
-          <span style={{ color:'var(--border)' }}>·</span>
-          {show.year}
-          {show.drones ? (<>
-            <span style={{ color:'var(--border)' }}>·</span>
-            {show.drones} Drones
-          </>) : null}
-          <span style={{ padding:'.15rem .6rem',
-            background: show.status === 'completed' ? 'rgba(201,169,110,.1)' : 'rgba(255,255,255,.05)',
-            border: `1px solid ${show.status === 'completed' ? 'rgba(201,169,110,.4)' : 'rgba(255,255,255,.15)'}`,
-            color: show.status === 'completed' ? 'var(--gold)' : 'rgba(255,255,255,.4)' }}>
-            {show.status === 'completed' ? 'Produced' : 'Concept Only'}
-          </span>
-        </div>
-        <h1 style={{ fontFamily:'var(--serif)', fontSize:'clamp(2.8rem,4.8vw,5.5rem)',
-          fontWeight:400, lineHeight:.92, letterSpacing:'.01em', color:'var(--text)', maxWidth:'900px' }}>
-          {show.title}
-        </h1>
-        <div style={{ width:60, height:1, background:'var(--gold)', margin:'1.6rem 0' }}/>
-        <p style={{ fontFamily:'var(--ui)', fontSize:'clamp(.95rem,1.2vw,1.1rem)',
-          color:'var(--muted)', lineHeight:1.9, maxWidth:'600px' }}>
-          {show.tagline}
-        </p>
-        <AnswerBlock summary={show.summary} faqs={show.faqs} />
-      </div>
-
-      {/* ── SECTION 1: DRONE FORMATION VISUAL · only where one was flown ── */}
-      {hasVisual && (
-      <div className="pg-wrap" style={{ paddingBlock:'6rem' }}>
-        <div ref={rV} style={{
-          marginBottom:'3rem',
-          opacity: vV ? 1 : 0, transform: vV ? 'none' : 'translateY(20px)',
-          transition:'opacity .8s ease, transform .8s ease'
-        }}>
-          <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.3em',
-            textTransform:'uppercase', color:'var(--gold)', marginBottom:'.6rem',
-            display:'flex', alignItems:'center', gap:'1.2rem' }}>
-            <span>01</span>
-            Drone Show Visualizer
-          </div>
-          <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.8rem,3vw,3.5rem)',
-            fontWeight:400, color:'var(--text)' }}>
-            Formation <em style={{ color:'var(--gold)' }}>Visual</em>
-          </h2>
+        {/* Category & Scope Eyebrow */}
+        <div className="cat-label" style={{ marginBottom: '1rem' }}>
+          <span>{show.client}</span>
+          <span>·</span>
+          <span>{show.location}</span>
+          <span>·</span>
+          <span>{show.year}</span>
+          {show.drones && (
+            <>
+              <span>·</span>
+              <span>{show.drones} Drones</span>
+            </>
+          )}
         </div>
 
-        {show.visualizerYoutubeId ? (
-          <VideoBlock label="Drone Formation Visual" youtubeId={show.visualizerYoutubeId} sound/>
+        {/* Project Title */}
+        <h1 className="sec-title blog-title">{show.title}</h1>
+
+        {/* Metadata Row */}
+        <div className="blog-meta">
+          <span>{show.client}</span>
+          <span>{show.location}</span>
+          <span>{show.year}</span>
+          {show.drones && <span>{show.drones} Drones Fleet</span>}
+          <span>{show.status === 'completed' ? 'Produced Show' : 'Concept Proposal'}</span>
+        </div>
+
+        {/* SEO Summary */}
+        <AnswerBlock summary={show.summary} />
+
+        {/* Primary Lead Video */}
+        {primaryVideoId ? (
+          <AutoVideo
+            youtubeId={primaryVideoId}
+            title={show.visualizerYoutubeId ? `${show.title} · Formation Visual` : `${show.title} · Concept Video`}
+            className="blog-video"
+          />
         ) : (
-          <div style={{ aspectRatio:'16/9', background:'var(--bg2)',
-            border:'1px solid var(--border)', display:'flex', flexDirection:'column',
-            alignItems:'center', justifyContent:'center', gap:'1.2rem' }}>
-            <div style={{ width:1, height:60, background:'var(--border)' }}/>
-            <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.2rem,2vw,2rem)',
-              fontWeight:400, color:'rgba(255,255,255,0.75)', textAlign:'center' }}>
-              Awaiting Production
+          <div className="blog-video" style={{
+            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+            background: 'var(--bg3)', border: '1px dashed rgba(201,169,110,.3)'
+          }}>
+            <div style={{ fontFamily: 'var(--serif)', fontSize: '1.4rem', color: 'var(--gold)' }}>
+              Formation Visual
             </div>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.2em',
-              textTransform:'uppercase', color:'rgba(201,169,110,.35)',
-              border:'1px dashed rgba(201,169,110,.15)', padding:'.4rem 1rem' }}>
-              Concept Only · Show Not Yet Produced
+            <div style={{ fontFamily: 'var(--ui)', fontSize: '11px', letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--muted)', marginTop: '.5rem' }}>
+              Concept in development
             </div>
           </div>
         )}
-      </div>
-      )}
 
-      {/* ── no visualizer: the concept video takes the top slot instead ── */}
-      {!hasVisual && conceptSection}
-
-      {/* ── DESCRIPTION ── */}
-      <div className="pg-wrap" style={{ paddingBlock:'4rem', borderBottom:'1px solid var(--border)' }}>
-        {/* Fills the content column, matching the video block rather than
-            sitting in a narrow 680px measure against its left edge. */}
-        <p style={{ fontFamily:'var(--ui)', fontSize:'clamp(.95rem,1.15vw,1.08rem)',
-          color:'var(--muted)', lineHeight:1.95, maxWidth:'none' }}>
-          {show.description}
-        </p>
-      </div>
-
-      {/* ── SECTION 2: NARRATION / V.O. SCRIPT ── */}
-      <div className="pad-x" style={{ background:'var(--bg2)', paddingBlock:'6rem' }}>
-        <div ref={rS} style={{
-          marginBottom:'3.5rem',
-          opacity: vS ? 1 : 0, transform: vS ? 'none' : 'translateY(20px)',
-          transition:'opacity .8s ease, transform .8s ease'
-        }}>
-          <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.3em',
-            textTransform:'uppercase', color:'var(--gold)', marginBottom:'.6rem',
-            display:'flex', alignItems:'center', gap:'1.2rem' }}>
-            <span>02</span>
-            Narration / V.O. Script
+        {/* Role & Tagline */}
+        {show.tagline && (
+          <div className="blog-role">
+            <span className="blog-role-k">Narrative &amp; Creative Direction</span>
+            <p>{show.tagline}</p>
           </div>
-          <h2 style={{ fontFamily:'var(--serif)', fontSize:'clamp(1.8rem,3vw,3.5rem)',
-            fontWeight:400, color:'var(--text)', marginBottom:'.8rem' }}>
-            The <em style={{ color:'var(--gold)' }}>Script</em>
-          </h2>
-          <p style={{ fontFamily:'var(--ui)', fontSize:'1rem', color:'var(--dim)',
-            lineHeight:1.7, maxWidth:'480px' }}>
-            The narration voice-over delivered during the live show · each section
-            corresponding to a drone formation sequence in the sky above.
-          </p>
+        )}
+
+        {/* Description Body */}
+        {show.description && (
+          <div className="blog-body">
+            {show.description.split('\n').filter(Boolean).map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
+        )}
+
+        {/* Secondary Concept Video (when both visualizer and concept videos exist) */}
+        {hasSecondaryVideo && (
+          <div className="blog-extra">
+            <div className="blog-extra-label">Aerial Formation Concept Visual</div>
+            <AutoVideo youtubeId={show.conceptYoutubeId} title={`${show.title} · Concept`} className="blog-video" />
+          </div>
+        )}
+
+        {/* ── NARRATION / V.O. SCRIPT SECTION ── */}
+        {show.script && show.script.length > 0 && (
+          <section className="drone-script-wrap">
+            <div className="drone-script-head">
+              <div className="drone-script-kicker">02 · Narration / V.O. Script</div>
+              <h2 className="drone-script-h">The <em>Script</em></h2>
+              <p className="drone-script-note">
+                The narration voice-over written to accompany the live performance — each section corresponding to a synchronized drone formation in the night sky.
+              </p>
+            </div>
+            <div className="drone-script-list">
+              {show.script.map((block, i) => (
+                <div key={i} className="drone-script-card">
+                  {block.section && (
+                    <div className="drone-script-sec">
+                      {String(i + 1).padStart(2, '0')} · {block.section}
+                    </div>
+                  )}
+                  <p className="drone-script-text">{block.text}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <AnswerBlock faqs={show.faqs} />
+
+        {/* ── MORE DRONE SHOWS (matching screenshot 1 style) ── */}
+        {relatedShows.length > 0 && (
+          <section className="blog-related">
+            <h2 className="cat-group">More Drone Shows</h2>
+            <div className="cat-grid">
+              {relatedShows.map((other) => {
+                const thumb = other.thumb || (other.conceptYoutubeId ? `https://img.youtube.com/vi/${other.conceptYoutubeId}/hqdefault.jpg` : null);
+                return (
+                  <Link key={other.slug} to={`/drone-shows/${other.slug}`} className="ilm-card">
+                    <div className="ilm-card-media">
+                      <img src={thumb} alt={other.title} loading="lazy" />
+                    </div>
+                    <div className="ilm-card-title">{other.title}</div>
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        {/* ── FOOTER ACTIONS ── */}
+        <div className="blog-foot">
+          <BackLink to="/drone-shows" label="Drone Shows" />
+          <Link to="/contact" className="blog-back">Discuss a drone show concept →</Link>
         </div>
 
-        <div style={{ maxWidth:'760px' }}>
-          {show.script.map((block, i) => (
-            <ScriptBlock key={i} block={block} index={i}/>
-          ))}
+        {/* ── PREV / NEXT SHOW NAVIGATION ── */}
+        <div className="blog-nav-row">
+          {prevShow ? (
+            <Link to={`/drone-shows/${prevShow.slug}`} className="blog-nav-link prev">
+              <span className="blog-nav-dir">← Previous Show</span>
+              <span className="blog-nav-title">{prevShow.title}</span>
+            </Link>
+          ) : <div />}
+          {nextShow ? (
+            <Link to={`/drone-shows/${nextShow.slug}`} className="blog-nav-link next">
+              <span className="blog-nav-dir">Next Show →</span>
+              <span className="blog-nav-title">{nextShow.title}</span>
+            </Link>
+          ) : <div />}
         </div>
       </div>
-
-      {/* ── THE CONCEPT VIDEO · at the foot only on a produced show ── */}
-      {hasVisual && conceptSection}
-
-      {/* ── PREV / NEXT NAVIGATION ── */}
-      <div className="pad-x" style={{ borderTop:'1px solid var(--border)', display:'grid',
-        gridTemplateColumns:'1fr 1fr' }}>
-        {prevShow ? (
-          <Link to={`/drone-shows/${prevShow.slug}`} style={{ textDecoration:'none',
-            padding:'2.5rem 2rem 2.5rem 0', borderRight:'1px solid var(--border)',
-            display:'flex', flexDirection:'column', gap:'.4rem', transition:'background .2s' }}
-            onMouseEnter={e => e.currentTarget.style.background = 'var(--bg2)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em',
-              textTransform:'uppercase', color:'var(--muted)',
-              display:'flex', alignItems:'center', gap:'.5rem' }}>
-              <svg width="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-              </svg>
-              Previous
-            </div>
-            <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1rem,1.4vw,1.4rem)',
-              fontWeight:400, color:'var(--text)' }}>{prevShow.title}</div>
-          </Link>
-        ) : <div/>}
-
-        {nextShow ? (
-          <Link to={`/drone-shows/${nextShow.slug}`} style={{ textDecoration:'none',
-            padding:'2.5rem 0 2.5rem 2rem', textAlign:'right',
-            display:'flex', flexDirection:'column', gap:'.4rem', transition:'background .2s' }}
-            onMouseEnter={e => e.currentTarget.style.background = 'var(--bg2)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
-            <div style={{ fontFamily:'var(--ui)', fontSize:'12px', letterSpacing:'.18em',
-              textTransform:'uppercase', color:'var(--muted)',
-              display:'flex', alignItems:'center', justifyContent:'flex-end', gap:'.5rem' }}>
-              Next
-              <svg width="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </div>
-            <div style={{ fontFamily:'var(--serif)', fontSize:'clamp(1rem,1.4vw,1.4rem)',
-              fontWeight:400, color:'var(--text)' }}>{nextShow.title}</div>
-          </Link>
-        ) : <div/>}
-      </div>
-
-    </div>
+    </article>
   );
 }
