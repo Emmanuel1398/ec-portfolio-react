@@ -1036,7 +1036,7 @@ export const DRONE_SHOWS = [
   {
     id:'ds-03', slug:'la-mada-drone-show',
     title:`La Mada Drone Show Concept`,
-    client:`NIS · National Intelligence Service`,
+    client:`La Mada`,
     year:'2026', drones:350, location:`Kenya`,
     updated:'2026-11-22',
     status:'completed',
